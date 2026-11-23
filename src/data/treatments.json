@@ -53,7 +53,8 @@
     "JUVE Face Lift Therapy": "juve-face-lift.webp",
     "CLARIO Porcelain Skin Therapy": "clario-porcelain-full.webp",
     "Lemongrass Lymphatic Drainage": "lemongrass-lymphatic.webp",
-    "Five Element Body Wellness Therapy": "five-elements.webp"
+    "Five Element Body Wellness Therapy": "five-elements.webp",
+    "Venus Freeze Face Toning": "venus-freeze-face.webp"
   },
   "filters": {
     "_note": "Rituals page (/rituals/) Time pills (min / max minutes; null = no upper limit). The treatments, concerns and collections come from the menu workbook via `npm run build:treatments` (src/data/treatment-menu.json). The Budget slider runs from the cheapest to the most expensive price on the site, worked out from that list.",
