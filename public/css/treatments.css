@@ -188,14 +188,30 @@
 .tp .fl-more{margin-top:6px;border:0;background:none;padding:4px 0;font-size:var(--fs-caption);color:var(--rose);text-decoration:underline;text-underline-offset:3px}
 .tp .fl-more:hover{color:var(--rose-deep)}
 
-/* First trial: switch */
-.tp .fl-trial{display:flex;align-items:center;justify-content:space-between;gap:16px}
-.tp .switch{flex:none;position:relative;width:44px;height:26px;border-radius:999px;border:0;padding:0;background:var(--rose-line);opacity:.6;transition:background .2s var(--ease),opacity .2s var(--ease)}
-.tp .switch span{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--white);box-shadow:0 1px 3px rgba(var(--shade),.25);transition:transform .2s var(--ease)}
-.tp .switch[aria-checked="true"]{background:var(--ink);opacity:1}
-.tp .switch[aria-checked="true"] span{transform:translateX(18px)}
+/* Budget: "All prices / First trial" switch, price bars and a two-handle slider */
+.tp .fl-budget__head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:12px}
+.tp .fl-budget__val{margin:0;font-family:var(--font-serif);font-size:var(--fs-h5);color:var(--rose);white-space:nowrap}
+.tp .seg--2{grid-template-columns:1fr 1fr}
+.tp .seg--2 .seg-btn{display:flex;align-items:center;justify-content:center;gap:6px}
+.tp .seg--2 .seg-n{display:inline;line-height:1}
+.tp .range{--thumb:20px;position:relative;margin-top:18px;padding:0 calc(var(--thumb) / 2)}
+.tp .range__bars{display:grid;grid-template-columns:repeat(var(--n,1),1fr);align-items:end;gap:2px;height:44px;margin:0 calc(-100% / (2 * (var(--n,2) - 1)))} /* one column per price step, centred on its slider position */
+.tp .range__bar{height:var(--h);border-radius:3px 3px 0 0;background:var(--line);transition:background .2s var(--ease),height .3s var(--ease)}
+.tp .range__bar.is-in{background:var(--rose-lt)}
+.tp .range__track{position:relative;height:3px;border-radius:999px;background:var(--line)}
+.tp .range__fill{position:absolute;top:0;bottom:0;left:0;right:0;border-radius:999px;background:var(--ink)}
+.tp .range__input{position:absolute;left:0;right:0;bottom:-9px;width:100%;height:var(--thumb);margin:0;background:none;pointer-events:none;-webkit-appearance:none;appearance:none;z-index:2}
+.tp .range__input:focus{outline:none}
+.tp .range__input::-webkit-slider-runnable-track{background:none;border:0}
+.tp .range__input::-moz-range-track{background:none;border:0}
+.tp .range__input::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;pointer-events:auto;width:var(--thumb);height:var(--thumb);border-radius:50%;background:var(--white);border:1.5px solid var(--ink);box-shadow:0 1px 4px rgba(var(--shade),.2);cursor:grab;transition:transform .15s var(--ease)}
+.tp .range__input::-moz-range-thumb{pointer-events:auto;width:var(--thumb);height:var(--thumb);box-sizing:border-box;border-radius:50%;background:var(--white);border:1.5px solid var(--ink);box-shadow:0 1px 4px rgba(var(--shade),.2);cursor:grab}
+.tp .range__input:active::-webkit-slider-thumb{cursor:grabbing;transform:scale(1.12)}
+.tp .range__input:focus-visible::-webkit-slider-thumb{outline:2px solid var(--rose);outline-offset:2px}
+.tp .range__input:focus-visible::-moz-range-thumb{outline:2px solid var(--rose);outline-offset:2px}
+.tp .range__ends{display:flex;justify-content:space-between;margin-top:14px;font-size:var(--fs-caption);color:var(--ink-faint)}
 
-/* Budget + Time: pill toggles on one wrapping row */
+/* Time: pill toggles on one wrapping row */
 .tp .pills{display:flex;flex-wrap:wrap;gap:6px}
 .tp .pill{border:1px solid var(--line);background:var(--white);border-radius:999px;padding:6px 12px;font-size:var(--fs-caption);color:var(--ink);white-space:nowrap;transition:background .15s,border-color .15s,color .15s}
 .tp .pill:hover{border-color:var(--rose-line)}
@@ -208,6 +224,7 @@
 .tp .fl-plus::after{transform:rotate(90deg)}
 .tp .fl-disclosure[aria-expanded="true"] .fl-plus::after{transform:rotate(0)}
 .tp .fl-coll{margin-top:10px}
+.tp .fl-coll[hidden]{display:none}
 
 /* Sheet-only parts, hidden on desktop */
 .tp .fl-foot{display:none}

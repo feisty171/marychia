@@ -83,16 +83,24 @@ const pageData = { ...data, studios };
             <div class="fl-checks" id="flConcerns"></div>
             <button class="fl-more" id="flMore" type="button" aria-expanded="false" hidden></button>
           </fieldset>
-          <div class="fl-group fl-trial">
-            <div>
-              <p class="fl-label fl-label--inline" id="flTrialLabel">First trial</p>
-              <p class="fl-sub" id="flTrialSub" aria-live="polite"></p>
+          <!-- Budget: "All prices / First trial" switch, a bar of how many treatments sit at each
+               price, and a two-handle slider from our cheapest to our most expensive price. -->
+          <div class="fl-group fl-budget">
+            <div class="fl-budget__head">
+              <p class="fl-label fl-label--inline" id="flBudgetLabel">Budget</p>
+              <p class="fl-budget__val" id="flPriceVal" aria-live="polite"></p>
             </div>
-            <button class="switch" id="flTrial" type="button" role="switch" aria-checked="false" aria-labelledby="flTrialLabel" aria-describedby="flTrialSub"><span aria-hidden="true"></span></button>
-          </div>
-          <div class="fl-group">
-            <p class="fl-label" id="flBudgetLabel">Budget</p>
-            <div class="pills" id="flBudget" role="group" aria-labelledby="flBudgetLabel"></div>
+            <div class="seg seg--2" id="flPriceMode" role="group" aria-label="Prices to show">
+              <button class="seg-btn" type="button" data-mode="all" aria-pressed="true">All prices<span class="seg-n" id="flModeAllN"></span></button>
+              <button class="seg-btn" type="button" data-mode="trial" aria-pressed="false">First trial<span class="seg-n" id="flModeTrialN"></span></button>
+            </div>
+            <div class="range" id="flRange">
+              <div class="range__bars" id="flBars" aria-hidden="true"></div>
+              <div class="range__track" aria-hidden="true"><span class="range__fill" id="flFill"></span></div>
+              <input class="range__input" id="flPriceMin" type="range" min="0" max="0" step="1" value="0" aria-label="Lowest price">
+              <input class="range__input" id="flPriceMax" type="range" min="0" max="0" step="1" value="0" aria-label="Highest price">
+            </div>
+            <div class="range__ends" aria-hidden="true"><span id="flPriceLo"></span><span id="flPriceHi"></span></div>
           </div>
           <div class="fl-group">
             <p class="fl-label" id="flTimeLabel">Time</p>

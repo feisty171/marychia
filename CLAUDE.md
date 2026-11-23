@@ -22,7 +22,7 @@ Static site built with [Astro](https://astro.build). No CMS, no database. The ma
 | Career page words (/careers/: intro, roles, how to apply) | `src/content/careers.md` |
 | Gallery / Results page (/gallery/: heading, filters, client results with before/after photos, disclaimer, closing button) | `src/content/gallery.md` (photos in `public/images/results/`) |
 | Treatments and Rituals: the treatment list, prices, concerns and collections (`data/treatment-menu.xlsx` → `npm run build:treatments` → `src/data/treatment-menu.json`) | see "Rituals page (treatment list)" below |
-| Treatments (`/treatments/`: hero + Face/Body/Wellness tiles) and Rituals page settings: hero, tiles, banners, budget/time pills, treatment photos, full-menu PDF settings | `src/data/treatments.json` |
+| Treatments (`/treatments/`: hero + Face/Body/Wellness tiles) and Rituals page settings: hero, tiles, banners, time pills, treatment photos, full-menu PDF settings | `src/data/treatments.json` |
 | Full treatment menu PDF, and its page images for the `/menu/` page (remake with `sh scripts/menu-images.sh`) | `public/menu/full-spa-menu.pdf`, `public/menu/pages/` |
 | Treatments tiles + Rituals list behaviour (search, filter sidebar / Filters sheet, WhatsApp booking sheet) | `public/js/treatments.js` |
 | Investor Relations page words and the annual report list | `src/content/investors.md` |
@@ -168,8 +168,8 @@ The list shows 12 cards, then a "Show more" button adds 12 at a time (`PAGE_SIZE
 On `/rituals/` the filters sit in a sidebar on the left (desktop). On phones and tablets (1024px and narrower) the same filters open as a "Filters" sheet from the button next to search. Behaviour is in `public/js/treatments.js`; styles are the `.fl-*`, `.seg`, `.pill` and `.switch` rules in `public/css/treatments.css`.
 - **Area:** All / Face / Body / Wellness (a segmented control with counts). It's kept in the link as `?area=face`, so `/rituals/?area=body` opens the Body list. Older `/rituals/#body` links still work. Area also limits which concerns are listed.
 - **Concern:** checkboxes with the labels and order of the workbook's Concerns tab. "Order in its area shortlist" decides which show before "+ N more concerns" (blank = under that link); on "All", "Order in All shortlist" does. Ticked ones always stay visible. A concern only appears where at least one treatment has it.
-- **First trial:** an on/off switch for treatments with a first-trial price. Its subtitle (e.g. "20 treatments, from S$69") updates as other filters change.
-- **Budget / Time:** pill buttons from `budgets` and `durations` under `"filters"` in `src/data/treatments.json` (`min` / `max`; `null` = no upper limit). Budget matches the "from" price on the card (treatments with only a price text never match a budget). Time matches any of the treatment's durations.
+- **Budget:** a two-handle slider that runs from the cheapest to the most expensive price on the site. Each step is a real price from the list, so the handles move evenly through our prices; the little bars above show how many treatments sit at each price (with the other filters applied). The label shows the chosen range, or "Any". Above the slider, **All prices / First trial** (with counts) replaces the old First-trial switch: "First trial" keeps only treatments with a first-trial price and the slider then uses those trial prices. With the slider at full width, every treatment shows, including "Quoted per case" ones; once narrowed, those drop out. Styles: `.fl-budget`, `.range*` in `public/css/treatments.css`.
+- **Time:** pill buttons from `durations` under `"filters"` in `src/data/treatments.json` (`min` / `max`; `null` = no upper limit). Matches any of the treatment's durations.
 - **Collection:** collapsed under "Collection +"; options are the workbook's Collections tab.
 - **Search** matches treatment names plus each of their concerns' label and "Search words".
 

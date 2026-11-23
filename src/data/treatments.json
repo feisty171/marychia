@@ -56,27 +56,7 @@
     "Five Element Body Wellness Therapy": "five-elements.webp"
   },
   "filters": {
-    "_note": "Rituals page (/rituals/) filter pills. The treatments, concerns (labels, order, shortlists) and collections come from the menu workbook via `npm run build:treatments` (src/data/treatment-menu.json). budgets match the \"from\" price shown on each card; durations match any of a treatment's session lengths.",
-    "budgets": [
-      {
-        "id": "under-300",
-        "label": "Under S$300",
-        "min": 0,
-        "max": 299
-      },
-      {
-        "id": "300-599",
-        "label": "S$300–599",
-        "min": 300,
-        "max": 599
-      },
-      {
-        "id": "600-plus",
-        "label": "S$600+",
-        "min": 600,
-        "max": null
-      }
-    ],
+    "_note": "Rituals page (/rituals/) Time pills (min / max minutes; null = no upper limit). The treatments, concerns and collections come from the menu workbook via `npm run build:treatments` (src/data/treatment-menu.json). The Budget slider runs from the cheapest to the most expensive price on the site, worked out from that list.",
     "durations": [
       {
         "id": "under-30",

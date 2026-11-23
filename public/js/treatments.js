@@ -17,10 +17,11 @@ const TREATMENTS = DATA.treatments;
    ========================================================================== */
 const CATEGORIES = ["All", "Face", "Body", "Wellness"];
 const SUGGESTIONS = ["hydration", "lift", "acne", "cellulite", "aches", "detox"];
-const FILTERS = DATA.filters || { concerns: [], budgets: [], durations: [] };
+const FILTERS = DATA.filters || { concerns: [], durations: [] };
 const PAGE_SIZE = 12; // cards shown before "Show more"
 // Rituals page filters. area = "All" | "Face" | "Body" | "Wellness" (kept in the URL as ?area=face)
-const state = { q: "", area: "All", concerns: new Set(), trial: false, budgets: new Set(), times: new Set(), colls: new Set() };
+// trial: Budget is on "First trial". lo / hi: the price slider's handles, as steps in PRICE_STEPS (hi null = the top).
+const state = { q: "", area: "All", concerns: new Set(), trial: false, lo: 0, hi: null, times: new Set(), colls: new Set() };
 
 const $ = s => document.querySelector(s);
 const grid = $("#grid"), empty = $("#empty"), status = $("#status"), search = $("#search");
@@ -39,13 +40,25 @@ TREATMENTS.forEach(t => {
 // ---------- Filter matching ----------
 const inRange = (n, r) => n != null && n >= r.min && (r.max == null || n <= r.max);
 const collectionsOf = t => t.collection ? [t.collection] : [];
-// First trial: has a first-trial price. Budget: the "from" price on the card. Time: any of its session lengths.
+// Budget: the price on the card ("from"), or the first-trial price when Budget is on "First trial".
+// The slider's steps are every price on the site, cheapest to most expensive, so the handles
+// move evenly through real prices instead of bunching up at the cheap end.
+const priceOf = (t, trial) => trial ? t.trialPrice : t.from;
+const stepsFor = trial => [...new Set(TREATMENTS.map(t => priceOf(t, trial)).filter(n => n != null))].sort((a, b) => a - b);
+const PRICE_STEPS = { all: stepsFor(false), trial: stepsFor(true) };
+const stepsOf = s => PRICE_STEPS[s.trial ? "trial" : "all"];
+const hiOf = s => s.hi == null ? stepsOf(s).length - 1 : s.hi;
+const priceNarrowed = s => s.lo > 0 || hiOf(s) < stepsOf(s).length - 1;
+// First trial: has a first-trial price. Time: any of its session lengths.
+// While the slider is at full width every treatment fits, including "Quoted per case" ones.
 function sessionFits(t, s) {
-  const budgets = FILTERS.budgets.filter(b => s.budgets.has(b.id));
   const times = FILTERS.durations.filter(d => s.times.has(d.id));
-  return (!s.trial || t.trialPrice != null) &&
-    (!budgets.length || budgets.some(b => inRange(t.from, b))) &&
-    (!times.length || times.some(d => t.minutes.some(m => inRange(m, d))));
+  if (s.trial && t.trialPrice == null) return false;
+  if (priceNarrowed(s)) {
+    const p = priceOf(t, s.trial), steps = stepsOf(s);
+    if (p == null || p < steps[s.lo] || p > steps[hiOf(s)]) return false;
+  }
+  return !times.length || times.some(d => t.minutes.some(m => inRange(m, d)));
 }
 function textMatch(t, q) {
   q = norm(q);
@@ -119,8 +132,9 @@ if (grid) {
 // ---------- Filter sidebar (desktop) / Filters sheet (phones) ----------
 const fl = $("#filters"), flBody = fl.querySelector(".fl-body");
 const areaEl = $("#flArea"), concernsEl = $("#flConcerns"), moreBtn = $("#flMore");
-const trialBtn = $("#flTrial"), trialSub = $("#flTrialSub");
-const budgetEl = $("#flBudget"), timeEl = $("#flTime");
+const modeEl = $("#flPriceMode"), priceVal = $("#flPriceVal"), barsEl = $("#flBars"), fillEl = $("#flFill");
+const loIn = $("#flPriceMin"), hiIn = $("#flPriceMax");
+const timeEl = $("#flTime");
 const collBtn = $("#flCollBtn"), collEl = $("#flColl"), collText = $("#flCollText");
 const clearBtn = $("#flClear"), applyBtn = $("#flApply"), openBtn = $("#flOpen"), openN = $("#flOpenN");
 let moreOpen = false;
@@ -129,7 +143,7 @@ let shownCount = PAGE_SIZE;
 const concernById = CONCERN_BY_ID;
 const ALL_COLLECTIONS = [...new Set([...(DATA.collections || []), ...TREATMENTS.flatMap(collectionsOf)])]
   .filter(c => TREATMENTS.some(t => collectionsOf(t).includes(c)));
-const copyState = (over = {}) => ({ ...state, concerns: new Set(state.concerns), budgets: new Set(state.budgets), times: new Set(state.times), colls: new Set(state.colls), ...over });
+const copyState = (over = {}) => ({ ...state, concerns: new Set(state.concerns), times: new Set(state.times), colls: new Set(state.colls), ...over });
 
 // Concerns listed for an area: only ones with at least one treatment there, in the order of the
 // workbook's Concerns tab. The shortlist (shown before "+ N more") is the concerns with an
@@ -180,10 +194,52 @@ concernsEl.addEventListener("change", e => {
 });
 moreBtn.addEventListener("click", () => { moreOpen = !moreOpen; drawConcerns(); });
 
-// First trial: on/off switch with a live subtitle
-trialBtn.addEventListener("click", () => { state.trial = !state.trial; update(true); });
+// Budget: "All prices / First trial" switch. Switching resets the slider to the full range.
+modeEl.addEventListener("click", e => {
+  const b = e.target.closest(".seg-btn"); if (!b) return;
+  const trial = b.dataset.mode === "trial";
+  if (trial === state.trial) return;
+  state.trial = trial; state.lo = 0; state.hi = null;
+  update(true);
+});
+// Budget: two-handle slider. The handles can't cross; the list updates as you drag.
+let dragTimer;
+function onSlide(e) {
+  let lo = +loIn.value, hi = +hiIn.value;
+  if (lo > hi) { if (e.target === loIn) lo = hi; else hi = lo; }
+  loIn.value = lo; hiIn.value = hi;
+  state.lo = lo; state.hi = hi === stepsOf(state).length - 1 ? null : hi;
+  drawPrice();
+  clearTimeout(dragTimer);
+  dragTimer = setTimeout(() => update(false, { keepConcerns: true }), 60);
+}
+loIn.addEventListener("input", onSlide); hiIn.addEventListener("input", onSlide);
+// The handle nearest the pointer goes on top, so either one can be grabbed when they meet
+$("#flRange").addEventListener("pointerdown", e => {
+  const r = loIn.getBoundingClientRect(), max = +loIn.max || 1;
+  const at = (e.clientX - r.left) / r.width * max;
+  const nearLo = Math.abs(at - loIn.value) <= Math.abs(at - hiIn.value);
+  loIn.style.zIndex = nearLo ? 3 : 2; hiIn.style.zIndex = nearLo ? 2 : 3;
+});
+// Draw the slider, its fill, the price label and the bars (how many treatments at each price,
+// counting the other filters but not the budget itself)
+function drawPrice() {
+  const steps = stepsOf(state), last = steps.length - 1, hi = hiOf(state);
+  loIn.max = hiIn.max = last; loIn.value = state.lo; hiIn.value = hi;
+  loIn.setAttribute("aria-valuetext", fmt(steps[state.lo])); hiIn.setAttribute("aria-valuetext", fmt(steps[hi]));
+  const pct = i => last ? i / last * 100 : 0;
+  fillEl.style.left = pct(state.lo) + "%"; fillEl.style.right = (100 - pct(hi)) + "%";
+  priceVal.textContent = !priceNarrowed(state) ? "Any" : state.lo === hi ? fmt(steps[hi]) : `${fmt(steps[state.lo])} – ${fmt(steps[hi])}`;
+  $("#flPriceLo").textContent = fmt(steps[0]); $("#flPriceHi").textContent = fmt(steps[last]);
+  const pool = TREATMENTS.filter(t => matches(t, copyState({ lo: 0, hi: null })));
+  const counts = steps.map(p => pool.filter(t => priceOf(t, state.trial) === p).length);
+  const top = Math.max(1, ...counts);
+  barsEl.style.setProperty("--n", steps.length);
+  barsEl.innerHTML = counts.map((c, i) =>
+    `<span class="range__bar${i >= state.lo && i <= hi ? " is-in" : ""}" style="--h:${c ? Math.max(12, c / top * 100) : 4}%"></span>`).join("");
+}
 
-// Budget and Time: pill toggles
+// Time: pill toggles
 function drawPills(el, items, set) {
   el.innerHTML = items.map(x => `<button type="button" class="pill" data-id="${x.id}" aria-pressed="${set.has(x.id)}">${esc(x.label)}</button>`).join("");
 }
@@ -195,7 +251,6 @@ function wirePills(el, set) {
     update(true, { keepPills: true });
   });
 }
-drawPills(budgetEl, FILTERS.budgets, state.budgets); wirePills(budgetEl, state.budgets);
 drawPills(timeEl, FILTERS.durations, state.times); wirePills(timeEl, state.times);
 
 // Collection: collapsed under a "Collection +" button
@@ -214,13 +269,13 @@ collEl.addEventListener("change", e => {
 });
 
 function activeCount() {
-  return (state.area !== "All" ? 1 : 0) + state.concerns.size + (state.trial ? 1 : 0) + state.budgets.size + state.times.size + state.colls.size;
+  return (state.area !== "All" ? 1 : 0) + state.concerns.size + (state.trial ? 1 : 0) + (priceNarrowed(state) ? 1 : 0) + state.times.size + state.colls.size;
 }
 function clearFilters() {
-  state.area = "All"; state.concerns.clear(); state.trial = false;
-  state.budgets.clear(); state.times.clear(); state.colls.clear(); moreOpen = false;
+  state.area = "All"; state.concerns.clear(); state.trial = false; state.lo = 0; state.hi = null;
+  state.times.clear(); state.colls.clear(); moreOpen = false;
   collEl.querySelectorAll("input").forEach(cb => cb.checked = false);
-  drawPills(budgetEl, FILTERS.budgets, state.budgets); drawPills(timeEl, FILTERS.durations, state.times);
+  drawPills(timeEl, FILTERS.durations, state.times);
   writeUrl();
   update(true);
 }
@@ -234,13 +289,14 @@ function drawSidebar(opts = {}) {
   });
   if (!opts.keepConcerns) drawConcerns();
 
-  // Subtitle: what turning First trial on would show with the other filters as they are
-  const trialList = TREATMENTS.filter(t => matches(t, copyState({ trial: true })));
-  const trialPrices = trialList.map(t => t.trialPrice);
-  trialBtn.setAttribute("aria-checked", String(state.trial));
-  trialSub.textContent = trialList.length
-    ? `${trialList.length} ${trialList.length === 1 ? "treatment" : "treatments"}, from ${fmt(Math.min(...trialPrices))}`
-    : "None with these filters";
+  // Budget: each side of the switch shows how many treatments it would give with the other filters
+  const modeN = trial => TREATMENTS.filter(t => matches(t, copyState({ trial, lo: 0, hi: null }))).length;
+  modeEl.querySelectorAll(".seg-btn").forEach(b => {
+    const trial = b.dataset.mode === "trial";
+    b.setAttribute("aria-pressed", String(trial === state.trial));
+    b.querySelector(".seg-n").textContent = modeN(trial);
+  });
+  drawPrice();
 
   const nColl = state.colls.size;
   collText.textContent = nColl ? `Collection (${nColl})` : "Collection";
