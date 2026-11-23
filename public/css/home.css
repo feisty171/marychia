@@ -5,7 +5,7 @@
 
 
 .h-container {
-  max-width: 1200px;
+  max-width: var(--max);
   margin: 0 auto;
   padding: 0 16px;
 }
@@ -514,7 +514,7 @@ a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset
     align-items: center;
     gap: clamp(48px, 7vw, 112px);
   }
-  .split__media { aspect-ratio: 4 / 5; max-height: 600px; border-radius: 999px 999px 4px 4px; }
+  .split__media { width: 100%; aspect-ratio: 4 / 5; max-height: min(760px, 78vh); border-radius: 999px 999px 4px 4px; } /* fills its half of the wider page */
 
   .visit { grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 88px); }
   .map-placeholder { min-height: 300px; }

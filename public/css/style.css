@@ -59,7 +59,7 @@
   --gutter: clamp(16px, 6vw, 96px);
   --nav-pad: var(--gutter);   /* nav side padding; the Home hero text lines up with it (changes at the nav breakpoints) */
   --header-h: 112px;
-  --max: 1440px;
+  --max: 1680px;              /* page width for every page: header, content and footer share these edges */
 }
 
 *,
@@ -297,7 +297,7 @@ ul { list-style: none; margin: 0; padding: 0; }
 
 /* ---------- Shared content sections (About, Contact) ---------- */
 .a-container {
-  max-width: 1200px;
+  max-width: var(--max);
   margin: 0 auto;
   padding: 0 16px;
 }
@@ -648,7 +648,9 @@ ul { list-style: none; margin: 0; padding: 0; }
 /* ---------- Footer ---------- */
 /* Full width, like the Home signature treatments: just a small even edge padding */
 .footer-container {
-  padding: 0 24px;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
 }
 .site-footer {
   padding: clamp(56px, 6vw, 80px) 0 32px;

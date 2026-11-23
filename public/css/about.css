@@ -350,13 +350,13 @@
 /* ---------- Tablet and up ---------- */
 @media (min-width: 641px) {
 
-  /* Desktop: photo on the right, blending into the dark brand colour on the left where the text sits */
-  .heritage-opening__photo { left: auto; width: 66%; object-position: 58% 62%; }
-  .heritage-hero__copy { max-width: min(540px, 40vw); } /* keep the text on the dark side */
+  /* Desktop: the photo fills the whole opening; a soft shade on the left keeps the text readable */
+  .heritage-opening__photo { object-position: center 58%; }
+  .heritage-hero__copy { max-width: min(560px, 42vw); }
   .heritage-opening::before {
     background:
-      linear-gradient(90deg, var(--dark) 0%, var(--dark) 34%, rgba(var(--shade), .82) 44%, rgba(var(--shade), .35) 62%, rgba(var(--shade), .15) 100%),
-      linear-gradient(180deg, rgba(var(--shade), .45) 0%, rgba(var(--shade), 0) 24%, rgba(var(--shade), 0) 70%, rgba(var(--shade), .6) 100%);
+      linear-gradient(90deg, rgba(var(--shade), .78) 0%, rgba(var(--shade), .6) 30%, rgba(var(--shade), .28) 55%, rgba(var(--shade), .1) 75%, rgba(var(--shade), .2) 100%),
+      linear-gradient(180deg, rgba(var(--shade), .5) 0%, rgba(var(--shade), 0) 22%, rgba(var(--shade), 0) 66%, rgba(var(--shade), .62) 100%);
   }
   .heritage-hero__grid { grid-template-columns: 1fr auto; gap: 48px; }
   .heritage-hero__title { font-size: var(--fs-display); }
