@@ -1,0 +1,58 @@
+---
+/**
+ * Home page product, "shelf" style: a tinted photo panel with the details
+ * underneath, no white card or shadow, so it reads differently from the
+ * Signature treatment cards. Styles: .shop-* in public/css/home.css.
+ * Content: src/content/home.md → products.items.
+ * - price / compareAt: numbers (S$) or a [[CONFIRM: ...]] placeholder.
+ * - link: the product page; until it's a real URL the line says "Coming soon".
+ */
+import { realUrl } from "../lib/links";
+
+interface Props {
+  p: {
+    brand?: string;
+    name: string;
+    for: string;
+    price: number | string;
+    compareAt?: number | string;
+    image?: string;
+    imageAlt?: string;
+    link?: string;
+  };
+  linkLabel: string;
+}
+const { p, linkLabel } = Astro.props;
+
+const money = (n: number | string) => (typeof n === "number" ? "S$" + n.toLocaleString("en-SG") : n);
+const href = realUrl(p.link);
+const Tag = href ? "a" : "div";
+const ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M10 3h4v3h-4zM9 6h6l1 3v10.5A1.5 1.5 0 0 1 14.5 21h-5A1.5 1.5 0 0 1 8 19.5V9l1-3Z"/><path d="M8 12h8"/></svg>';
+---
+<article class="shop-item">
+  <Tag class="shop-item__shelf" href={href ?? undefined} tabindex={href ? "-1" : undefined} aria-hidden={href ? "true" : undefined}>
+    {p.image
+      ? <img src={p.image} alt={p.imageAlt ?? p.name} loading="lazy" decoding="async" />
+      : (
+        <div class="ph" role="img" aria-label={p.imageAlt ?? p.name}>
+          <div class="ph-inner">
+            <span class="ph-icon" set:html={ICON} />
+            <span class="ph-hint">Photo · 800 × 1000</span>
+          </div>
+        </div>
+      )}
+  </Tag>
+
+  <div class="shop-item__info">
+    {p.brand && <p class="shop-item__brand">{p.brand}</p>}
+    <h3 class="shop-item__name">{href ? <a href={href}>{p.name}</a> : p.name}</h3>
+    <p class="shop-item__size">{p.for}</p>
+    <p class="shop-item__price">
+      <b>{money(p.price)}</b>
+      {p.compareAt && <s aria-label={`usual price ${money(p.compareAt)}`}>{money(p.compareAt)}</s>}
+    </p>
+    {href
+      ? <a class="shop-item__link" href={href}>{linkLabel} <span aria-hidden="true">→</span></a>
+      : <span class="shop-item__link shop-item__link--pending">Coming soon</span>}
+  </div>
+</article>

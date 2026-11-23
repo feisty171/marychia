@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "marychia-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 8091
+    },
+    {
+      "name": "marychia-built",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["astro", "preview", "--port", "8092"],
+      "port": 8092
+    }
+  ]
+}

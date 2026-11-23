@@ -1,0 +1,41 @@
+[
+  {
+    "name": "Goldhill, Novena",
+    "address": "183 Thomson Road, Goldhill Centre",
+    "postalCode": "307628",
+    "hours": "[[CONFIRM: opening hours]]",
+    "phone": "6250 7949",
+    "mobile": "8688 6298",
+    "whatsapp": "8688 6298",
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Mary+Chia+183+Thomson+Road+Goldhill+Centre+Singapore+307628",
+    "confirmed": false,
+    "mapX": 372,
+    "mapY": 212
+  },
+  {
+    "name": "Eastpoint Mall",
+    "address": "3 Simei Street 6, #03-24",
+    "postalCode": "528833",
+    "hours": "[[CONFIRM: opening hours]]",
+    "phone": "6786 6188",
+    "mobile": "9889 4679",
+    "whatsapp": "9889 4679",
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Mary+Chia+Eastpoint+Mall+3+Simei+Street+6+Singapore+528833",
+    "confirmed": false,
+    "mapX": 560,
+    "mapY": 226
+  },
+  {
+    "name": "Jurong Gateway",
+    "address": "Blk 134 Jurong Gateway Road, #01-311",
+    "postalCode": "600134",
+    "hours": "[[CONFIRM: opening hours]]",
+    "phone": "6793 0166",
+    "mobile": "9889 6091",
+    "whatsapp": "9889 6091",
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Mary+Chia+134+Jurong+Gateway+Road+Singapore+600134",
+    "confirmed": false,
+    "mapX": 168,
+    "mapY": 236
+  }
+]

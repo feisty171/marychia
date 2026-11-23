@@ -1,0 +1,28 @@
+---
+/**
+ * One desktop nav item with a dropdown (Treatments, About Us, Contact Us).
+ * The list of dropdowns lives in Header.astro. Behaviour is in public/js/main.js.
+ */
+type Link = { label: string; href: string; key?: string };
+export interface Dropdown { id: string; label: string; href: string; keys: string[]; items: Link[]; footer?: Link }
+
+interface Props { d: Dropdown; current: string }
+const { d, current } = Astro.props;
+---
+<li class="nav__item nav__item--drop" data-dropdown>
+  <a class:list={["nav__link", { "is-active": d.keys.includes(current) }]} href={d.href} aria-current={current === d.keys[0] ? "page" : undefined}>{d.label}</a>
+  <button class="nav__caret" type="button" aria-expanded="false" aria-controls={`${d.id}Menu`} aria-label={`Show ${d.label} sections`}>
+    <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" /></svg>
+  </button>
+  <div class="nav__drop" id={`${d.id}Menu`}>
+    <ul class="nav__drop-list">
+      {d.items.map((m) => <li><a class="nav__drop-link" href={m.href}>{m.label}</a></li>)}
+    </ul>
+    {d.footer && (
+      <a class:list={["nav__drop-link", "nav__drop-link--ir", { "is-current": current === d.footer.key }]} href={d.footer.href} aria-current={current === d.footer.key ? "page" : undefined}>
+        {d.footer.label}
+        <span aria-hidden="true">→</span>
+      </a>
+    )}
+  </div>
+</li>

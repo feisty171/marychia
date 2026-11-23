@@ -1,0 +1,48 @@
+---
+/**
+ * Career page (/careers/). Linked from the Contact Us dropdown.
+ * Words come from src/content/careers.md — edit that file, not this one.
+ * Styles: public/css/careers.css
+ */
+import Base from "../layouts/Base.astro";
+import Footer from "../components/Footer.astro";
+import { frontmatter as c } from "../content/careers.md";
+import { isPlaceholder } from "../lib/links";
+
+const applyLink = isPlaceholder(c.apply) ? null : c.apply;
+---
+<Base
+  title={c.seo.title}
+  description={c.seo.description}
+  current="careers"
+  solidHeader
+  bodyClass="page-careers"
+  styles={["careers.css"]}
+>
+  <main>
+    <section class="a-section careers-page" id="careers">
+      <div class="a-container">
+        <header class="a-head">
+          <p class="eyebrow">{c.eyebrow}</p>
+          <h1 class="a-title">{c.heading}</h1>
+        </header>
+        <div class="careers">
+          <div class="careers__body">
+            {c.paragraphs.map((p) => <p>{p}</p>)}
+          </div>
+          <aside class="careers__card">
+            <h2>{c.cardHeading}</h2>
+            <ul class="careers__list">
+              {c.roles.map((r) => <li>{r}</li>)}
+            </ul>
+            {applyLink
+              ? <a class="btn btn--solid" href={applyLink.includes("@") ? `mailto:${applyLink}` : applyLink}>Apply now</a>
+              : <p class="careers__apply">{c.apply}</p>}
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>

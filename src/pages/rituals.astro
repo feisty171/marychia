@@ -1,0 +1,124 @@
+---
+/**
+ * Rituals page (/rituals/): "Our most-loved rituals" — the full signature treatment list
+ * with search, Face/Body/Wellness filters, session picker and WhatsApp booking.
+ * Links like /rituals/#face open it filtered. The Treatments page (/treatments/) links here.
+ * Design: mary-chia-treatments-page.zip (scoped styles in public/css/treatments.css).
+ * Treatment list, prices, images and PDF settings: src/data/treatments.json
+ * Studios for WhatsApp booking: src/data/outlets.json
+ * Behaviour (search, filters, booking sheet): public/js/treatments.js
+ * To change a treatment or price, edit the JSON file — not this one.
+ */
+import Base from "../layouts/Base.astro";
+import Footer from "../components/Footer.astro";
+import data from "../data/treatments.json";
+import outlets from "../data/outlets.json";
+import { isPlaceholder } from "../lib/links";
+
+// Studios offered in the "Book on WhatsApp" sheet (only those with a confirmed WhatsApp number)
+const studios = outlets
+  .filter((o) => !isPlaceholder(o.whatsapp))
+  .map((o) => ({
+    id: o.name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+    name: o.name,
+    address: `${o.address}, Singapore ${o.postalCode}`,
+    office: o.phone,
+    whatsapp: "65" + o.whatsapp.replace(/\D/g, "").slice(-8),
+  }));
+const pageData = { ...data, studios };
+---
+<Base
+  title="Our Most-Loved Rituals | Mary Chia Treatments"
+  description="Browse Mary Chia's signature face, body and wellness treatments, choose your session and book on WhatsApp with the studio nearest you."
+  current="treatments"
+  solidHeader
+  bodyClass="page-rituals"
+  styles={["treatments.css"]}
+>
+
+  <div class="tp" id="tp">
+<main>
+<!-- ======================= MENU ======================= -->
+<section class="menu-section" id="menu">
+  <div class="wrap">
+    <a class="back-link" href="/treatments/">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 12H5m5-5-5 5 5 5"/></svg>
+      Back to Treatments
+    </a>
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Signature selection</p>
+        <h1>Our most-loved rituals</h1>
+      </div>
+      <p>Choose your session, then book with the studio nearest you. Our therapists will tailor every treatment to you on the day.</p>
+    </div>
+
+    <div class="toolbar" role="search">
+      <label class="search">
+        <span class="sr-only">Search treatments</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="search" type="search" autocomplete="off" placeholder="Search by treatment or concern, e.g. hydration, aches, cellulite">
+        <button class="search-clear" id="clearSearch" type="button" aria-label="Clear search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </label>
+      <div class="tabs" id="tabs" role="group" aria-label="Filter by category">
+        <span class="tab-pill" id="tabPill" aria-hidden="true"></span>
+      </div>
+    </div>
+    <p class="status" id="status" aria-live="polite"></p>
+
+    <div class="grid" id="grid"></div>
+
+    <div class="empty" id="empty">
+      <div class="ring" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M8.5 11h5"/></svg>
+      </div>
+      <h3>No treatments found matching your search</h3>
+      <p id="emptyMsg">Try a different word, or explore one of these:</p>
+      <div class="suggest" id="suggest"></div>
+      <button class="btn btn-ghost" id="resetBtn" type="button">Reset search &amp; filters</button>
+    </div>
+  </div>
+</section>
+
+<div class="wrap bottom-banner">
+  <aside class="menu-banner" aria-label="Full treatment menu">
+    <div class="booklet" aria-hidden="true"><img src="/images/site/menu-cover.webp" alt="" loading="lazy"></div>
+    <div>
+      <h2>Looking for something else?</h2>
+      <p>Browse every therapy, add-on and package in our full Treatment Collection, or let our therapists recommend one for you.</p>
+    </div>
+    <div class="actions">
+      <a class="btn btn-primary js-pdf" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>
+        View Full Menu (PDF)
+      </a>
+      <a class="btn btn-ghost js-pdf-dl" aria-label="Download full menu PDF">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></svg>
+        Download
+      </a>
+    </div>
+  </aside>
+</div>
+</main>
+
+<!-- ======================= BOOKING SHEET ======================= -->
+<div class="sheet-backdrop" id="sheet" aria-hidden="true">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <button class="sheet-close" id="sheetClose" type="button" aria-label="Close">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <p class="eyebrow">Book on WhatsApp</p>
+    <h3 id="sheetTitle"></h3>
+    <div class="studios" id="studioList"></div>
+    <small>We'll open WhatsApp with your treatment details filled in. Our team will confirm your slot.</small>
+  </div>
+</div>
+  </div>
+
+  <Footer />
+
+  <script type="application/json" id="tp-data" set:html={JSON.stringify(pageData)}></script>
+  <script is:inline src="/js/treatments.js"></script>
+</Base>

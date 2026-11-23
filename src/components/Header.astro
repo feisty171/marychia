@@ -1,0 +1,113 @@
+---
+/**
+ * Site header + nav. Used by every page.
+ * Props:
+ *   current – which nav item is active: "home" | "treatments" | "shop" | "about" | "investors" | "contact" | "careers"
+ *   solid   – true on pages without a dark photo hero (light header from the start)
+ *
+ * "Treatments", "About Us" and "Contact Us" have dropdowns (desktop) / expandable lists (mobile menu).
+ * Edit the `dropdowns` list below to rename, add or remove a shortcut.
+ * Each section appears in exactly one dropdown — don't list the same link twice.
+ * Behaviour (open/close, keyboard, mobile) is in public/js/main.js.
+ */
+import site from "../data/site.json";
+import NavDropdown, { type Dropdown } from "./NavDropdown.astro";
+
+interface Props {
+  current?: string;
+  solid?: boolean;
+}
+const { current = "", solid = false } = Astro.props;
+
+const treatments: Dropdown = {
+  id: "treatments",
+  label: "Treatments",
+  href: "/treatments/",
+  keys: ["treatments", "gallery"],
+  items: [
+    { label: "Face", href: "/rituals/#face" },
+    { label: "Body", href: "/rituals/#body" },
+    { label: "Wellness", href: "/rituals/#wellness" },
+  ],
+  footer: { key: "gallery", label: "Gallery / Results", href: "/gallery/" },
+};
+
+// Left side, in order. A plain link has `key`; a dropdown is a Dropdown object.
+const left: ({ key: string; label: string; href: string } | Dropdown)[] = [
+  { key: "home", label: "Home", href: "/" },
+  treatments,
+  { key: "shop", label: "Shop", href: "/#shop" },
+];
+const isDrop = (x: any): x is Dropdown => Array.isArray(x.items);
+
+const dropdowns: Dropdown[] = [
+  {
+    id: "about",
+    label: "About Us",
+    href: "/about/",
+    keys: ["about", "investors"],
+    items: [
+      { label: "Our Story", href: "/about/#story" },
+      { label: "Vision & Mission", href: "/about/#vision-mission" },
+    ],
+    footer: { key: "investors", label: "Investor Relations", href: "/investors/" },
+  },
+  {
+    id: "contact",
+    label: "Contact Us",
+    href: "/contact/",
+    keys: ["contact", "careers"],
+    items: [
+      { label: "Our Location", href: "/contact/#locations" },
+      { label: "Feedback / Enquiry", href: "/contact/#enquiry" },
+    ],
+    footer: { key: "careers", label: "Career", href: "/careers/" },
+  },
+];
+---
+<header class:list={["site-header", { "site-header--solid": solid }]} id="siteHeader">
+  <nav class="nav" aria-label="Main">
+    <ul class="nav__group nav__group--left">
+      {left.map((l) => isDrop(l) ? <NavDropdown d={l} current={current} /> : (
+        <li>
+          <a class:list={["nav__link", { "is-active": current === l.key }]} href={l.href} aria-current={current === l.key ? "page" : undefined}>{l.label}</a>
+        </li>
+      ))}
+    </ul>
+
+    <a class="logo" href="/" aria-label="Mary Chia — Face, Body, Wellness. Home">
+      <!-- Top of page: the full ribbon-M logo — white text over photos (--light), burgundy text on light headers (--dark).
+           Once the page scrolls it crossfades to the ribbon "M" on its own (styles in public/css/style.css). -->
+      <img class="logo__emblem logo__emblem--light" src="/images/logo-full-light.webp" alt="" aria-hidden="true" width="694" height="300" />
+      <img class="logo__emblem logo__emblem--dark" src="/images/logo-full.webp" alt="" aria-hidden="true" width="769" height="300" />
+      <img class="logo__mark" src="/images/logo-m.webp" alt="Mary Chia — Face • Body • Wellness" width="238" height="240" />
+    </a>
+
+    <ul class="nav__group nav__group--right">
+      {dropdowns.map((d) => <NavDropdown d={d} current={current} />)}
+      <li><a class="btn btn--nav" href={site.bookingUrl}>Book Now</a></li>
+    </ul>
+
+    <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu" hidden>
+    {[...left, ...dropdowns].map((d) => !isDrop(d) ? <a href={d.href} aria-current={current === d.key ? "page" : undefined}>{d.label}</a> : (
+      <div class="mobile-menu__group" data-mobile-group>
+        <div class="mobile-menu__row">
+          <a href={d.href} aria-current={current === d.keys[0] ? "page" : undefined}>{d.label}</a>
+          <button class="mobile-menu__toggle" type="button" aria-expanded="false" aria-controls={`mobile-${d.id}`} aria-label={`Show ${d.label} sections`}>
+            <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" /></svg>
+          </button>
+        </div>
+        <div class:list={["mobile-menu__sub", { "has-footer": d.footer }]} id={`mobile-${d.id}`} hidden>
+          {d.items.map((m) => <a href={m.href}>{m.label}</a>)}
+          {d.footer && <a class="mobile-menu__footer" href={d.footer.href} aria-current={current === d.footer.key ? "page" : undefined}>{d.footer.label}</a>}
+        </div>
+      </div>
+    ))}
+    <a class="btn btn--nav" href={site.bookingUrl}>Book Now</a>
+  </div>
+</header>

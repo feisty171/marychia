@@ -1,0 +1,238 @@
+---
+/**
+ * Home page template.
+ * Words (hero included) come from src/content/home.md; outlets from src/data/outlets.json.
+ * To change copy, edit those files — not this one.
+ */
+import Base from "../layouts/Base.astro";
+import Footer from "../components/Footer.astro";
+import SignatureCard from "../components/SignatureCard.astro";
+import ProductCard from "../components/ProductCard.astro";
+import BookingSheet from "../components/BookingSheet.astro";
+import treatmentsData from "../data/treatments.json";
+import site from "../data/site.json";
+import outlets from "../data/outlets.json";
+import { frontmatter as h } from "../content/home.md";
+import { tel, waHref, realUrl } from "../lib/links";
+
+const siteWa = waHref(site.whatsappUrl);
+// "Book your escape": WhatsApp once the number is confirmed, otherwise the studio list
+const bookHref = siteWa ?? "#visit";
+const initials = (s: string) => (s.includes("[[") ? "?" : s.trim().charAt(0));
+// Hero headline: the *word* in asterisks shows in italic rose
+const [heroBefore, heroEm = "", heroAfter = ""] = h.hero.headline.split("*");
+---
+<Base
+  title="Mary Chia | Face • Body • Wellness"
+  description="Mary Chia — the beauty and slimming specialist. Four decades of facial, spa and slimming expertise, personalised for your skin, your body and your goals."
+  current="home"
+  styles={["home.css", "treatments.css"]}
+  scripts={["treatment-cards.js"]}
+>
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="home">
+      <!-- Soft shade over the photo so the white text stays readable (decorative) -->
+      <div class="hero__shade" aria-hidden="true"></div>
+      <div class="hero__content">
+        <div class="hero__top">
+          <p class="hero__eyebrow">{h.hero.eyebrow}</p>
+          <h1 class="hero__title">{heroBefore}{heroEm && <em>{heroEm}</em>}{heroAfter}</h1>
+        </div>
+        <div class="hero__bottom">
+          <p class="hero__lead">{h.hero.text}</p>
+          <div class="hero__actions">
+            <a class="btn hero__book" href={site.bookingUrl}>{h.hero.bookButton}</a>
+            <a class="hero__link" href={h.hero.exploreLink}>{h.hero.exploreButton} <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ KEY FIGURES (hidden while stats.show is false in home.md) ============ -->
+    {h.stats.show && <section class="ledger" id="numbers" aria-labelledby="ledger-title">
+      <div class="h-container">
+        <h2 class="eyebrow ledger__eyebrow" id="ledger-title">{h.stats.eyebrow}</h2>
+        <ul class="ledger__row">
+          {h.stats.items.map((st: any) => (
+            <li class="ledger__item">
+              <p class="ledger__num"><span data-count={st.count ? st.value.replace(/\D/g, "") : undefined}>{st.value}</span>{st.suffix}</p>
+              <p class="ledger__label">{st.label}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>}
+
+    <!-- ============ 1. SIGNATURE SERVICES ============ -->
+    <section class="h-section" id="services">
+      <div class="h-container h-container--full">
+        <header class="h-head h-head--center h-head--wide">
+          <p class="eyebrow">{h.services.eyebrow}</p>
+          <h2 class="h-title">{h.services.heading}</h2>
+          <p class="h-intro">{h.services.intro}</p>
+        </header>
+        <div class:list={["tp", "tp--embed", { "show-hints": treatmentsData.config.showPlaceholderHints }]}>
+          <div class="sig-grid">
+            {h.services.items.map((t, i) => <SignatureCard t={t} index={i} />)}
+          </div>
+          <BookingSheet />
+        </div>
+        <div class="h-center">
+          <a class="h-textlink" href={h.services.menuLink}>{h.services.menuButton} <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ AD BANNER (src/content/home.md → banner) ============ -->
+    <section class="h-banner" aria-label="Promotion">
+      <div class="h-container h-container--full">
+        {h.banner?.image
+          ? (h.banner.link
+              ? <a class="h-banner__frame" href={h.banner.link}><img src={h.banner.image} alt={h.banner.alt} loading="lazy" /></a>
+              : <div class="h-banner__frame"><img src={h.banner.image} alt={h.banner.alt} loading="lazy" /></div>)
+          : (
+            <div class="h-banner__frame h-banner__frame--ph" role="img" aria-label="Ad banner placeholder">
+              <span class="h-banner__label">Ad banner</span>
+              <span class="h-banner__size">1920 × 480</span>
+            </div>
+          )}
+      </div>
+    </section>
+
+    <!-- ============ PRODUCTS (src/content/home.md → products; nav "Shop" links here) ============ -->
+    <section class="h-section" id="shop">
+      <div class="h-container h-container--full">
+        <header class="h-head h-head--center h-head--wide">
+          <p class="eyebrow">{h.products.eyebrow}</p>
+          <h2 class="h-title">{h.products.heading}</h2>
+          <p class="h-intro">{h.products.intro}</p>
+        </header>
+        <div class:list={["tp", "tp--embed", { "show-hints": treatmentsData.config.showPlaceholderHints }]}>
+          <div class="shop-grid">
+            {h.products.items.map((p) => <ProductCard p={p} linkLabel={h.products.linkLabel} />)}
+          </div>
+        </div>
+        {realUrl(h.products.menuLink) && (
+          <div class="h-center">
+            <a class="h-textlink" href={h.products.menuLink}>{h.products.menuButton} <span aria-hidden="true">→</span></a>
+          </div>
+        )}
+      </div>
+    </section>
+
+    <!-- ============ 2. EXPERIENCE & STORY ============ -->
+    <section class="h-section h-section--tint" id="experience">
+      <div class="h-container split">
+        <figure class="split__media">
+          <img src="/images/hero-reception.webp" alt={h.experience.imageAlt} width="1366" height="764" loading="lazy" />
+        </figure>
+        <div class="split__copy">
+          <p class="eyebrow">{h.experience.eyebrow}</p>
+          <h2 class="h-title">{h.experience.heading}</h2>
+          {h.experience.paragraphs.map((p) => <p class="h-body">{p}</p>)}
+          <a class="link-arrow" href="/about/">{h.experience.link}</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3. SOCIAL PROOF ============ -->
+    <section class="h-section" id="reviews">
+      <div class="h-container">
+        <header class="h-head h-head--center">
+          <p class="eyebrow">{h.testimonials.eyebrow}</p>
+          <h2 class="h-title">{h.testimonials.heading}</h2>
+          {h.testimonials.note && <p class="h-note">{h.testimonials.note}</p>}
+        </header>
+        <ul class="reviews">
+          {h.testimonials.items.map((r) => (
+            <li class="review">
+              <svg class="review__mark" viewBox="0 0 32 24" aria-hidden="true"><path d="M0 24V14C0 6 4 1 12 0l1 4c-4 1-6 4-6 8h6v12H0zm19 0V14c0-8 4-13 12-14l1 4c-4 1-6 4-6 8h6v12H19z"/></svg>
+              <blockquote class="review__quote">{r.quote}</blockquote>
+              <footer class="review__who">
+                <span class="review__avatar" aria-hidden="true">{initials(r.name)}</span>
+                <span><strong>{r.name}</strong><br /><span class="review__treatment">{r.treatment}</span></span>
+              </footer>
+            </li>
+          ))}
+        </ul>
+        <ul class="trust">
+          {h.testimonials.trust.map((t) => <li>{t}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 4. FIRST-VISIT OFFER ============ -->
+    <section class="h-offer">
+      <div class="h-container">
+        <div class="offer">
+          <div class="offer__copy">
+            <p class="eyebrow">{h.offer.eyebrow}</p>
+            <h2 class="offer__title">{h.offer.heading}</h2>
+            <p class="h-body">{h.offer.text}</p>
+          </div>
+          <div class="offer__action">
+            <a class="btn btn--solid" href="#book">{h.offer.button}</a>
+            <p class="offer__foot">{h.offer.footnote}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 5. LOCATION, HOURS & INFO ============ -->
+    <section class="h-section h-section--tint" id="visit">
+      <div class="h-container">
+        <header class="h-head">
+          <p class="eyebrow">{h.visit.eyebrow}</p>
+          <h2 class="h-title">{h.visit.heading}</h2>
+        </header>
+        <div class="visit">
+          <ul class="h-studios">
+            {outlets.map((o) => {
+              const wa = waHref(o.whatsapp);
+              return (
+                <li class="h-studio">
+                  <h3 class="h-studio__name">{o.name}</h3>
+                  <p class="h-studio__line">{o.address}, Singapore {o.postalCode}</p>
+                  <p class="h-studio__line">{o.hours}</p>
+                  <p class="h-studio__line">
+                    <a href={tel(o.phone)}>{o.phone}</a>
+                    <span aria-hidden="true"> · </span>
+                    {wa ? <a href={wa}>WhatsApp {o.mobile}</a> : <span>{o.whatsapp}</span>}
+                  </p>
+                  <a class="link-arrow" href={o.mapsUrl} target="_blank" rel="noopener">{h.visit.directions}</a>
+                </li>
+              );
+            })}
+          </ul>
+          <div class="visit__side">
+            <div class="map-placeholder" role="img" aria-label="Map of Mary Chia studios">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+              <p>{h.visit.mapPlaceholder}</p>
+            </div>
+            <div class="before">
+              <h3 class="before__title">{h.visit.beforeHeading}</h3>
+              <ul class="before__list">
+                {h.visit.notes.map((n) => <li>{n}</li>)}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 6. FINAL CTA ============ -->
+    <section class="h-final" id="book">
+      <div class="h-container h-final__inner">
+        <h2 class="h-final__title">{h.finalCta.heading}</h2>
+        <p class="h-final__text">{h.finalCta.text}</p>
+        <div class="h-final__actions">
+          <a class="btn btn--hero" href={bookHref}>{h.finalCta.button}</a>
+          <a class="btn btn--hero btn--ghost" href="#visit">{h.finalCta.secondary}</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>

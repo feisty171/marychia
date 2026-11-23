@@ -1,0 +1,48 @@
+/* =========================================================
+   Mary Chia — Career page (/careers/)
+   Builds on style.css (tokens, header, buttons, shared .a-* sections, footer).
+   ========================================================= */
+
+/* Page start: sits right under the light header */
+.careers-page { padding-top: calc(68px + 48px); }
+
+/* ---------- Careers ---------- */
+.careers { display: grid; gap: 24px; align-items: start; }
+.careers__body p { margin: 0 0 16px; font-size: var(--fs-body); line-height: 1.7; color: var(--ink-soft); }
+.careers__card {
+  padding: 28px 24px;
+  background: var(--white);
+  border: 1px solid var(--line);
+}
+.careers__card h2 {
+  margin: 0 0 14px;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: var(--fs-h3);
+}
+.careers__list { margin: 0 0 20px; }
+.careers__list li {
+  position: relative;
+  padding: 6px 0 6px 20px;
+  font-size: var(--fs-text);
+  color: var(--ink-soft);
+}
+.careers__list li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 14px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 1.5px solid var(--rose);
+}
+.careers__apply { margin: 0; font-size: var(--fs-text); color: var(--ink); }
+
+@media (min-width: 641px) {
+  .careers-page { padding-top: calc(76px + clamp(56px, 7vw, 96px)); }
+  .careers__card { padding: 36px 32px; }
+}
+@media (min-width: 1025px) {
+  .careers { grid-template-columns: 1.1fr .9fr; gap: 56px; }
+}

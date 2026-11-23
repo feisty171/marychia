@@ -1,0 +1,574 @@
+/* =========================================================
+   Mary Chia — Home page, below the hero (mobile-first)
+   Builds on style.css (tokens, header, buttons, footer).
+   ========================================================= */
+
+
+.h-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.h-section { padding: 64px 0; scroll-margin-top: 60px; }
+.h-section--tint { background: var(--tint); }
+
+.h-head { max-width: 640px; margin-bottom: 32px; }
+.h-head--center { margin-left: auto; margin-right: auto; text-align: center; }
+.h-title {
+  margin: 0 0 14px;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: var(--fs-h2);
+  line-height: 1.1;
+  font-variant-numeric: lining-nums;
+}
+.h-intro,
+.h-body {
+  margin: 0 0 16px;
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+.h-intro { margin: 0; }
+.h-note { margin: 12px 0 0; font-size: var(--fs-ui); color: var(--ink-soft); }
+.h-center { display: flex; justify-content: center; margin-top: 40px; }
+.h-head--wide { max-width: 880px; } /* longer intro fits in 3 lines on desktop */
+
+/* Secondary text link (uppercase, letter-spaced, underlined), e.g. "View All Treatments →" */
+.h-textlink {
+  display: inline-flex;
+  align-items: center;
+  gap: .6em;
+  min-height: 44px;
+  font-size: var(--fs-ui);
+  font-weight: 500;
+  letter-spacing: var(--tracking-ui);
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink);
+  border-bottom: 1px solid var(--ink);
+  transition: color .25s ease, border-color .25s ease;
+}
+.h-textlink:hover { color: var(--rose); border-bottom-color: var(--rose); }
+.h-textlink:focus-visible { outline: 2px solid var(--rose); outline-offset: 4px; }
+
+sup { font-size: .55em; vertical-align: super; line-height: 0; }
+
+/* Outline button for light backgrounds */
+.btn--outline {
+  padding: 15px 30px;
+  border-radius: 999px;
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.btn--outline:hover,
+.btn--outline:focus-visible { background: var(--ink); color: var(--white); }
+.btn--ghost { background: transparent; }
+
+/* ---------- 1. Signature services ----------
+   Simple cards (src/components/SignatureCard.astro): photo, name, price, Book now.
+   Two by two on phones, four in a row from 961px. The wrapper keeps the .tp class
+   only so the photo placeholders and the WhatsApp sheet pick up their styles. */
+.tp.tp--embed { background: transparent; }
+/* Full-width section: no max-width, just a small even edge padding; the cards stretch to fill */
+.h-container.h-container--full { max-width: none; padding: 0 16px; }
+@media (min-width: 641px) { .h-container.h-container--full { padding: 0 24px; } }
+.sig-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.sig-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 14px 30px -24px rgba(var(--shade), .35);
+  transition: transform .35s ease, box-shadow .35s ease;
+}
+.sig-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); }
+
+.sig-media { position: relative; aspect-ratio: 1 / 1; overflow: hidden; background: var(--tint); }
+.sig-media img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Text block: left-aligned. Names always take two lines' space so the
+   prices and Book now line up across every card. */
+.sig-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 16px 16px 4px;
+}
+.sig-body h3 {
+  margin: 0 0 6px;
+  min-height: 2.4em; /* two lines */
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: var(--fs-h5);
+  line-height: 1.2;
+  color: var(--ink);
+}
+/* short description (the treatment's "for" line); always two lines' space */
+.sig-for {
+  margin: 0 0 14px;
+  min-height: 3em;
+  font-size: var(--fs-ui);
+  line-height: 1.5;
+  color: var(--ink-soft);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.sig-price { display: flex; align-items: baseline; gap: 8px; margin: 0 0 14px; }
+.sig-price__from {
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.sig-price b {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: var(--fs-h5);
+  line-height: 1;
+  color: var(--rose);
+  font-variant-numeric: lining-nums;
+}
+.sig-price s { font-size: var(--fs-caption); color: var(--ink-faint); }
+
+/* Book now: a quiet text row along the bottom of the card */
+.sig-card .sig-book {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: auto;
+  padding: 12px 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-ui);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color .25s ease;
+}
+.sig-card .sig-book svg { width: 14px; height: 14px; transition: transform .25s ease; }
+.sig-card .sig-book:hover { color: var(--rose); }
+.sig-card .sig-book:hover svg { transform: translateX(3px); }
+.sig-card .sig-book:focus-visible { outline: 2px solid var(--rose); outline-offset: 2px; }
+
+/* ---------- Products ("shelf") ----------
+   src/components/ProductCard.astro. No card box: a tinted photo panel with the
+   details underneath, left-aligned. Same columns as the signature cards. */
+.shop-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 14px; }
+.shop-item__shelf {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--tint);
+  transition: background-color .35s ease;
+}
+.shop-item__shelf img {
+  width: 78%;
+  height: 78%;
+  object-fit: contain;
+  transition: transform .5s cubic-bezier(.2, .7, .2, 1);
+}
+.shop-item:hover .shop-item__shelf img { transform: scale(1.04); }
+
+.shop-item__info { padding: 16px 2px 0; }
+.shop-item__brand {
+  margin: 0 0 6px;
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--rose);
+}
+.shop-item__name {
+  margin: 0 0 4px;
+  min-height: 2.4em; /* two lines, so sizes and prices line up */
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: var(--fs-h5);
+  line-height: 1.2;
+  color: var(--ink);
+}
+.shop-item__name a { color: inherit; text-decoration: none; }
+.shop-item__name a:hover { color: var(--rose); }
+.shop-item__size { margin: 0 0 10px; font-size: var(--fs-ui); color: var(--ink-faint); }
+.shop-item__price { display: flex; align-items: baseline; gap: 8px; margin: 0 0 12px; }
+.shop-item__price b {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: var(--fs-h5);
+  color: var(--ink);
+  font-variant-numeric: lining-nums;
+}
+.shop-item__price s { font-size: var(--fs-caption); color: var(--ink-faint); }
+.shop-item__link {
+  display: inline-flex;
+  align-items: center;
+  gap: .5em;
+  padding-bottom: 3px;
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-ui);
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink);
+  border-bottom: 1px solid currentColor;
+  transition: color .25s ease;
+}
+a.shop-item__link:hover { color: var(--rose); }
+a.shop-item__link:focus-visible,
+.shop-item__name a:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
+.shop-item__link--pending { color: var(--ink-faint); border-bottom-color: transparent; }
+
+@media (min-width: 641px) {
+  .shop-grid { gap: 36px 20px; }
+  .shop-item__name { font-size: var(--fs-h4); }
+}
+@media (min-width: 961px) {
+  .shop-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 24px; }
+}
+@media (min-width: 1200px) {
+  .shop-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 24px; }
+}
+
+/* ---------- Ad banner (below Signature treatments) ----------
+   Words/image: src/content/home.md → banner. Wide (4:1) on desktop,
+   taller crop on phones. Placeholder shows until an image is set. */
+.h-banner { padding: 0; }
+#services { padding-bottom: 56px; } /* keep the banner close to the cards */
+.h-banner__frame {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  background: var(--tint);
+}
+.h-banner__frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset: 4px; }
+.h-banner__frame--ph {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--ph-bg);
+  border: 1px dashed var(--rose-line);
+}
+.h-banner__label {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--fs-h4);
+  color: var(--rose);
+}
+.h-banner__size {
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+@media (min-width: 641px) {
+  .h-banner__frame { aspect-ratio: 4 / 1; }
+}
+
+/* ---------- 2. Experience (split) ---------- */
+.split { display: grid; gap: 32px; }
+.split__media {
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 160px 160px 4px 4px;
+}
+.split__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 45% center;
+}
+.split__copy .link-arrow { margin-top: 8px; }
+
+/* ---------- 3. Reviews + trust ---------- */
+.reviews { display: grid; gap: 16px; }
+.review {
+  display: flex;
+  flex-direction: column;
+  padding: 32px 24px 28px;
+  background: var(--white);
+  border: 1px solid var(--line);
+}
+.review__mark { width: 28px; height: 21px; margin-bottom: 18px; fill: var(--rose-line); }
+.review__quote {
+  flex: 1;
+  margin: 0 0 24px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--fs-h4);
+  line-height: 1.45;
+}
+.review__who {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: var(--fs-small);
+  line-height: 1.4;
+}
+.review__avatar {
+  display: grid;
+  place-items: center;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--tint);
+  font-family: var(--font-serif);
+  font-size: var(--fs-h5);
+  color: var(--rose);
+}
+.review__treatment { color: var(--ink-soft); }
+
+.trust {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 0;
+  margin-top: 36px;
+  padding: 20px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.trust li {
+  padding: 0 16px;
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-align: center;
+}
+.trust li + li { border-left: 1px solid var(--line); }
+
+/* ---------- 4. First-visit offer ---------- */
+.h-offer { padding: 0 0 64px; }
+.offer {
+  display: grid;
+  gap: 24px;
+  padding: 36px 24px;
+  background: var(--soft-gradient);
+  border-radius: 4px;
+}
+.offer__title {
+  margin: 0 0 12px;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: var(--fs-h3-lg);
+  line-height: 1.15;
+}
+.offer .h-body { margin: 0; }
+.offer__action { display: grid; gap: 12px; justify-items: start; }
+.offer__action .btn { width: 100%; }
+.offer__foot { margin: 0; font-size: var(--fs-caption); color: var(--ink-soft); }
+
+/* ---------- 5. Visit ---------- */
+.visit { display: grid; gap: 32px; }
+.h-studios { display: grid; gap: 0; }
+.h-studio {
+  padding: 22px 0;
+  border-top: 1px solid var(--line);
+}
+.h-studio:last-child { border-bottom: 1px solid var(--line); }
+.h-studio__name {
+  margin: 0 0 8px;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: var(--fs-h4);
+}
+.h-studio__line {
+  margin: 0 0 6px;
+  font-size: var(--fs-text);
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.h-studio__line a { color: var(--ink); }
+.h-studio__line a:hover { color: var(--rose); }
+.h-studio .link-arrow { margin-top: 8px; }
+
+.visit__side { display: grid; gap: 24px; align-content: start; }
+.map-placeholder {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 10px;
+  min-height: 240px;
+  padding: 24px;
+  text-align: center;
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+  background:
+    repeating-linear-gradient(45deg, transparent 0 14px, rgba(165, 85, 92, .05) 14px 15px),
+    var(--white);
+  border: 1px dashed var(--rose-line);
+}
+.map-placeholder svg { width: 32px; height: 32px; fill: none; stroke: var(--rose); stroke-width: 1.5; }
+.map-placeholder p { margin: 0; max-width: 30ch; }
+
+.before {
+  padding: 28px 24px;
+  background: var(--white);
+}
+.before__title {
+  margin: 0 0 14px;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: var(--fs-h4);
+}
+.before__list li {
+  position: relative;
+  padding: 8px 0 8px 22px;
+  font-size: var(--fs-text);
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.before__list li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 16px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1.5px solid var(--rose);
+}
+
+/* ---------- 6. Final CTA ---------- */
+.h-final {
+  padding: 88px 0;
+  text-align: center;
+  color: var(--white);
+  background:
+    linear-gradient(rgba(var(--shade), .62), rgba(var(--shade), .62)),
+    url("../images/hero-reception.webp") 60% center / cover no-repeat;
+}
+.h-final__inner { display: flex; flex-direction: column; align-items: center; }
+.h-final__title {
+  margin: 0 0 16px;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: var(--fs-display);
+  line-height: 1.05;
+}
+.h-final__text {
+  max-width: 44ch;
+  margin: 0 0 32px;
+  font-size: var(--fs-body);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, .9);
+}
+.h-final__actions { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+.h-final__actions .btn { width: 100%; }
+
+/* ---------- Tablet and up ---------- */
+@media (min-width: 641px) {
+  .h-container { padding: 0 var(--gutter); }
+  .h-section { padding: clamp(80px, 9vw, 120px) 0; }
+  .h-head { margin-bottom: clamp(36px, 4vw, 56px); }
+  .h-title { font-size: var(--fs-h2); }
+
+  .sig-grid { gap: 20px; }
+  .sig-body { padding: 18px 18px 4px; }
+  .reviews { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+  .h-offer { padding-bottom: clamp(80px, 9vw, 120px); }
+  .offer {
+    grid-template-columns: 1.6fr 1fr;
+    align-items: center;
+    gap: 40px;
+    padding: clamp(40px, 5vw, 64px);
+  }
+  .offer__action { justify-items: end; text-align: right; }
+  .offer__action .btn { width: auto; }
+
+  .h-final { padding: clamp(100px, 12vw, 160px) 0; }
+  .h-final__actions { flex-direction: row; justify-content: center; width: auto; }
+  .h-final__actions .btn { width: auto; }
+}
+
+/* ---------- Desktop ---------- */
+@media (min-width: 961px) {
+  .sig-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+
+  .split {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: clamp(48px, 7vw, 112px);
+  }
+  .split__media { aspect-ratio: 4 / 5; max-height: 600px; border-radius: 999px 999px 4px 4px; }
+
+  .visit { grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 88px); }
+  .map-placeholder { min-height: 300px; }
+}
+
+/* =========================================================
+   Key figures, just below the hero: a simple row of numbers with thin
+   dividers (two by two on phones). Words: src/content/home.md → stats.
+   The "count: true" number counts up (public/js/main.js).
+   ========================================================= */
+.ledger { padding: 16px 0 64px; }
+.ledger__eyebrow { margin: 0 0 28px; text-align: center; }
+
+.ledger__row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px 0;
+  margin: 0;
+  padding: 32px 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.ledger__item { padding: 0 12px; text-align: center; }
+.ledger__item:nth-child(even) { border-left: 1px solid var(--line); }
+
+.ledger__num {
+  margin: 0 0 8px;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: var(--fs-stat);
+  line-height: 1;
+  font-variant-numeric: lining-nums;
+  color: var(--rose);
+}
+
+.ledger__label {
+  margin: 0 auto;
+  max-width: 20ch;
+  font-size: var(--fs-ui);
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+@media (min-width: 861px) {
+  .ledger { padding: 24px 0 88px; }
+  .ledger__row { grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 40px 0; }
+  .ledger__item + .ledger__item { border-left: 1px solid var(--line); }
+  .ledger__label { font-size: var(--fs-small); }
+}
+
+/* Signature cards: all five in one row on wide screens */
+@media (min-width: 1200px) {
+  .sig-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px; }
+  .sig-body h3 { font-size: var(--fs-h4); }
+}

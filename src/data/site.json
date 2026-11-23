@@ -1,0 +1,49 @@
+{
+  "name": "Mary Chia",
+  "tagline": "Embrace beauty and be truly you.",
+  "url": "https://feisty171.github.io",
+  "bookingUrl": "/#book",
+  "whatsappUrl": "[[CONFIRM: WhatsApp number]]",
+  "email": "[[CONFIRM: enquiry email address]]",
+  "ogImage": "/images/hero-reception.webp",
+  "footerLinks": [
+    {
+      "label": "Services",
+      "href": "/treatments/"
+    },
+    {
+      "label": "About",
+      "href": "/about/"
+    },
+    {
+      "label": "Gift Cards",
+      "href": "[[CONFIRM: gift card page or remove]]"
+    },
+    {
+      "label": "Policies",
+      "href": "[[CONFIRM: policies page or remove]]"
+    },
+    {
+      "label": "Investor Relations",
+      "href": "/investors/"
+    },
+    {
+      "label": "Contact Us",
+      "href": "/contact/"
+    }
+  ],
+  "socials": [
+    {
+      "name": "Instagram",
+      "url": "https://www.instagram.com/marychiasg/"
+    },
+    {
+      "name": "Facebook",
+      "url": "[[CONFIRM: Facebook link]]"
+    },
+    {
+      "name": "TikTok",
+      "url": "[[CONFIRM: TikTok link or remove]]"
+    }
+  ]
+}

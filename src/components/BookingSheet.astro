@@ -1,0 +1,28 @@
+---
+/**
+ * "Book on WhatsApp" sheet — same design as on the Treatments page.
+ * Opened by public/js/treatment-cards.js. Studios come from src/data/outlets.json
+ * (only those with a confirmed WhatsApp number). Must sit inside an element with class "tp".
+ */
+import outlets from "../data/outlets.json";
+import { isPlaceholder } from "../lib/links";
+
+const studios = outlets
+  .filter((o) => !isPlaceholder(o.whatsapp))
+  .map((o) => ({
+    name: o.name,
+    address: `${o.address}, Singapore ${o.postalCode}`,
+    whatsapp: "65" + o.whatsapp.replace(/\D/g, "").slice(-8),
+  }));
+---
+<div class="sheet-backdrop" id="bookSheet" aria-hidden="true" data-studios={JSON.stringify(studios)}>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="bookSheetTitle">
+    <button class="sheet-close" type="button" aria-label="Close">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <p class="eyebrow">Book on WhatsApp</p>
+    <h3 id="bookSheetTitle"></h3>
+    <div class="studios"></div>
+    <small>We'll open WhatsApp with your treatment details filled in. Our team will confirm your slot.</small>
+  </div>
+</div>

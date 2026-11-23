@@ -1,0 +1,157 @@
+---
+/**
+ * Contact Us page: Our Location (map + studio cards), then Feedback/Enquiry.
+ * Career has its own page: src/pages/careers.astro.
+ * Words come from src/content/contact.md; studios from src/data/outlets.json.
+ * To change copy, edit those files — not this one.
+ */
+import Base from "../layouts/Base.astro";
+import Footer from "../components/Footer.astro";
+import site from "../data/site.json";
+import outlets from "../data/outlets.json";
+import { frontmatter as c } from "../content/contact.md";
+import { tel, waHref, isPlaceholder } from "../lib/links";
+
+const mailTo = isPlaceholder(site.email) ? "" : site.email;
+const mapEmbed = (o: { address: string; postalCode: string }) =>
+  "https://www.google.com/maps?q=" + encodeURIComponent(`Mary Chia, ${o.address}, Singapore ${o.postalCode}`) + "&output=embed";
+const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
+// schema.org: one BeautySalon per studio (placeholder values left out)
+const clean = (s?: string) => (s && !s.includes("[[CONFIRM") ? s : undefined);
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": outlets.map((o) => ({
+    "@type": "BeautySalon",
+    name: `${site.name} — ${o.name}`,
+    parentOrganization: { "@type": "Organization", "@id": `${site.url}/#organization`, name: site.name, url: site.url },
+    image: new URL(site.ogImage, site.url).href,
+    telephone: `+65 ${o.phone}`,
+    hasMap: o.mapsUrl,
+    openingHours: clean(o.hours),
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: o.address,
+      addressLocality: "Singapore",
+      postalCode: o.postalCode,
+      addressCountry: "SG",
+    },
+  })),
+};
+---
+<Base
+  title={c.seo.title}
+  description={c.seo.description}
+  current="contact"
+  solidHeader
+  bodyClass="page-contact"
+  styles={["contact.css"]}
+  scripts={["contact.js"]}
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <main>
+    <!-- ============ 1. OUR LOCATION ============ -->
+    <section class="a-section a-section--tint where-section" id="locations">
+      <div class="a-container">
+        <header class="a-head">
+          <p class="eyebrow">{c.locations.eyebrow}</p>
+          <h1 class="a-title">{c.locations.heading}</h1>
+          <p class="a-lede">{c.locations.lede}</p>
+        </header>
+        <div class="mrow">
+          <svg class="sg-map" viewBox="30 70 660 270" role="img" aria-label="Map of Mary Chia studios in Singapore">
+            <defs>
+              <pattern id="sgdots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".9" fill="rgba(165,85,92,.16)"/></pattern>
+              <radialGradient id="sgglow" cx=".5" cy=".55" r=".55"><stop offset="0" stop-color="rgba(233,190,180,.45)"/><stop offset="1" stop-color="rgba(233,190,180,0)"/></radialGradient>
+            </defs>
+            <ellipse cx="360" cy="215" rx="330" ry="190" fill="url(#sgglow)"/>
+            <path class="sg-land" d="M58 222C86 176 146 154 206 162C258 124 330 112 402 120C474 112 546 132 604 162C644 180 672 204 662 232C642 262 590 282 520 292C450 302 378 302 300 294C220 302 150 292 100 272C70 260 50 242 58 222Z"/>
+            <path class="sg-land sg-land--dots" d="M58 222C86 176 146 154 206 162C258 124 330 112 402 120C474 112 546 132 604 162C644 180 672 204 662 232C642 262 590 282 520 292C450 302 378 302 300 294C220 302 150 292 100 272C70 260 50 242 58 222Z" fill="url(#sgdots)"/>
+            <g class="sg-routes">
+              {outlets.slice(1).map((o) => (
+                <path d={`M${outlets[0].mapX} ${outlets[0].mapY} Q ${(outlets[0].mapX + o.mapX) / 2} ${Math.min(outlets[0].mapY, o.mapY) - 70} ${o.mapX} ${o.mapY}`} />
+              ))}
+            </g>
+            {outlets.map((o, i) => (
+              <g class:list={["nd", { hi: i === 0 }]} data-m={slug(o.name)} tabindex="0">
+                <circle class="rg" cx={o.mapX} cy={o.mapY} r="14" />
+                <circle class="plate" cx={o.mapX} cy={o.mapY} r="18" />
+                <circle class="core" cx={o.mapX} cy={o.mapY} r="5" />
+                <text x={o.mapX} y={o.mapY + 40} text-anchor="middle">{o.name}</text>
+              </g>
+            ))}
+          </svg>
+
+          <div class="where-side">
+            <div class="where-stats">
+              {c.locations.stats.map((st) => (
+                <div class="st">
+                  <p class="st__v" data-count={st.count ? st.value : undefined} data-suffix={st.suffix}>{st.value}{st.suffix}</p>
+                  <p class="st__k">{st.label}</p>
+                </div>
+              ))}
+            </div>
+            <ul class="mlist">
+              {outlets.map((o, i) => (
+                <li class:list={{ hi: i === 0 }} data-m={slug(o.name)}>
+                  <a href={`#studio-${slug(o.name)}`}>{o.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <header class="c-sub"><h3 class="c-sub__title">{c.locations.studiosHeading}</h3></header>
+        <div class="office-grid">
+          {outlets.map((o) => {
+            const wa = waHref(o.whatsapp);
+            return (
+              <article class="office" id={`studio-${slug(o.name)}`}>
+                <iframe class="office__map" src={mapEmbed(o)} loading="lazy" referrerpolicy="no-referrer-when-downgrade" title={`Map of Mary Chia ${o.name}`}></iframe>
+                <div class="office__body">
+                  <h3>{o.name}</h3>
+                  <p class="office__reg">{c.locations.studioLabel}</p>
+                  <p class="office__addr">{o.address}<br />Singapore {o.postalCode}</p>
+                  <div class="office__rows">
+                    <div><span class="k">Tel</span><a href={tel(o.phone)}>{o.phone}</a></div>
+                    <div><span class="k">Mobile</span><a href={tel(o.mobile)}>{o.mobile}</a></div>
+                    <div><span class="k">WhatsApp</span>{wa ? <a href={wa}>{o.whatsapp}</a> : <span>{o.whatsapp}</span>}</div>
+                    <div><span class="k">Hours</span><span>{o.hours}</span></div>
+                  </div>
+                  <a class="office__dir" href={o.mapsUrl} target="_blank" rel="noopener"><span class="dl"></span>{c.locations.directions}</a>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ============ 2. FEEDBACK / ENQUIRY ============ -->
+    <section class="a-section" id="enquiry">
+      <div class="a-container">
+        <header class="a-head a-head--center">
+          <p class="eyebrow">{c.enquiry.eyebrow}</p>
+          <h2 class="a-title">{c.enquiry.heading}</h2>
+          <p class="a-lede">{c.enquiry.lede}</p>
+        </header>
+        <form class="cform" id="contactForm" data-email={mailTo}>
+          <label class="visually-hidden" for="topic">{c.enquiry.topicLabel}</label>
+          <select name="topic" id="topic" aria-label={c.enquiry.topicLabel}>
+            {c.enquiry.topics.map((t) => <option>{t}</option>)}
+          </select>
+          <input type="text" name="name" placeholder={c.enquiry.namePlaceholder} autocomplete="name" required />
+          <input type="email" name="email" placeholder={c.enquiry.emailPlaceholder} autocomplete="email" required />
+          <textarea name="message" placeholder={c.enquiry.messagePlaceholder} required></textarea>
+          <button type="submit" class="btn btn--solid" disabled={!mailTo}>{c.enquiry.send}</button>
+          {!mailTo && <p class="a-note">{c.enquiry.formNote}</p>}
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>

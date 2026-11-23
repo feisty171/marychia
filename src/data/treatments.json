@@ -1,0 +1,499 @@
+{
+  "config": {
+    "pdfPath": "/menu/full-spa-menu.pdf",
+    "pdfDownloadName": "Mary-Chia-Treatment-Menu-Y27-28.pdf",
+    "currency": "S$",
+    "treatmentImageBase": "/images/treatments/",
+    "showPlaceholderHints": true
+  },
+  "siteImages": {
+    "hero": "/images/site/hero-treatments.webp",
+    "Face": "/images/site/tile-face.webp",
+    "Body": "/images/site/tile-body.webp",
+    "Wellness": "/images/site/tile-wellness.webp"
+  },
+  "services": {
+    "_note": "Heading above the Face / Body / Wellness tiles on /treatments/. Put *asterisks* around words to show them in italic rose. Each tile's treatment count, starting price and peek list come from the treatments below automatically.",
+    "eyebrow": "Find your ritual",
+    "heading": "Explore our *services*",
+    "lede": "Three ways to feel like you, each one personalised by our therapists."
+  },
+  "trending": {
+    "_note": "Spotlight section on /treatments/ (below the Face/Body/Wellness tiles). Pick up to 4 treatments by their id from the list below; name, description and price come from that treatment. label = the small tag shown next to the name. image = portrait photo (about 900 x 1100) in public/images/treatments/, or \"\" for a placeholder. Write the heading with *asterisks* around the words to show in italic rose.",
+    "eyebrow": "New & trending",
+    "heading": "This season's *spotlight*",
+    "lede": "New arrivals and the rituals our guests keep coming back for. Tap one to take a closer look.",
+    "badge": "New this season",
+    "autoplaySeconds": 6,
+    "items": [
+      {
+        "id": "clario-porcelain",
+        "label": "New",
+        "image": ""
+      },
+      {
+        "id": "five-elements",
+        "label": "New",
+        "image": ""
+      },
+      {
+        "id": "360-experience",
+        "label": "Signature",
+        "image": ""
+      },
+      {
+        "id": "juve-face-lift",
+        "label": "[[CONFIRM: Trending]]",
+        "image": ""
+      }
+    ]
+  },
+  "treatments": [
+    {
+      "id": "mc-signature-face",
+      "image": "mc-signature-face.webp",
+      "name": "MC Signature Face Therapy",
+      "category": "Face",
+      "tag": "Signature",
+      "for": "For skin that feels dry, tight or tired",
+      "description": "Our house facial: deep cellular hydration that drenches thirsty skin and lifts a tired complexion, leaving it soft, plump and refreshed.",
+      "keywords": [
+        "hydration",
+        "hydrating",
+        "moisture",
+        "dry skin",
+        "dull",
+        "tired",
+        "glow",
+        "facial",
+        "classic"
+      ],
+      "options": [
+        {
+          "label": "First Trial",
+          "minutes": 60,
+          "price": 69,
+          "compareAt": 189
+        },
+        {
+          "label": "Usual",
+          "minutes": 60,
+          "price": 189
+        }
+      ]
+    },
+    {
+      "id": "juve-face-lift",
+      "image": "",
+      "name": "JUVE Face Lift Therapy",
+      "category": "Face",
+      "for": "For skin that looks less firm, and facial contour concerns",
+      "description": "A sculpting ritual designed to firm and define, so the jawline and cheekbones look lifted and the skin feels taut and renewed.",
+      "keywords": [
+        "lift",
+        "lifting",
+        "firm",
+        "firming",
+        "contour",
+        "sagging",
+        "jawline",
+        "anti-aging",
+        "anti-ageing",
+        "wrinkles"
+      ],
+      "options": [
+        {
+          "label": "First Trial",
+          "minutes": 60,
+          "price": 99,
+          "compareAt": 280
+        },
+        {
+          "label": "Usual",
+          "minutes": 60,
+          "price": 280
+        }
+      ]
+    },
+    {
+      "id": "clario-porcelain",
+      "image": "clario-porcelain.webp",
+      "name": "CLARIO Porcelain Skin Therapy",
+      "category": "Face",
+      "tag": "New",
+      "for": "For sensitive, redness-prone and acne-prone skin",
+      "description": "Gentle microneedling infusion that helps calm visible redness, refine pores and support the skin barrier for a smooth, porcelain finish. No downtime.",
+      "keywords": [
+        "microneedling",
+        "redness",
+        "sensitive",
+        "acne",
+        "pores",
+        "texture",
+        "barrier",
+        "hydration",
+        "calm",
+        "clario",
+        "glass skin"
+      ],
+      "options": [
+        {
+          "label": "First Trial",
+          "minutes": 60,
+          "price": 298,
+          "compareAt": 980
+        },
+        {
+          "label": "Usual",
+          "minutes": 60,
+          "price": 980
+        }
+      ]
+    },
+    {
+      "id": "venus-freeze-face",
+      "image": "",
+      "name": "Venus Freeze Face Toning",
+      "category": "Face",
+      "for": "For a firmer, more toned-looking facial contour",
+      "description": "Soothing, comfortable warmth works across the face, designed to tone and tighten. Pick a quick lunchtime refresh or a longer sculpting session.",
+      "keywords": [
+        "toning",
+        "tightening",
+        "firm",
+        "lift",
+        "contour",
+        "warm",
+        "radio frequency",
+        "rf",
+        "anti-aging",
+        "quick"
+      ],
+      "options": [
+        {
+          "label": "20 min",
+          "minutes": 20,
+          "price": 280
+        },
+        {
+          "label": "30 min",
+          "minutes": 30,
+          "price": 380
+        },
+        {
+          "label": "40 min",
+          "minutes": 40,
+          "price": 480
+        },
+        {
+          "label": "60 min",
+          "minutes": 60,
+          "price": 680
+        },
+        {
+          "label": "70 min",
+          "minutes": 70,
+          "price": 780
+        }
+      ]
+    },
+    {
+      "id": "lemongrass-lymphatic",
+      "image": "",
+      "name": "Lemongrass Lymphatic Drainage",
+      "category": "Body",
+      "tag": "Signature",
+      "for": "For a tired, sluggish body",
+      "description": "A zesty lemongrass scrub and flowing drainage strokes that awaken sleepy cells and leave you feeling light, lifted and refreshed.",
+      "keywords": [
+        "lymphatic",
+        "drainage",
+        "detox",
+        "scrub",
+        "puffiness",
+        "bloating",
+        "light",
+        "refresh",
+        "massage",
+        "tired"
+      ],
+      "options": [
+        {
+          "label": "First Trial",
+          "minutes": 60,
+          "price": 89,
+          "compareAt": 280
+        },
+        {
+          "label": "Usual",
+          "minutes": 60,
+          "price": 280
+        }
+      ]
+    },
+    {
+      "id": "lpg-cellu-m6-body",
+      "image": "",
+      "name": "LPG Cellu M6 Alliance",
+      "category": "Body",
+      "for": "For cellulite and loose-looking skin",
+      "description": "Rhythmic mechanical massage that smooths the look of cellulite and helps skin feel firmer. Target one area or treat several in a longer session.",
+      "keywords": [
+        "cellulite",
+        "firm",
+        "firming",
+        "smooth",
+        "sculpt",
+        "tone",
+        "loose skin",
+        "contouring",
+        "slimming",
+        "lpg"
+      ],
+      "options": [
+        {
+          "label": "15 min",
+          "minutes": 15,
+          "price": 280
+        },
+        {
+          "label": "30 min",
+          "minutes": 30,
+          "price": 580
+        },
+        {
+          "label": "45 min",
+          "minutes": 45,
+          "price": 780
+        }
+      ]
+    },
+    {
+      "id": "venus-freeze-body",
+      "image": "",
+      "name": "Venus Freeze Body Toning",
+      "category": "Body",
+      "for": "For tone and definition on arms, tummy and thighs",
+      "description": "Comfortable, deep warmth glides over the body, designed to tone and tighten so skin looks smoother and more defined. Choose the time that suits your areas.",
+      "keywords": [
+        "toning",
+        "tightening",
+        "sculpt",
+        "contour",
+        "slimming",
+        "tummy",
+        "thighs",
+        "arms",
+        "warm",
+        "rf"
+      ],
+      "options": [
+        {
+          "label": "20 min",
+          "minutes": 20,
+          "price": 280
+        },
+        {
+          "label": "30 min",
+          "minutes": 30,
+          "price": 380
+        },
+        {
+          "label": "40 min",
+          "minutes": 40,
+          "price": 480
+        },
+        {
+          "label": "60 min",
+          "minutes": 60,
+          "price": 680
+        },
+        {
+          "label": "70 min",
+          "minutes": 70,
+          "price": 780
+        }
+      ]
+    },
+    {
+      "id": "breast-lymph-drainage",
+      "image": "",
+      "name": "Breast Lymph Node Drainage Therapy",
+      "category": "Body",
+      "for": "For a fuller look using natural wellness techniques",
+      "description": "A gentle technique working across the lymph nodes around the bust to encourage drainage and circulation, leaving you lighter and cared for.",
+      "keywords": [
+        "bust",
+        "breast",
+        "lymphatic",
+        "drainage",
+        "circulation",
+        "firm",
+        "women",
+        "detox"
+      ],
+      "options": [
+        {
+          "label": "60 min",
+          "minutes": 60,
+          "price": 280
+        }
+      ]
+    },
+    {
+      "id": "five-elements",
+      "image": "five-elements.webp",
+      "name": "Five Elements Signature Wellness",
+      "category": "Wellness",
+      "tag": "New",
+      "for": "For everyday aches, stiffness and tension",
+      "description": "A warming ritual of our 15-ingredient fermented vinegar blend, moxibustion, cupping and gua sha that helps ease stiffness and leaves skin soft and nourished.",
+      "keywords": [
+        "aches",
+        "pain",
+        "tension",
+        "stiffness",
+        "stress",
+        "relax",
+        "deep tissue",
+        "muscle",
+        "back",
+        "shoulder",
+        "neck",
+        "legs",
+        "sleep",
+        "moxibustion",
+        "cupping",
+        "gua sha",
+        "guasha",
+        "tcm",
+        "warming",
+        "qi",
+        "circulation"
+      ],
+      "optionLabel": "Choose your focus",
+      "options": [
+        {
+          "label": "First Trial",
+          "minutes": 60,
+          "price": 99,
+          "compareAt": 380
+        },
+        {
+          "label": "Back & Shoulder",
+          "minutes": 60,
+          "price": 380
+        },
+        {
+          "label": "Lower Legs",
+          "minutes": 60,
+          "price": 380
+        },
+        {
+          "label": "Upper Legs",
+          "minutes": 60,
+          "price": 380
+        },
+        {
+          "label": "Tummy",
+          "minutes": 60,
+          "price": 380
+        }
+      ]
+    },
+    {
+      "id": "360-experience",
+      "image": "",
+      "name": "360 Experience",
+      "category": "Wellness",
+      "tag": "Signature",
+      "for": "A full unwind, head to toe",
+      "description": "Your own curated journey: a face therapy, face add-on, eye care and a body wellness therapy, all chosen for you in one long, unhurried visit.",
+      "keywords": [
+        "package",
+        "full body",
+        "head to toe",
+        "relax",
+        "stress",
+        "pamper",
+        "facial",
+        "eye",
+        "detox",
+        "gift",
+        "indulgent",
+        "premium"
+      ],
+      "optionLabel": "Choose your experience",
+      "options": [
+        {
+          "label": "Essential · First Trial",
+          "minutes": 150,
+          "price": 799,
+          "compareAt": 1590
+        },
+        {
+          "label": "Essential",
+          "minutes": 150,
+          "price": 1590
+        },
+        {
+          "label": "Premium · First Trial",
+          "minutes": 195,
+          "price": 999
+        }
+      ]
+    },
+    {
+      "id": "electro-lymphatic",
+      "image": "",
+      "name": "Intensive Electro Lymphatic Detox",
+      "category": "Wellness",
+      "for": "For heaviness, puffiness and a sluggish feeling",
+      "description": "Gentle electro-stimulation designed to encourage lymphatic flow and ease that heavy, puffy feeling, so you leave feeling lighter and re-energised.",
+      "keywords": [
+        "lymphatic",
+        "detox",
+        "puffiness",
+        "bloating",
+        "heavy",
+        "water retention",
+        "energy",
+        "circulation"
+      ],
+      "options": [
+        {
+          "label": "60 min",
+          "minutes": 60,
+          "price": 280
+        }
+      ]
+    },
+    {
+      "id": "mud-thermal",
+      "image": "",
+      "name": "Mud Therapy with Thermal Blanket",
+      "category": "Wellness",
+      "for": "A comforting add-on for any body ritual",
+      "description": "Warm mud cocooned beneath a thermal blanket. Fifteen quiet minutes of deep, enveloping heat to soothe the body and settle the mind.",
+      "keywords": [
+        "warm",
+        "heat",
+        "relax",
+        "stress",
+        "calm",
+        "add-on",
+        "wrap",
+        "detox",
+        "cosy",
+        "unwind"
+      ],
+      "options": [
+        {
+          "label": "15 min",
+          "minutes": 15,
+          "price": 128
+        }
+      ]
+    }
+  ]
+}

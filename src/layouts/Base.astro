@@ -1,0 +1,96 @@
+---
+/**
+ * Base page layout: <head>, SEO / Open Graph tags, header, and shared scripts.
+ * Every page wraps its content in <Base>.
+ */
+import Header from "../components/Header.astro";
+import site from "../data/site.json";
+
+interface Props {
+  title: string;
+  description: string;
+  current?: string;
+  solidHeader?: boolean;
+  bodyClass?: string;
+  ogImage?: string;
+  styles?: string[];     // extra stylesheets in /public/css
+  scripts?: string[];    // extra scripts in /public/js
+}
+const {
+  title,
+  description,
+  current,
+  solidHeader = false,
+  bodyClass,
+  ogImage = site.ogImage,
+  styles = [],
+  scripts = [],
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const ogImageUrl = new URL(ogImage, site.url).href;
+const isDev = import.meta.env.DEV;
+---
+<!doctype html>
+<html lang="en-SG">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={site.name} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImageUrl} />
+  <meta property="og:locale" content="en_SG" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Figtree:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="/css/style.css" />
+  {styles.map((s) => <link rel="stylesheet" href={`/css/${s}`} />)}
+  <slot name="head" />
+</head>
+<body class={bodyClass}>
+  <Header current={current} solid={solidHeader} />
+  <slot />
+  <script is:inline src="/js/main.js"></script>
+  {scripts.map((s) => <script is:inline src={`/js/${s}`}></script>)}
+
+  {isDev && (
+    <>
+      <!-- DEV ONLY: highlight [[CONFIRM: ...]] placeholders in yellow. Not included in the production build. -->
+      <style is:inline>
+        .confirm-flag { background: #fff176; color: #2b2326; padding: 0 .2em; border-radius: 2px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+      </style>
+      <script is:inline>
+        (function () {
+          var re = /\[\[CONFIRM[^\]]*\]\]/g;
+          var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+          var nodes = [];
+          while (walker.nextNode()) if (re.test(walker.currentNode.nodeValue)) nodes.push(walker.currentNode);
+          nodes.forEach(function (node) {
+            var frag = document.createDocumentFragment();
+            var text = node.nodeValue, last = 0;
+            text.replace(re, function (m, i) {
+              frag.appendChild(document.createTextNode(text.slice(last, i)));
+              var mark = document.createElement("mark");
+              mark.className = "confirm-flag";
+              mark.textContent = m;
+              frag.appendChild(mark);
+              last = i + m.length;
+            });
+            frag.appendChild(document.createTextNode(text.slice(last)));
+            node.parentNode.replaceChild(frag, node);
+          });
+        })();
+      </script>
+    </>
+  )}
+</body>
+</html>
