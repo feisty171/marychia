@@ -31,7 +31,8 @@ function addBaseToLinks() {
         const tops = (await readdir(root)).filter((n) => n !== b && n !== "index.html");
         const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
         const seg = tops.map(esc).join("|");
-        const rootLink = new RegExp(`(^|["'\`(=,\\s])/(${seg})(?=[/"'\`?#)\\s,]|$)`, "gm");
+        // Also matches after an HTML-encoded quote (&#34; or &quot;), as in style="--x:url(&#34;/images/…&#34;)".
+        const rootLink = new RegExp(`(^|["'\`(=,\\s]|&#34;|&quot;|&#39;)/(${seg})(?=[/"'\`?#)\\s,&]|$)`, "gm");
         const homeLink = /(href=|"url":\s*)"\/"/g;
         // Any other root link in an HTML attribute, e.g. href="/#shop" or a page not built yet.
         const attrLink = new RegExp(`((?:href|src|action|poster)=["'])/(?!/|${esc(b)}(?:/|["'#?]))`, "g");
