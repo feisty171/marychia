@@ -58,7 +58,8 @@
     "LPG Cellu M6 Alliance (Body)": "lpg-body.webp",
     "MC Customised Facial": "mc-customised-facial.webp",
     "Cryoboost Face Spa": "cryoboost-face-spa.webp",
-    "OXY 4-Step Deluxe Face Rejuvenation": "oxy-4-step-deluxe.webp"
+    "OXY 4-Step Deluxe Face Rejuvenation": "oxy-4-step-deluxe.webp",
+    "CLARIO Lumiglow Booster Therapy": "clario-lumiglow.webp"
   },
   "filters": {
     "_note": "Rituals page (/rituals/) Time pills (min / max minutes; null = no upper limit). The treatments, concerns and collections come from the menu workbook via `npm run build:treatments` (src/data/treatment-menu.json). The Budget slider runs from the cheapest to the most expensive price on the site, worked out from that list.",
