@@ -58,7 +58,7 @@ if (CONFIG.showPlaceholderHints) document.getElementById("tp").classList.add("sh
 
 // Category tiles (Treatments page): each opens the list on /rituals/, filtered to that category
 const TILE_COPY = { Face: "Glow, lift & clarity", Body: "Sculpt, tone & detox", Wellness: "Restore & unwind" };
-// Each tile also shows how many treatments it holds, "from S$xx" (lowest price), and (on hover) a peek at their names
+// Each tile also shows how many treatments it holds and "from S$xx" (lowest price)
 const inCat = c => TREATMENTS.filter(t => t.category === c);
 const catFrom = list => fmt(Math.min(...list.flatMap(t => t.options.map(o => o.price))));
 if ($("#tiles")) $("#tiles").innerHTML = ["Face", "Body", "Wellness"].map(c => {
@@ -68,7 +68,6 @@ if ($("#tiles")) $("#tiles").innerHTML = ["Face", "Body", "Wellness"].map(c => {
     <div class="media">${mediaHTML(SITE_IMAGES[c], c, c + " treatments", "Tile · 700 × 840")}</div>
     <div class="tile-label">
       <div class="tile-text">
-        <ul class="tile-peek" aria-hidden="true">${list.slice(0, 4).map((t, i) => `<li style="--d:${i}">${esc(t.name)}</li>`).join("")}</ul>
         <h3>${c}</h3><small>${TILE_COPY[c]}</small>
         ${list.length ? `<p class="tile-meta">${list.length} treatments <span aria-hidden="true">·</span> from ${catFrom(list)}</p>` : ""}
       </div>

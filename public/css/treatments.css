@@ -112,21 +112,14 @@
   .tp .svc-ribbon{left:auto;right:-24px;top:-40px;width:70%;height:100px}
 }
 
-/* Tiles: treatment count + "from" price, and a peek list of names on hover */
+/* Tiles: treatment count + "from" price */
 .tp .tile-meta{margin:12px 0 0;font-size:var(--fs-caption);font-weight:500;letter-spacing:var(--tracking-ui);color:rgba(255,255,255,.92)}
-.tp .tile-peek{max-height:0;overflow:hidden;margin:0;padding:0;list-style:none;opacity:0;transition:max-height .55s cubic-bezier(.2,.7,.2,1),opacity .3s ease,margin .5s ease}
-.tp .tile-peek li{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;padding:3px 0 3px 14px;position:relative;font-size:var(--fs-caption);color:rgba(255,255,255,.9);transform:translateY(8px);opacity:0;transition:transform .45s ease calc(var(--d) * 60ms + .1s),opacity .45s ease calc(var(--d) * 60ms + .1s)}
-.tp .tile-peek li::before{content:"";position:absolute;left:0;top:50%;width:6px;height:1px;background:var(--rose-lt)}
 .tp .tile-text{min-width:0}
-.tp .tile:hover .tile-peek,.tp .tile:focus-visible .tile-peek{max-height:140px;opacity:1;margin-bottom:16px}
-.tp .tile:hover .tile-peek li,.tp .tile:focus-visible .tile-peek li{transform:none;opacity:1}
 .tp .tile::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,transparent 25%,rgba(var(--shade),.7) 100%);opacity:0;transition:opacity .45s ease;pointer-events:none}
 .tp .tile:hover::before,.tp .tile:focus-visible::before{opacity:1}
 .tp .tile .media img{transition:transform .9s cubic-bezier(.2,.7,.2,1)}
-/* Touch screens (no hover): show the peek list all the time */
+/* Touch screens (no hover): keep the shading on so the label stays readable */
 @media (hover:none){
-  .tp .tile .tile-peek{max-height:140px;opacity:1;margin-bottom:14px}
-  .tp .tile .tile-peek li{transform:none;opacity:1}
   .tp .tile::before{opacity:1;background:linear-gradient(180deg,rgba(var(--shade),.25) 0%,transparent 35%,rgba(var(--shade),.72) 100%)}
 }
 @media (max-width:760px){.tp .tile-meta{letter-spacing:normal;white-space:nowrap}}

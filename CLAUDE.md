@@ -150,7 +150,7 @@ Edit `src/data/treatments.json`, under `"treatments"`. Each treatment has:
 Prices must match the Y27/28 menu PDF and the Home page signature cards (`src/content/home.md`).
 
 ### Treatments page: "Explore our services" heading and tiles
-The heading above the Face / Body / Wellness tiles is `"services"` in `src/data/treatments.json`: `eyebrow`, `heading` (`*asterisks*` = italic rose) and `lede` (the short line on the right). Each tile's treatment count, "from S$xx" price and hover peek list of names are worked out from the treatments in the same file, so they update on their own. The ribbon line that draws in above the heading is in `src/pages/treatments.astro` (styles: `.svc-ribbon` in `public/css/treatments.css`).
+The heading above the Face / Body / Wellness tiles is `"services"` in `src/data/treatments.json`: `eyebrow`, `heading` (`*asterisks*` = italic rose) and `lede` (the short line on the right). Each tile's treatment count and "from S$xx" price are worked out from the treatments in the same file, so they update on their own. The ribbon line that draws in above the heading is in `src/pages/treatments.astro` (styles: `.svc-ribbon` in `public/css/treatments.css`).
 
 ### Treatments page: "New & trending" banners
 Below the Face / Body / Wellness tiles on `/treatments/`: a heading, then three banners: one wide banner on top and two half-width banners side by side under it, edge to edge. Edit `"trending"` in `src/data/treatments.json`:
