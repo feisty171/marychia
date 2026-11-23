@@ -8,6 +8,7 @@
   },
   "siteImages": {
     "hero": "/images/site/hero-treatments.webp",
+    "rituals": "/images/site/hero-treatments.webp",
     "Face": "/images/site/tile-face.webp",
     "Body": "/images/site/tile-body.webp",
     "Wellness": "/images/site/tile-wellness.webp"

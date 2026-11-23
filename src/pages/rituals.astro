@@ -40,8 +40,8 @@ const pageData = { ...data, studios };
 
   <div class="tp" id="tp">
 <main>
-<!-- ======================= MENU ======================= -->
-<section class="menu-section" id="menu">
+<!-- ======================= HEADING (photo: "siteImages" → "rituals" in src/data/treatments.json) ======================= -->
+<section class="rl-hero" style={data.siteImages.rituals ? `--rl-hero-img:url("${data.siteImages.rituals}")` : undefined}>
   <div class="wrap">
     <a class="back-link" href="/treatments/">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 12H5m5-5-5 5 5 5"/></svg>
@@ -54,6 +54,12 @@ const pageData = { ...data, studios };
       </div>
       <p>Choose your session, then book with the studio nearest you. Our therapists will tailor every treatment to you on the day.</p>
     </div>
+  </div>
+</section>
+
+<!-- ======================= MENU ======================= -->
+<section class="menu-section" id="menu">
+  <div class="wrap">
 
     <div class="rl">
       <!-- Filter sidebar. Desktop: sticky column on the left. Phones/tablets: the "Filters" sheet.

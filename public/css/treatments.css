@@ -83,8 +83,19 @@
 }
 .tp .menu-section{padding:56px 0 24px;scroll-margin-top:40px}
 /* Rituals page: the list is the first thing under the light header */
-.page-rituals .tp .menu-section{padding-top:calc(76px + 56px)}
-@media (max-width:960px){.page-rituals .tp .menu-section{padding-top:calc(68px + 40px)}}
+.page-rituals .tp .menu-section{padding-top:40px}
+/* Rituals heading on the spa-room photo ("siteImages" → "rituals" in src/data/treatments.json) */
+.tp .rl-hero{position:relative;padding:calc(76px + 56px) 0 clamp(48px,6vw,80px);color:var(--white);
+  background:linear-gradient(90deg,rgba(var(--shade),.62) 0%,rgba(var(--shade),.42) 45%,rgba(var(--shade),.22) 100%),
+    linear-gradient(180deg,rgba(var(--shade),.35) 0%,rgba(var(--shade),0) 40%),
+    var(--rl-hero-img,none) center 60% / cover no-repeat,var(--dark)}
+.tp .rl-hero .section-head{margin-bottom:0}
+.tp .rl-hero .back-link{color:rgba(255,255,255,.85)}
+.tp .rl-hero .back-link:hover{color:var(--white)}
+.tp .rl-hero .eyebrow{color:var(--rose-lt)}
+.tp .rl-hero .section-head h1{color:var(--white)}
+.tp .rl-hero .section-head p{color:rgba(255,255,255,.9)}
+@media (max-width:960px){.tp .rl-hero{padding-top:calc(68px + 40px)}}
 /* Rituals page: "Back to Treatments" link above the heading */
 .tp .back-link{display:inline-flex;align-items:center;gap:10px;margin-bottom:28px;font-size:var(--fs-caption);font-weight:500;letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--ink-soft);transition:color .2s ease}
 .tp .back-link svg{width:18px;height:18px;transition:transform .2s ease}
