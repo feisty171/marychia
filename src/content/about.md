@@ -65,8 +65,8 @@ milestones:
   - year: "2013–2016"
     title: "Excellence in Service and Leadership"
     text: "Beyond the studios, Mary Chia grew its community impact through charitable initiatives and partnerships designed to inspire confidence and connection. The Group was recognised for service excellence and leadership, including the Singapore Service Class accreditation and the ASEAN Outstanding Business Award."
-    image: ""
-    imageAlt: "Mary Chia team receiving a service excellence award"
+    image: "/images/heritage/2013-2016.webp"
+    imageAlt: "A Mary Chia leader holding an Outstanding Category award on stage, flanked by two guests"
 
   - year: "2018–2019"
     title: "A Singapore Heritage Brand"
