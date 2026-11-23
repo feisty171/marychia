@@ -70,7 +70,8 @@
     "Dermabright Facial": "dermabright-facial.webp",
     "Hydro H2O 6 in 1": "hydro-h2o-6-in-1.webp",
     "CLARIO 5G Pigment Clear Therapy": "clario-pigment-clear.webp",
-    "MC Classic Coffee Drainage Therapy": "classic-coffee-drainage.webp"
+    "MC Classic Coffee Drainage Therapy": "classic-coffee-drainage.webp",
+    "Intensive Electro Lymphatic Detox": "electro-lymphatic.webp"
   },
   "filters": {
     "_note": "Rituals page (/rituals/) Time pills (min / max minutes; null = no upper limit). The treatments, concerns and collections come from the menu workbook via `npm run build:treatments` (src/data/treatment-menu.json). The Budget slider runs from the cheapest to the most expensive price on the site, worked out from that list.",
