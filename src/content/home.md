@@ -57,7 +57,7 @@ services:
       tag: "Signature"
       for: "For skin that feels dry, tight or tired"
       description: "Deep hydration designed to leave your skin feeling soft, fresh and comfortable again."
-      image: ""
+      image: "/images/treatments/hydration-booster-facial-square.webp"
       imageAlt: "A therapist applying a hydrating mask during a facial"
       options:
         - { label: "First Trial", minutes: 75, price: 69, compareAt: 189 }
@@ -67,7 +67,7 @@ services:
       category: "Face"
       for: "For skin that looks dull or uneven"
       description: "Plant actives and hyaluronic acid help your complexion look calmer, clearer and more radiant."
-      image: ""
+      image: "/images/treatments/classic-radiance-revival-square.webp"
       imageAlt: "Close-up of glowing, freshly treated skin"
       options:
         - { label: "First Trial", minutes: 60, price: 69, compareAt: 280 }
@@ -77,7 +77,7 @@ services:
       category: "Body"
       for: "For a tired, sluggish body"
       description: "A warm Brazilian coffee scrub and drainage massage. You leave feeling lighter, brighter and properly looked after."
-      image: ""
+      image: "/images/treatments/classic-coffee-drainage-square.webp"
       imageAlt: "Warm coffee scrub being applied during a body treatment"
       options:
         - { label: "First Trial", minutes: 60, price: 89, compareAt: 280 }
