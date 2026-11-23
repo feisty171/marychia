@@ -1208,25 +1208,6 @@
       "minutes": []
     },
     {
-      "id": "five-elements-back-shoulder",
-      "name": "Five Elements Back & Shoulder",
-      "category": "Wellness",
-      "tag": "",
-      "collection": "Five Elements Wellness",
-      "for": "You have tight shoulders, back tension, cold hands or poor sleep",
-      "description": "Helps with aches & tension.",
-      "image": "",
-      "concerns": [
-        "aches"
-      ],
-      "from": 380,
-      "priceText": "",
-      "trialPrice": null,
-      "minutes": [
-        60
-      ]
-    },
-    {
       "id": "acu-stimo-body",
       "name": "Acu-Stimo Body Therapy",
       "category": "Wellness",
