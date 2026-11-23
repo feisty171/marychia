@@ -89,8 +89,8 @@ const [heroBefore, heroEm = "", heroAfter = ""] = h.hero.headline.split("*");
       <div class="h-container h-container--full">
         {h.banner?.image
           ? (h.banner.link
-              ? <a class="h-banner__frame" href={h.banner.link}><img src={h.banner.image} alt={h.banner.alt} loading="lazy" /></a>
-              : <div class="h-banner__frame"><img src={h.banner.image} alt={h.banner.alt} loading="lazy" /></div>)
+              ? <a class="h-banner__frame" href={h.banner.link}><img src={h.banner.image} alt={h.banner.alt} loading="lazy" style={`object-position:${h.banner.phoneFocus || "center"} center`} /></a>
+              : <div class="h-banner__frame"><img src={h.banner.image} alt={h.banner.alt} loading="lazy" style={`object-position:${h.banner.phoneFocus || "center"} center`} /></div>)
           : (
             <div class="h-banner__frame h-banner__frame--ph" role="img" aria-label="Ad banner placeholder">
               <span class="h-banner__label">Ad banner</span>

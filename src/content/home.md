@@ -110,11 +110,14 @@ services:
 #   image:   e.g. "/images/banners/your-banner.webp" (wide, about 1920 x 480; phones crop the sides)
 #   alt:     what the banner says or shows, for screen readers
 #   link:    where it goes when clicked, e.g. "/treatments/" (leave "" for no link)
+#   phoneFocus: which side to keep when phones crop the sides: "left", "center" or "right"
+#            (use the side the person or main message is on)
 # No before-and-after images or guaranteed results (see CLAUDE.md).
 banner:
-  image: ""
-  alt: ""
+  image: "/images/banners/hydration-banner.webp"
+  alt: "A woman resting her face on rippling water, her skin dewy with water droplets"
   link: ""
+  phoneFocus: "right"
 
 # Products, below the ad banner. "Shelf" design: tinted photo panels with the
 # details underneath (deliberately different from the Signature treatment cards).
