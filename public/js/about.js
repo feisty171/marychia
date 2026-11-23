@@ -69,6 +69,14 @@
     window.addEventListener("resize", setFade);
     setFade();
   }
+  // End of "Our history": draw the closing line when it comes into view
+  var close = document.querySelector(".story-close");
+  if (close) {
+    if (still || !("IntersectionObserver" in window)) close.classList.add("is-in");
+    else new IntersectionObserver(function (entries, obs) {
+      if (entries[0].isIntersecting) { close.classList.add("is-in"); obs.disconnect(); }
+    }, { threshold: 0.4 }).observe(close);
+  }
   if (story && !still && "IntersectionObserver" in window) {
     story.classList.add("fade-in");
     new IntersectionObserver(function (entries, obs) {

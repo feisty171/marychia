@@ -90,6 +90,8 @@ milestones:
     imageAlt: "The Mary Chia and Organica International team at a company celebration in 2025"
 
 imagePlaceholder: "[[CONFIRM: heritage photo]]"
+# The closing line under the timeline, just before "What drives us".
+storyClose: "Today, the story continues with you."
 
 # ---------- 3. Vision & Mission ----------
 visionMission:

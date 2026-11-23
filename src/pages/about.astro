@@ -108,6 +108,14 @@ const jsonLd = {
       </div>
     </section>
 
+    <!-- Chapter close: a line draws down to "the story continues", then Vision & Mission opens on a curved tint panel -->
+    {c.storyClose && (
+      <div class="story-close">
+        <span class="story-close__line" aria-hidden="true"></span>
+        <p class="story-close__text">{c.storyClose}</p>
+      </div>
+    )}
+
     <!-- ============ 3. VISION & MISSION ============ -->
     <section class="a-section vm-section" id="vision-mission">
       <div class="a-container">
