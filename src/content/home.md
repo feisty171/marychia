@@ -88,8 +88,8 @@ services:
       tag: "Signature"
       for: "For a tired, sluggish body"
       description: "A zesty lemongrass scrub and flowing drainage strokes that awaken sleepy cells and leave you feeling light, lifted and refreshed."
-      image: ""
-      imageAlt: "A lemongrass body scrub being applied"
+      image: "/images/treatments/lemongrass-lymphatic-square.webp"
+      imageAlt: "A Mary Chia therapist giving a client a lymphatic drainage massage"
       options:
         - { label: "First Trial", minutes: 60, price: 89, compareAt: 280 }
         - { label: "Usual", minutes: 60, price: 280 }
