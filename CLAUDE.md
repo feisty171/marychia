@@ -19,6 +19,7 @@ Static site built with [Astro](https://astro.build). No CMS, no database. The ma
 | About Us page words (heritage opening, timeline milestones + photos, vision & mission, SEO title/description) | `src/content/about.md` |
 | Contact Us page words (Our Location, Feedback/Enquiry form topics) | `src/content/contact.md` |
 | Career page words (/careers/: intro, roles, how to apply) | `src/content/careers.md` |
+| Gallery / Results page (/gallery/: heading, filters, client results with before/after photos, disclaimer, closing button) | `src/content/gallery.md` (photos in `public/images/results/`) |
 | Treatments (`/treatments/`: hero + Face/Body/Wellness tiles) and Rituals (`/rituals/`: the full treatment list) — treatments, prices, session options, search keywords, images, full-menu PDF settings | `src/data/treatments.json` |
 | Full treatment menu PDF | `public/menu/full-spa-menu.pdf` |
 | Treatments tiles + Rituals list behaviour (search, filters, WhatsApp booking sheet) | `public/js/treatments.js` |
@@ -29,8 +30,9 @@ Static site built with [Astro](https://astro.build). No CMS, no database. The ma
 | Header / nav, including the Treatments, About Us and Contact Us dropdowns: edit `treatments` and `dropdowns`; the dropdown markup is `src/components/NavDropdown.astro` (each link should appear in only one dropdown) | `src/components/Header.astro` |
 | Footer | `src/components/Footer.astro` |
 | Shared `<head>`, SEO + Open Graph tags | `src/layouts/Base.astro` |
-| Page templates | `src/pages/index.astro` (Home), `src/pages/about.astro`, `src/pages/treatments.astro`, `src/pages/rituals.astro` (treatment list), `src/pages/investors.astro`, `src/pages/contact.astro`, `src/pages/careers.astro` |
-| Styles | `public/css/style.css` (shared), `public/css/home.css`, `public/css/about.css`, `public/css/treatments.css`, `public/css/investors.css`, `public/css/contact.css`, `public/css/careers.css` |
+| Page templates | `src/pages/index.astro` (Home), `src/pages/about.astro`, `src/pages/treatments.astro`, `src/pages/rituals.astro` (treatment list), `src/pages/gallery.astro` (Gallery / Results), `src/pages/investors.astro`, `src/pages/contact.astro`, `src/pages/careers.astro` |
+| Styles | `public/css/style.css` (shared), `public/css/home.css`, `public/css/about.css`, `public/css/treatments.css`, `public/css/gallery.css`, `public/css/investors.css`, `public/css/contact.css`, `public/css/careers.css` |
+| Gallery / Results filter buttons | `public/js/gallery.js` |
 | About page behaviour (scrolling timeline) | `public/js/about.js` |
 | Contact page behaviour (studio map highlights, count-up stats, enquiry form) | `public/js/contact.js` |
 | Link helpers (phone, WhatsApp, placeholder checks) | `src/lib/links.ts` |
@@ -163,6 +165,28 @@ Below the Face / Body / Wellness tiles on `/treatments/`. Edit `"trending"` in `
 - While `"showPlaceholderHints"` is `true`, empty photo slots show their recommended size. Set it to `false` before launch.
 - To replace the full menu, overwrite `public/menu/full-spa-menu.pdf` and update `"pdfDownloadName"`.
 - "Book Now" opens WhatsApp to the studio the visitor picks, using the `whatsapp` numbers in `src/data/outlets.json`. A studio without a confirmed number is left out of the list.
+
+### Gallery / Results page: add a client result
+The page is `/gallery/`, linked from the Treatments dropdown ("Gallery / Results"). Everything on it is in `src/content/gallery.md`.
+
+1. **Get written consent first.** Only real clients who have signed permission for their photos to go on the website. Marketing keeps the signed form. No retouching.
+2. Put the photos in `public/images/results/`, named like `clario-2026-01-before.webp` and `clario-2026-01-after.webp` (lowercase, no spaces). Before and after should be portrait (about 800×1000) with the same framing and lighting. For one combined picture instead, use landscape, about 1600×1200.
+3. In `src/content/gallery.md`, add a block at the **top** of `results:` (newest first):
+
+```yaml
+  - treatment: "clario-porcelain"
+    note: "After 3 sessions over 6 weeks"
+    before: "/images/results/clario-2026-01-before.webp"
+    after: "/images/results/clario-2026-01-after.webp"
+    alt: "Client's cheek before and after CLARIO Porcelain Skin Therapy"
+    consent: true
+```
+
+- `treatment` is the treatment's `id` from `src/data/treatments.json`; its name, Face/Body/Wellness filter and link fill in automatically.
+- For one combined picture, use `image: "/images/results/….webp"` instead of `before` and `after`.
+- **Photos only show when `consent: true`.** While it's `false`, the slot shows "Awaiting consent" instead of the photo. Never set it to `true` until marketing confirms the signed consent.
+- `note` must be factual: no kg or cm lost, no "permanent", no medical claims, no "guaranteed".
+- The example blocks (empty photos, `[[CONFIRM: ...]]` notes) are placeholders: replace or delete them.
 
 ### Contact Us page
 - **Our Location:** the map pins and stats are in `src/content/contact.md` (`locations:`); addresses, phones, WhatsApp and hours come from `src/data/outlets.json`.
