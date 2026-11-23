@@ -2,7 +2,7 @@
 /**
  * Gallery / Results page (/gallery/). Linked from the Treatments dropdown ("Gallery / Results").
  * Words and the list of results come from src/content/gallery.md — edit that file, not this one.
- * Treatment names and categories come from src/data/treatments.json (matched by id).
+ * Treatment names and categories come from src/data/treatment-menu.json (matched by id).
  * Styles: public/css/gallery.css · Filter buttons: public/js/gallery.js
  *
  * A result's photos only show when its `consent` is true; otherwise a placeholder shows.
@@ -10,7 +10,7 @@
 import Base from "../layouts/Base.astro";
 import Footer from "../components/Footer.astro";
 import { frontmatter as g } from "../content/gallery.md";
-import data from "../data/treatments.json";
+import { treatmentData as data } from "../lib/treatmentData";
 
 type Result = {
   treatment: string;

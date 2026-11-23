@@ -35,7 +35,7 @@ cta:
 # ---------------------------------------------------------------------
 #  RESULTS — one block per client result. Newest first.
 #
-#  treatment: the treatment's id from src/data/treatments.json (e.g. "juve-face-lift").
+#  treatment: the treatment's ID from the menu workbook (src/data/treatment-menu.json) (e.g. "juve-face-lift").
 #             Its name, category (Face / Body / Wellness) and link fill in automatically.
 #  note:      one short, factual line, e.g. "After 4 sessions over 8 weeks".
 #  before / after: photo paths in public/images/results/
@@ -63,18 +63,18 @@ results:
     alt: "Client's jawline before and after JUVE Face Lift Therapy"
     consent: false
 
-  - treatment: "mc-signature-face"
+  - treatment: "mc-signature-face-intense"
     note: "[[CONFIRM: e.g. After 4 sessions]]"
     before: ""
     after: ""
-    alt: "Client's skin before and after MC Signature Face Therapy"
+    alt: "Client's skin before and after MC Signature Face Intense"
     consent: false
 
-  - treatment: "lpg-cellu-m6-body"
+  - treatment: "lpg-body"
     note: "[[CONFIRM: e.g. After 10 sessions over 5 weeks]]"
     before: ""
     after: ""
-    alt: "Client's thigh before and after LPG Cellu M6 Alliance"
+    alt: "Client's thigh before and after LPG Cellu M6 Alliance (Body)"
     consent: false
 
   - treatment: "venus-freeze-body"
@@ -84,9 +84,9 @@ results:
     alt: "Client's tummy before and after Venus Freeze Body Toning"
     consent: false
 
-  - treatment: "five-elements"
+  - treatment: "five-element-body-wellness"
     note: "[[CONFIRM: e.g. After 4 sessions]]"
     image: ""
-    alt: "Client after Five Elements Signature Wellness"
+    alt: "Client after Five Element Body Wellness Therapy"
     consent: false
 ---

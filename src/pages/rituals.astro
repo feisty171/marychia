@@ -4,15 +4,16 @@
  * with search, Face/Body/Wellness filters, session picker and WhatsApp booking.
  * Links like /rituals/?area=face open it filtered (older /rituals/#face links still work). The Treatments page (/treatments/) links here.
  * Design: mary-chia-treatments-page.zip (scoped styles in public/css/treatments.css).
- * Treatment list, prices, images and PDF settings: src/data/treatments.json
+ * Treatment list, prices, concerns and collections: the menu workbook → `npm run build:treatments`
+ *   → src/data/treatment-menu.json. Page settings, photos and PDF settings: src/data/treatments.json
  * Studios for WhatsApp booking: src/data/outlets.json
  * Behaviour (search, filters, booking sheet): public/js/treatments.js
- * To change a treatment or price, edit the JSON file — not this one.
+ * To change a treatment or price, edit the workbook and rerun `npm run build:treatments` — not this file.
  */
 import Base from "../layouts/Base.astro";
 import Footer from "../components/Footer.astro";
 import MenuViewer from "../components/MenuViewer.astro";
-import data from "../data/treatments.json";
+import { treatmentData as data } from "../lib/treatmentData";
 import outlets from "../data/outlets.json";
 import { isPlaceholder } from "../lib/links";
 
@@ -129,6 +130,10 @@ const pageData = { ...data, studios };
         <p class="status" id="status" aria-live="polite"></p>
 
         <div class="grid" id="grid"></div>
+        <!-- Shows 12 cards, then the next 12 on each click (PAGE_SIZE in public/js/treatments.js) -->
+        <div class="more-wrap" id="moreWrap" hidden>
+          <button class="btn btn-ghost" id="moreCards" type="button">Show more</button>
+        </div>
 
         <div class="empty" id="empty">
           <div class="ring" aria-hidden="true">

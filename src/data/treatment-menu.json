@@ -1,0 +1,1304 @@
+{
+  "_note": "Made by `npm run build:treatments` from data/treatment-menu.xlsx. Don't edit this file by hand: change the workbook and run the command again.",
+  "concerns": [
+    {
+      "id": "dry",
+      "label": "Dryness",
+      "area": "Face",
+      "search": "dry dehydrated hydration tight flaky moisture tired",
+      "orderAll": 1,
+      "orderArea": 1
+    },
+    {
+      "id": "acne",
+      "label": "Acne & breakouts",
+      "area": "Face",
+      "search": "acne pimples breakout blackheads whiteheads oily congested pores",
+      "orderAll": 2,
+      "orderArea": 2
+    },
+    {
+      "id": "sagging",
+      "label": "Sagging & firmness",
+      "area": "Face",
+      "search": "sagging lift firm jawline contour v-line puffy face double chin",
+      "orderAll": 3,
+      "orderArea": 3
+    },
+    {
+      "id": "sensitive",
+      "label": "Redness & sensitivity",
+      "area": "Face",
+      "search": "sensitive red redness irritated rosacea calm",
+      "orderAll": null,
+      "orderArea": 4
+    },
+    {
+      "id": "texture",
+      "label": "Pores, scars & texture",
+      "area": "Face",
+      "search": "acne scars pores texture rough bumpy",
+      "orderAll": null,
+      "orderArea": 5
+    },
+    {
+      "id": "dull",
+      "label": "Dullness",
+      "area": "Face",
+      "search": "dull uneven tone glow radiance brighten event",
+      "orderAll": null,
+      "orderArea": 6
+    },
+    {
+      "id": "pigment",
+      "label": "Pigmentation & dark spots",
+      "area": "Face",
+      "search": "pigmentation dark spots freckles melasma age spots marks",
+      "orderAll": 4,
+      "orderArea": null
+    },
+    {
+      "id": "lines",
+      "label": "Fine lines & wrinkles",
+      "area": "Face",
+      "search": "fine lines wrinkles ageing aging anti-ageing",
+      "orderAll": null,
+      "orderArea": null
+    },
+    {
+      "id": "eyes",
+      "label": "Tired eyes & dark circles",
+      "area": "Face",
+      "search": "eye bags puffy dark circles strain",
+      "orderAll": null,
+      "orderArea": null
+    },
+    {
+      "id": "facial",
+      "label": "Just a good facial",
+      "area": "Face",
+      "search": "facial basic first visit cleanse maintenance",
+      "orderAll": null,
+      "orderArea": null
+    },
+    {
+      "id": "fat",
+      "label": "Stubborn fat",
+      "area": "Body",
+      "search": "fat slimming inch loss tummy thighs arms weight contour",
+      "orderAll": 5,
+      "orderArea": 1
+    },
+    {
+      "id": "cellulite",
+      "label": "Cellulite & loose skin",
+      "area": "Body",
+      "search": "cellulite loose skin body toning",
+      "orderAll": null,
+      "orderArea": 2
+    },
+    {
+      "id": "bloat",
+      "label": "Bloating & water retention",
+      "area": "Body",
+      "search": "bloating water retention swollen heavy legs lymphatic drainage detox",
+      "orderAll": null,
+      "orderArea": 3
+    },
+    {
+      "id": "bust",
+      "label": "Bust care",
+      "area": "Body",
+      "search": "bust breast",
+      "orderAll": null,
+      "orderArea": 4
+    },
+    {
+      "id": "hair",
+      "label": "Hair removal",
+      "area": "Body",
+      "search": "hair removal underarm brazilian bikini lip",
+      "orderAll": null,
+      "orderArea": 5
+    },
+    {
+      "id": "aches",
+      "label": "Aches & tension",
+      "area": "Wellness",
+      "search": "aches pain stiffness shoulder back tension sleep cold fatigue",
+      "orderAll": 6,
+      "orderArea": 1
+    },
+    {
+      "id": "tummy",
+      "label": "Tummy & digestion",
+      "area": "Wellness",
+      "search": "tummy digestion constipation colon abdominal",
+      "orderAll": null,
+      "orderArea": 2
+    }
+  ],
+  "collections": [
+    "Mary Chia Classics",
+    "CLARIO Skin Series",
+    "PRESTIGE Series",
+    "Five Elements Wellness"
+  ],
+  "treatments": [
+    {
+      "id": "hydration-booster-facial",
+      "name": "Hydration Booster Facial",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "For skin that feels dry, tight or tired",
+      "description": "Deep hydration for skin that feels tight and tired.",
+      "image": "",
+      "concerns": [
+        "dry"
+      ],
+      "from": 69,
+      "priceText": "",
+      "trialPrice": 69,
+      "minutes": [
+        75
+      ]
+    },
+    {
+      "id": "mc-signature-face-intense",
+      "name": "MC Signature Face Intense",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "For skin that feels dry, tight or tired",
+      "description": "Our house facial: drenches thirsty skin and refreshes a tired complexion.",
+      "image": "mc-signature-face-mask.webp",
+      "concerns": [
+        "dry"
+      ],
+      "from": 69,
+      "priceText": "",
+      "trialPrice": 69,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "hydro-h2o-aqua",
+      "name": "Hydro H2O Aqua",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "Skin feels tight, flaky or tired, even with moisturiser",
+      "description": "Helps with dryness and acne & breakouts.",
+      "image": "",
+      "concerns": [
+        "dry",
+        "acne"
+      ],
+      "from": 380,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "oxy-4-step-deluxe",
+      "name": "OXY 4-Step Deluxe Face Rejuvenation",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "Skin feels tight, flaky or tired, even with moisturiser",
+      "description": "Helps with dryness.",
+      "image": "",
+      "concerns": [
+        "dry"
+      ],
+      "from": 490,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "clario-lumiglow",
+      "name": "CLARIO Lumiglow Booster Therapy",
+      "category": "Face",
+      "tag": "New",
+      "collection": "CLARIO Skin Series",
+      "for": "For dull, dehydrated skin and fine lines",
+      "description": "Needle-free infusion, tailored to deep-cleanse, hydrate or anti-age.",
+      "image": "",
+      "concerns": [
+        "dry",
+        "lines"
+      ],
+      "from": 298,
+      "priceText": "",
+      "trialPrice": 298,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "pdrn-skin-therapy",
+      "name": "PDRN Skin Therapy",
+      "category": "Face",
+      "tag": "Prestige",
+      "collection": "PRESTIGE Series",
+      "for": "Skin feels tight, flaky or tired, even with moisturiser",
+      "description": "Salmon-DNA (PDRN) serum therapy to smooth fine lines, hydrate and restore firmness.",
+      "image": "",
+      "concerns": [
+        "dry",
+        "lines"
+      ],
+      "from": 599,
+      "priceText": "",
+      "trialPrice": 599,
+      "minutes": []
+    },
+    {
+      "id": "fairness-radiance-facial",
+      "name": "Customised Fairness Radiance Facial",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "Skin looks flat, grey or patchy and you want your glow back",
+      "description": "Helps with dullness and pigmentation & dark spots.",
+      "image": "",
+      "concerns": [
+        "dull",
+        "pigment"
+      ],
+      "from": 148,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        45
+      ]
+    },
+    {
+      "id": "classic-radiance-revival",
+      "name": "MC Classic Radiance Revival Therapy",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "For dullness and uneven-looking tone",
+      "description": "Helps with dullness.",
+      "image": "",
+      "concerns": [
+        "dull"
+      ],
+      "from": 69,
+      "priceText": "",
+      "trialPrice": 69,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "dermabright-facial",
+      "name": "Dermabright Facial",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "Skin looks flat, grey or patchy and you want your glow back",
+      "description": "Helps with dullness.",
+      "image": "",
+      "concerns": [
+        "dull"
+      ],
+      "from": 280,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "diamond-face-sparkler",
+      "name": "Diamond Face Sparkler",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "Skin looks flat, grey or patchy and you want your glow back",
+      "description": "Helps with dullness and pores, scars & texture.",
+      "image": "",
+      "concerns": [
+        "dull",
+        "texture"
+      ],
+      "from": 390,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "clario-super-glow-360",
+      "name": "CLARIO Super-Glow 360",
+      "category": "Face",
+      "tag": "New",
+      "collection": "CLARIO Skin Series",
+      "for": "For a fresh, dewy, glass-skin finish",
+      "description": "Microchannel infusion for a fresh, dewy, glass-skin finish.",
+      "image": "",
+      "concerns": [
+        "dull",
+        "texture"
+      ],
+      "from": 380,
+      "priceText": "",
+      "trialPrice": 380,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "mc-purifying-facial",
+      "name": "MC Purifying Facial",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "For congested, breakout-prone skin",
+      "description": "Clears and calms congested, breakout-prone skin.",
+      "image": "",
+      "concerns": [
+        "acne"
+      ],
+      "from": 69,
+      "priceText": "",
+      "trialPrice": 69,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "hydro-h2o-6-in-1",
+      "name": "Hydro H2O 6 in 1",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "You get pimples, blackheads or oily, congested skin",
+      "description": "Helps with acne & breakouts.",
+      "image": "",
+      "concerns": [
+        "acne"
+      ],
+      "from": 580,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        90
+      ]
+    },
+    {
+      "id": "clario-porcelain",
+      "name": "CLARIO Porcelain Skin Therapy",
+      "category": "Face",
+      "tag": "New",
+      "collection": "CLARIO Skin Series",
+      "for": "For sensitive, redness-prone and acne-prone skin",
+      "description": "Gentle microneedling infusion that calms redness, refines pores and supports the skin barrier.",
+      "image": "clario-porcelain-full.webp",
+      "concerns": [
+        "acne",
+        "sensitive",
+        "texture"
+      ],
+      "from": 298,
+      "priceText": "",
+      "trialPrice": 298,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "pha-face-treatment",
+      "name": "PHA Face Treatment",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "Your skin flushes easily, stings or feels irritated",
+      "description": "Helps with redness & sensitivity.",
+      "image": "",
+      "concerns": [
+        "sensitive"
+      ],
+      "from": 280,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "cryoboost-face-spa",
+      "name": "Cryoboost Face Spa",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "Your skin flushes easily, stings or feels irritated",
+      "description": "Helps with redness & sensitivity.",
+      "image": "",
+      "concerns": [
+        "sensitive"
+      ],
+      "from": 280,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "xo-skin-exosomes",
+      "name": "XO-SKIN Exosomes",
+      "category": "Face",
+      "tag": "Prestige",
+      "collection": "PRESTIGE Series",
+      "for": "Your skin flushes easily, stings or feels irritated",
+      "description": "High-potency exosome therapy to repair, calm and renew stressed or ageing skin.",
+      "image": "",
+      "concerns": [
+        "sensitive",
+        "texture",
+        "lines"
+      ],
+      "from": 2000,
+      "priceText": "",
+      "trialPrice": 2000,
+      "minutes": []
+    },
+    {
+      "id": "clario-pigment-clear",
+      "name": "CLARIO 5G Pigment Clear Therapy",
+      "category": "Face",
+      "tag": "New",
+      "collection": "CLARIO Skin Series",
+      "for": "For freckles, melasma, age spots and acne marks",
+      "description": "For freckles, melasma, age spots, hormonal pigmentation and acne marks.",
+      "image": "",
+      "concerns": [
+        "pigment",
+        "texture"
+      ],
+      "from": null,
+      "priceText": "Quoted per case",
+      "trialPrice": 298,
+      "minutes": []
+    },
+    {
+      "id": "juve-face-lift",
+      "name": "JUVE Face Lift Therapy",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "For skin that looks less firm, and facial contour concerns",
+      "description": "Firms and defines so the jawline and cheekbones look lifted.",
+      "image": "juve-face-lift.webp",
+      "concerns": [
+        "sagging"
+      ],
+      "from": 99,
+      "priceText": "",
+      "trialPrice": 99,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "classic-face-lift-intense",
+      "name": "MC Classic Face Lift Intense Therapy",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "For skin that looks less firm, and facial contour concerns",
+      "description": "Helps with sagging & firmness.",
+      "image": "",
+      "concerns": [
+        "sagging"
+      ],
+      "from": 99,
+      "priceText": "",
+      "trialPrice": 99,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "acu-stimo-face",
+      "name": "Acu-Stimo Face Therapy",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "Your jawline is softening or your face looks puffy or wider",
+      "description": "Helps with sagging & firmness.",
+      "image": "",
+      "concerns": [
+        "sagging"
+      ],
+      "from": 298,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        20
+      ]
+    },
+    {
+      "id": "venus-freeze-face",
+      "name": "Venus Freeze Face Toning",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "Your jawline is softening or your face looks puffy or wider",
+      "description": "Helps with sagging & firmness and fine lines & wrinkles.",
+      "image": "",
+      "concerns": [
+        "sagging",
+        "lines"
+      ],
+      "from": 280,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        20,
+        30,
+        40,
+        60,
+        70
+      ]
+    },
+    {
+      "id": "lpg-mobilift-face",
+      "name": "LPG Cellu M6 Alliance Mobilift",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "Your jawline is softening or your face looks puffy or wider",
+      "description": "Helps with sagging & firmness.",
+      "image": "",
+      "concerns": [
+        "sagging"
+      ],
+      "from": 280,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        15,
+        30,
+        45
+      ]
+    },
+    {
+      "id": "triple-aio-face-lift",
+      "name": "Triple AiO Face Lift",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "Your jawline is softening or your face looks puffy or wider",
+      "description": "Helps with sagging & firmness.",
+      "image": "",
+      "concerns": [
+        "sagging"
+      ],
+      "from": 390,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "hinoki-face-sculpting",
+      "name": "Hinoki Cypress Face Sculpting",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "Your jawline is softening or your face looks puffy or wider",
+      "description": "Helps with sagging & firmness.",
+      "image": "",
+      "concerns": [
+        "sagging"
+      ],
+      "from": 390,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "precision-point-lymphatic",
+      "name": "Precision Point Lymphatic Therapy",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "Your jawline is softening or your face looks puffy or wider",
+      "description": "Helps with sagging & firmness.",
+      "image": "",
+      "concerns": [
+        "sagging"
+      ],
+      "from": 500,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        70
+      ]
+    },
+    {
+      "id": "gold-thread-face-spa",
+      "name": "Gold Thread Face Spa (10 Thread)",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "For skin that needs a quick collagen boost",
+      "description": "Helps with sagging & firmness.",
+      "image": "",
+      "concerns": [
+        "sagging"
+      ],
+      "from": 128,
+      "priceText": "",
+      "trialPrice": 128,
+      "minutes": [
+        30
+      ]
+    },
+    {
+      "id": "integralquartz-reju",
+      "name": "Integralquartz Reju Lift & Firm",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "For skin that needs a quick collagen boost",
+      "description": "Helps with sagging & firmness and fine lines & wrinkles.",
+      "image": "",
+      "concerns": [
+        "sagging",
+        "lines"
+      ],
+      "from": 128,
+      "priceText": "",
+      "trialPrice": 128,
+      "minutes": [
+        30
+      ]
+    },
+    {
+      "id": "essential-face-therapy",
+      "name": "Essential Face Therapy",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "You have no single concern, or it is your first visit",
+      "description": "",
+      "image": "",
+      "concerns": [
+        "facial"
+      ],
+      "from": 148,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        45
+      ]
+    },
+    {
+      "id": "mc-customised-facial",
+      "name": "MC Customised Facial",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "You have no single concern, or it is your first visit",
+      "description": "",
+      "image": "",
+      "concerns": [
+        "facial"
+      ],
+      "from": 189,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "refreshing-eye-scapade",
+      "name": "Refreshing Eye-Scapade",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "You have puffy eyes, eye bags, dark circles or screen strain",
+      "description": "Helps with tired eyes & dark circles.",
+      "image": "",
+      "concerns": [
+        "eyes"
+      ],
+      "from": 99,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        40
+      ]
+    },
+    {
+      "id": "carbon-derma-eye-detox",
+      "name": "Carbon Derma Eye Detox",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "You have puffy eyes, eye bags, dark circles or screen strain",
+      "description": "Helps with tired eyes & dark circles.",
+      "image": "",
+      "concerns": [
+        "eyes"
+      ],
+      "from": 159,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        45
+      ]
+    },
+    {
+      "id": "hinoki-eye",
+      "name": "Hinoki Cypress Eye Treatment",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "You have puffy eyes, eye bags, dark circles or screen strain",
+      "description": "Helps with tired eyes & dark circles.",
+      "image": "",
+      "concerns": [
+        "eyes"
+      ],
+      "from": 159,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        25
+      ]
+    },
+    {
+      "id": "acu-stimo-eye",
+      "name": "Acu-Stimo Eye Therapy",
+      "category": "Face",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "You have puffy eyes, eye bags, dark circles or screen strain",
+      "description": "Helps with tired eyes & dark circles.",
+      "image": "",
+      "concerns": [
+        "eyes"
+      ],
+      "from": 189,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        15
+      ]
+    },
+    {
+      "id": "body-contouring-program",
+      "name": "Body Contouring Program",
+      "category": "Body",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "Your tummy, arms or thighs won't shift with diet and exercise",
+      "description": "Helps with stubborn fat.",
+      "image": "",
+      "concerns": [
+        "fat"
+      ],
+      "from": 189,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "cavitation-wave-lipolysis",
+      "name": "Cavitation Wave Lipolysis",
+      "category": "Body",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "Your tummy, arms or thighs won't shift with diet and exercise",
+      "description": "Helps with stubborn fat.",
+      "image": "",
+      "concerns": [
+        "fat"
+      ],
+      "from": 189,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "bio-wave-magnetic",
+      "name": "Bio Wave Magnetic Therapy",
+      "category": "Body",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "Your tummy, arms or thighs won't shift with diet and exercise",
+      "description": "Helps with stubborn fat.",
+      "image": "",
+      "concerns": [
+        "fat"
+      ],
+      "from": 189,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "nihon-meso-slimming",
+      "name": "Nihon Meso Slimming Therapy",
+      "category": "Body",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "Your tummy, arms or thighs won't shift with diet and exercise",
+      "description": "Helps with stubborn fat.",
+      "image": "",
+      "concerns": [
+        "fat"
+      ],
+      "from": 189,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        75
+      ]
+    },
+    {
+      "id": "five-elements-tummy",
+      "name": "Five Elements Tummy Slimming",
+      "category": "Body",
+      "tag": "",
+      "collection": "Five Elements Wellness",
+      "for": "Your tummy, arms or thighs won't shift with diet and exercise",
+      "description": "Helps with stubborn fat.",
+      "image": "",
+      "concerns": [
+        "fat"
+      ],
+      "from": 380,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "fat-burner-detox",
+      "name": "Fat Burner Detox Therapy",
+      "category": "Body",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "Your tummy, arms or thighs won't shift with diet and exercise",
+      "description": "Helps with stubborn fat.",
+      "image": "",
+      "concerns": [
+        "fat"
+      ],
+      "from": 380,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "classic-ultra-lipolysis",
+      "name": "MC Classic Ultra Lipolysis",
+      "category": "Body",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "Your tummy, arms or thighs won't shift with diet and exercise",
+      "description": "Helps with stubborn fat.",
+      "image": "",
+      "concerns": [
+        "fat"
+      ],
+      "from": 490,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "integralquartz-macro-fat",
+      "name": "Integralquartz Macro Fat Reduction",
+      "category": "Body",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "Your tummy, arms or thighs won't shift with diet and exercise",
+      "description": "Helps with stubborn fat.",
+      "image": "",
+      "concerns": [
+        "fat"
+      ],
+      "from": 580,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        90
+      ]
+    },
+    {
+      "id": "classic-smooth-cellulite",
+      "name": "MC Classic Smooth Cellulite Therapy",
+      "category": "Body",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "For cellulite and loose skin",
+      "description": "Helps with cellulite & loose skin.",
+      "image": "",
+      "concerns": [
+        "cellulite"
+      ],
+      "from": 288,
+      "priceText": "",
+      "trialPrice": 288,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "lpg-body",
+      "name": "LPG Cellu M6 Alliance (Body)",
+      "category": "Body",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "You have dimpled thighs or loose skin after weight loss or pregnancy",
+      "description": "Helps with cellulite & loose skin.",
+      "image": "",
+      "concerns": [
+        "cellulite"
+      ],
+      "from": 280,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        15,
+        30,
+        45
+      ]
+    },
+    {
+      "id": "venus-freeze-body",
+      "name": "Venus Freeze Body Toning",
+      "category": "Body",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "You have dimpled thighs or loose skin after weight loss or pregnancy",
+      "description": "Helps with cellulite & loose skin.",
+      "image": "",
+      "concerns": [
+        "cellulite"
+      ],
+      "from": 280,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        20,
+        30,
+        40,
+        60,
+        70
+      ]
+    },
+    {
+      "id": "lemongrass-lymphatic",
+      "name": "Lemongrass Lymphatic Drainage",
+      "category": "Body",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "For a tired, sluggish, puffy body",
+      "description": "Helps with bloating & water retention.",
+      "image": "lemongrass-lymphatic.webp",
+      "concerns": [
+        "bloat"
+      ],
+      "from": 89,
+      "priceText": "",
+      "trialPrice": 89,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "cappu-lymphatic",
+      "name": "Cappu Lymphatic Detox Therapy",
+      "category": "Body",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "You feel puffy or sluggish, with swollen ankles or heavy legs",
+      "description": "Helps with bloating & water retention.",
+      "image": "",
+      "concerns": [
+        "bloat"
+      ],
+      "from": 280,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "electro-lymphatic",
+      "name": "Intensive Electro Lymphatic Detox",
+      "category": "Body",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "You feel puffy or sluggish, with swollen ankles or heavy legs",
+      "description": "Helps with bloating & water retention.",
+      "image": "",
+      "concerns": [
+        "bloat"
+      ],
+      "from": 280,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "classic-coffee-drainage",
+      "name": "MC Classic Coffee Drainage Therapy",
+      "category": "Body",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "For a tired, sluggish, puffy body",
+      "description": "Brazilian coffee scrub to wake up a sluggish, puffy body.",
+      "image": "",
+      "concerns": [
+        "bloat"
+      ],
+      "from": 89,
+      "priceText": "",
+      "trialPrice": 89,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "five-elements-lower-legs",
+      "name": "Five Elements Lower Legs",
+      "category": "Body",
+      "tag": "",
+      "collection": "Five Elements Wellness",
+      "for": "You feel puffy or sluggish, with swollen ankles or heavy legs",
+      "description": "Helps with bloating & water retention.",
+      "image": "",
+      "concerns": [
+        "bloat"
+      ],
+      "from": 380,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "five-elements-upper-legs",
+      "name": "Five Elements Upper Legs",
+      "category": "Body",
+      "tag": "",
+      "collection": "Five Elements Wellness",
+      "for": "You feel puffy or sluggish, with swollen ankles or heavy legs",
+      "description": "Helps with bloating & water retention.",
+      "image": "",
+      "concerns": [
+        "bloat"
+      ],
+      "from": 380,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "colon-care",
+      "name": "Colon Care Therapy",
+      "category": "Wellness",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "For bloating and irregular digestion",
+      "description": "Helps with tummy & digestion.",
+      "image": "",
+      "concerns": [
+        "tummy"
+      ],
+      "from": 89,
+      "priceText": "",
+      "trialPrice": 89,
+      "minutes": [
+        30
+      ]
+    },
+    {
+      "id": "colon-detox-care",
+      "name": "Colon Detox Care Therapy",
+      "category": "Wellness",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "Your tummy feels bloated or your digestion is irregular",
+      "description": "Helps with tummy & digestion.",
+      "image": "",
+      "concerns": [
+        "tummy"
+      ],
+      "from": 500,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        30
+      ]
+    },
+    {
+      "id": "abdominal-wellness",
+      "name": "Abdominal Wellness Therapy",
+      "category": "Wellness",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "Your tummy feels bloated or your digestion is irregular",
+      "description": "Helps with tummy & digestion.",
+      "image": "",
+      "concerns": [
+        "tummy"
+      ],
+      "from": 980,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "five-element-body-wellness",
+      "name": "Five Element Body Wellness Therapy",
+      "category": "Wellness",
+      "tag": "New",
+      "collection": "Five Elements Wellness",
+      "for": "For everyday aches, stiffness and tension",
+      "description": "A 15-ingredient fermented vinegar blend with warming moxibustion, cupping and gua sha to ease everyday stiffness.",
+      "image": "five-elements.webp",
+      "concerns": [
+        "aches"
+      ],
+      "from": 99,
+      "priceText": "",
+      "trialPrice": 99,
+      "minutes": []
+    },
+    {
+      "id": "five-elements-back-shoulder",
+      "name": "Five Elements Back & Shoulder",
+      "category": "Wellness",
+      "tag": "",
+      "collection": "Five Elements Wellness",
+      "for": "You have tight shoulders, back tension, cold hands or poor sleep",
+      "description": "Helps with aches & tension.",
+      "image": "",
+      "concerns": [
+        "aches"
+      ],
+      "from": 380,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "acu-stimo-body",
+      "name": "Acu-Stimo Body Therapy",
+      "category": "Wellness",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "You have tight shoulders, back tension, cold hands or poor sleep",
+      "description": "Helps with aches & tension.",
+      "image": "",
+      "concerns": [
+        "aches"
+      ],
+      "from": 390,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "breast-lymph-drainage",
+      "name": "Breast Lymph Node Drainage Therapy",
+      "category": "Body",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "For a fuller-looking bust, using natural techniques",
+      "description": "Helps with bust care.",
+      "image": "",
+      "concerns": [
+        "bust"
+      ],
+      "from": 189,
+      "priceText": "",
+      "trialPrice": 189,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "hinoki-bust",
+      "name": "Hinoki Cypress Bust Enhancement",
+      "category": "Body",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "For a fuller-looking bust, using natural techniques",
+      "description": "Helps with bust care.",
+      "image": "",
+      "concerns": [
+        "bust"
+      ],
+      "from": 390,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": [
+        60
+      ]
+    },
+    {
+      "id": "crystalite-hair-removal",
+      "name": "Crystalite Hair Removal",
+      "category": "Body",
+      "tag": "",
+      "collection": "Mary Chia Classics",
+      "for": "You are tired of shaving, waxing or ingrown hairs",
+      "description": "Upper & lower lip, underarm, arm, half or full hand, bikini line, Brazilian, buttock, upper or lower back.",
+      "image": "",
+      "concerns": [
+        "hair"
+      ],
+      "from": 480,
+      "priceText": "",
+      "trialPrice": null,
+      "minutes": []
+    }
+  ]
+}

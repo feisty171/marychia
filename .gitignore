@@ -2,3 +2,7 @@ node_modules/
 dist/
 .astro/
 .DS_Store
+
+# Treatment menu workbook: has internal notes, so it stays out of the public repo.
+# The site reads src/data/treatment-menu.json, made from it by `npm run build:treatments`.
+data/*.xlsx

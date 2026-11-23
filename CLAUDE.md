@@ -6,6 +6,7 @@ Static site built with [Astro](https://astro.build). No CMS, no database. The ma
 
 - `npm install` — first time only
 - `npm run dev` — local preview at http://localhost:8091 (`[[CONFIRM: ...]]` placeholders show highlighted in yellow)
+- `npm run build:treatments` — rebuilds the treatment list from `data/treatment-menu.xlsx` (see "Rituals page (treatment list)")
 - `npm run build` — builds the finished site into `dist/`. Upload the contents of `dist/` to the web host.
 - **Preview site:** the repo is `feisty171/marychia`. Pushing to `main` publishes automatically to https://feisty171.github.io/marychia/ via GitHub Actions (`.github/workflows/deploy.yml`).
   - Because GitHub serves it from the `/marychia/` folder, `astro.config.mjs` sets `BASE = "/marychia"` and, after each build, adds `/marychia` in front of every root link (`/images/…`, `/about/`). **Keep writing links from the root (`/images/…`) in content and data files**; don't add `/marychia` yourself. `npm run dev` stays at the root (http://localhost:8091/). To check the real build, run `npm run build` then `npx astro preview --port 8092` and open http://localhost:8092/marychia/.
@@ -20,7 +21,8 @@ Static site built with [Astro](https://astro.build). No CMS, no database. The ma
 | Contact Us page words (Our Location, Feedback/Enquiry form topics) | `src/content/contact.md` |
 | Career page words (/careers/: intro, roles, how to apply) | `src/content/careers.md` |
 | Gallery / Results page (/gallery/: heading, filters, client results with before/after photos, disclaimer, closing button) | `src/content/gallery.md` (photos in `public/images/results/`) |
-| Treatments (`/treatments/`: hero + Face/Body/Wellness tiles) and Rituals (`/rituals/`: the full treatment list) — treatments, prices, session options, search keywords, images, full-menu PDF settings | `src/data/treatments.json` |
+| Treatments and Rituals: the treatment list, prices, concerns and collections (`data/treatment-menu.xlsx` → `npm run build:treatments` → `src/data/treatment-menu.json`) | see "Rituals page (treatment list)" below |
+| Treatments (`/treatments/`: hero + Face/Body/Wellness tiles) and Rituals page settings: hero, tiles, banners, budget/time pills, treatment photos, full-menu PDF settings | `src/data/treatments.json` |
 | Full treatment menu PDF, and its page images for the `/menu/` page (remake with `sh scripts/menu-images.sh`) | `public/menu/full-spa-menu.pdf`, `public/menu/pages/` |
 | Treatments tiles + Rituals list behaviour (search, filter sidebar / Filters sheet, WhatsApp booking sheet) | `public/js/treatments.js` |
 | Investor Relations page words and the annual report list | `src/content/investors.md` |
@@ -119,7 +121,7 @@ Each outlet in `src/data/outlets.json` has `mapX` / `mapY`: where its pin sits o
 Edit `bookingUrl` or `whatsappUrl` in `src/data/site.json`. For WhatsApp, put the number (e.g. `"8688 6298"`). Set `email` to the enquiry address to switch on the Contact page's "Write to us" form (it opens the visitor's email app with their message filled in).
 
 ### Home page signature treatments
-In `src/content/home.md`, under `services:` → `items:`. Keep it to 5. Each item has `category`, optional `tag`, `for`, `description`, `options`, `image`; the comments in that file show the format. Prices must match the Y27/28 menu PDF and `src/data/treatments.json`.
+In `src/content/home.md`, under `services:` → `items:`. Keep it to 5. Each item has `category`, optional `tag`, `for`, `description`, `options`, `image`; the comments in that file show the format. Prices must match the Y27/28 menu PDF and the menu workbook.
 
 These are **simple cards** (`src/components/SignatureCard.astro`, styles `.sig-*` in `public/css/home.css`): square photo on top, then the name, the short `for` line as a description, the price and a slim "Book now →" row. Five across on wide screens, three across on small laptops, two across on tablets and phones. Below the cards, a "View All Treatments →" text link goes to the Treatments page (`menuButton` / `menuLink`). The cards show `name`, `for`, `options` (price) and `image`; the other fields are kept for reference. The price shows as "from S$xx" (the lowest option price) with that option's `compareAt` crossed out. They are deliberately different from the Rituals page cards (`cardHTML()` in `public/js/treatments.js`). "Book now" opens the WhatsApp studio picker (`src/components/BookingSheet.astro` + `public/js/treatment-cards.js`).
 
@@ -146,29 +148,33 @@ Edit `footerLinks` and `socials` in `src/data/site.json`. A link or icon only be
 The newest report is featured at the top of the page; the rest list below it. The file size is filled in automatically. If `file` is empty or the PDF isn't in the folder yet, the row shows "PDF coming soon" instead of a broken link. Only publish reports management has released publicly.
 
 ### Rituals page (treatment list): add, edit or remove a treatment
-Edit `src/data/treatments.json`, under `"treatments"`. Each treatment has:
+All à la carte treatments come from the **menu workbook**, `data/treatment-menu.xlsx` (its "How to use" tab explains every column). It is kept out of git because it holds internal notes; keep the master copy safe.
 
-- `name`, `category` (`"Face"`, `"Body"` or `"Wellness"`), optional `tag` (e.g. `"New"`, `"Signature"`)
-- `for` (the short italic line) and `description` (one or two sentences; follow the no-guaranteed-results rule)
-- `keywords`: extra words people might search for, e.g. `"aches"`, `"hydration"`
-- `concerns`: concern ids for the filter sidebar, e.g. `["dry", "acne"]` (ids are listed under `"filters"` → `"concerns"`). Only tick concerns the treatment's own `for` line or description supports.
-- optional `collections`: extra collection names, e.g. `["Prestige Series"]`. The treatment's `tag` (Signature, New) already counts as a collection.
-- `options`: one or more sessions, each `{ "label": "First Trial", "minutes": 60, "price": 69, "compareAt": 189 }`. The site shows only the lowest price, as "from S$xx", on cards and category tiles. Session names (First Trial / Usual), durations and crossed-out prices are not shown, and the WhatsApp booking message names only the treatment.
-- `image`: a file name in `public/images/treatments/` (landscape, about 1200×900), or `""` for a placeholder
+1. Edit the workbook (Treatments, Session Options, Concerns, Collections tabs). To hide a treatment, set "Show on website" to No.
+2. Run `npm run build:treatments` (or `npm run build:treatments -- path/to/file.xlsx`). It writes `src/data/treatment-menu.json`, which the Treatments, Rituals and Gallery pages read. Never edit that JSON by hand. Script: `scripts/build-treatments.mjs` (reads the workbook with `scripts/read-xlsx.mjs`, no extra packages).
+3. Commit `src/data/treatment-menu.json`.
 
-Prices must match the Y27/28 menu PDF and the Home page signature cards (`src/content/home.md`).
+If a row is missing a name, Concern 1, collection, or both a price and a price text (or names a concern or collection that isn't in its tab), the script stops, lists the rows and changes nothing.
+
+How the columns become a card:
+- **Area tag** (Face / Body / Wellness) = the Area of Concern 1 in the Concerns tab. **Badge** = Badge. **Italic line** = Tagline, or Concern 1's "For you if…" when empty. **Description** = Description, or "Helps with …" built from the treatment's concerns when empty.
+- **Price:** Price text if filled (shown as is, e.g. "Quoted per case"); otherwise "from" the first-trial price, else the lowest Session Options price, else the usual price. Trial notes, price units and crossed-out prices aren't shown on cards.
+- **Photo:** the "Image file" column (a file in `public/images/treatments/`, landscape about 1200×900). If empty, the photo listed for that treatment name under `"photos"` in `src/data/treatments.json`. Otherwise the placeholder. Rerun the command after adding a photo.
+- **Internal note** columns are never read.
+
+The list shows 12 cards, then a "Show more" button adds 12 at a time (`PAGE_SIZE` in `public/js/treatments.js`). Prices must match the Y27/28 menu PDF and the Home page signature cards (`src/content/home.md`).
 
 ### Rituals page: filter sidebar
-On `/rituals/` the filters sit in a sidebar on the left (desktop). On phones and tablets (1024px and narrower) the same filters open as a "Filters" sheet from the button next to search. Settings are under `"filters"` in `src/data/treatments.json`; behaviour is in `public/js/treatments.js`; styles are the `.fl-*`, `.seg`, `.pill` and `.switch` rules in `public/css/treatments.css`.
+On `/rituals/` the filters sit in a sidebar on the left (desktop). On phones and tablets (1024px and narrower) the same filters open as a "Filters" sheet from the button next to search. Behaviour is in `public/js/treatments.js`; styles are the `.fl-*`, `.seg`, `.pill` and `.switch` rules in `public/css/treatments.css`.
 - **Area:** All / Face / Body / Wellness (a segmented control with counts). It's kept in the link as `?area=face`, so `/rituals/?area=body` opens the Body list. Older `/rituals/#body` links still work. Area also limits which concerns are listed.
-- **Concern:** checkboxes. Each area shows its first 6 concerns, the rest behind "+ N more concerns", and ticked ones always stay visible. With Area on "All", the 6 in `concernsOnAll` show. A concern only appears where at least one treatment has it. To add one: add `{ "id": "…", "label": "…" }` to `concerns` (its position sets its order), then add the id to the right treatments' `concerns`.
-- **First trial:** an on/off switch. Its subtitle (e.g. "6 treatments, from S$69") updates as other filters change. A session counts as a first trial when its `label` contains `firstTrialLabel` ("First Trial").
-- **Budget / Time:** pill buttons from `budgets` and `durations` (`min` / `max`; `null` = no upper limit). A treatment matches when one of its sessions fits the First trial switch, a chosen budget and a chosen time together.
-- **Collection:** collapsed under "Collection +"; its label shows how many are ticked. Options come from each treatment's `tag` plus `collections`.
-- There is no pigmentation concern: no treatment's description covers it yet. Add one only when marketing confirms a treatment for it.
+- **Concern:** checkboxes with the labels and order of the workbook's Concerns tab. "Order in its area shortlist" decides which show before "+ N more concerns" (blank = under that link); on "All", "Order in All shortlist" does. Ticked ones always stay visible. A concern only appears where at least one treatment has it.
+- **First trial:** an on/off switch for treatments with a first-trial price. Its subtitle (e.g. "20 treatments, from S$69") updates as other filters change.
+- **Budget / Time:** pill buttons from `budgets` and `durations` under `"filters"` in `src/data/treatments.json` (`min` / `max`; `null` = no upper limit). Budget matches the "from" price on the card (treatments with only a price text never match a budget). Time matches any of the treatment's durations.
+- **Collection:** collapsed under "Collection +"; options are the workbook's Collections tab.
+- **Search** matches treatment names plus each of their concerns' label and "Search words".
 
 ### Treatments page: "Explore our services" heading and tiles
-The heading above the Face / Body / Wellness tiles is `"services"` in `src/data/treatments.json`: `eyebrow`, `heading` (`*asterisks*` = italic rose) and `lede` (the short line on the right). Each tile's treatment count and "from S$xx" price are worked out from the treatments in the same file, so they update on their own. The ribbon line that draws in above the heading is in `src/pages/treatments.astro` (styles: `.svc-ribbon` in `public/css/treatments.css`).
+The heading above the Face / Body / Wellness tiles is `"services"` in `src/data/treatments.json`: `eyebrow`, `heading` (`*asterisks*` = italic rose) and `lede` (the short line on the right). Each tile's treatment count and "from S$xx" price are worked out from the treatment list (`src/data/treatment-menu.json`), so they update on their own. The ribbon line that draws in above the heading is in `src/pages/treatments.astro` (styles: `.svc-ribbon` in `public/css/treatments.css`).
 
 ### Treatments page: "New & trending" banners
 Below the Face / Body / Wellness tiles on `/treatments/`: a heading, then three banners: one wide banner on top and two half-width banners side by side under it, edge to edge. Edit `"trending"` in `src/data/treatments.json`:
@@ -204,7 +210,7 @@ The page is `/gallery/`, linked from the Treatments dropdown ("Gallery / Results
     consent: true
 ```
 
-- `treatment` is the treatment's `id` from `src/data/treatments.json`; its name, Face/Body/Wellness filter and link fill in automatically.
+- `treatment` is the treatment's ID from the menu workbook (see `src/data/treatment-menu.json`); its name, Face/Body/Wellness filter and link fill in automatically.
 - For one combined picture, use `image: "/images/results/….webp"` instead of `before` and `after`.
 - **Photos only show when `consent: true`.** While it's `false`, the slot shows "Awaiting consent" instead of the photo. Never set it to `true` until marketing confirms the signed consent.
 - `note` must be factual: no kg or cm lost, no "permanent", no medical claims, no "guaranteed".

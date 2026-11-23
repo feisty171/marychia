@@ -3,8 +3,9 @@
    - /rituals/     the treatment list: search, filters, session picker and WhatsApp booking sheet
    Each part only runs when its elements are on the page. */
 
-/* Data comes from the page (built from src/data/treatments.json + outlets.json).
-   Edit those files, not this script. */
+/* Data comes from the page: treatments, concerns and collections from the menu workbook
+   (src/data/treatment-menu.json, made by `npm run build:treatments`), page settings from
+   src/data/treatments.json, studios from outlets.json. Edit those, not this script. */
 const DATA = JSON.parse(document.getElementById("tp-data").textContent);
 const CONFIG = DATA.config;
 const SITE_IMAGES = DATA.siteImages;
@@ -15,8 +16,9 @@ const TREATMENTS = DATA.treatments;
    App logic (no edits needed below)
    ========================================================================== */
 const CATEGORIES = ["All", "Face", "Body", "Wellness"];
-const SUGGESTIONS = ["hydration", "lifting", "cellulite", "aches", "stress", "detox"];
-const FILTERS = DATA.filters || { concerns: [], concernsOnAll: [], budgets: [], durations: [], firstTrialLabel: "First Trial" };
+const SUGGESTIONS = ["hydration", "lift", "acne", "cellulite", "aches", "detox"];
+const FILTERS = DATA.filters || { concerns: [], budgets: [], durations: [] };
+const PAGE_SIZE = 12; // cards shown before "Show more"
 // Rituals page filters. area = "All" | "Face" | "Body" | "Wellness" (kept in the URL as ?area=face)
 const state = { q: "", area: "All", concerns: new Set(), trial: false, budgets: new Set(), times: new Set(), colls: new Set() };
 
@@ -27,23 +29,23 @@ const fmtMins = m => m >= 60 ? `${Math.floor(m/60)} hr${m%60 ? " " + (m%60) + " 
 const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const norm = s => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9&+ ]+/g, " ").replace(/\s+/g, " ").trim();
 
-// Pre-build a search index per treatment
+// Pre-build a search index per treatment: its name, plus each concern's label and search words
+const CONCERN_BY_ID = Object.fromEntries(FILTERS.concerns.map(c => [c.id, c]));
 TREATMENTS.forEach(t => {
-  t._hay = norm([t.name, t.category, t.for, t.description, t.tag || "", ...t.keywords, ...t.options.map(o => o.label)].join(" "));
+  const cs = (t.concerns || []).map(id => CONCERN_BY_ID[id]).filter(Boolean);
+  t._hay = norm([t.name, ...cs.map(c => c.label + " " + (c.search || ""))].join(" "));
 });
 
 // ---------- Filter matching ----------
-const inRange = (n, r) => n >= r.min && (r.max == null || n <= r.max);
-const isTrial = o => o.label.toLowerCase().includes(FILTERS.firstTrialLabel.toLowerCase());
-const collectionsOf = t => [...(t.tag ? [t.tag] : []), ...(t.collections || [])].filter(c => !c.includes("[[CONFIRM"));
-// A treatment fits when ONE of its sessions fits the First trial switch, a chosen budget and a chosen time together.
+const inRange = (n, r) => n != null && n >= r.min && (r.max == null || n <= r.max);
+const collectionsOf = t => t.collection ? [t.collection] : [];
+// First trial: has a first-trial price. Budget: the "from" price on the card. Time: any of its session lengths.
 function sessionFits(t, s) {
   const budgets = FILTERS.budgets.filter(b => s.budgets.has(b.id));
   const times = FILTERS.durations.filter(d => s.times.has(d.id));
-  return t.options.some(o =>
-    (!s.trial || isTrial(o)) &&
-    (!budgets.length || budgets.some(b => inRange(o.price, b))) &&
-    (!times.length || times.some(d => inRange(o.minutes, d))));
+  return (!s.trial || t.trialPrice != null) &&
+    (!budgets.length || budgets.some(b => inRange(t.from, b))) &&
+    (!times.length || times.some(d => t.minutes.some(m => inRange(m, d))));
 }
 function textMatch(t, q) {
   q = norm(q);
@@ -82,7 +84,7 @@ if (CONFIG.showPlaceholderHints) document.getElementById("tp").classList.add("sh
 const TILE_COPY = { Face: "Glow, lift & clarity", Body: "Sculpt, tone & detox", Wellness: "Restore & unwind" };
 // Each tile also shows how many treatments it holds and "from S$xx" (lowest price)
 const inCat = c => TREATMENTS.filter(t => t.category === c);
-const catFrom = list => fmt(Math.min(...list.flatMap(t => t.options.map(o => o.price))));
+const catFrom = list => fmt(Math.min(...list.map(t => t.from).filter(n => n != null)));
 if ($("#tiles")) $("#tiles").innerHTML = ["Face", "Body", "Wellness"].map(c => {
   const list = inCat(c);
   return `
@@ -121,22 +123,24 @@ const trialBtn = $("#flTrial"), trialSub = $("#flTrialSub");
 const budgetEl = $("#flBudget"), timeEl = $("#flTime");
 const collBtn = $("#flCollBtn"), collEl = $("#flColl"), collText = $("#flCollText");
 const clearBtn = $("#flClear"), applyBtn = $("#flApply"), openBtn = $("#flOpen"), openN = $("#flOpenN");
-const MAX_CONCERNS = 6;
 let moreOpen = false;
+let shownCount = PAGE_SIZE;
 
-const concernById = Object.fromEntries(FILTERS.concerns.map(c => [c.id, c]));
-const ALL_COLLECTIONS = [...new Set(TREATMENTS.flatMap(collectionsOf))];
+const concernById = CONCERN_BY_ID;
+const ALL_COLLECTIONS = [...new Set([...(DATA.collections || []), ...TREATMENTS.flatMap(collectionsOf)])]
+  .filter(c => TREATMENTS.some(t => collectionsOf(t).includes(c)));
 const copyState = (over = {}) => ({ ...state, concerns: new Set(state.concerns), budgets: new Set(state.budgets), times: new Set(state.times), colls: new Set(state.colls), ...over });
 
-// Concerns listed for an area: only ones with at least one treatment there.
-// "All" starts with the concernsOnAll list, then the rest in their usual order.
+// Concerns listed for an area: only ones with at least one treatment there, in the order of the
+// workbook's Concerns tab. The shortlist (shown before "+ N more") is the concerns with an
+// "Order in its area shortlist" number (on "All": "Order in All shortlist"), in that order.
+const shortOrder = (c, area) => area === "All" ? c.orderAll : (c.area === area ? c.orderArea : null);
 function concernsFor(area) {
   const pool = TREATMENTS.filter(t => area === "All" || t.category === area);
   const has = id => pool.some(t => (t.concerns || []).includes(id));
-  const ordered = area === "All"
-    ? [...FILTERS.concernsOnAll, ...FILTERS.concerns.map(c => c.id).filter(id => !FILTERS.concernsOnAll.includes(id))]
-    : FILTERS.concerns.map(c => c.id);
-  return ordered.filter(id => concernById[id] && has(id));
+  const list = FILTERS.concerns.filter(c => has(c.id));
+  const short = list.filter(c => shortOrder(c, area) != null).sort((a, b) => shortOrder(a, area) - shortOrder(b, area));
+  return { all: [...short, ...list.filter(c => !short.includes(c))].map(c => c.id), short: short.map(c => c.id) };
 }
 
 // Area: segmented control
@@ -150,22 +154,21 @@ CATEGORIES.forEach(c => {
 function setArea(a, opts = {}) {
   state.area = a;
   // Drop ticked concerns that this area doesn't list, so no hidden filter stays on
-  const allowed = new Set(concernsFor(a));
+  const allowed = new Set(concernsFor(a).all);
   [...state.concerns].forEach(id => { if (!allowed.has(id)) state.concerns.delete(id); });
   moreOpen = false;
   if (!opts.silent) writeUrl();
   update(true);
 }
 
-// Concerns: checkboxes, first 6 + "+ N more concerns". Ticked ones always stay visible.
+// Concerns: checkboxes, the shortlist + "+ N more concerns". Ticked ones always stay visible.
 function drawConcerns() {
-  const list = concernsFor(state.area);
-  const firstSix = list.slice(0, MAX_CONCERNS);
-  const shown = moreOpen ? list : list.filter(id => firstSix.includes(id) || state.concerns.has(id));
+  const { all: list, short } = concernsFor(state.area);
+  const shown = moreOpen ? list : list.filter(id => short.includes(id) || state.concerns.has(id));
   concernsEl.innerHTML = shown.map(id => `
     <label class="check"><input type="checkbox" value="${id}"${state.concerns.has(id) ? " checked" : ""}><span>${esc(concernById[id].label)}</span></label>`).join("");
   const hidden = list.length - shown.length;
-  moreBtn.hidden = list.length <= MAX_CONCERNS;
+  moreBtn.hidden = list.length === short.length;
   moreBtn.setAttribute("aria-expanded", String(moreOpen));
   moreBtn.textContent = moreOpen ? "− Fewer concerns" : `+ ${hidden} more concern${hidden === 1 ? "" : "s"}`;
   if (!moreOpen && hidden === 0) moreBtn.hidden = true;
@@ -233,7 +236,7 @@ function drawSidebar(opts = {}) {
 
   // Subtitle: what turning First trial on would show with the other filters as they are
   const trialList = TREATMENTS.filter(t => matches(t, copyState({ trial: true })));
-  const trialPrices = trialList.flatMap(t => t.options.filter(isTrial).map(o => o.price));
+  const trialPrices = trialList.map(t => t.trialPrice);
   trialBtn.setAttribute("aria-checked", String(state.trial));
   trialSub.textContent = trialList.length
     ? `${trialList.length} ${trialList.length === 1 ? "treatment" : "treatments"}, from ${fmt(Math.min(...trialPrices))}`
@@ -261,8 +264,9 @@ function writeUrl() {
 }
 
 // ---------- Cards ----------
-// Cards show no sessions or durations; the price is shown as "from S$xx" (lowest option price).
-const fromPrice = t => fmt(Math.min(...t.options.map(o => o.price)));
+// Cards show no sessions or durations. Price: "from S$xx" (worked out by the build script),
+// or the workbook's Price text (e.g. "Quoted per case") when there's no single price.
+const priceHTML = t => t.from != null ? `from <b>${fmt(t.from)}</b>` : `<b>${esc(t.priceText)}</b>`;
 function cardHTML(t, i) {
   return `
   <article class="card" style="--i:${i}" data-id="${t.id}">
@@ -274,14 +278,32 @@ function cardHTML(t, i) {
     <div class="card-body">
     <h3>${esc(t.name)}</h3>
     <p class="for">${esc(t.for)}</p>
-    <p class="desc">${esc(t.description)}</p>
+    ${t.description ? `<p class="desc">${esc(t.description)}</p>` : ""}
     <div class="card-bottom price-row">
-      <p class="from">from <b>${fromPrice(t)}</b></p>
+      <p class="from">${priceHTML(t)}</p>
       <button type="button" class="btn btn-primary js-book" data-id="${t.id}">Book Now</button>
     </div>
     </div>
   </article>`;
 }
+
+// "Show more": the list shows PAGE_SIZE cards, then the next PAGE_SIZE on each click.
+const moreWrap = $("#moreWrap"), moreCards = $("#moreCards");
+let currentList = [];
+function drawMoreButton() {
+  const left = currentList.length - shownCount;
+  moreWrap.hidden = left <= 0;
+  moreCards.setAttribute("aria-label", `Show more treatments (${left} more)`);
+}
+moreCards.addEventListener("click", () => {
+  const from = shownCount;
+  shownCount += PAGE_SIZE;
+  grid.insertAdjacentHTML("beforeend", currentList.slice(from, shownCount).map((t, i) => cardHTML(t, i)).join(""));
+  drawMoreButton();
+  // Move keyboard focus to the first new card's Book button, so the list continues from there
+  const next = grid.children[from] && grid.children[from].querySelector(".js-book");
+  if (next && moreWrap.hidden) next.focus({ preventScroll: true });
+});
 
 let fadeTimer;
 function update(animate, opts = {}) {
@@ -290,7 +312,9 @@ function update(animate, opts = {}) {
   const word = n => `${n} ${n === 1 ? "treatment" : "treatments"}`;
   applyBtn.textContent = list.length ? `Show ${word(list.length)}` : "No treatments match";
   const draw = () => {
-    grid.innerHTML = list.map(cardHTML).join("");
+    currentList = list; shownCount = PAGE_SIZE;
+    grid.innerHTML = list.slice(0, shownCount).map(cardHTML).join("");
+    drawMoreButton();
     grid.classList.remove("fading");
     const none = list.length === 0;
     empty.classList.toggle("show", none);
