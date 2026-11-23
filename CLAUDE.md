@@ -144,7 +144,7 @@ Edit `src/data/treatments.json`, under `"treatments"`. Each treatment has:
 - `name`, `category` (`"Face"`, `"Body"` or `"Wellness"`), optional `tag` (e.g. `"New"`, `"Signature"`)
 - `for` (the short italic line) and `description` (one or two sentences; follow the no-guaranteed-results rule)
 - `keywords`: extra words people might search for, e.g. `"aches"`, `"hydration"`
-- `options`: one or more sessions, each `{ "label": "First Trial", "minutes": 60, "price": 69, "compareAt": 189 }`. The site shows only the lowest price, as "from S$xx", on cards, category tiles and the Spotlight. Session names (First Trial / Usual), durations and crossed-out prices are not shown, and the WhatsApp booking message names only the treatment.
+- `options`: one or more sessions, each `{ "label": "First Trial", "minutes": 60, "price": 69, "compareAt": 189 }`. The site shows only the lowest price, as "from S$xx", on cards and category tiles. Session names (First Trial / Usual), durations and crossed-out prices are not shown, and the WhatsApp booking message names only the treatment.
 - `image`: a file name in `public/images/treatments/` (landscape, about 1200×900), or `""` for a placeholder
 
 Prices must match the Y27/28 menu PDF and the Home page signature cards (`src/content/home.md`).
@@ -152,12 +152,15 @@ Prices must match the Y27/28 menu PDF and the Home page signature cards (`src/co
 ### Treatments page: "Explore our services" heading and tiles
 The heading above the Face / Body / Wellness tiles is `"services"` in `src/data/treatments.json`: `eyebrow`, `heading` (`*asterisks*` = italic rose) and `lede` (the short line on the right). Each tile's treatment count, "from S$xx" price and hover peek list of names are worked out from the treatments in the same file, so they update on their own. The ribbon line that draws in above the heading is in `src/pages/treatments.astro` (styles: `.svc-ribbon` in `public/css/treatments.css`).
 
-### Treatments page: "Spotlight" (New & trending)
-Below the Face / Body / Wellness tiles on `/treatments/`. Edit `"trending"` in `src/data/treatments.json`:
-- `eyebrow`, `heading` (put `*asterisks*` around words to show them in italic rose), `lede`, `badge` (the text on the spinning circle), `autoplaySeconds`.
-- `items`: up to 4, each `{ "id": "…", "label": "New", "image": "" }`. `id` must match a treatment's `id` in the same file; its name, description and "from S$xx" price are pulled in automatically, so prices stay in sync.
-- `image`: a portrait photo (about 900×1100) in `public/images/treatments/`, or `""` for a placeholder.
-- Behaviour (click/tap or arrow keys to switch; auto-advances on desktop and pauses on hover or focus) is in `public/js/trending.js`; styles are at the end of `public/css/treatments.css`.
+### Treatments page: "New & trending" banners
+Below the Face / Body / Wellness tiles on `/treatments/`: a heading, then three banners: one wide banner on top and two half-width banners side by side under it, edge to edge. Edit `"trending"` in `src/data/treatments.json`:
+- `eyebrow`, `heading` (put `*asterisks*` around words to show them in italic rose), `lede`.
+- `banners`: three `{ "image": "", "alt": "", "link": "" }` blocks, in order. **First** = the wide one (1920×480, 4:1). **Second and third** = the half-width ones (960×480 each, 2:1).
+  - `image`: e.g. `"/images/banners/prestige-series.webp"` (files in `public/images/banners/`), or `""` for a placeholder showing the size. Any words (titles, "Book First Trial") go in the artwork itself.
+  - `alt`: what the banner says or shows, for screen readers.
+  - `link`: where it goes when clicked, e.g. `"/rituals/#face"`, or `""` for no link.
+- On phones the three banners stack, each keeping its own shape, so words in the artwork aren't cropped. Export them at exactly 4:1 and 2:1.
+- No before-and-after images or guaranteed results in banners. Styles: `.trend-*` at the end of `public/css/treatments.css`.
 
 ### Treatments and Rituals pages: photos, full menu and booking
 - `/treatments/` shows the hero and the Face / Body / Wellness tiles. Each tile, the hero "Explore" button, the nav's Face / Body / Wellness links and the Home page "View all treatments" button open `/rituals/` (the full list), filtered with `#face`, `#body` or `#wellness` where relevant.

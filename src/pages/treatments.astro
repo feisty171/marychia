@@ -26,27 +26,13 @@ const studios = outlets
   }));
 const pageData = { ...data, studios };
 
-// ---------- Spotlight (New & trending) ----------
-// Picks come from data.trending.items (by treatment id); name, description and "from" price from the treatment itself.
+// ---------- New & trending banners ----------
+// data.trending.banners: [wide 1920x480, half 960x480, half 960x480]. Empty image = placeholder.
 const tr = data.trending;
 const escHtml = (s: string) => s.replace(/[&<>"]/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[ch]!);
 const withEm = (s: string) => escHtml(s).replace(/\*(.+?)\*/g, "<em>$1</em>");
-const spotlight = tr.items
-  .map((it) => ({ ...it, t: data.treatments.find((x) => x.id === it.id) }))
-  .filter((x) => x.t)
-  .slice(0, 4)
-  .map((x) => {
-    const t = x.t!;
-    const src = !x.image ? "" : x.image.startsWith("/") ? x.image : data.config.treatmentImageBase + x.image;
-    const from = data.config.currency + Math.min(...t.options.map((o) => o.price)).toLocaleString("en-SG");
-    return { ...x, t, src, from };
-  });
-const pad = (n: number) => String(n).padStart(2, "0");
-const ICON: Record<string, string> = {
-  Face: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M12 3c-3.6 0-6 2.9-6 6.8 0 4.6 2.8 8.7 6 10.2 3.2-1.5 6-5.6 6-10.2C18 5.9 15.6 3 12 3Z"/><path d="M9.3 10.2h.01M14.7 10.2h.01M10 14.6c1.2.8 2.8.8 4 0"/></svg>',
-  Body: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M3 15c3-1 4.5-3.5 9-3.5S18 14 21 15"/><path d="M5 18.5c2.4-.7 3.8-2 7-2s4.6 1.3 7 2"/><circle cx="12" cy="6.5" r="2.5"/></svg>',
-  Wellness: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M12 21c-4-2.5-7-5.6-7-9.5C5 8 7.2 6 9.6 6c1 0 1.8.4 2.4 1 .6-.6 1.4-1 2.4-1C16.8 6 19 8 19 11.5c0 3.9-3 7-7 9.5Z"/><path d="M12 3v3M8.5 12.5c1 1.2 2.2 1.8 3.5 1.8s2.5-.6 3.5-1.8"/></svg>',
-};
+const BANNER_SIZES = ["1920 × 480", "960 × 480", "960 × 480"];
+const banners = (tr.banners || []).slice(0, 3).map((b: any, i: number) => ({ ...b, size: BANNER_SIZES[i], n: i + 1 }));
 ---
 <Base
   title="Treatments | Mary Chia"
@@ -94,10 +80,9 @@ const ICON: Record<string, string> = {
   <div class="tiles" id="tiles"></div>
 </div>
 
-<!-- ======================= SPOTLIGHT (New & trending) =======================
-     Content: "trending" in src/data/treatments.json. Behaviour: public/js/trending.js -->
-{spotlight.length > 0 && (
-<section class="trend" id="trending" aria-labelledby="trendTitle" data-autoplay={tr.autoplaySeconds || 6}>
+<!-- ======================= NEW & TRENDING (banners) =======================
+     Content: "trending" in src/data/treatments.json (heading + 3 banners). Styles: .trend-* in public/css/treatments.css -->
+<section class="trend" id="trending" aria-labelledby="trendTitle">
   <div class="wrap">
     <header class="trend-head">
       <p class="eyebrow">{tr.eyebrow}</p>
@@ -105,59 +90,22 @@ const ICON: Record<string, string> = {
       <p class="trend-lede">{tr.lede}</p>
     </header>
 
-    <div class="trend-grid">
-      <!-- Photo stage: swaps with the active treatment -->
-      <div class="trend-stage" aria-hidden="true">
-        <span class="trend-ghost">01</span>
-        <div class="trend-frame">
-          {spotlight.map((x, i) => (
-            <div class:list={["trend-slide", { "is-active": i === 0 }]} data-i={i}>
-              {x.src
-                ? <img src={x.src} alt="" loading="lazy" decoding="async" />
-                : <div class="ph" data-cat={x.t.category}><div class="ph-inner"><span class="ph-icon" set:html={ICON[x.t.category] || ICON.Wellness} /><span class="ph-hint">Photo · 900 × 1100</span></div></div>}
-              <span class="trend-slide__cat">{x.t.category}</span>
-            </div>
-          ))}
-        </div>
-        <svg class="trend-badge" viewBox="0 0 120 120">
-          <defs><path id="trendCircle" d="M60 60m-44 0a44 44 0 1 1 88 0a44 44 0 1 1-88 0" /></defs>
-          <circle cx="60" cy="60" r="58" />
-          <text><textPath href="#trendCircle">{`${tr.badge} · ${tr.badge} · `}</textPath></text>
-          <path class="trend-badge__star" d="M60 47c1.6 7.6 5.4 11.4 13 13-7.6 1.6-11.4 5.4-13 13-1.6-7.6-5.4-11.4-13-13 7.6-1.6 11.4-5.4 13-13Z" />
-        </svg>
-        <p class="trend-count"><span class="trend-count__now">01</span><span class="trend-count__sep"></span><span>{pad(spotlight.length)}</span></p>
-      </div>
-
-      <!-- List: hover, click or use the arrow keys to switch -->
-      <div class="trend-list" role="tablist" aria-orientation="vertical" aria-label={tr.eyebrow}>
-        {spotlight.map((x, i) => (
-          <div class:list={["trend-item", { "is-active": i === 0 }]} data-i={i}>
-            <button class="trend-tab" type="button" role="tab" id={`trend-tab-${i}`} aria-selected={i === 0 ? "true" : "false"} aria-controls={`trend-panel-${i}`} tabindex={i === 0 ? 0 : -1}>
-              <span class="trend-num">{pad(i + 1)}</span>
-              <span class="trend-name">{x.t.name}</span>
-              <span class="trend-tag">{x.label}</span>
-            </button>
-            <div class="trend-panel" role="tabpanel" id={`trend-panel-${i}`} aria-labelledby={`trend-tab-${i}`} inert={i !== 0}>
-              <div class="trend-panel__inner">
-                <p class="trend-for">{x.t.for}</p>
-                <p class="trend-desc">{x.t.description}</p>
-                <div class="trend-foot">
-                  <p class="from">from <b>{x.from}</b></p>
-                  <a class="trend-cta" href={`/rituals/#${x.t.category.toLowerCase()}`}>
-                    See it on the menu
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5" /></svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <span class="trend-progress" aria-hidden="true"><i></i></span>
-          </div>
-        ))}
-      </div>
+    <div class="trend-banners">
+      {banners.map((b) => {
+        const cls = ["trend-banner", b.n === 1 ? "trend-banner--wide" : "trend-banner--half"];
+        const inner = b.image
+          ? <img src={b.image} alt={b.alt || ""} loading="lazy" decoding="async" />
+          : <span class="trend-banner__ph" role="img" aria-label={`Banner ${b.n} placeholder`}>
+              <span class="trend-banner__label">Banner {b.n}</span>
+              <span class="trend-banner__size">{b.size}</span>
+            </span>;
+        return b.image && b.link
+          ? <a class:list={cls} href={b.link}>{inner}</a>
+          : <div class:list={cls}>{inner}</div>;
+      })}
     </div>
   </div>
 </section>
-)}
 
 
 </main>
@@ -168,5 +116,4 @@ const ICON: Record<string, string> = {
 
   <script type="application/json" id="tp-data" set:html={JSON.stringify(pageData)}></script>
   <script is:inline src="/js/treatments.js"></script>
-  <script is:inline src="/js/trending.js"></script>
 </Base>
