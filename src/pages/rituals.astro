@@ -2,7 +2,7 @@
 /**
  * Rituals page (/rituals/): "Our most-loved rituals" — the full signature treatment list
  * with search, Face/Body/Wellness filters, session picker and WhatsApp booking.
- * Links like /rituals/#face open it filtered. The Treatments page (/treatments/) links here.
+ * Links like /rituals/?area=face open it filtered (older /rituals/#face links still work). The Treatments page (/treatments/) links here.
  * Design: mary-chia-treatments-page.zip (scoped styles in public/css/treatments.css).
  * Treatment list, prices, images and PDF settings: src/data/treatments.json
  * Studios for WhatsApp booking: src/data/outlets.json
@@ -53,31 +53,85 @@ const pageData = { ...data, studios };
       <p>Choose your session, then book with the studio nearest you. Our therapists will tailor every treatment to you on the day.</p>
     </div>
 
-    <div class="toolbar" role="search">
-      <label class="search">
-        <span class="sr-only">Search treatments</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input id="search" type="search" autocomplete="off" placeholder="Search by treatment or concern, e.g. hydration, aches, cellulite">
-        <button class="search-clear" id="clearSearch" type="button" aria-label="Clear search">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg>
-        </button>
-      </label>
-      <div class="tabs" id="tabs" role="group" aria-label="Filter by category">
-        <span class="tab-pill" id="tabPill" aria-hidden="true"></span>
-      </div>
-    </div>
-    <p class="status" id="status" aria-live="polite"></p>
+    <div class="rl">
+      <!-- Filter sidebar. Desktop: sticky column on the left. Phones/tablets: the "Filters" sheet.
+           Options come from "filters" in src/data/treatments.json; behaviour is in public/js/treatments.js -->
+      <aside class="fl" id="filters" aria-labelledby="flTitle">
+        <div class="fl-head">
+          <h2 class="fl-title" id="flTitle">Filters</h2>
+          <button class="fl-clear" id="flClear" type="button" hidden>Clear all</button>
+          <button class="fl-close" id="flClose" type="button" aria-label="Close filters">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+          </button>
+        </div>
+        <div class="fl-body">
+          <div class="fl-group">
+            <p class="fl-label" id="flAreaLabel">Area</p>
+            <div class="seg" id="flArea" role="group" aria-labelledby="flAreaLabel"></div>
+          </div>
+          <fieldset class="fl-group">
+            <legend class="fl-label">Concern</legend>
+            <div class="fl-checks" id="flConcerns"></div>
+            <button class="fl-more" id="flMore" type="button" aria-expanded="false" hidden></button>
+          </fieldset>
+          <div class="fl-group fl-trial">
+            <div>
+              <p class="fl-label fl-label--inline" id="flTrialLabel">First trial</p>
+              <p class="fl-sub" id="flTrialSub" aria-live="polite"></p>
+            </div>
+            <button class="switch" id="flTrial" type="button" role="switch" aria-checked="false" aria-labelledby="flTrialLabel" aria-describedby="flTrialSub"><span aria-hidden="true"></span></button>
+          </div>
+          <div class="fl-group">
+            <p class="fl-label" id="flBudgetLabel">Budget</p>
+            <div class="pills" id="flBudget" role="group" aria-labelledby="flBudgetLabel"></div>
+          </div>
+          <div class="fl-group">
+            <p class="fl-label" id="flTimeLabel">Time</p>
+            <div class="pills" id="flTime" role="group" aria-labelledby="flTimeLabel"></div>
+          </div>
+          <div class="fl-group fl-group--last">
+            <button class="fl-disclosure" id="flCollBtn" type="button" aria-expanded="false" aria-controls="flColl">
+              <span class="fl-label fl-label--inline" id="flCollText">Collection</span>
+              <span class="fl-plus" aria-hidden="true"></span>
+            </button>
+            <div class="fl-checks fl-coll" id="flColl" hidden></div>
+          </div>
+        </div>
+        <div class="fl-foot">
+          <button class="btn btn-primary fl-apply" id="flApply" type="button">Show treatments</button>
+        </div>
+      </aside>
+      <div class="fl-backdrop" id="flBackdrop" aria-hidden="true"></div>
 
-    <div class="grid" id="grid"></div>
+      <div class="rl-main">
+        <div class="toolbar" role="search">
+          <label class="search">
+            <span class="sr-only">Search treatments</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input id="search" type="search" autocomplete="off" placeholder="Search by treatment or concern, e.g. hydration, aches, cellulite" data-short-placeholder="Search treatments or concerns">
+            <button class="search-clear" id="clearSearch" type="button" aria-label="Clear search">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg>
+            </button>
+          </label>
+          <button class="fl-open" id="flOpen" type="button" aria-controls="filters" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+            <span class="fl-open__label">Filters</span> <span class="fl-open__n" id="flOpenN" hidden></span>
+          </button>
+        </div>
+        <p class="status" id="status" aria-live="polite"></p>
 
-    <div class="empty" id="empty">
-      <div class="ring" aria-hidden="true">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M8.5 11h5"/></svg>
+        <div class="grid" id="grid"></div>
+
+        <div class="empty" id="empty">
+          <div class="ring" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M8.5 11h5"/></svg>
+          </div>
+          <h3>No treatments found matching your search</h3>
+          <p id="emptyMsg">Try a different word, or explore one of these:</p>
+          <div class="suggest" id="suggest"></div>
+          <button class="btn btn-ghost" id="resetBtn" type="button">Reset search &amp; filters</button>
+        </div>
       </div>
-      <h3>No treatments found matching your search</h3>
-      <p id="emptyMsg">Try a different word, or explore one of these:</p>
-      <div class="suggest" id="suggest"></div>
-      <button class="btn btn-ghost" id="resetBtn" type="button">Reset search &amp; filters</button>
     </div>
   </div>
 </section>

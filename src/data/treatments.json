@@ -19,7 +19,7 @@
     "lede": "Three ways to feel like you, each one personalised by our therapists."
   },
   "trending": {
-    "_note": "New & trending banners on /treatments/ (below the Face/Body/Wellness tiles). One wide banner on top (1920 x 480) and two half-width banners under it (960 x 480 each), in that order. image = a file path in public/images/banners/, or \"\" for a placeholder. Any words should be part of the image itself. alt = what the banner says or shows, for screen readers. link = where it goes when clicked, e.g. \"/rituals/#face\" (or \"\" for no link). Write the heading with *asterisks* around the words to show in italic rose. No before-and-after images or guaranteed results.",
+    "_note": "New & trending banners on /treatments/ (below the Face/Body/Wellness tiles). One wide banner on top (1920 x 480) and two half-width banners under it (960 x 480 each), in that order. image = a file path in public/images/banners/, or \"\" for a placeholder. Any words should be part of the image itself. alt = what the banner says or shows, for screen readers. link = where it goes when clicked, e.g. \"/rituals/?area=face\" (or \"\" for no link). Write the heading with *asterisks* around the words to show in italic rose. No before-and-after images or guaranteed results.",
     "eyebrow": "New & trending",
     "heading": "This season's *spotlight*",
     "lede": "New arrivals and the rituals our guests keep coming back for. Tap one to take a closer look.",
@@ -61,6 +61,10 @@
         "facial",
         "classic"
       ],
+      "concerns": [
+        "dry",
+        "dull"
+      ],
       "options": [
         {
           "label": "First Trial",
@@ -93,6 +97,10 @@
         "anti-aging",
         "anti-ageing",
         "wrinkles"
+      ],
+      "concerns": [
+        "sagging",
+        "lines"
       ],
       "options": [
         {
@@ -129,6 +137,12 @@
         "clario",
         "glass skin"
       ],
+      "concerns": [
+        "acne",
+        "sensitive",
+        "pores",
+        "dry"
+      ],
       "options": [
         {
           "label": "First Trial",
@@ -161,6 +175,10 @@
         "rf",
         "anti-aging",
         "quick"
+      ],
+      "concerns": [
+        "sagging",
+        "lines"
       ],
       "options": [
         {
@@ -210,6 +228,10 @@
         "massage",
         "tired"
       ],
+      "concerns": [
+        "puffiness",
+        "tired"
+      ],
       "options": [
         {
           "label": "First Trial",
@@ -242,6 +264,11 @@
         "contouring",
         "slimming",
         "lpg"
+      ],
+      "concerns": [
+        "cellulite",
+        "fat",
+        "loose"
       ],
       "options": [
         {
@@ -279,6 +306,10 @@
         "arms",
         "warm",
         "rf"
+      ],
+      "concerns": [
+        "fat",
+        "loose"
       ],
       "options": [
         {
@@ -325,6 +356,10 @@
         "women",
         "detox"
       ],
+      "concerns": [
+        "bust",
+        "circulation"
+      ],
       "options": [
         {
           "label": "60 min",
@@ -362,6 +397,11 @@
         "tcm",
         "warming",
         "qi",
+        "circulation"
+      ],
+      "concerns": [
+        "aches",
+        "stress",
         "circulation"
       ],
       "optionLabel": "Choose your focus",
@@ -416,6 +456,9 @@
         "indulgent",
         "premium"
       ],
+      "concerns": [
+        "stress"
+      ],
       "optionLabel": "Choose your experience",
       "options": [
         {
@@ -453,6 +496,11 @@
         "energy",
         "circulation"
       ],
+      "concerns": [
+        "puffiness",
+        "tired",
+        "circulation"
+      ],
       "options": [
         {
           "label": "60 min",
@@ -480,6 +528,9 @@
         "cosy",
         "unwind"
       ],
+      "concerns": [
+        "stress"
+      ],
       "options": [
         {
           "label": "15 min",
@@ -488,5 +539,123 @@
         }
       ]
     }
-  ]
+  ],
+  "filters": {
+    "_note": "Rituals page (/rituals/) filter sidebar. concerns = every concern a visitor can tick, in the order they are listed (an area shows its first 6, the rest behind '+ N more'). A concern only appears under an area that has at least one treatment with it. concernsOnAll = the 6 shown when Area is 'All'. Each treatment lists its concern ids under \"concerns\". budgets and durations are the pill buttons; a treatment matches when one of its sessions fits every chosen pill (and is a First Trial session when that switch is on). Collections come from each treatment's tag (e.g. Signature, New) plus any names in its optional \"collections\" list.",
+    "concerns": [
+      {
+        "id": "dry",
+        "label": "Dryness"
+      },
+      {
+        "id": "acne",
+        "label": "Acne & breakouts"
+      },
+      {
+        "id": "sagging",
+        "label": "Sagging & firmness"
+      },
+      {
+        "id": "sensitive",
+        "label": "Redness & sensitivity"
+      },
+      {
+        "id": "pores",
+        "label": "Pores & texture"
+      },
+      {
+        "id": "dull",
+        "label": "Dullness"
+      },
+      {
+        "id": "lines",
+        "label": "Fine lines"
+      },
+      {
+        "id": "fat",
+        "label": "Body contouring"
+      },
+      {
+        "id": "cellulite",
+        "label": "Cellulite"
+      },
+      {
+        "id": "loose",
+        "label": "Loose-looking skin"
+      },
+      {
+        "id": "puffiness",
+        "label": "Puffiness & bloating"
+      },
+      {
+        "id": "tired",
+        "label": "Tiredness & heaviness"
+      },
+      {
+        "id": "bust",
+        "label": "Bust care"
+      },
+      {
+        "id": "aches",
+        "label": "Aches & tension"
+      },
+      {
+        "id": "stress",
+        "label": "Stress & sleep"
+      },
+      {
+        "id": "circulation",
+        "label": "Circulation"
+      }
+    ],
+    "concernsOnAll": [
+      "dry",
+      "acne",
+      "sagging",
+      "fat",
+      "aches",
+      "stress"
+    ],
+    "budgets": [
+      {
+        "id": "under-300",
+        "label": "Under S$300",
+        "min": 0,
+        "max": 299
+      },
+      {
+        "id": "300-599",
+        "label": "S$300–599",
+        "min": 300,
+        "max": 599
+      },
+      {
+        "id": "600-plus",
+        "label": "S$600+",
+        "min": 600,
+        "max": null
+      }
+    ],
+    "durations": [
+      {
+        "id": "under-30",
+        "label": "Under 30 min",
+        "min": 0,
+        "max": 29
+      },
+      {
+        "id": "30-60",
+        "label": "30–60 min",
+        "min": 30,
+        "max": 60
+      },
+      {
+        "id": "60-plus",
+        "label": "60+ min",
+        "min": 60,
+        "max": null
+      }
+    ],
+    "firstTrialLabel": "First Trial"
+  }
 }

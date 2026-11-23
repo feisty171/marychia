@@ -16,7 +16,9 @@ const TREATMENTS = DATA.treatments;
    ========================================================================== */
 const CATEGORIES = ["All", "Face", "Body", "Wellness"];
 const SUGGESTIONS = ["hydration", "lifting", "cellulite", "aches", "stress", "detox"];
-const state = { q: "", cat: "All", selected: {} };
+const FILTERS = DATA.filters || { concerns: [], concernsOnAll: [], budgets: [], durations: [], firstTrialLabel: "First Trial" };
+// Rituals page filters. area = "All" | "Face" | "Body" | "Wellness" (kept in the URL as ?area=face)
+const state = { q: "", area: "All", concerns: new Set(), trial: false, budgets: new Set(), times: new Set(), colls: new Set() };
 
 const $ = s => document.querySelector(s);
 const grid = $("#grid"), empty = $("#empty"), status = $("#status"), search = $("#search");
@@ -30,12 +32,32 @@ TREATMENTS.forEach(t => {
   t._hay = norm([t.name, t.category, t.for, t.description, t.tag || "", ...t.keywords, ...t.options.map(o => o.label)].join(" "));
 });
 
-function matches(t) {
-  if (state.cat !== "All" && t.category !== state.cat) return false;
-  const q = norm(state.q);
+// ---------- Filter matching ----------
+const inRange = (n, r) => n >= r.min && (r.max == null || n <= r.max);
+const isTrial = o => o.label.toLowerCase().includes(FILTERS.firstTrialLabel.toLowerCase());
+const collectionsOf = t => [...(t.tag ? [t.tag] : []), ...(t.collections || [])].filter(c => !c.includes("[[CONFIRM"));
+// A treatment fits when ONE of its sessions fits the First trial switch, a chosen budget and a chosen time together.
+function sessionFits(t, s) {
+  const budgets = FILTERS.budgets.filter(b => s.budgets.has(b.id));
+  const times = FILTERS.durations.filter(d => s.times.has(d.id));
+  return t.options.some(o =>
+    (!s.trial || isTrial(o)) &&
+    (!budgets.length || budgets.some(b => inRange(o.price, b))) &&
+    (!times.length || times.some(d => inRange(o.minutes, d))));
+}
+function textMatch(t, q) {
+  q = norm(q);
   if (!q) return true;
   if (t._hay.includes(q)) return true;                          // phrase match, e.g. "deep tissue"
   return q.split(" ").every(w => t._hay.includes(w) || (w.length > 4 && t._hay.includes(w.slice(0, -1)))); // every word, forgiving plurals
+}
+// `s` lets the counts ask "what if" (e.g. another area) without changing the real state.
+function matches(t, s = state) {
+  if (s.area !== "All" && t.category !== s.area) return false;
+  if (s.concerns.size && !(t.concerns || []).some(c => s.concerns.has(c))) return false;
+  if (s.colls.size && !collectionsOf(t).some(c => s.colls.has(c))) return false;
+  if (!sessionFits(t, s)) return false;
+  return textMatch(t, s.q);
 }
 
 // ---------- Images & placeholders ----------
@@ -64,7 +86,7 @@ const catFrom = list => fmt(Math.min(...list.flatMap(t => t.options.map(o => o.p
 if ($("#tiles")) $("#tiles").innerHTML = ["Face", "Body", "Wellness"].map(c => {
   const list = inCat(c);
   return `
-  <a class="tile${SITE_IMAGES[c] ? "" : " is-ph"}" href="/rituals/#${c.toLowerCase()}" data-cat="${c}" aria-label="Show ${c} treatments: ${list.length} treatments, from ${catFrom(list)}">
+  <a class="tile${SITE_IMAGES[c] ? "" : " is-ph"}" href="/rituals/?area=${c.toLowerCase()}" data-cat="${c}" aria-label="Show ${c} treatments: ${list.length} treatments, from ${catFrom(list)}">
     <div class="media">${mediaHTML(SITE_IMAGES[c], c, c + " treatments", "Tile · 700 × 840")}</div>
     <div class="tile-label">
       <div class="tile-text">
@@ -92,39 +114,150 @@ document.querySelectorAll(".js-pdf-dl").forEach(a => { a.href = CONFIG.pdfPath; 
 // ---------- Everything below is the treatment list (Rituals page only) ----------
 if (grid) {
 
-// ---------- Tabs ----------
-const tabsEl = $("#tabs"), pill = $("#tabPill");
+// ---------- Filter sidebar (desktop) / Filters sheet (phones) ----------
+const fl = $("#filters"), flBody = fl.querySelector(".fl-body");
+const areaEl = $("#flArea"), concernsEl = $("#flConcerns"), moreBtn = $("#flMore");
+const trialBtn = $("#flTrial"), trialSub = $("#flTrialSub");
+const budgetEl = $("#flBudget"), timeEl = $("#flTime");
+const collBtn = $("#flCollBtn"), collEl = $("#flColl"), collText = $("#flCollText");
+const clearBtn = $("#flClear"), applyBtn = $("#flApply"), openBtn = $("#flOpen"), openN = $("#flOpenN");
+const MAX_CONCERNS = 6;
+let moreOpen = false;
+
+const concernById = Object.fromEntries(FILTERS.concerns.map(c => [c.id, c]));
+const ALL_COLLECTIONS = [...new Set(TREATMENTS.flatMap(collectionsOf))];
+const copyState = (over = {}) => ({ ...state, concerns: new Set(state.concerns), budgets: new Set(state.budgets), times: new Set(state.times), colls: new Set(state.colls), ...over });
+
+// Concerns listed for an area: only ones with at least one treatment there.
+// "All" starts with the concernsOnAll list, then the rest in their usual order.
+function concernsFor(area) {
+  const pool = TREATMENTS.filter(t => area === "All" || t.category === area);
+  const has = id => pool.some(t => (t.concerns || []).includes(id));
+  const ordered = area === "All"
+    ? [...FILTERS.concernsOnAll, ...FILTERS.concerns.map(c => c.id).filter(id => !FILTERS.concernsOnAll.includes(id))]
+    : FILTERS.concerns.map(c => c.id);
+  return ordered.filter(id => concernById[id] && has(id));
+}
+
+// Area: segmented control
 CATEGORIES.forEach(c => {
   const b = document.createElement("button");
-  b.className = "tab"; b.type = "button"; b.dataset.cat = c;
-  b.innerHTML = `${c}<span class="count"></span>`;
-  b.addEventListener("click", () => setCategory(c, true));
-  tabsEl.appendChild(b);
+  b.type = "button"; b.className = "seg-btn"; b.dataset.area = c;
+  b.innerHTML = `${c}<span class="seg-n"></span>`;
+  b.addEventListener("click", () => setArea(c));
+  areaEl.appendChild(b);
 });
-function movePill() {
-  const active = tabsEl.querySelector('[aria-pressed="true"]');
-  if (!active) return;
-  pill.style.width = active.offsetWidth + "px";
-  pill.style.transform = `translateX(${active.offsetLeft}px)`;
+function setArea(a, opts = {}) {
+  state.area = a;
+  // Drop ticked concerns that this area doesn't list, so no hidden filter stays on
+  const allowed = new Set(concernsFor(a));
+  [...state.concerns].forEach(id => { if (!allowed.has(id)) state.concerns.delete(id); });
+  moreOpen = false;
+  if (!opts.silent) writeUrl();
+  update(true);
 }
-function updateCounts() {
-  const q = state.q, cat = state.cat;
-  tabsEl.querySelectorAll(".tab").forEach(b => {
-    state.cat = b.dataset.cat;
-    const n = TREATMENTS.filter(matches).length;
-    b.querySelector(".count").textContent = n;
+
+// Concerns: checkboxes, first 6 + "+ N more concerns". Ticked ones always stay visible.
+function drawConcerns() {
+  const list = concernsFor(state.area);
+  const firstSix = list.slice(0, MAX_CONCERNS);
+  const shown = moreOpen ? list : list.filter(id => firstSix.includes(id) || state.concerns.has(id));
+  concernsEl.innerHTML = shown.map(id => `
+    <label class="check"><input type="checkbox" value="${id}"${state.concerns.has(id) ? " checked" : ""}><span>${esc(concernById[id].label)}</span></label>`).join("");
+  const hidden = list.length - shown.length;
+  moreBtn.hidden = list.length <= MAX_CONCERNS;
+  moreBtn.setAttribute("aria-expanded", String(moreOpen));
+  moreBtn.textContent = moreOpen ? "− Fewer concerns" : `+ ${hidden} more concern${hidden === 1 ? "" : "s"}`;
+  if (!moreOpen && hidden === 0) moreBtn.hidden = true;
+}
+concernsEl.addEventListener("change", e => {
+  const cb = e.target.closest("input[type=checkbox]"); if (!cb) return;
+  cb.checked ? state.concerns.add(cb.value) : state.concerns.delete(cb.value);
+  update(true, { keepConcerns: true });
+});
+moreBtn.addEventListener("click", () => { moreOpen = !moreOpen; drawConcerns(); });
+
+// First trial: on/off switch with a live subtitle
+trialBtn.addEventListener("click", () => { state.trial = !state.trial; update(true); });
+
+// Budget and Time: pill toggles
+function drawPills(el, items, set) {
+  el.innerHTML = items.map(x => `<button type="button" class="pill" data-id="${x.id}" aria-pressed="${set.has(x.id)}">${esc(x.label)}</button>`).join("");
+}
+function wirePills(el, set) {
+  el.addEventListener("click", e => {
+    const b = e.target.closest(".pill"); if (!b) return;
+    set.has(b.dataset.id) ? set.delete(b.dataset.id) : set.add(b.dataset.id);
+    b.setAttribute("aria-pressed", String(set.has(b.dataset.id)));
+    update(true, { keepPills: true });
   });
-  state.cat = cat; state.q = q;
 }
-function setCategory(c, fromClick) {
-  state.cat = c;
-  tabsEl.querySelectorAll(".tab").forEach(b => b.setAttribute("aria-pressed", b.dataset.cat === c));
-  movePill();
-  if (fromClick) {
-    const h = c === "All" ? "" : "#" + c.toLowerCase();
-    try { history.replaceState(null, "", h || location.pathname + location.search); } catch (e) {}
-  }
-  render(true);
+drawPills(budgetEl, FILTERS.budgets, state.budgets); wirePills(budgetEl, state.budgets);
+drawPills(timeEl, FILTERS.durations, state.times); wirePills(timeEl, state.times);
+
+// Collection: collapsed under a "Collection +" button
+collEl.innerHTML = ALL_COLLECTIONS.map(c => `
+  <label class="check"><input type="checkbox" value="${esc(c)}"><span>${esc(c)}</span></label>`).join("");
+if (!ALL_COLLECTIONS.length) collBtn.closest(".fl-group").hidden = true;
+collBtn.addEventListener("click", () => {
+  const open = collBtn.getAttribute("aria-expanded") !== "true";
+  collBtn.setAttribute("aria-expanded", String(open));
+  collEl.hidden = !open;
+});
+collEl.addEventListener("change", e => {
+  const cb = e.target.closest("input[type=checkbox]"); if (!cb) return;
+  cb.checked ? state.colls.add(cb.value) : state.colls.delete(cb.value);
+  update(true);
+});
+
+function activeCount() {
+  return (state.area !== "All" ? 1 : 0) + state.concerns.size + (state.trial ? 1 : 0) + state.budgets.size + state.times.size + state.colls.size;
+}
+function clearFilters() {
+  state.area = "All"; state.concerns.clear(); state.trial = false;
+  state.budgets.clear(); state.times.clear(); state.colls.clear(); moreOpen = false;
+  collEl.querySelectorAll("input").forEach(cb => cb.checked = false);
+  drawPills(budgetEl, FILTERS.budgets, state.budgets); drawPills(timeEl, FILTERS.durations, state.times);
+  writeUrl();
+  update(true);
+}
+clearBtn.addEventListener("click", clearFilters);
+
+// Redraw the sidebar to match the state
+function drawSidebar(opts = {}) {
+  areaEl.querySelectorAll(".seg-btn").forEach(b => {
+    b.setAttribute("aria-pressed", String(b.dataset.area === state.area));
+    b.querySelector(".seg-n").textContent = TREATMENTS.filter(t => matches(t, copyState({ area: b.dataset.area }))).length;
+  });
+  if (!opts.keepConcerns) drawConcerns();
+
+  // Subtitle: what turning First trial on would show with the other filters as they are
+  const trialList = TREATMENTS.filter(t => matches(t, copyState({ trial: true })));
+  const trialPrices = trialList.flatMap(t => t.options.filter(isTrial).map(o => o.price));
+  trialBtn.setAttribute("aria-checked", String(state.trial));
+  trialSub.textContent = trialList.length
+    ? `${trialList.length} ${trialList.length === 1 ? "treatment" : "treatments"}, from ${fmt(Math.min(...trialPrices))}`
+    : "None with these filters";
+
+  const nColl = state.colls.size;
+  collText.textContent = nColl ? `Collection (${nColl})` : "Collection";
+
+  const n = activeCount();
+  clearBtn.hidden = n === 0;
+  openN.hidden = n === 0; openN.textContent = n;
+  openBtn.setAttribute("aria-label", n ? `Filters, ${n} on` : "Filters");
+}
+
+// ---------- URL: ?area=face (older #face links still work) ----------
+function areaFromUrl() {
+  const q = (new URLSearchParams(location.search).get("area") || location.hash.replace("#", "")).toLowerCase();
+  return CATEGORIES.find(c => c.toLowerCase() === q) || "All";
+}
+function writeUrl() {
+  const p = new URLSearchParams(location.search);
+  state.area === "All" ? p.delete("area") : p.set("area", state.area.toLowerCase());
+  const qs = p.toString();
+  try { history.replaceState(null, "", location.pathname + (qs ? "?" + qs : "")); } catch (e) {}
 }
 
 // ---------- Cards ----------
@@ -151,9 +284,11 @@ function cardHTML(t, i) {
 }
 
 let fadeTimer;
-function render(animate) {
-  const list = TREATMENTS.filter(matches);
-  updateCounts();
+function update(animate, opts = {}) {
+  const list = TREATMENTS.filter(t => matches(t));
+  drawSidebar(opts);
+  const word = n => `${n} ${n === 1 ? "treatment" : "treatments"}`;
+  applyBtn.textContent = list.length ? `Show ${word(list.length)}` : "No treatments match";
   const draw = () => {
     grid.innerHTML = list.map(cardHTML).join("");
     grid.classList.remove("fading");
@@ -161,11 +296,13 @@ function render(animate) {
     empty.classList.toggle("show", none);
     if (none) {
       $("#emptyMsg").innerHTML = state.q
-        ? `We couldn't find anything for “<strong>${esc(state.q)}</strong>”${state.cat !== "All" ? " in " + state.cat : ""}. Try one of these:`
-        : "Try one of these:";
+        ? `We couldn't find anything for “<strong>${esc(state.q)}</strong>” with these filters. Try one of these:`
+        : "Try removing a filter, or search for one of these:";
     }
+    const where = state.area !== "All" ? ` in ${state.area}` : "";
+    const more = activeCount() - (state.area !== "All" ? 1 : 0);
     status.textContent = none ? "" :
-      `Showing ${list.length} ${list.length === 1 ? "treatment" : "treatments"}${state.cat !== "All" ? " in " + state.cat : ""}${state.q ? ` for “${state.q}”` : ""}`;
+      `Showing ${word(list.length)}${where}${state.q ? ` for “${state.q}”` : ""}${more ? ` · ${more} filter${more === 1 ? "" : "s"} on` : ""}`;
   };
   clearTimeout(fadeTimer);
   if (animate && grid.children.length) { grid.classList.add("fading"); fadeTimer = setTimeout(draw, 160); }
@@ -183,18 +320,59 @@ let searchTimer;
 search.addEventListener("input", () => {
   $("#clearSearch").classList.toggle("show", !!search.value);
   clearTimeout(searchTimer);
-  searchTimer = setTimeout(() => { state.q = search.value.trim(); render(true); }, 120);
+  searchTimer = setTimeout(() => { state.q = search.value.trim(); update(true); }, 120);
 });
 search.addEventListener("keydown", e => { if (e.key === "Escape" && search.value) { e.preventDefault(); clearSearch(); } });
-function clearSearch() { search.value = ""; state.q = ""; $("#clearSearch").classList.remove("show"); render(true); search.focus(); }
+function clearSearch() { search.value = ""; state.q = ""; $("#clearSearch").classList.remove("show"); update(true); search.focus(); }
 $("#clearSearch").addEventListener("click", clearSearch);
-$("#resetBtn").addEventListener("click", () => { search.value = ""; state.q = ""; $("#clearSearch").classList.remove("show"); setCategory("All", true); search.focus(); });
+$("#resetBtn").addEventListener("click", () => { search.value = ""; state.q = ""; $("#clearSearch").classList.remove("show"); clearFilters(); search.focus(); });
 $("#suggest").innerHTML = SUGGESTIONS.map(s => `<button type="button" data-s="${s}">${s}</button>`).join("");
 $("#suggest").addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return;
-  search.value = b.dataset.s; state.q = b.dataset.s; $("#clearSearch").classList.add("show");
-  state.cat = "All"; tabsEl.querySelectorAll(".tab").forEach(x => x.setAttribute("aria-pressed", x.dataset.cat === "All")); movePill();
-  render(true);
+  search.value = b.dataset.s; $("#clearSearch").classList.add("show");
+  clearFilters();
+  state.q = b.dataset.s; update(true);
+});
+
+// ---------- Filters sheet (phones and tablets) ----------
+// Shorter search hint on small phones, so it isn't cut off next to the Filters button
+const smallMQ = matchMedia("(max-width: 480px)");
+const longHint = search.placeholder;
+const setHint = () => { search.placeholder = smallMQ.matches && search.dataset.shortPlaceholder ? search.dataset.shortPlaceholder : longHint; };
+smallMQ.addEventListener("change", setHint); setHint();
+const sheetMQ = matchMedia("(max-width: 1024px)");
+const flBackdrop = $("#flBackdrop");
+let flLastFocus = null;
+function openFilters() {
+  flLastFocus = openBtn; // return focus to the Filters button (Safari does not focus buttons on tap)
+  fl.classList.add("open"); flBackdrop.classList.add("open");
+  fl.setAttribute("role", "dialog"); fl.setAttribute("aria-modal", "true");
+  openBtn.setAttribute("aria-expanded", "true");
+  document.body.style.overflow = "hidden";
+  setTimeout(() => $("#flClose").focus(), 60);
+}
+function closeFilters() {
+  if (!fl.classList.contains("open")) return;
+  fl.classList.remove("open"); flBackdrop.classList.remove("open");
+  fl.removeAttribute("role"); fl.removeAttribute("aria-modal");
+  openBtn.setAttribute("aria-expanded", "false");
+  document.body.style.overflow = "";
+  if (flLastFocus) flLastFocus.focus();
+}
+openBtn.addEventListener("click", openFilters);
+$("#flClose").addEventListener("click", closeFilters);
+applyBtn.addEventListener("click", () => { closeFilters(); document.getElementById("menu").scrollIntoView({ behavior: "smooth" }); });
+flBackdrop.addEventListener("click", closeFilters);
+sheetMQ.addEventListener("change", e => { if (!e.matches) closeFilters(); });
+document.addEventListener("keydown", e => {
+  if (!fl.classList.contains("open")) return;
+  if (e.key === "Escape") closeFilters();
+  if (e.key === "Tab") { // keep focus inside the sheet
+    const f = [...fl.querySelectorAll("button, input, a[href]")].filter(x => !x.hidden && x.offsetParent !== null);
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
 });
 
 // ---------- Booking sheet (WhatsApp) ----------
@@ -234,23 +412,13 @@ document.addEventListener("keydown", e => {
   }
 });
 
-addEventListener("resize", movePill);
-
-// ---------- Init (supports links like /rituals/#face) ----------
-function fromHash() {
-  const h = location.hash.replace("#", "").toLowerCase();
-  const c = CATEGORIES.find(x => x.toLowerCase() === h);
-  return c || "All";
-}
+// ---------- Init (supports links like /rituals/?area=face and older /rituals/#face) ----------
 addEventListener("hashchange", () => {
-  const h = location.hash.replace("#", "").toLowerCase();
-  const c = CATEGORIES.find(x => x.toLowerCase() === h);
-  if (c && c !== state.cat) setCategory(c, false);
-  // Links like /rituals/#body: jump to the list once the filter is set
-  if (c) document.getElementById("menu").scrollIntoView({ behavior: "smooth" });
+  const a = areaFromUrl();
+  if (a !== state.area) setArea(a);
 });
-setCategory(fromHash(), false);
-if (fromHash() !== "All") requestAnimationFrame(() => document.getElementById("menu").scrollIntoView());
-if (document.fonts) document.fonts.ready.then(movePill);
+const startArea = areaFromUrl();
+setArea(startArea, { silent: !location.hash });
+if (location.hash && startArea !== "All") writeUrl(); // turn an old #face link into ?area=face
 
 } // end: treatment list

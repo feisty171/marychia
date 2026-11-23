@@ -35,7 +35,7 @@ const results = (g.results as Result[]).map((r) => {
     ...r,
     name: t?.name ?? r.treatment,
     category,
-    link: `/rituals/#${category.toLowerCase()}`,
+    link: `/rituals/?area=${category.toLowerCase()}`,
     single,
     // A photo is shown only with consent; otherwise "" → placeholder.
     beforeSrc: show ? r.before ?? "" : "",

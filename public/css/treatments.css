@@ -135,15 +135,102 @@
 .tp .search-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:32px;height:32px;border-radius:50%;border:0;background:var(--tint);display:none;place-items:center;color:var(--ink-soft)}
 .tp .search-clear.show{display:grid}
 .tp .search-clear svg{position:static;transform:none;width:14px;height:14px}
-.tp .tabs{display:flex;gap:4px;background:var(--white);border:1px solid var(--line);border-radius:999px;padding:4px;position:relative}
-.tp .tab{position:relative;z-index:1;border:0;background:transparent;border-radius:999px;padding:10px 18px;font-size:var(--fs-ui);font-weight:400;letter-spacing:.04em;color:var(--ink-soft);transition:color .25s var(--ease);white-space:nowrap}
-.tp .tab .count{font-size:var(--fs-label);opacity:.7;margin-left:4px}
-.tp .tab[aria-pressed="true"]{color:var(--white)}
-.tp .tab-pill{position:absolute;z-index:0;top:4px;bottom:4px;left:0;border-radius:999px;background:var(--ink);transition:transform .35s var(--ease),width .35s var(--ease)}
 .tp .status{font-size:var(--fs-ui);color:var(--ink-soft);margin:10px 0 0;min-height:20px}
-@media (max-width:640px){.tp .toolbar{top:76px}
-.tp .tabs{width:100%;overflow-x:auto;scrollbar-width:none}
-.tp .tab{flex:1;padding:10px 12px}
+
+/* ---------- Rituals: filter sidebar + results ----------
+   Desktop (over 1024px): sticky sidebar on the left, results on the right.
+   Phones / tablets: the same sidebar becomes the "Filters" sheet, opened from the button next to search.
+   Options: "filters" in src/data/treatments.json · Behaviour: public/js/treatments.js */
+.tp .rl{display:grid;gap:32px;align-items:start}
+.tp .rl-main{min-width:0}
+.tp .fl{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);display:flex;flex-direction:column}
+.tp .fl-head{display:flex;align-items:center;gap:12px;padding:18px 20px 6px}
+.tp .fl-title{font-family:var(--font-serif);font-weight:500;font-size:var(--fs-h4);margin:0;color:var(--ink);flex:1}
+.tp .fl-clear{border:0;background:none;padding:4px 0;font-size:var(--fs-caption);letter-spacing:var(--tracking-ui);text-transform:uppercase;color:var(--rose);border-bottom:1px solid currentColor}
+.tp .fl-clear:hover{color:var(--rose-deep)}
+.tp .fl-close{display:none;width:36px;height:36px;border-radius:50%;border:0;background:var(--tint);place-items:center;color:var(--ink-soft)}
+.tp .fl-close svg{width:14px;height:14px}
+.tp .fl-body{padding:4px 20px 8px}
+.tp .fl-group{border:0;margin:0;padding:16px 0;border-bottom:1px solid var(--line);min-width:0}
+.tp .fl-group--last{border-bottom:0}
+.tp .fl-group[hidden]{display:none}
+.tp .fl-label{display:block;margin:0 0 10px;padding:0;font-size:var(--fs-label);font-weight:500;letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--ink)}
+.tp .fl-label--inline{margin:0}
+.tp .fl-group > legend.fl-label{float:left;width:100%} /* stop the browser's legend gap */
+.tp .fl-group > legend.fl-label + *{clear:both}
+.tp .fl-sub{margin:3px 0 0;font-size:var(--fs-caption);color:var(--ink-soft)}
+
+/* Area: segmented control */
+.tp .seg{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;padding:3px;background:var(--tint);border-radius:999px}
+.tp .seg-btn{border:0;background:transparent;border-radius:999px;padding:8px 4px;font-size:var(--fs-caption);color:var(--ink-soft);white-space:nowrap;transition:background .2s var(--ease),color .2s var(--ease)}
+.tp .seg-btn:hover{color:var(--ink)}
+.tp .seg-btn[aria-pressed="true"]{background:var(--ink);color:var(--white)}
+.tp .seg-n{display:block;font-size:var(--fs-label);opacity:.65;line-height:1.2}
+
+/* Concern + Collection: compact checkboxes */
+.tp .fl-checks{display:grid;gap:2px}
+.tp .check{display:flex;align-items:center;gap:10px;padding:5px 0;font-size:var(--fs-small);color:var(--ink);cursor:pointer}
+.tp .check input{appearance:none;-webkit-appearance:none;flex:none;width:18px;height:18px;margin:0;border:1px solid var(--rose-line);border-radius:5px;background:var(--white);display:grid;place-items:center;cursor:pointer;transition:background .15s,border-color .15s}
+.tp .check input::after{content:"";width:9px;height:5px;border-left:1.6px solid var(--white);border-bottom:1.6px solid var(--white);transform:translateY(-1px) rotate(-45deg);opacity:0}
+.tp .check input:checked{background:var(--ink);border-color:var(--ink)}
+.tp .check input:checked::after{opacity:1}
+.tp .check input:focus-visible{outline:2px solid var(--rose);outline-offset:2px}
+.tp .fl-more{margin-top:6px;border:0;background:none;padding:4px 0;font-size:var(--fs-caption);color:var(--rose);text-decoration:underline;text-underline-offset:3px}
+.tp .fl-more:hover{color:var(--rose-deep)}
+
+/* First trial: switch */
+.tp .fl-trial{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.tp .switch{flex:none;position:relative;width:44px;height:26px;border-radius:999px;border:0;padding:0;background:var(--rose-line);opacity:.6;transition:background .2s var(--ease),opacity .2s var(--ease)}
+.tp .switch span{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--white);box-shadow:0 1px 3px rgba(var(--shade),.25);transition:transform .2s var(--ease)}
+.tp .switch[aria-checked="true"]{background:var(--ink);opacity:1}
+.tp .switch[aria-checked="true"] span{transform:translateX(18px)}
+
+/* Budget + Time: pill toggles on one wrapping row */
+.tp .pills{display:flex;flex-wrap:wrap;gap:6px}
+.tp .pill{border:1px solid var(--line);background:var(--white);border-radius:999px;padding:6px 12px;font-size:var(--fs-caption);color:var(--ink);white-space:nowrap;transition:background .15s,border-color .15s,color .15s}
+.tp .pill:hover{border-color:var(--rose-line)}
+.tp .pill[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--white)}
+
+/* Collection: disclosure */
+.tp .fl-disclosure{display:flex;align-items:center;justify-content:space-between;width:100%;border:0;background:none;padding:0}
+.tp .fl-plus{position:relative;width:12px;height:12px;color:var(--ink)}
+.tp .fl-plus::before,.tp .fl-plus::after{content:"";position:absolute;left:0;top:50%;width:12px;height:1.4px;background:currentColor;transition:transform .2s var(--ease)}
+.tp .fl-plus::after{transform:rotate(90deg)}
+.tp .fl-disclosure[aria-expanded="true"] .fl-plus::after{transform:rotate(0)}
+.tp .fl-coll{margin-top:10px}
+
+/* Sheet-only parts, hidden on desktop */
+.tp .fl-foot{display:none}
+.tp .fl-backdrop{display:none}
+.tp .fl-open{display:none;align-items:center;gap:8px;height:52px;padding:0 20px;border-radius:999px;border:1px solid var(--line);background:var(--white);font-size:var(--fs-ui);letter-spacing:.04em;color:var(--ink)}
+.tp .fl-open svg{width:18px;height:18px}
+.tp .fl-open__n{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--ink);color:var(--white);font-size:var(--fs-label)}
+.tp .fl-open__n[hidden]{display:none}
+
+@media (min-width:1025px){
+  .tp .rl{grid-template-columns:264px minmax(0,1fr);gap:40px}
+  .tp .fl{position:sticky;top:100px;max-height:calc(100vh - 120px)}
+  .tp .fl-body{overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+  .tp .rl-main .toolbar{padding-top:0}
+}
+@media (max-width:1024px){
+  .tp .fl-open{display:inline-flex}
+  .tp .fl{position:fixed;z-index:70;left:0;right:0;bottom:0;max-height:88vh;border-radius:24px 24px 0 0;border:0;box-shadow:0 -20px 60px -20px rgba(var(--shade),.4);transform:translateY(105%);visibility:hidden;transition:transform .35s var(--ease),visibility 0s linear .35s}
+  .tp .fl.open{transform:none;visibility:visible;transition:transform .35s var(--ease)}
+  .tp .fl-head{padding:16px 20px 8px;border-bottom:1px solid var(--line)}
+  .tp .fl-close{display:grid}
+  .tp .fl-body{overflow-y:auto;overscroll-behavior:contain;padding:0 20px}
+  .tp .fl-foot{display:block;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:var(--white)}
+  .tp .fl-apply{width:100%}
+  .tp .fl-backdrop{display:block;position:fixed;inset:0;z-index:65;background:rgba(var(--shade),.36);opacity:0;pointer-events:none;transition:opacity .3s var(--ease)}
+  .tp .fl-backdrop.open{opacity:1;pointer-events:auto}
+  .tp .toolbar{flex-wrap:nowrap}
+  .tp .search{flex:1 1 auto;min-width:0}
+}
+@media (max-width:480px){
+  .tp .fl-open{padding:0 16px;gap:6px}
+  .tp .fl-open__label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)} /* icon + count only; still read out as "Filters" */
+  .tp .search input{padding-right:40px}
 }
 .tp .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:24px;margin-top:22px;transition:opacity .16s var(--ease)}
 .tp .grid.fading{opacity:0}

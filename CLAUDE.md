@@ -22,7 +22,7 @@ Static site built with [Astro](https://astro.build). No CMS, no database. The ma
 | Gallery / Results page (/gallery/: heading, filters, client results with before/after photos, disclaimer, closing button) | `src/content/gallery.md` (photos in `public/images/results/`) |
 | Treatments (`/treatments/`: hero + Face/Body/Wellness tiles) and Rituals (`/rituals/`: the full treatment list) — treatments, prices, session options, search keywords, images, full-menu PDF settings | `src/data/treatments.json` |
 | Full treatment menu PDF | `public/menu/full-spa-menu.pdf` |
-| Treatments tiles + Rituals list behaviour (search, filters, WhatsApp booking sheet) | `public/js/treatments.js` |
+| Treatments tiles + Rituals list behaviour (search, filter sidebar / Filters sheet, WhatsApp booking sheet) | `public/js/treatments.js` |
 | Investor Relations page words and the annual report list | `src/content/investors.md` |
 | Annual report PDFs (and optional cover images in `covers/`) | `public/reports/` |
 | Outlets (used by Home "Visit us", the Contact page map + studio cards, WhatsApp booking, the footer on every page, and schema.org data) | `src/data/outlets.json` |
@@ -144,10 +144,21 @@ Edit `src/data/treatments.json`, under `"treatments"`. Each treatment has:
 - `name`, `category` (`"Face"`, `"Body"` or `"Wellness"`), optional `tag` (e.g. `"New"`, `"Signature"`)
 - `for` (the short italic line) and `description` (one or two sentences; follow the no-guaranteed-results rule)
 - `keywords`: extra words people might search for, e.g. `"aches"`, `"hydration"`
+- `concerns`: concern ids for the filter sidebar, e.g. `["dry", "acne"]` (ids are listed under `"filters"` → `"concerns"`). Only tick concerns the treatment's own `for` line or description supports.
+- optional `collections`: extra collection names, e.g. `["Prestige Series"]`. The treatment's `tag` (Signature, New) already counts as a collection.
 - `options`: one or more sessions, each `{ "label": "First Trial", "minutes": 60, "price": 69, "compareAt": 189 }`. The site shows only the lowest price, as "from S$xx", on cards and category tiles. Session names (First Trial / Usual), durations and crossed-out prices are not shown, and the WhatsApp booking message names only the treatment.
 - `image`: a file name in `public/images/treatments/` (landscape, about 1200×900), or `""` for a placeholder
 
 Prices must match the Y27/28 menu PDF and the Home page signature cards (`src/content/home.md`).
+
+### Rituals page: filter sidebar
+On `/rituals/` the filters sit in a sidebar on the left (desktop). On phones and tablets (1024px and narrower) the same filters open as a "Filters" sheet from the button next to search. Settings are under `"filters"` in `src/data/treatments.json`; behaviour is in `public/js/treatments.js`; styles are the `.fl-*`, `.seg`, `.pill` and `.switch` rules in `public/css/treatments.css`.
+- **Area:** All / Face / Body / Wellness (a segmented control with counts). It's kept in the link as `?area=face`, so `/rituals/?area=body` opens the Body list. Older `/rituals/#body` links still work. Area also limits which concerns are listed.
+- **Concern:** checkboxes. Each area shows its first 6 concerns, the rest behind "+ N more concerns", and ticked ones always stay visible. With Area on "All", the 6 in `concernsOnAll` show. A concern only appears where at least one treatment has it. To add one: add `{ "id": "…", "label": "…" }` to `concerns` (its position sets its order), then add the id to the right treatments' `concerns`.
+- **First trial:** an on/off switch. Its subtitle (e.g. "6 treatments, from S$69") updates as other filters change. A session counts as a first trial when its `label` contains `firstTrialLabel` ("First Trial").
+- **Budget / Time:** pill buttons from `budgets` and `durations` (`min` / `max`; `null` = no upper limit). A treatment matches when one of its sessions fits the First trial switch, a chosen budget and a chosen time together.
+- **Collection:** collapsed under "Collection +"; its label shows how many are ticked. Options come from each treatment's `tag` plus `collections`.
+- There is no pigmentation concern: no treatment's description covers it yet. Add one only when marketing confirms a treatment for it.
 
 ### Treatments page: "Explore our services" heading and tiles
 The heading above the Face / Body / Wellness tiles is `"services"` in `src/data/treatments.json`: `eyebrow`, `heading` (`*asterisks*` = italic rose) and `lede` (the short line on the right). Each tile's treatment count and "from S$xx" price are worked out from the treatments in the same file, so they update on their own. The ribbon line that draws in above the heading is in `src/pages/treatments.astro` (styles: `.svc-ribbon` in `public/css/treatments.css`).
@@ -158,12 +169,12 @@ Below the Face / Body / Wellness tiles on `/treatments/`: a heading, then three 
 - `banners`: three `{ "image": "", "alt": "", "link": "" }` blocks, in order. **First** = the wide one (1920×480, 4:1). **Second and third** = the half-width ones (960×480 each, 2:1).
   - `image`: e.g. `"/images/banners/prestige-series.webp"` (files in `public/images/banners/`), or `""` for a placeholder showing the size. Any words (titles, "Book First Trial") go in the artwork itself.
   - `alt`: what the banner says or shows, for screen readers.
-  - `link`: where it goes when clicked, e.g. `"/rituals/#face"`, or `""` for no link.
+  - `link`: where it goes when clicked, e.g. `"/rituals/?area=face"`, or `""` for no link.
 - On phones the three banners stack, each keeping its own shape, so words in the artwork aren't cropped. Export them at exactly 4:1 and 2:1.
 - No before-and-after images or guaranteed results in banners. Styles: `.trend-*` at the end of `public/css/treatments.css`.
 
 ### Treatments and Rituals pages: photos, full menu and booking
-- `/treatments/` shows the hero and the Face / Body / Wellness tiles. Each tile, the hero "Explore" button, the nav's Face / Body / Wellness links and the Home page "View all treatments" button open `/rituals/` (the full list), filtered with `#face`, `#body` or `#wellness` where relevant.
+- `/treatments/` shows the hero and the Face / Body / Wellness tiles. Each tile, the hero "Explore" button, the nav's Face / Body / Wellness links and the Home page "View all treatments" button open `/rituals/` (the full list), filtered with `?area=face`, `?area=body` or `?area=wellness` where relevant.
 - Hero and category tile images are under `"siteImages"` in `src/data/treatments.json` (files in `public/images/site/`).
 - While `"showPlaceholderHints"` is `true`, empty photo slots show their recommended size. Set it to `false` before launch.
 - To replace the full menu, overwrite `public/menu/full-spa-menu.pdf` and update `"pdfDownloadName"`.
