@@ -67,7 +67,7 @@
 .tp .tile{scroll-snap-align:start}
 }
 .tp .tp-hero h1{font-family:var(--font-serif);font-weight:500;color:var(--white);font-size:var(--fs-display);line-height:1.02;letter-spacing:-.01em;margin:0}
-.tp .tp-hero .hero-lede{max-width:46ch;margin:20px auto 0;font-size:var(--fs-body);line-height:1.65;color:rgba(255,255,255,.92);text-wrap:balance}
+.tp .tp-hero .hero-lede{max-width:min(800px,100%);margin:16px auto 0;font-size:var(--fs-body);line-height:1.5;color:rgba(255,255,255,.92);text-wrap:balance}
 .tp .menu-banner{position:relative;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:28px;background:var(--soft-gradient);border:1px solid var(--line);border-radius:24px;padding:28px 32px;overflow:hidden}
 .tp .menu-banner::after{content:"";position:absolute;right:-60px;bottom:-80px;width:260px;height:260px;border-radius:50%;border:1px solid rgba(165,85,92,.12);box-shadow:0 0 0 28px rgba(165,85,92,.04),0 0 0 56px rgba(165,85,92,.025);pointer-events:none}
 .tp .menu-banner .booklet{width:72px;height:102px;border-radius:4px;overflow:hidden;background:var(--white);border:1px solid var(--line);box-shadow:7px 7px 0 -1px var(--tint),7px 7px 0 0 var(--line);transform:rotate(-4deg);transition:transform .4s var(--ease)}
