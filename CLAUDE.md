@@ -102,6 +102,9 @@ In `src/content/about.md`, under `milestones:`. Each milestone is:
 
 Keep the 2-space indent and the `- `. Keep them in date order. The sticky year, progress bar and swapping photo update automatically. Never add a milestone about company finances, share price or listing status (the 2009 SGX listing is deliberately left out).
 
+### About Us hero photo and scroll fade
+The photo behind "Our Heritage" is `hero: image:` (and `imageAlt:`) in `src/content/about.md`; files go in `public/images/about/` (landscape, at least 1920 wide). On desktop it sits on the right and blends into the dark brand colour on the left, where the text is; on phones it fills the background under a deeper overlay. As you scroll down, the photo drifts and zooms slightly while the whole opening dissolves into the page, and "Our history" fades up as it arrives (`public/js/about.js` sets `--hp` from 0 to 1; styles under "Heritage opening" and "Scroll fade" in `public/css/about.css`). Visitors with "reduce motion" turned on see no movement.
+
 ### Add a timeline photo
 Put the image in `public/images/heritage/` (square works best, at least 700×700), then set that milestone's `image: "/images/heritage/your-file.webp"` and update `imageAlt`. While `image` is empty, a placeholder shows. On desktop the photo shows as a floating circle; on phones as a circle above the text (placeholders keep the arch shape). Photos are square, 900×900, and named by year, e.g. `2001-2004.webp`.
 

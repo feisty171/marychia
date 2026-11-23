@@ -20,6 +20,9 @@ hero:
   markLabel: "Years of beauty and wellness"
   explore: "Explore our history"
   range: "1982 — Today"
+  # Background photo behind the hero (landscape, at least 1920 wide). Faces are kept in view on the right/centre.
+  image: "/images/about/hero-1994-team.webp"
+  imageAlt: "The Mary Chia team in 1994, outside Mary Chia Beauty House"
 
 # ---------- 2. Timeline ----------
 # Each milestone: year, title, text, and an optional photo.
