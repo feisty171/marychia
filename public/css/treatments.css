@@ -11,7 +11,9 @@
 .tp img{max-width:100%;display:block}
 .tp a{color:inherit}
 .tp button{font:inherit;color:inherit;cursor:pointer}
-.tp .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+/* Page width: same side margins as the rest of the site (--gutter), up to 1680px wide so big screens aren't cramped in the middle */
+.tp .wrap{max-width:1680px;margin:0 auto;padding:0 16px}
+@media (min-width:641px){.tp .wrap{padding:0 var(--gutter)}}
 .tp .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
 .tp :focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:8px}
 .tp .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;padding:13px 26px;font-size:var(--fs-ui);font-weight:500;letter-spacing:var(--tracking-ui);text-transform:uppercase;text-decoration:none;border:1px solid transparent;transition:background .25s var(--ease),color .25s var(--ease),border-color .25s var(--ease),transform .25s var(--ease)}
@@ -208,7 +210,7 @@
 .tp .fl-open__n[hidden]{display:none}
 
 @media (min-width:1025px){
-  .tp .rl{grid-template-columns:264px minmax(0,1fr);gap:40px}
+  .tp .rl{grid-template-columns:clamp(248px,17vw,288px) minmax(0,1fr);gap:clamp(28px,2.5vw,48px)}
   .tp .fl{position:sticky;top:100px;max-height:calc(100vh - 120px)}
   .tp .fl-body{overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
   .tp .rl-main .toolbar{padding-top:0}
@@ -232,7 +234,8 @@
   .tp .fl-open__label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)} /* icon + count only; still read out as "Filters" */
   .tp .search input{padding-right:40px}
 }
-.tp .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:24px;margin-top:22px;transition:opacity .16s var(--ease)}
+/* Treatment cards: up to 4 per row; a card never gets narrower than 210px (fewer per row instead) */
+.tp .grid{--gap:20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(max(210px,calc((100% - 3 * var(--gap)) / 4)),1fr));gap:var(--gap);margin-top:22px;transition:opacity .16s var(--ease)}
 .tp .grid.fading{opacity:0}
 .tp .card{position:relative;display:flex;flex-direction:column;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s;animation:tp-rise .55s var(--ease) both;animation-delay:calc(var(--i,0) * 55ms)}
 .tp .card:hover{transform:translateY(-3px);border-color:var(--rose-line);box-shadow:0 1px 2px rgba(var(--shade),.04),0 22px 40px -22px rgba(var(--shade),.38)}
@@ -243,7 +246,7 @@ to{opacity:1;transform:none}
 }
 .tp .card-media{aspect-ratio:4/3}
 .tp .card:hover .card-media img{transform:scale(1.045)}
-.tp .card-body{display:flex;flex-direction:column;flex:1;padding:22px 26px 24px}
+.tp .card-body{display:flex;flex-direction:column;flex:1;padding:20px 22px 22px}
 .tp .card-top{position:absolute;top:14px;left:14px;right:14px;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:8px}
 .tp .card-top .badge,.tp .card-top .tag{background:rgba(255,255,255,.88);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-radius:999px;padding:5px 11px}
 .tp .card-top .tag{border-color:transparent}
@@ -258,10 +261,25 @@ to{opacity:1;transform:none}
 .tp .card .desc{color:var(--ink-soft);margin:0 0 22px;font-size:var(--fs-text)}
 .tp .card-bottom{margin-top:auto;border-top:1px solid var(--line);padding-top:18px}
 /* Price as "from S$xx" (lowest option price), next to Book Now — cards and Spotlight */
-.tp .price-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.tp .price-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
 .tp .from{display:flex;align-items:baseline;gap:6px;margin:0;font-size:var(--fs-caption);font-weight:500;letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--ink-soft)}
 .tp .from b{font-family:var(--font-serif);font-weight:500;font-size:var(--fs-h3);letter-spacing:0;text-transform:none;color:var(--rose);font-variant-numeric:lining-nums}
-.tp .card .btn{padding:12px 20px;font-size:var(--fs-caption)}
+.tp .card .btn{padding:11px 16px;font-size:var(--fs-label);white-space:nowrap}
+/* Narrow cards (4 across): smaller price so price + Book now stay on one line */
+.tp .card-body{container-type:inline-size}
+@container (max-width:250px){
+  .tp .from{gap:4px;letter-spacing:var(--tracking-ui)}
+  .tp .from b{font-size:var(--fs-h4)}
+  .tp .card .btn{padding:10px 14px}
+}
+/* Narrowest cards (4 across on a laptop): smaller title, Book now full width under the price */
+@container (max-width:205px){
+  .tp .card h3{font-size:var(--fs-h4)}
+  .tp .card .for{font-size:var(--fs-text)}
+  .tp .card .desc{font-size:var(--fs-small)}
+  .tp .price-row{flex-direction:column;align-items:stretch;gap:12px}
+  .tp .card .btn{width:100%;justify-content:center}
+}
 .tp .empty{display:none;text-align:center;padding:72px 24px;border:1px dashed var(--rose-line);border-radius:24px;margin-top:22px;background:linear-gradient(180deg,var(--white),var(--blush))}
 .tp .empty.show{display:block;animation:tp-rise .45s var(--ease)}
 .tp .empty .ring{width:64px;height:64px;margin:0 auto 18px;border-radius:50%;border:1px solid var(--rose-line);display:grid;place-items:center;color:var(--ink-soft)}
