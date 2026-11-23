@@ -51,7 +51,7 @@
   "treatments": [
     {
       "id": "mc-signature-face",
-      "image": "mc-signature-face.webp",
+      "image": "mc-signature-face-mask.webp",
       "name": "MC Signature Face Therapy",
       "category": "Face",
       "tag": "Signature",
