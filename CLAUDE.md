@@ -103,7 +103,7 @@ In `src/content/about.md`, under `milestones:`. Each milestone is:
 Keep the 2-space indent and the `- `. Keep them in date order. The sticky year, progress bar and swapping photo update automatically. Never add a milestone about company finances, share price or listing status (the 2009 SGX listing is deliberately left out).
 
 ### Add a timeline photo
-Put the image in `public/images/heritage/` (square works best, at least 700×700), then set that milestone's `image: "/images/heritage/your-file.webp"` and update `imageAlt`. While `image` is empty, a placeholder shows. On desktop it's shown as a floating circle; on phones as an arched photo above the text.
+Put the image in `public/images/heritage/` (square works best, at least 700×700), then set that milestone's `image: "/images/heritage/your-file.webp"` and update `imageAlt`. While `image` is empty, a placeholder shows. On desktop the photo shows as a floating circle; on phones as a circle above the text (placeholders keep the arch shape). Photos are square, 900×900, and named by year, e.g. `2001-2004.webp`.
 
 ### Studio map position (Contact Us → Our Location)
 Each outlet in `src/data/outlets.json` has `mapX` / `mapY`: where its pin sits on the Singapore map (roughly x 60 = far west, 660 = far east; y 130 = north, 290 = south). Adjust when adding a studio.
