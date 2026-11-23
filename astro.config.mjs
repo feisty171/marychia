@@ -19,6 +19,8 @@ const isBuild = process.argv.includes("build") || process.argv.includes("preview
  * After the build, this adds BASE in front of every such link in dist/ (HTML, CSS, JS, JSON),
  * so nobody has to remember the folder name when editing content.
  */
+const BUILD_ID = Date.now().toString(36);
+
 function addBaseToLinks() {
   return {
     name: "add-base-to-links",
@@ -50,7 +52,10 @@ function addBaseToLinks() {
                 .replace(absoluteBare, `${SITE}${BASE}`)
                 .replace(rootLink, `$1${BASE}/$2`)
                 .replace(homeLink, `$1"${BASE}/"`)
-                .replace(attrLink, `$1${BASE}/`);
+                .replace(attrLink, `$1${BASE}/`)
+                // Cache-busting: stamp our own stylesheets and scripts with this build's number, so
+                // browsers fetch the new versions right after an update instead of a 10-minute-old copy.
+                .replace(/((?:href|src)=")([^"?#]*\/(?:css|js)\/[^"?#]+\.(?:css|js))"/g, `$1$2?v=${BUILD_ID}"`);
               if (after !== before) await writeFile(p, after);
             }
           }
