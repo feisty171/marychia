@@ -10,6 +10,7 @@
  */
 import Base from "../layouts/Base.astro";
 import Footer from "../components/Footer.astro";
+import MenuViewer from "../components/MenuViewer.astro";
 import data from "../data/treatments.json";
 import outlets from "../data/outlets.json";
 import { isPlaceholder } from "../lib/links";
@@ -39,7 +40,8 @@ const banners = (tr.banners || []).slice(0, 3).map((b: any, i: number) => ({ ...
   description="Signature face, body and wellness treatments at Mary Chia. Personalised care for your skin, body and wellbeing since 1982."
   current="treatments"
   bodyClass="page-treatments"
-  styles={["treatments.css"]}
+  styles={["treatments.css", "menu-viewer.css"]}
+  scripts={["menu-viewer.js"]}
 >
 
   <div class="tp" id="tp">
@@ -51,7 +53,7 @@ const banners = (tr.banners || []).slice(0, 3).map((b: any, i: number) => ({ ...
     <p class="hero-sub">Face · Body · Wellness</p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="/rituals/">Explore</a>
-      <a class="btn btn-ghost" href="/menu/">
+      <a class="btn btn-ghost" href="/menu/" data-menu-viewer>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>
         Full menu
       </a>
@@ -112,4 +114,5 @@ const banners = (tr.banners || []).slice(0, 3).map((b: any, i: number) => ({ ...
 
   <script type="application/json" id="tp-data" set:html={JSON.stringify(pageData)}></script>
   <script is:inline src="/js/treatments.js"></script>
+  <MenuViewer />
 </Base>

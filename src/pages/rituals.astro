@@ -11,6 +11,7 @@
  */
 import Base from "../layouts/Base.astro";
 import Footer from "../components/Footer.astro";
+import MenuViewer from "../components/MenuViewer.astro";
 import data from "../data/treatments.json";
 import outlets from "../data/outlets.json";
 import { isPlaceholder } from "../lib/links";
@@ -33,7 +34,8 @@ const pageData = { ...data, studios };
   current="treatments"
   solidHeader
   bodyClass="page-rituals"
-  styles={["treatments.css"]}
+  styles={["treatments.css", "menu-viewer.css"]}
+  scripts={["menu-viewer.js"]}
 >
 
   <div class="tp" id="tp">
@@ -144,7 +146,7 @@ const pageData = { ...data, studios };
       <p>Browse every therapy, add-on and package in our full Treatment Collection, or let our therapists recommend one for you.</p>
     </div>
     <div class="actions">
-      <a class="btn btn-primary" href="/menu/">
+      <a class="btn btn-primary" href="/menu/" data-menu-viewer>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>
         View Full Menu
       </a>
@@ -175,4 +177,5 @@ const pageData = { ...data, studios };
 
   <script type="application/json" id="tp-data" set:html={JSON.stringify(pageData)}></script>
   <script is:inline src="/js/treatments.js"></script>
+  <MenuViewer />
 </Base>

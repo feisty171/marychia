@@ -1,7 +1,8 @@
 ---
 /**
- * Full treatment menu (/menu/). Opened by "Full menu" on the Treatments page and
- * "View full menu" on the Rituals page.
+ * Full treatment menu page (/menu/). The "Full menu" buttons normally open the pop-up viewer
+ * (src/components/MenuViewer.astro); this page is the fallback when JavaScript is off,
+ * and a direct link you can share.
  *
  * Shows the menu PDF as one image per page, so it opens in every browser (including
  * in-app browsers on Instagram / WhatsApp that would otherwise download the PDF).
@@ -9,18 +10,12 @@
  * after replacing the PDF, run `sh scripts/menu-images.sh`. This page picks up however many pages there are.
  * Styles: public/css/menu.css
  */
-import fs from "node:fs";
-import path from "node:path";
 import Base from "../layouts/Base.astro";
 import Footer from "../components/Footer.astro";
+import { menuPages, MENU_PAGE_W as W, MENU_PAGE_H as H } from "../lib/menuPages";
 
-const dir = path.join(process.cwd(), "public", "menu", "pages");
-const pages = fs.existsSync(dir)
-  ? fs.readdirSync(dir).filter((f) => /^page-\d+\.webp$/.test(f)).sort()
-  : [];
+const pages = menuPages();
 const total = pages.length;
-// A4 portrait at 1240px wide
-const W = 1240, H = 1754;
 ---
 <Base
   title="Treatment Menu | Mary Chia"
@@ -47,7 +42,7 @@ const W = 1240, H = 1754;
           {pages.map((f, i) => (
             <li class="mn-page" id={`page-${i + 1}`}>
               <img
-                src={`/menu/pages/${f}`}
+                src={f}
                 alt={`Treatment menu, page ${i + 1} of ${total}`}
                 width={W}
                 height={H}

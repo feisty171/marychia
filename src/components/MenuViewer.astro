@@ -1,0 +1,47 @@
+---
+/**
+ * Pop-up full menu viewer. Any link with data-menu-viewer opens it
+ * (e.g. <a href="/menu/" data-menu-viewer>Full menu</a>); without JavaScript the link
+ * still goes to the /menu/ page.
+ * Pages: public/menu/pages/ (remake with `sh scripts/menu-images.sh` after replacing the PDF).
+ * Styles: public/css/menu-viewer.css · Behaviour: public/js/menu-viewer.js
+ * Add to a page with <MenuViewer /> plus styles "menu-viewer.css" and scripts "menu-viewer.js".
+ */
+import { menuPages, MENU_PAGE_W, MENU_PAGE_H } from "../lib/menuPages";
+const pages = menuPages();
+const total = pages.length;
+---
+{total > 0 && (
+  <dialog class="mv" id="menuViewer" aria-labelledby="mvTitle">
+    <div class="mv-bar">
+      <h2 class="mv-title" id="mvTitle">Treatment menu</h2>
+      <div class="mv-nav">
+        <button class="mv-btn" type="button" data-mv="prev" aria-label="Previous page">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>
+        </button>
+        <p class="mv-count" aria-live="polite"><span id="mvNow">1</span> / {total}</p>
+        <button class="mv-btn" type="button" data-mv="next" aria-label="Next page">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+        </button>
+      </div>
+      <button class="mv-btn mv-close" type="button" data-mv="close" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="mv-scroll" id="mvScroll" tabindex="0" aria-label={`Treatment menu, ${total} pages`}>
+      <ol class="mv-pages">
+        {pages.map((src, i) => (
+          <li class="mv-page" data-page={i + 1}>
+            <img
+              data-src={src}
+              alt={`Treatment menu, page ${i + 1} of ${total}`}
+              width={MENU_PAGE_W}
+              height={MENU_PAGE_H}
+              decoding="async"
+            />
+          </li>
+        ))}
+      </ol>
+    </div>
+  </dialog>
+)}
