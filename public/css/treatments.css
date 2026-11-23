@@ -49,9 +49,6 @@
 .tp .hero-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
 .tp .tp-hero .btn-ghost{border-color:rgba(255,255,255,.7);color:var(--white);background:rgba(255,255,255,.08);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
 .tp .tp-hero .btn-ghost:hover{border-color:var(--white);background:rgba(255,255,255,.18);color:var(--white)}
-.tp .hero-dl{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-size:var(--fs-caption);letter-spacing:var(--tracking-ui);text-transform:uppercase;color:rgba(255,255,255,.85);border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:3px;transition:color .2s ease,border-color .2s ease}
-.tp .hero-dl:hover{color:var(--white);border-color:var(--white)}
-.tp .hero-dl svg{width:14px;height:14px}
 .tp .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px}
 .tp .tile{position:relative;display:block;border:0;padding:0;text-align:left;border-radius:22px;overflow:hidden;background:none;aspect-ratio:7/8.4;box-shadow:var(--shadow)}
 .tp .tile .media{position:absolute;inset:0}

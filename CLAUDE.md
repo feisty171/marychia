@@ -21,7 +21,7 @@ Static site built with [Astro](https://astro.build). No CMS, no database. The ma
 | Career page words (/careers/: intro, roles, how to apply) | `src/content/careers.md` |
 | Gallery / Results page (/gallery/: heading, filters, client results with before/after photos, disclaimer, closing button) | `src/content/gallery.md` (photos in `public/images/results/`) |
 | Treatments (`/treatments/`: hero + Face/Body/Wellness tiles) and Rituals (`/rituals/`: the full treatment list) — treatments, prices, session options, search keywords, images, full-menu PDF settings | `src/data/treatments.json` |
-| Full treatment menu PDF | `public/menu/full-spa-menu.pdf` |
+| Full treatment menu PDF, and its page images for the `/menu/` page (remake with `sh scripts/menu-images.sh`) | `public/menu/full-spa-menu.pdf`, `public/menu/pages/` |
 | Treatments tiles + Rituals list behaviour (search, filter sidebar / Filters sheet, WhatsApp booking sheet) | `public/js/treatments.js` |
 | Investor Relations page words and the annual report list | `src/content/investors.md` |
 | Annual report PDFs (and optional cover images in `covers/`) | `public/reports/` |
@@ -30,8 +30,8 @@ Static site built with [Astro](https://astro.build). No CMS, no database. The ma
 | Header / nav, including the Treatments, About Us and Contact Us dropdowns: edit `treatments` and `dropdowns`; the dropdown markup is `src/components/NavDropdown.astro` (each link should appear in only one dropdown) | `src/components/Header.astro` |
 | Footer | `src/components/Footer.astro` |
 | Shared `<head>`, SEO + Open Graph tags | `src/layouts/Base.astro` |
-| Page templates | `src/pages/index.astro` (Home), `src/pages/about.astro`, `src/pages/treatments.astro`, `src/pages/rituals.astro` (treatment list), `src/pages/gallery.astro` (Gallery / Results), `src/pages/investors.astro`, `src/pages/contact.astro`, `src/pages/careers.astro` |
-| Styles | `public/css/style.css` (shared), `public/css/home.css`, `public/css/about.css`, `public/css/treatments.css`, `public/css/gallery.css`, `public/css/investors.css`, `public/css/contact.css`, `public/css/careers.css` |
+| Page templates | `src/pages/index.astro` (Home), `src/pages/about.astro`, `src/pages/treatments.astro`, `src/pages/rituals.astro` (treatment list), `src/pages/gallery.astro` (Gallery / Results), `src/pages/menu.astro` (Full menu), `src/pages/investors.astro`, `src/pages/contact.astro`, `src/pages/careers.astro` |
+| Styles | `public/css/style.css` (shared), `public/css/home.css`, `public/css/about.css`, `public/css/treatments.css`, `public/css/gallery.css`, `public/css/menu.css`, `public/css/investors.css`, `public/css/contact.css`, `public/css/careers.css` |
 | Gallery / Results filter buttons | `public/js/gallery.js` |
 | About page behaviour (scrolling timeline) | `public/js/about.js` |
 | Contact page behaviour (studio map highlights, count-up stats, enquiry form) | `public/js/contact.js` |
@@ -177,7 +177,8 @@ Below the Face / Body / Wellness tiles on `/treatments/`: a heading, then three 
 - `/treatments/` shows the hero and the Face / Body / Wellness tiles. Each tile, the hero "Explore" button, the nav's Face / Body / Wellness links and the Home page "View all treatments" button open `/rituals/` (the full list), filtered with `?area=face`, `?area=body` or `?area=wellness` where relevant.
 - Hero and category tile images are under `"siteImages"` in `src/data/treatments.json` (files in `public/images/site/`).
 - While `"showPlaceholderHints"` is `true`, empty photo slots show their recommended size. Set it to `false` before launch.
-- To replace the full menu, overwrite `public/menu/full-spa-menu.pdf` and update `"pdfDownloadName"`.
+- **Full menu (`/menu/`):** the Treatments hero "Full menu" button and the Rituals "View Full Menu" button open `/menu/`, which shows the menu as one image per page (`public/menu/pages/page-01.webp` …). Images open in every browser, including Instagram / WhatsApp in-app browsers that would otherwise download a PDF, and are about 1.8 MB in all instead of a 16 MB PDF. Template: `src/pages/menu.astro`; styles: `public/css/menu.css`.
+- **To replace the full menu:** overwrite `public/menu/full-spa-menu.pdf`, then run `sh scripts/menu-images.sh` (needs Ghostscript and ImageMagick) to remake the page images, and update `"pdfDownloadName"`. The `/menu/` page picks up however many pages there are. The Rituals page's small "Download" button still downloads the PDF itself.
 - "Book Now" opens WhatsApp to the studio the visitor picks, using the `whatsapp` numbers in `src/data/outlets.json`. A studio without a confirmed number is left out of the list.
 
 ### Gallery / Results page: add a client result
