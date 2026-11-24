@@ -14,19 +14,8 @@ seo:
 # ---------- 1. Our Location ----------
 locations:
   eyebrow: "Our Location"
-  heading: "Three studios across Singapore."
-  lede: "From the west to the east of the island, there's a Mary Chia studio close to you."
-  stats:
-    - value: "1982"
-      label: "Founded in Singapore"
-    - value: "40"
-      suffix: "+"
-      label: "Years of care"
-      count: true
-    - value: "3"
-      label: "Studios island-wide"
-      count: true
-  studiosHeading: "Visit a studio"
+  heading: "Visit a studio"
+  lede: ""   # optional line under the heading
   studioLabel: "Mary Chia Studio"
   directions: "Get directions"
 

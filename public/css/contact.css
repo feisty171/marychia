@@ -8,87 +8,6 @@
 /* ---------- Page start: Our Location sits right under the light header ---------- */
 .page-contact main > .a-section:first-child { padding-top: calc(68px + 48px); }
 
-.c-sub { margin: clamp(48px, 6vw, 72px) 0 24px; }
-.c-sub__title {
-  margin: 0;
-  font-family: var(--font-serif);
-  font-weight: 500;
-  font-size: var(--fs-h3);
-}
-
-/* ---------- Our Locations: map, stats, studio list ---------- */
-.mrow { display: grid; gap: 28px; align-items: center; }
-.sg-map { width: 100%; height: auto; overflow: visible; }
-.sg-land { fill: var(--white); stroke: rgba(var(--rose-rgb), .35); stroke-width: 1.2; }
-.sg-land--dots { stroke: none; }
-.sg-routes path {
-  fill: none;
-  stroke: var(--rose-line);
-  stroke-width: 1.2;
-  stroke-dasharray: 4 6;
-  animation: routeFlow 2.4s linear infinite;
-}
-@keyframes routeFlow { to { stroke-dashoffset: -20; } }
-
-.nd { cursor: pointer; outline: none; }
-.nd .rg { fill: none; stroke: var(--rose); stroke-width: 1; opacity: 0; transform-box: fill-box; transform-origin: center; }
-.nd.hi .rg, .nd:hover .rg, .nd:focus .rg { opacity: 1; animation: ripple 2.6s ease-out infinite; }
-@keyframes ripple { from { transform: scale(.6); opacity: .9; } to { transform: scale(2.2); opacity: 0; } }
-.nd .plate { fill: rgba(var(--rose-rgb), .1); stroke: rgba(var(--rose-rgb), .3); transition: .3s; }
-.nd .core { fill: var(--rose); transition: .3s; }
-.nd text {
-  font-family: var(--font-sans);
-  font-size: 15px;
-  font-weight: 500;
-  letter-spacing: var(--tracking-ui);
-  text-transform: uppercase;
-  fill: var(--ink-soft);
-  transition: .3s;
-}
-.nd.hi .plate, .nd:hover .plate, .nd:focus .plate { fill: rgba(var(--rose-rgb), .22); }
-.nd.hi text, .nd:hover text, .nd:focus text { fill: var(--ink); }
-
-.where-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid var(--line);
-}
-.st__v {
-  margin: 0;
-  font-family: var(--font-serif);
-  font-weight: 500;
-  font-size: var(--fs-stat);
-  line-height: 1;
-  color: var(--rose);
-  font-variant-numeric: lining-nums;
-}
-.st__k {
-  margin: 8px 0 0;
-  font-size: var(--fs-label);
-  font-weight: 500;
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
-.mlist { margin-top: 8px; }
-.mlist li { border-bottom: 1px solid var(--line); }
-.mlist a {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 0;
-  font-family: var(--font-serif);
-  font-size: var(--fs-h4);
-  color: var(--ink-soft);
-  transition: color .25s ease, padding .25s ease;
-}
-.mlist a::after { content: "→"; font-family: var(--font-sans); font-size: var(--fs-small); opacity: 0; transition: opacity .25s ease; }
-.mlist li.hi a,
-.mlist a:hover { color: var(--ink); padding-left: 6px; }
-.mlist li.hi a::after,
-.mlist a:hover::after { opacity: 1; color: var(--rose); }
 
 /* ---------- Studio cards + enquiry form ---------- */
 .office-grid { display: grid; gap: 16px; }
@@ -213,12 +132,10 @@
 /* ---------- Tablet and up ---------- */
 @media (min-width: 641px) {
   .page-contact main > .a-section:first-child { padding-top: calc(76px + clamp(56px, 7vw, 96px)); }
-  .where-stats { gap: 24px; }
   .office-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
 }
 
 /* ---------- Desktop ---------- */
 @media (min-width: 1025px) {
-  .mrow { grid-template-columns: 1.25fr .75fr; gap: 56px; }
   .office-grid { grid-template-columns: repeat(3, 1fr); }
 }

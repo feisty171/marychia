@@ -57,52 +57,8 @@ const jsonLd = {
         <header class="a-head">
           <p class="eyebrow">{c.locations.eyebrow}</p>
           <h1 class="a-title">{c.locations.heading}</h1>
-          <p class="a-lede">{c.locations.lede}</p>
+          {c.locations.lede && <p class="a-lede">{c.locations.lede}</p>}
         </header>
-        <div class="mrow">
-          <svg class="sg-map" viewBox="30 70 660 270" role="img" aria-label="Map of Mary Chia studios in Singapore">
-            <defs>
-              <pattern id="sgdots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".9" style="fill: rgba(var(--rose-rgb), .16)"/></pattern>
-              <radialGradient id="sgglow" cx=".5" cy=".55" r=".55"><stop offset="0" stop-color="rgba(233,190,180,.45)"/><stop offset="1" stop-color="rgba(233,190,180,0)"/></radialGradient>
-            </defs>
-            <ellipse cx="360" cy="215" rx="330" ry="190" fill="url(#sgglow)"/>
-            <path class="sg-land" d="M58 222C86 176 146 154 206 162C258 124 330 112 402 120C474 112 546 132 604 162C644 180 672 204 662 232C642 262 590 282 520 292C450 302 378 302 300 294C220 302 150 292 100 272C70 260 50 242 58 222Z"/>
-            <path class="sg-land sg-land--dots" d="M58 222C86 176 146 154 206 162C258 124 330 112 402 120C474 112 546 132 604 162C644 180 672 204 662 232C642 262 590 282 520 292C450 302 378 302 300 294C220 302 150 292 100 272C70 260 50 242 58 222Z" fill="url(#sgdots)"/>
-            <g class="sg-routes">
-              {outlets.slice(1).map((o) => (
-                <path d={`M${outlets[0].mapX} ${outlets[0].mapY} Q ${(outlets[0].mapX + o.mapX) / 2} ${Math.min(outlets[0].mapY, o.mapY) - 70} ${o.mapX} ${o.mapY}`} />
-              ))}
-            </g>
-            {outlets.map((o, i) => (
-              <g class:list={["nd", { hi: i === 0 }]} data-m={slug(o.name)} tabindex="0">
-                <circle class="rg" cx={o.mapX} cy={o.mapY} r="14" />
-                <circle class="plate" cx={o.mapX} cy={o.mapY} r="18" />
-                <circle class="core" cx={o.mapX} cy={o.mapY} r="5" />
-                <text x={o.mapX} y={o.mapY + 40} text-anchor="middle">{o.name}</text>
-              </g>
-            ))}
-          </svg>
-
-          <div class="where-side">
-            <div class="where-stats">
-              {c.locations.stats.map((st) => (
-                <div class="st">
-                  <p class="st__v" data-count={st.count ? st.value : undefined} data-suffix={st.suffix}>{st.value}{st.suffix}</p>
-                  <p class="st__k">{st.label}</p>
-                </div>
-              ))}
-            </div>
-            <ul class="mlist">
-              {outlets.map((o, i) => (
-                <li class:list={{ hi: i === 0 }} data-m={slug(o.name)}>
-                  <a href={`#studio-${slug(o.name)}`}>{o.name}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <header class="c-sub"><h3 class="c-sub__title">{c.locations.studiosHeading}</h3></header>
         <div class="office-grid">
           {outlets.map((o) => {
             const wa = waHref(o.whatsapp);

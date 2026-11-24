@@ -28,7 +28,7 @@ Static site built with [Astro](https://astro.build). No CMS, no database. The ma
 | Rituals list behaviour (search, filter sidebar / Filters sheet, WhatsApp booking sheet) | `public/js/treatments.js` |
 | Investor Relations page words and the annual report list | `src/content/investors.md` |
 | Annual report PDFs (and optional cover images in `covers/`) | `public/reports/` |
-| Outlets (used by Home "Visit us", the Contact page map + studio cards, WhatsApp booking, the footer on every page, and schema.org data) | `src/data/outlets.json` |
+| Outlets (used by Home "Visit us", the Contact page studio cards, WhatsApp booking, the footer on every page, and schema.org data) | `src/data/outlets.json` |
 | Site-wide settings: brand name, tagline, booking link, WhatsApp link, enquiry email (Contact page form), share image, footer quick links, social media links | `src/data/site.json` |
 | Header / nav, including the Treatments, About Us and Contact Us dropdowns: edit `treatments` and `dropdowns`; the dropdown markup is `src/components/NavDropdown.astro` (each link should appear in only one dropdown) | `src/components/Header.astro` |
 | Footer | `src/components/Footer.astro` |
@@ -37,7 +37,7 @@ Static site built with [Astro](https://astro.build). No CMS, no database. The ma
 | Styles | `public/css/style.css` (shared), `public/css/home.css`, `public/css/about.css`, `public/css/treatments.css`, `public/css/gallery.css`, `public/css/menu.css`, `public/css/menu-viewer.css`, `public/css/investors.css`, `public/css/contact.css`, `public/css/careers.css` |
 | Gallery / Results filter buttons | `public/js/gallery.js` |
 | About page behaviour (scrolling timeline) | `public/js/about.js` |
-| Contact page behaviour (studio map highlights, count-up stats, enquiry form) | `public/js/contact.js` |
+| Contact page behaviour (enquiry form) | `public/js/contact.js` |
 | Home page motion (hero parallax, scroll reveal, signature list photo) | `public/js/home.js` |
 | Link helpers (phone, WhatsApp, placeholder checks) | `src/lib/links.ts` |
 | Images | `public/images/` |
@@ -123,9 +123,6 @@ On wide screens, the last milestone (its words, the pinned year column and the c
 
 ### Add a timeline photo
 Put the image in `public/images/heritage/` (square works best, at least 700×700), then set that milestone's `image: "/images/heritage/your-file.webp"` and update `imageAlt`. While `image` is empty, a placeholder shows. On desktop the photo shows as a floating circle; on phones as a circle above the text (placeholders keep the arch shape). Photos are square, 900×900, and named by year, e.g. `2001-2004.webp`.
-
-### Studio map position (Contact Us → Our Location)
-Each outlet in `src/data/outlets.json` has `mapX` / `mapY`: where its pin sits on the Singapore map (roughly x 60 = far west, 660 = far east; y 130 = north, 290 = south). Adjust when adding a studio.
 
 ### Booking link or WhatsApp number (site-wide)
 Edit `bookingUrl` or `whatsappUrl` in `src/data/site.json`. For WhatsApp, put the number (e.g. `"8688 6298"`). Set `email` to the enquiry address to switch on the Contact page's "Write to us" form (it opens the visitor's email app with their message filled in).
@@ -249,7 +246,7 @@ The page is `/gallery/`, linked from the Treatments dropdown ("Gallery / Results
 - The example blocks (empty photos, `[[CONFIRM: ...]]` notes) are placeholders: replace or delete them.
 
 ### Contact Us page
-- **Our Location:** the map pins and stats are in `src/content/contact.md` (`locations:`); addresses, phones, WhatsApp and hours come from `src/data/outlets.json`.
+- **Our Location:** the label ("Our Location") and title ("Visit a studio") are in `src/content/contact.md` (`locations:` → `eyebrow`, `heading`, optional `lede`); the studio cards (map, address, phones, WhatsApp, hours, directions) come from `src/data/outlets.json`.
 - The page starts with Our Location, then Feedback / Enquiry.
 - **Career** has its own page at `/careers/` (linked from the Contact Us dropdown). Edit `src/content/careers.md`. Set `apply` to the careers email or application link to turn on the "Apply now" button.
 - **Feedback / Enquiry:** the topics in the drop-down are under `enquiry: topics:`. The form opens the visitor's email app addressed to `email` in `src/data/site.json`, with the topic in the subject line.
