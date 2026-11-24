@@ -16,7 +16,7 @@ Static site built with [Astro](https://astro.build). No CMS, no database. The ma
 
 | What | File |
 |---|---|
-| Home page words and photos (hero eyebrow, headline, paragraph, buttons and its photo; the Key figures band right under the hero (`stats:`); signature treatments; ad banner below them (`banner:`, placeholder until an image is set); products below the banner (`products:`, a "shelf" design via `src/components/ProductCard.astro`, styles `.shop-*`; the nav "Shop" link jumps here); experience, reviews, first-visit offer, visit info, final CTA) | `src/content/home.md` |
+| Home page words and photos (hero eyebrow, headline, paragraph, buttons and its photo; the Key figures band right under the hero (`stats:`); "Find a treatment" heading over the Face/Body/Wellness tiles, plus the hidden signature list (`services:`); ad banner below them (`banner:`, placeholder until an image is set); products below the banner (`products:`, a "shelf" design via `src/components/ProductCard.astro`, styles `.shop-*`; the nav "Shop" link jumps here); experience, reviews, first-visit offer, visit info, final CTA) | `src/content/home.md` |
 | About Us page words (heritage opening, timeline milestones + photos, vision & mission, SEO title/description) | `src/content/about.md` |
 | Contact Us page words (Our Location, Feedback/Enquiry form topics) | `src/content/contact.md` |
 | Career page words (/careers/: intro, roles, how to apply) | `src/content/careers.md` |
@@ -24,7 +24,8 @@ Static site built with [Astro](https://astro.build). No CMS, no database. The ma
 | Treatments and Rituals: the treatment list, prices, concerns and collections (`data/treatment-menu.xlsx` → `npm run build:treatments` → `src/data/treatment-menu.json`) | see "Rituals page (treatment list)" below |
 | Treatments (`/treatments/`: hero + Face/Body/Wellness tiles) and Rituals page settings: hero, tiles, banners, time pills, treatment photos, full-menu PDF settings | `src/data/treatments.json` |
 | Full treatment menu PDF, and its page images for the `/menu/` page (remake with `sh scripts/menu-images.sh`) | `public/menu/full-spa-menu.pdf`, `public/menu/pages/` |
-| Treatments tiles + Rituals list behaviour (search, filter sidebar / Filters sheet, WhatsApp booking sheet) | `public/js/treatments.js` |
+| Face / Body / Wellness tiles (Treatments page and Home) | `src/components/CategoryTiles.astro` |
+| Rituals list behaviour (search, filter sidebar / Filters sheet, WhatsApp booking sheet) | `public/js/treatments.js` |
 | Investor Relations page words and the annual report list | `src/content/investors.md` |
 | Annual report PDFs (and optional cover images in `covers/`) | `public/reports/` |
 | Outlets (used by Home "Visit us", the Contact page map + studio cards, WhatsApp booking, the footer on every page, and schema.org data) | `src/data/outlets.json` |
@@ -121,10 +122,10 @@ Each outlet in `src/data/outlets.json` has `mapX` / `mapY`: where its pin sits o
 ### Booking link or WhatsApp number (site-wide)
 Edit `bookingUrl` or `whatsappUrl` in `src/data/site.json`. For WhatsApp, put the number (e.g. `"8688 6298"`). Set `email` to the enquiry address to switch on the Contact page's "Write to us" form (it opens the visitor's email app with their message filled in).
 
-### Home page signature treatments
-In `src/content/home.md`, under `services:` → `items:`. Keep it to 5. Each item has `category`, optional `tag`, `for`, `description`, `options`, `image`; the comments in that file show the format. Prices must match the Y27/28 menu PDF and the menu workbook.
+### Home page "Find a treatment" (and the hidden signature list)
+Under the Key figures band, Home shows "Find a treatment" / "What would you like to work on today?" (`services:` → `eyebrow`, `heading`, optional `intro` in `src/content/home.md`) over the same Face / Body / Wellness tiles as the Treatments page. The tiles are one shared component, `src/components/CategoryTiles.astro` (counts and "from" prices come from the treatment list; photos from `"siteImages"` in `src/data/treatments.json`; styles `.tp .tile*` in `public/css/treatments.css`). A "View All Treatments →" link sits below (`menuButton` / `menuLink`).
 
-These are an **editorial numbered list** (`src/components/SignatureCard.astro`, styles `.sig-*` in `public/css/home.css`): each row shows the number, category, name, the short `for` line, the price and a "Book now" link. On wide screens a large arched photo beside the list changes to the row you're on or hovering (`public/js/home.js`); on phones and tablets each row shows its own small photo. Below the list, a "View All Treatments →" link goes to the Treatments page (`menuButton` / `menuLink`). The rows show `name`, `category`, `tag`, `for`, `options` (price) and `image`. The price shows as "from S$xx" (the lowest option price) with that option's `compareAt` crossed out. "Book now" opens the WhatsApp studio picker (`src/components/BookingSheet.astro` + `public/js/treatment-cards.js`).
+The signature treatments list (`services:` → `items:`) is kept but **hidden** (`showList: false`). Set `showList: true` to show it again below the tiles. Keep it to 5. Each item has `category`, optional `tag`, `for`, `description`, `options`, `image`; the comments in that file show the format. Prices must match the Y27/28 menu PDF and the menu workbook. When shown, it's an **editorial numbered list** (`src/components/SignatureCard.astro`, styles `.sig-*` in `public/css/home.css`): number, category, name, the `for` line, "from S$xx" (lowest option price, its `compareAt` crossed out) and "Book now" (WhatsApp studio picker: `src/components/BookingSheet.astro` + `public/js/treatment-cards.js`). On wide screens a large arched photo beside the list follows the row you're on (`public/js/home.js`); on phones each row shows its own small photo.
 
 To add a photo: put it in `public/images/treatments/` (square-ish works best for these cards, about 900×900) and set `image: "/images/treatments/your-file.webp"`. Only use photos marketing has the rights to; no before-and-after photos without written client consent.
 
@@ -183,7 +184,7 @@ On `/rituals/` the filters sit in a sidebar on the left (desktop). On phones and
 - **Search** matches treatment names plus each of their concerns' label and "Search words".
 
 ### Treatments page: "Explore our services" heading and tiles
-The heading above the Face / Body / Wellness tiles is `"services"` in `src/data/treatments.json`: `eyebrow`, `heading` (`*asterisks*` = italic rose) and `lede` (the short line on the right). Each tile's treatment count and "from S$xx" price are worked out from the treatment list (`src/data/treatment-menu.json`), so they update on their own. The ribbon line that draws in above the heading is in `src/pages/treatments.astro` (styles: `.svc-ribbon` in `public/css/treatments.css`).
+The heading above the Face / Body / Wellness tiles is `"services"` in `src/data/treatments.json`: `eyebrow`, `heading` (`*asterisks*` = italic rose) and `lede` (the short line on the right). Each tile's treatment count and "from S$xx" price are worked out from the treatment list (`src/data/treatment-menu.json`), so they update on their own. The tiles themselves are `src/components/CategoryTiles.astro`, shared with the Home page. The ribbon line that draws in above the heading is in `src/pages/treatments.astro` (styles: `.svc-ribbon` in `public/css/treatments.css`).
 
 ### Treatments page: "New & trending" banners
 Below the Face / Body / Wellness tiles on `/treatments/`: a heading, then three banners: one wide banner on top and two half-width banners side by side under it, edge to edge. Edit `"trending"` in `src/data/treatments.json`:

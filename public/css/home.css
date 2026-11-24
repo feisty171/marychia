@@ -79,7 +79,11 @@ sup { font-size: .55em; vertical-align: super; line-height: 0; }
    Wide screens: a big photo on the left (.sig-stage, sticky) follows the active row
    (public/js/home.js), and the rows show a number instead of a photo.
    The wrapper keeps the .tp class only so placeholders and the WhatsApp sheet get their styles. */
-.tp.tp--embed { background: transparent; }
+.tp.tp--embed { background: transparent; --wrap-pad: 16px; }
+@media (min-width: 641px) { .tp.tp--embed { --wrap-pad: var(--gutter); } }
+/* Find a treatment: the tiles sit right under the heading */
+.sig .tp--embed .tiles { margin-top: 0; scroll-padding-inline: var(--wrap-pad); } /* phones: first tile lines up with the page edge */
+.sig .h-center { margin-top: 32px; }
 .sig-stage { display: none; }
 .sig-row {
   position: relative;

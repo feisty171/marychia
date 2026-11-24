@@ -40,12 +40,16 @@ stats:
     - value: "2009"
       label: "Listed on SGX Catalist"
 
+# "Find a treatment": heading over the Face / Body / Wellness tiles (the same tiles as the
+# Treatments page: src/components/CategoryTiles.astro). intro is optional (leave "" for none).
 services:
-  eyebrow: "Signature treatments"
-  heading: "Loved by our clients since 1984."
-  intro: "Some treatments have become firm favourites with our clients over the years. Each one begins with a personal consultation, so it's shaped around your skin, your body and your goals, and your mind can rest while we take care of the rest."
+  eyebrow: "Find a treatment"
+  heading: "What would you like to work on today?"
+  intro: ""
   menuButton: "View All Treatments"
   menuLink: "/treatments/"
+  # The signature treatments list below the tiles. Hidden for now: set to true to show it again.
+  showList: false
   # Editorial list: numbered rows (name, the short "for" line, "from S$xx" price, Book now).
   # On wide screens a large photo beside the list changes to the treatment you're on;
   # on phones and tablets each row shows its own small photo. Keep it to 5.

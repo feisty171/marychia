@@ -7,6 +7,7 @@
 import Base from "../layouts/Base.astro";
 import Footer from "../components/Footer.astro";
 import SignatureCard from "../components/SignatureCard.astro";
+import CategoryTiles from "../components/CategoryTiles.astro";
 import ProductCard from "../components/ProductCard.astro";
 import BookingSheet from "../components/BookingSheet.astro";
 import treatmentsData from "../data/treatments.json";
@@ -79,9 +80,10 @@ const heroWords = h.hero.headline
       </div>
     </section>}
 
-    <!-- ============ 1. SIGNATURE SERVICES (editorial index) ============
-         Rows: src/components/SignatureCard.astro. The big photo on the left (wide screens)
-         follows the row you're on (public/js/home.js). -->
+    <!-- ============ 1. FIND A TREATMENT ============
+         Heading: src/content/home.md → services. Face / Body / Wellness tiles: src/components/CategoryTiles.astro
+         (same as the Treatments page). The signature list (SignatureCard rows) shows only while
+         services.showList is true. -->
     <section class="h-section sig" id="services">
       <div class="h-container">
         <header class="h-split-head" data-reveal>
@@ -89,28 +91,33 @@ const heroWords = h.hero.headline
             <p class="eyebrow">{h.services.eyebrow}</p>
             <h2 class="h-title">{h.services.heading}</h2>
           </div>
-          <p class="h-intro">{h.services.intro}</p>
+          {h.services.intro && <p class="h-intro">{h.services.intro}</p>}
         </header>
-        <div class:list={["tp", "tp--embed", "sig-layout", { "show-hints": treatmentsData.config.showPlaceholderHints }]}>
-          <div class="sig-stage" aria-hidden="true">
-            <div class="sig-stage__frame">
-              {h.services.items.map((t, i) => (
-                <div class:list={["sig-stage__img", { "is-on": i === 0 }]} data-index={i}>
-                  {t.image
-                    ? <img src={t.image} alt="" loading="lazy" decoding="async" />
-                    : <div class="ph" data-cat={t.category}><div class="ph-inner"><span class="ph-hint">Photo · 900 × 900</span></div></div>}
-                </div>
-              ))}
+        <div class:list={["tp", "tp--embed", { "show-hints": treatmentsData.config.showPlaceholderHints }]}>
+          <CategoryTiles />
+        </div>
+        {h.services.showList && (
+          <div class:list={["tp", "tp--embed", "sig-layout", { "show-hints": treatmentsData.config.showPlaceholderHints }]}>
+            <div class="sig-stage" aria-hidden="true">
+              <div class="sig-stage__frame">
+                {h.services.items.map((t, i) => (
+                  <div class:list={["sig-stage__img", { "is-on": i === 0 }]} data-index={i}>
+                    {t.image
+                      ? <img src={t.image} alt="" loading="lazy" decoding="async" />
+                      : <div class="ph" data-cat={t.category}><div class="ph-inner"><span class="ph-hint">Photo · 900 × 900</span></div></div>}
+                  </div>
+                ))}
+              </div>
+              <p class="sig-stage__count"><span class="sig-stage__now">01</span> / {String(h.services.items.length).padStart(2, "0")}</p>
             </div>
-            <p class="sig-stage__count"><span class="sig-stage__now">01</span> / {String(h.services.items.length).padStart(2, "0")}</p>
-          </div>
-          <div class="sig-list">
-            {h.services.items.map((t, i) => <SignatureCard t={t} index={i} />)}
-            <div class="sig-more">
-              <a class="h-textlink" href={h.services.menuLink}>{h.services.menuButton} <span aria-hidden="true">→</span></a>
+            <div class="sig-list">
+              {h.services.items.map((t, i) => <SignatureCard t={t} index={i} />)}
             </div>
+            <BookingSheet />
           </div>
-          <BookingSheet />
+        )}
+        <div class="h-center">
+          <a class="h-textlink" href={h.services.menuLink}>{h.services.menuButton} <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>

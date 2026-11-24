@@ -1,0 +1,38 @@
+---
+/**
+ * Face / Body / Wellness tiles: a photo card for each area that opens the treatment list
+ * (/rituals/?area=…). Used on the Treatments page and the Home page ("Find a treatment").
+ * Count and "from S$xx" are worked out from the treatment list (src/data/treatment-menu.json).
+ * Photos: "siteImages" in src/data/treatments.json. Styles: .tp .tile* in public/css/treatments.css,
+ * so it must sit inside an element with class "tp".
+ */
+import { treatmentData as data } from "../lib/treatmentData";
+
+const COPY: Record<string, string> = { Face: "Glow, lift & clarity", Body: "Sculpt, tone & detox", Wellness: "Restore & unwind" };
+const money = (n: number) => "S$" + n.toLocaleString("en-SG");
+const images = data.siteImages as Record<string, string>;
+const tiles = ["Face", "Body", "Wellness"].map((c) => {
+  const list = data.treatments.filter((t: any) => t.category === c);
+  const prices = list.map((t: any) => t.from).filter((n: any) => n != null) as number[];
+  return { c, count: list.length, from: prices.length ? money(Math.min(...prices)) : "", img: images[c] || "" };
+});
+---
+<div class="tiles" id="tiles" data-reveal="stagger">
+  {tiles.map((t) => (
+    <a class:list={["tile", { "is-ph": !t.img }]} href={`/rituals/?area=${t.c.toLowerCase()}`} data-cat={t.c}
+       aria-label={`Show ${t.c} treatments: ${t.count} treatments${t.from ? `, from ${t.from}` : ""}`}>
+      <div class="media">
+        {t.img
+          ? <img src={t.img} alt={`${t.c} treatments`} loading="lazy" decoding="async" />
+          : <div class="ph" data-cat={t.c} aria-hidden="true"><div class="ph-inner"><span class="ph-hint">Tile · 700 × 840</span></div></div>}
+      </div>
+      <div class="tile-label">
+        <div class="tile-text">
+          <h3>{t.c}</h3><small>{COPY[t.c]}</small>
+          {t.count > 0 && <p class="tile-meta">{t.count} treatments <span aria-hidden="true">·</span> from {t.from}</p>}
+        </div>
+        <span class="tile-arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span>
+      </div>
+    </a>
+  ))}
+</div>

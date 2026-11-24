@@ -93,25 +93,7 @@ function mediaHTML(src, cat, alt, hint) {
 }
 if (CONFIG.showPlaceholderHints) document.getElementById("tp").classList.add("show-hints");
 
-// Category tiles (Treatments page): each opens the list on /rituals/, filtered to that category
-const TILE_COPY = { Face: "Glow, lift & clarity", Body: "Sculpt, tone & detox", Wellness: "Restore & unwind" };
-// Each tile also shows how many treatments it holds and "from S$xx" (lowest price)
-const inCat = c => TREATMENTS.filter(t => t.category === c);
-const catFrom = list => fmt(Math.min(...list.map(t => t.from).filter(n => n != null)));
-if ($("#tiles")) $("#tiles").innerHTML = ["Face", "Body", "Wellness"].map(c => {
-  const list = inCat(c);
-  return `
-  <a class="tile${SITE_IMAGES[c] ? "" : " is-ph"}" href="/rituals/?area=${c.toLowerCase()}" data-cat="${c}" aria-label="Show ${c} treatments: ${list.length} treatments, from ${catFrom(list)}">
-    <div class="media">${mediaHTML(SITE_IMAGES[c], c, c + " treatments", "Tile · 700 × 840")}</div>
-    <div class="tile-label">
-      <div class="tile-text">
-        <h3>${c}</h3><small>${TILE_COPY[c]}</small>
-        ${list.length ? `<p class="tile-meta">${list.length} treatments <span aria-hidden="true">·</span> from ${catFrom(list)}</p>` : ""}
-      </div>
-      <span class="tile-arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span>
-    </div>
-  </a>`;
-}).join("");
+// Category tiles: built in src/components/CategoryTiles.astro (Treatments + Home pages)
 
 // Ribbon flourish above the tiles: draw it in once it scrolls into view
 const ribbon = document.querySelector(".svc-ribbon");
