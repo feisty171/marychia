@@ -202,7 +202,8 @@ On `/rituals/` the filters sit in a sidebar on the left (desktop). On phones and
 - **Collection:** collapsed under "Collection +"; options are the workbook's Collections tab.
 - **Search** matches treatment names plus each of their concerns' label and "Search words".
 
-### The Treatments page (/treatments/) was removed
+### The Treatments page (/treatments/) was removed (the address now forwards to /rituals/)
+`src/pages/treatments.astro` is now only a forwarding page: old links and bookmarks to `/treatments/` open `/rituals/`, keeping any filter (e.g. `?area=face`). Don't put content there.
 The menu's "Treatments" item, the footer's "Services" link and the Home "Explore treatments" / "View all treatments" links all open the treatment list at `/rituals/`. Its hero uses the same layout as the old Treatments page hero (`.tp-hero` in `treatments.css`): heading and line centred over the photo (`"ritualsHero"` and `siteImages.rituals` in `src/data/treatments.json`). The old page's "Explore our services" tiles and "New & trending" banners are gone; their settings (`services`, `trending`, `hero`) are still in `treatments.json` but not shown.
 
 ### Treatments and Rituals pages: photos, full menu and booking

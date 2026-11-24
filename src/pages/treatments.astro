@@ -1,0 +1,27 @@
+---
+/**
+ * /treatments/ — the old Treatments page was removed. This tiny page only forwards old links
+ * and bookmarks to the treatment list at /rituals/, keeping any filter (e.g. ?area=face).
+ * Visitors without JavaScript are forwarded by the meta refresh, or can tap the link.
+ */
+import site from "../data/site.json";
+const target = new URL("/rituals/", site.url).href;
+---
+<!doctype html>
+<html lang="en-SG">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Treatments | Mary Chia</title>
+  <meta name="robots" content="noindex" />
+  <link rel="canonical" href={target} />
+  <noscript><meta http-equiv="refresh" content="0; url=/rituals/" /></noscript>
+</head>
+<body>
+  <p>The treatments list has moved. <a id="go" href="/rituals/">Go to our treatments</a>.</p>
+  <script is:inline>
+    // Keep the filter from old links, e.g. /treatments/?area=body → /rituals/?area=body
+    location.replace(document.getElementById("go").getAttribute("href") + location.search + location.hash);
+  </script>
+</body>
+</html>
