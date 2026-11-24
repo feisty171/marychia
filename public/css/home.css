@@ -790,9 +790,9 @@ a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset
   }
   .ed-hero__bg { position: absolute; inset: 0 0 auto 0; margin: 0; }
   .ed-hero__grid { width: 100%; }
-  .ed-hero__copy,
   .ed-hero__foot { max-width: min(46%, 640px); }
-  .ed-hero__title { font-size: min(var(--fs-hero), 5vw); }
+  /* two lines ("Every transformation is a / story worth telling."), kept clear of the photo's subject */
+  .ed-hero__title { font-size: min(var(--fs-hero), 3.9vw, 4.25rem); max-width: 12em; }
   .ed-hero__foot { transform: translateY(calc(var(--hp) * -30px)); }
 }
 /* the copy sits right on the photo: keep the paragraph crisp on the light background */
