@@ -19,7 +19,7 @@
 /* ---------- Our Locations: map, stats, studio list ---------- */
 .mrow { display: grid; gap: 28px; align-items: center; }
 .sg-map { width: 100%; height: auto; overflow: visible; }
-.sg-land { fill: var(--white); stroke: rgba(165, 85, 92, .35); stroke-width: 1.2; }
+.sg-land { fill: var(--white); stroke: rgba(var(--rose-rgb), .35); stroke-width: 1.2; }
 .sg-land--dots { stroke: none; }
 .sg-routes path {
   fill: none;
@@ -34,7 +34,7 @@
 .nd .rg { fill: none; stroke: var(--rose); stroke-width: 1; opacity: 0; transform-box: fill-box; transform-origin: center; }
 .nd.hi .rg, .nd:hover .rg, .nd:focus .rg { opacity: 1; animation: ripple 2.6s ease-out infinite; }
 @keyframes ripple { from { transform: scale(.6); opacity: .9; } to { transform: scale(2.2); opacity: 0; } }
-.nd .plate { fill: rgba(165, 85, 92, .1); stroke: rgba(165, 85, 92, .3); transition: .3s; }
+.nd .plate { fill: rgba(var(--rose-rgb), .1); stroke: rgba(var(--rose-rgb), .3); transition: .3s; }
 .nd .core { fill: var(--rose); transition: .3s; }
 .nd text {
   font-family: var(--font-sans);
@@ -45,7 +45,7 @@
   fill: var(--ink-soft);
   transition: .3s;
 }
-.nd.hi .plate, .nd:hover .plate, .nd:focus .plate { fill: rgba(165, 85, 92, .22); }
+.nd.hi .plate, .nd:hover .plate, .nd:focus .plate { fill: rgba(var(--rose-rgb), .22); }
 .nd.hi text, .nd:hover text, .nd:focus text { fill: var(--ink); }
 
 .where-stats {

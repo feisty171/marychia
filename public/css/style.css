@@ -13,11 +13,15 @@
   --ink: #2b2326;             /* headings, body text, primary buttons */
   --ink-soft: #6b5b5d;        /* secondary text */
   --ink-faint: #9b8c8e;       /* hints, struck-through prices */
-  --rose: #a5555c;            /* accent: eyebrows, numbers, prices, icons */
-  --rose-deep: #8a434a;       /* accent hover */
-  --rose-lt: #e6aeb0;         /* accent on dark backgrounds */
-  --rose-line: #c78a8c;       /* decorative rules, outlines */
-  --line: rgba(165, 85, 92, .18); /* hairline borders and dividers */
+  /* Brand red: one premium maroon family. Use these tokens (or --rose-rgb / --rose-lt-rgb
+     inside rgba()) for every red on the site; never type a red/pink value in page CSS. */
+  --rose: #a43e4b;            /* accent: eyebrows, numbers, prices, icons, filled buttons */
+  --rose-deep: #85303b;       /* accent hover / pressed */
+  --rose-lt: #e3b3b8;         /* accent on dark backgrounds */
+  --rose-line: #c48a91;       /* decorative rules, outlines */
+  --rose-rgb: 164, 62, 75;    /* --rose as r, g, b, for rgba(var(--rose-rgb), .x) */
+  --rose-lt-rgb: 227, 179, 184; /* --rose-lt as r, g, b */
+  --line: rgba(var(--rose-rgb), .18); /* hairline borders and dividers */
   --white: #ffffff;
   --blush: #fbf5f2;           /* page background */
   --tint: #f5ece8;            /* alternate section / panel background */
@@ -539,7 +543,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   justify-content: space-between;
   gap: 20px;
   padding-bottom: 32px;
-  border-bottom: 1px solid rgba(165, 85, 92, .18);
+  border-bottom: 1px solid rgba(var(--rose-rgb), .18);
 }
 .site-footer__logo { width: auto; height: 120px; }
 .site-footer__note {
@@ -572,7 +576,7 @@ ul { list-style: none; margin: 0; padding: 0; }
 .site-footer__legal {
   margin: 0;
   padding-top: 24px;
-  border-top: 1px solid rgba(165, 85, 92, .18);
+  border-top: 1px solid rgba(var(--rose-rgb), .18);
   font-size: var(--fs-caption);
   color: var(--ink-soft);
 }
@@ -599,7 +603,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   place-items: center;
   width: 38px;
   height: 38px;
-  border: 1px solid rgba(165, 85, 92, .3);
+  border: 1px solid rgba(var(--rose-rgb), .3);
   border-radius: 50%;
   color: var(--ink);
   transition: background-color .2s ease, color .2s ease;

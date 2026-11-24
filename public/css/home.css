@@ -772,7 +772,7 @@ a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset
   font-size: var(--fs-small);
   color: var(--ink-soft);
   background:
-    repeating-linear-gradient(45deg, transparent 0 14px, rgba(165, 85, 92, .05) 14px 15px),
+    repeating-linear-gradient(45deg, transparent 0 14px, rgba(var(--rose-rgb), .05) 14px 15px),
     var(--white);
   border: 1px dashed var(--rose-line);
 }
