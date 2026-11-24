@@ -180,6 +180,18 @@ trial:
   exploreButton: "Explore trial offers"
   exploreLink: "/rituals/?trial=1"
 
+# "Real results / Stories from our clients": right under the first-visit band.
+# Top row: the newest results from the Gallery page (src/content/gallery.md). Photos show
+# ONLY when that result has consent: true; otherwise a "Before / After" placeholder shows.
+# Bottom row: the client reviews from testimonials: below (only real reviews, with permission).
+results:
+  eyebrow: "Real results"
+  heading: "Stories from *our clients*"   # *asterisks* = italic rose
+  allLink: "See all results"
+  allHref: "/gallery/"
+  show: 3                                  # how many Gallery results to show
+  reviewSource: "Google review"            # shown after each reviewer's name
+
 # Products ("Take the care home"). Hidden for now: set show to true to bring the Shop section back.
 products:
   show: false
@@ -245,16 +257,20 @@ testimonials:
   eyebrow: "Kind words"
   heading: "From our guests."
   note: "[[CONFIRM: use only real client reviews, each with the client's written permission. Do not invent quotes.]]"
+  # rating: the review's star rating (1-5) from Google. Stars only show once it's filled in.
   items:
     - quote: "[[CONFIRM: real testimonial about feeling relaxed and cared for]]"
       name: "[[CONFIRM: client first name]]"
       treatment: "[[CONFIRM: treatment]]"
+      rating: ""
     - quote: "[[CONFIRM: real testimonial about cleanliness and the studio]]"
       name: "[[CONFIRM: client first name]]"
       treatment: "[[CONFIRM: treatment]]"
+      rating: ""
     - quote: "[[CONFIRM: real testimonial about how their skin or body felt]]"
       name: "[[CONFIRM: client first name]]"
       treatment: "[[CONFIRM: treatment]]"
+      rating: ""
   trust:
     - "40+ years in Singapore"
     - "Specialists trained in-house"

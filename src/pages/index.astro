@@ -16,6 +16,7 @@ import treatmentsData from "../data/treatments.json";
 import site from "../data/site.json";
 import outlets from "../data/outlets.json";
 import { frontmatter as h } from "../content/home.md";
+import { frontmatter as gallery } from "../content/gallery.md";
 import { tel, waHref, realUrl } from "../lib/links";
 
 const siteWa = waHref(site.whatsappUrl);
@@ -32,6 +33,22 @@ const [bannerBefore, bannerEm = "", bannerAfter = ""] = (h.banner?.heading || ""
 // First-visit band
 const [trialBefore, trialEm = "", trialAfter = ""] = (h.trial?.heading || "").split("*");
 const trialTerms = realUrl(h.trial?.termsLink);
+// "Real results": newest Gallery results (photos only with consent) + client reviews
+const [resBefore, resEm = "", resAfter = ""] = (h.results?.heading || "").split("*");
+const resultCards = ((gallery.results || []) as any[]).slice(0, h.results?.show ?? 3).map((r) => {
+  const t: any = treatmentData.treatments.find((x: any) => x.id === r.treatment);
+  const ok = r.consent === true;
+  return {
+    name: t?.name ?? r.treatment,
+    note: r.note,
+    alt: r.alt || "",
+    link: t ? `/rituals/?q=${encodeURIComponent(t.name)}` : "/gallery/",
+    single: ok && !!r.image && !r.before && !r.after ? r.image : "",
+    before: ok ? r.before || "" : "",
+    after: ok ? r.after || "" : "",
+  };
+});
+const stars = (n: any) => (typeof n === "number" && n >= 1 ? Math.min(5, Math.round(n)) : 0);
 const initials = (s: string) => (s.includes("[[") ? "?" : s.trim().charAt(0));
 // Hero headline: the *word* in asterisks shows in italic rose. Each word is wrapped
 // so it can slide up into place when the page opens (public/css/home.css, .ed-hero__w).
@@ -206,6 +223,49 @@ const heroWords = h.hero.headline
             <a class="btn trial__book" href={site.bookingUrl}>{h.trial.bookButton}</a>
             <a class="btn trial__explore" href={h.trial.exploreLink}>{h.trial.exploreButton} <span aria-hidden="true">→</span></a>
           </div>
+        </div>
+      </section>
+    )}
+
+    <!-- ============ REAL RESULTS (src/content/home.md → results; photos from gallery.md) ============
+         Before/after photos only show for results with consent: true. Reviews: testimonials in home.md.
+         Styles: "Real results" in public/css/home.css. -->
+    {h.results && (
+      <section class="h-section res" id="results">
+        <div class="h-container">
+          <header class="fav-head" data-reveal>
+            <div>
+              <p class="eyebrow">{h.results.eyebrow}</p>
+              <h2 class="h-title">{resBefore}{resEm && <em>{resEm}</em>}{resAfter}</h2>
+            </div>
+            <a class="h-textlink" href={h.results.allHref}>{h.results.allLink} <span aria-hidden="true">→</span></a>
+          </header>
+          {resultCards.length > 0 && (
+            <ul class="res-grid" data-reveal="stagger">
+              {resultCards.map((r) => (
+                <li class="res-card">
+                  {r.single
+                    ? <div class="res-pair res-pair--one"><img src={r.single} alt={r.alt} loading="lazy" /></div>
+                    : (
+                      <div class="res-pair" role={r.before || r.after ? "group" : undefined} aria-label={r.before || r.after ? r.alt : undefined}>
+                        <div class="res-shot">{r.before && <img src={r.before} alt="" loading="lazy" />}<span>Before</span></div>
+                        <div class="res-shot">{r.after && <img src={r.after} alt="" loading="lazy" />}<span>After</span></div>
+                      </div>
+                    )}
+                  <a class="res-caption" href={r.link}>{r.name}{r.note && <> · {r.note}</>} <span aria-hidden="true">→</span></a>
+                </li>
+              ))}
+            </ul>
+          )}
+          <ul class="res-reviews" data-reveal="stagger">
+            {h.testimonials.items.map((r: any) => (
+              <li class="res-review">
+                {stars(r.rating) > 0 && <p class="res-stars" aria-label={`${stars(r.rating)} out of 5 stars`}>{"★".repeat(stars(r.rating))}</p>}
+                <blockquote class="res-quote">{r.quote}</blockquote>
+                <p class="res-who">{r.name} · {h.results.reviewSource}</p>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
     )}

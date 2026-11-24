@@ -378,6 +378,44 @@ sup { font-size: .55em; vertical-align: super; line-height: 0; }
   .trial__inner { width: 100%; padding-top: 48px; padding-bottom: 48px; }
 }
 
+/* ---------- Real results (src/content/home.md → results) ----------
+   Top row: before/after pairs from the Gallery (photos only with consent), each with a
+   "Treatment · note →" link. Bottom row: review cards (stars once a rating is filled in). */
+.res-grid { display: grid; gap: 32px; margin: 0 0 clamp(40px, 4vw, 56px); }
+.res-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 14px; }
+.res-pair--one { display: block; }
+.res-pair--one img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 2px; }
+.res-shot { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--tint); border-radius: 2px; }
+.res-shot img { width: 100%; height: 100%; object-fit: cover; }
+.res-shot span {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+}
+.res-shot:has(img) span { color: var(--white); text-shadow: 0 1px 6px rgba(var(--shade), .5); }
+.res-caption { display: inline; font-size: var(--fs-text); color: var(--ink-soft); text-decoration: none; transition: color .25s ease; }
+.res-caption:hover { color: var(--rose); }
+.res-caption:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
+.res-reviews { display: grid; gap: 20px; }
+.res-review { padding: clamp(24px, 2.6vw, 40px); background: var(--white); border: 1px solid var(--line); }
+.res-stars { margin: 0 0 16px; font-size: var(--fs-h5); letter-spacing: .12em; color: var(--rose); }
+.res-quote {
+  margin: 0 0 18px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--fs-h4);
+  line-height: 1.45;
+  color: var(--ink);
+}
+.res-who { margin: 0; font-size: var(--fs-small); color: var(--ink-soft); }
+@media (min-width: 961px) {
+  .res-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 2.4vw, 36px); }
+  .res-reviews { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 2.4vw, 36px); }
+  .res-quote { font-size: var(--fs-h3); line-height: 1.35; }
+}
+
 /* ---------- Products ("shelf") ----------
    src/components/ProductCard.astro. No card box: a tinted photo panel with the
    details underneath, left-aligned. Same columns as the signature cards. */
