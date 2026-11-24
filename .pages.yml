@@ -1,0 +1,124 @@
+# Pages CMS settings (https://app.pagescms.org). Lets the team add Gallery / Results
+# before-and-after photos from a phone or computer, without touching code.
+# MADE BY scripts/cms-config.mjs: don't edit by hand. The Treatment list refreshes
+# every time `npm run build:treatments` runs.
+
+media:
+  input: src/assets/results
+  output: src/assets/results
+  extensions: [jpg, jpeg, png, webp]
+
+content:
+  - name: results
+    label: Gallery results
+    type: collection
+    path: src/data/results
+    format: json
+    filename: "{year}-{month}-{day}-{primary}.json"
+    view:
+      primary: treatment
+      sort: date
+      order: desc
+    fields:
+      - name: treatment
+        label: Treatment
+        type: select
+        required: true
+        options:
+          values:
+            - "Abdominal Wellness Therapy"
+            - "Acu-Stimo Body Therapy"
+            - "Acu-Stimo Eye Therapy"
+            - "Acu-Stimo Face Therapy"
+            - "Bio Wave Magnetic Therapy"
+            - "Body Contouring Program"
+            - "Breast Lymph Node Drainage Therapy"
+            - "Cappu Lymphatic Detox Therapy"
+            - "Carbon Derma Eye Detox"
+            - "Cavitation Wave Lipolysis"
+            - "CLARIO 5G Pigment Clear Therapy"
+            - "CLARIO Lumiglow Booster Therapy"
+            - "CLARIO Porcelain Skin Therapy"
+            - "CLARIO Super-Glow 360"
+            - "Colon Care Therapy"
+            - "Colon Detox Care Therapy"
+            - "Cryoboost Face Spa"
+            - "Crystalite Hair Removal"
+            - "Customised Fairness Radiance Facial"
+            - "Dermabright Facial"
+            - "Diamond Face Sparkler"
+            - "Essential Face Therapy"
+            - "Fat Burner Detox Therapy"
+            - "Five Element Body Wellness Therapy"
+            - "Five Elements Lower Legs"
+            - "Five Elements Tummy Slimming"
+            - "Five Elements Upper Legs"
+            - "Gold Thread Face Spa (10 Thread)"
+            - "Hinoki Cypress Bust Enhancement"
+            - "Hinoki Cypress Eye Treatment"
+            - "Hinoki Cypress Face Sculpting"
+            - "Hydration Booster Facial"
+            - "Hydro H2O 6 in 1"
+            - "Hydro H2O Aqua"
+            - "Integralquartz Macro Fat Reduction"
+            - "Integralquartz Reju Lift & Firm"
+            - "Intensive Electro Lymphatic Detox"
+            - "JUVE Face Lift Therapy"
+            - "Lemongrass Lymphatic Drainage"
+            - "LPG Cellu M6 Alliance (Body)"
+            - "LPG Cellu M6 Alliance Mobilift"
+            - "MC Classic Coffee Drainage Therapy"
+            - "MC Classic Face Lift Intense Therapy"
+            - "MC Classic Radiance Revival Therapy"
+            - "MC Classic Smooth Cellulite Therapy"
+            - "MC Classic Ultra Lipolysis"
+            - "MC Customised Facial"
+            - "MC Purifying Facial"
+            - "MC Signature Face Intense"
+            - "Nihon Meso Slimming Therapy"
+            - "OXY 4-Step Deluxe Face Rejuvenation"
+            - "PDRN Skin Therapy"
+            - "PHA Face Treatment"
+            - "Precision Point Lymphatic Therapy"
+            - "Refreshing Eye-Scapade"
+            - "Triple AiO Face Lift"
+            - "Venus Freeze Body Toning"
+            - "Venus Freeze Face Toning"
+            - "XO-SKIN Exosomes"
+      - name: date
+        label: Date added
+        description: Newest results show first.
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: note
+        label: Note
+        description: "One short, factual line, e.g. After 6 sessions over 8 weeks. No kg or cm lost, no 'permanent', no medical claims, no 'guaranteed'."
+        type: string
+      - name: before
+        label: Before photo
+        description: Portrait works best. Same framing and lighting as the after photo. Not retouched.
+        type: image
+        options:
+          rename: random
+      - name: after
+        label: After photo
+        type: image
+        options:
+          rename: random
+      - name: image
+        label: Combined photo (optional)
+        description: Only if you have ONE picture showing both, instead of separate before and after photos. Landscape works best.
+        type: image
+        options:
+          rename: random
+      - name: alt
+        label: Photo description (optional)
+        description: For screen readers, e.g. Client's jawline before and after. Leave empty to use "Client before and after" plus the treatment name.
+        type: string
+      - name: consent
+        label: Client has signed written consent
+        description: Turn on ONLY once marketing has the client's signed consent form. While it's off, the photos stay hidden on the website.
+        type: boolean
+        default: false

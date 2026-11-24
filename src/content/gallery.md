@@ -33,60 +33,11 @@ cta:
   link: "/rituals/"
 
 # ---------------------------------------------------------------------
-#  RESULTS — one block per client result. Newest first.
-#
-#  treatment: the treatment's ID from the menu workbook (src/data/treatment-menu.json) (e.g. "juve-face-lift").
-#             Its name, category (Face / Body / Wellness) and link fill in automatically.
-#  note:      one short, factual line, e.g. "After 4 sessions over 8 weeks".
-#  before / after: photo paths in public/images/results/
-#             (portrait, about 800 x 1000, same framing and lighting in both).
-#  image:     use INSTEAD of before/after when you have one combined picture
-#             (landscape, about 1600 x 1200).
-#  alt:       a short description of the photos, for screen readers.
-#  consent:   set to true ONLY once marketing has the client's signed consent.
-#             While it's false, the photos stay hidden and a placeholder shows.
-#
-#  The blocks below are EXAMPLES with empty photos. Replace or delete them.
+#  RESULTS (the before/after cards) are no longer in this file.
+#  Each result is its own small file in  src/data/results/
+#  and its photos are in  src/assets/results/
+#  The easiest way to add one, from a phone or a computer, is Pages CMS:
+#  https://app.pagescms.org → this site → "Gallery results" → Add an entry.
+#  See "Gallery / Results page: add a client result" in CLAUDE.md.
 # ---------------------------------------------------------------------
-results:
-  - treatment: "clario-porcelain"
-    note: "[[CONFIRM: e.g. After 3 sessions over 6 weeks]]"
-    before: ""
-    after: ""
-    alt: "Client's cheek before and after CLARIO Porcelain Skin Therapy"
-    consent: false
-
-  - treatment: "juve-face-lift"
-    note: "[[CONFIRM: e.g. After 6 sessions over 8 weeks]]"
-    before: ""
-    after: ""
-    alt: "Client's jawline before and after JUVE Face Lift Therapy"
-    consent: false
-
-  - treatment: "mc-signature-face-intense"
-    note: "[[CONFIRM: e.g. After 4 sessions]]"
-    before: ""
-    after: ""
-    alt: "Client's skin before and after MC Signature Face Intense"
-    consent: false
-
-  - treatment: "lpg-body"
-    note: "[[CONFIRM: e.g. After 10 sessions over 5 weeks]]"
-    before: ""
-    after: ""
-    alt: "Client's thigh before and after LPG Cellu M6 Alliance (Body)"
-    consent: false
-
-  - treatment: "venus-freeze-body"
-    note: "[[CONFIRM: e.g. After 6 sessions]]"
-    before: ""
-    after: ""
-    alt: "Client's tummy before and after Venus Freeze Body Toning"
-    consent: false
-
-  - treatment: "five-element-body-wellness"
-    note: "[[CONFIRM: e.g. After 4 sessions]]"
-    image: ""
-    alt: "Client after Five Element Body Wellness Therapy"
-    consent: false
 ---

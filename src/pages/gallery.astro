@@ -1,8 +1,9 @@
 ---
 /**
  * Gallery / Results page (/gallery/). Linked from the Treatments dropdown ("Gallery / Results").
- * Words and the list of results come from src/content/gallery.md — edit that file, not this one.
- * Treatment names and categories come from src/data/treatment-menu.json (matched by id).
+ * Words come from src/content/gallery.md; each result is a file in src/data/results/ (Pages CMS).
+ * Treatment names and categories come from src/data/treatment-menu.json (matched by name or ID),
+ * photos from src/assets/results/ (resized automatically): see src/lib/results.ts.
  * Styles: public/css/gallery.css · Filter buttons: public/js/gallery.js
  *
  * A result's photos only show when its `consent` is true; otherwise a placeholder shows.
@@ -10,41 +11,16 @@
 import Base from "../layouts/Base.astro";
 import Footer from "../components/Footer.astro";
 import { frontmatter as g } from "../content/gallery.md";
-import { treatmentData as data } from "../lib/treatmentData";
-
-type Result = {
-  treatment: string;
-  note?: string;
-  before?: string;
-  after?: string;
-  image?: string;
-  alt?: string;
-  consent?: boolean;
-};
+import { loadResults, resolveResults } from "../lib/results";
 
 const esc = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 const withEm = (s: string) => esc(s).replace(/\*(.+?)\*/g, "<em>$1</em>");
 
-const byId = new Map(data.treatments.map((t: any) => [t.id, t]));
-const results = (g.results as Result[]).map((r) => {
-  const t: any = byId.get(r.treatment);
-  const category: string = t?.category ?? "Face";
-  const single = r.image !== undefined && r.before === undefined && r.after === undefined;
-  const show = r.consent === true;
-  return {
-    ...r,
-    name: t?.name ?? r.treatment,
-    category,
-    link: `/rituals/?area=${category.toLowerCase()}`,
-    single,
-    // A photo is shown only with consent; otherwise "" → placeholder.
-    beforeSrc: show ? r.before ?? "" : "",
-    afterSrc: show ? r.after ?? "" : "",
-    imageSrc: show ? r.image ?? "" : "",
-    // Photos were added but consent isn't confirmed yet: say so on the placeholder.
-    awaiting: !show && !!(r.before || r.after || r.image),
-  };
-});
+// Treatment name, category and photos for each result: src/lib/results.ts
+const results = (await resolveResults(loadResults())).map((r) => ({
+  ...r,
+  link: `/rituals/?area=${r.category.toLowerCase()}`,
+}));
 const filters: string[] = (g.filters as string[]).filter((f) => results.some((r) => r.category === f));
 ---
 <Base
@@ -86,7 +62,7 @@ const filters: string[] = (g.filters as string[]).filter((f) => results.some((r)
                 {r.single ? (
                   <div class="g-shot g-shot--wide">
                     {r.imageSrc
-                      ? <img src={r.imageSrc} alt={r.alt ?? r.name} loading="lazy" decoding="async" />
+                      ? <img src={r.imageSrc} alt={r.alt} loading="lazy" decoding="async" />
                       : <div class="g-ph"><span class="g-ph__icon" aria-hidden="true">+</span><span class="g-ph__hint">{r.awaiting ? "Awaiting client consent" : "Photo · 1600 × 1200"}</span></div>}
                   </div>
                 ) : (
@@ -94,7 +70,7 @@ const filters: string[] = (g.filters as string[]).filter((f) => results.some((r)
                     {[["Before", r.beforeSrc], ["After", r.afterSrc]].map(([label, src]) => (
                       <div class="g-shot">
                         {src
-                          ? <img src={src} alt={`${label}: ${r.alt ?? r.name}`} loading="lazy" decoding="async" />
+                          ? <img src={src} alt={`${label}: ${r.alt}`} loading="lazy" decoding="async" />
                           : <div class="g-ph"><span class="g-ph__icon" aria-hidden="true">+</span><span class="g-ph__hint">{r.awaiting ? "Awaiting consent" : "800 × 1000"}</span></div>}
                         <span class="g-tag">{label}</span>
                       </div>

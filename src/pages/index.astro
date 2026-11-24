@@ -16,8 +16,8 @@ import treatmentsData from "../data/treatments.json";
 import site from "../data/site.json";
 import outlets from "../data/outlets.json";
 import { frontmatter as h } from "../content/home.md";
-import { frontmatter as gallery } from "../content/gallery.md";
 import { tel, waHref, realUrl } from "../lib/links";
+import { loadResults, resolveResults } from "../lib/results";
 
 const siteWa = waHref(site.whatsappUrl);
 // "Book your escape": WhatsApp once the number is confirmed, otherwise the studio list
@@ -35,19 +35,15 @@ const [trialBefore, trialEm = "", trialAfter = ""] = (h.trial?.heading || "").sp
 const trialTerms = realUrl(h.trial?.termsLink);
 // "Real results": newest Gallery results (photos only with consent) + client reviews
 const [resBefore, resEm = "", resAfter = ""] = (h.results?.heading || "").split("*");
-const resultCards = ((gallery.results || []) as any[]).slice(0, h.results?.show ?? 3).map((r) => {
-  const t: any = treatmentData.treatments.find((x: any) => x.id === r.treatment);
-  const ok = r.consent === true;
-  return {
-    name: t?.name ?? r.treatment,
-    note: r.note,
-    alt: r.alt || "",
-    link: t ? `/rituals/?q=${encodeURIComponent(t.name)}` : "/gallery/",
-    single: ok && !!r.image && !r.before && !r.after ? r.image : "",
-    before: ok ? r.before || "" : "",
-    after: ok ? r.after || "" : "",
-  };
-});
+const resultCards = (await resolveResults(loadResults().slice(0, h.results?.show ?? 3))).map((r) => ({
+  name: r.name,
+  note: r.note,
+  alt: r.alt,
+  link: `/rituals/?q=${encodeURIComponent(r.name)}`,
+  single: r.imageSrc,
+  before: r.beforeSrc,
+  after: r.afterSrc,
+}));
 // "Read on Google": the studio's Google Maps page (src/data/outlets.json)
 const googleFor = (studio?: string) => (outlets as any[]).find((o) => o.name === studio)?.mapsUrl || "";
 // Review avatar colour: a steady hue picked from the reviewer's name, like Google's initials
@@ -239,7 +235,7 @@ const heroWords = h.hero.headline
       </section>
     )}
 
-    <!-- ============ REAL RESULTS (src/content/home.md → results; photos from gallery.md) ============
+    <!-- ============ REAL RESULTS (src/content/home.md → results; results from src/data/results/) ============
          Before/after photos only show for results with consent: true. Reviews: testimonials in home.md.
          Styles: "Real results" in public/css/home.css. -->
     {h.results && (

@@ -20,7 +20,7 @@ Static site built with [Astro](https://astro.build). No CMS, no database. The ma
 | About Us page words (heritage opening, timeline milestones + photos, vision & mission, SEO title/description) | `src/content/about.md` |
 | Contact Us page words (Our Location, Feedback/Enquiry form topics) | `src/content/contact.md` |
 | Career page words (/careers/: intro, roles, how to apply) | `src/content/careers.md` |
-| Gallery / Results page (/gallery/: heading, filters, client results with before/after photos, disclaimer, closing button) | `src/content/gallery.md` (photos in `public/images/results/`) |
+| Gallery / Results page (/gallery/: heading, filters, client results with before/after photos, disclaimer, closing button) | `src/content/gallery.md` (words); results: one file each in `src/data/results/`, photos in `src/assets/results/` (resized automatically); add them with Pages CMS, settings in `.pages.yml` |
 | Treatments and Rituals: the treatment list, prices, concerns and collections (`data/treatment-menu.xlsx` → `npm run build:treatments` → `src/data/treatment-menu.json`) | see "Rituals page (treatment list)" below |
 | Treatment list page (`/rituals/`, the "Treatments" menu item) settings: hero words (`ritualsHero`), photos, time pills, treatment photos, full-menu PDF settings. (`hero`, `services` and `trending` belonged to the removed /treatments/ page and are not shown.) | `src/data/treatments.json` |
 | Full treatment menu PDF, and its page images for the `/menu/` page (remake with `sh scripts/menu-images.sh`) | `public/menu/full-spa-menu.pdf`, `public/menu/pages/` |
@@ -215,26 +215,38 @@ The menu's "Treatments" item, the footer's "Services" link and the Home "Explore
 - "Book Now" opens WhatsApp to the studio the visitor picks, using the `whatsapp` numbers in `src/data/outlets.json`. A studio without a confirmed number is left out of the list.
 
 ### Gallery / Results page: add a client result
-The page is `/gallery/`, linked from the Treatments dropdown ("Gallery / Results"). Everything on it is in `src/content/gallery.md`.
+The page is `/gallery/`, linked from the Treatments dropdown ("Gallery / Results"). Its words (heading, filters, disclaimer, closing button) are in `src/content/gallery.md`. **Each result is its own small file in `src/data/results/`** (one JSON file per result) and its photos are in `src/assets/results/`. The newest 3 also show in the Home "Real results" row. Code: `src/lib/results.ts`.
 
-1. **Get written consent first.** Only real clients who have signed permission for their photos to go on the website. Marketing keeps the signed form. No retouching.
-2. Put the photos in `public/images/results/`, named like `clario-2026-01-before.webp` and `clario-2026-01-after.webp` (lowercase, no spaces). Before and after should be portrait (about 800×1000) with the same framing and lighting. For one combined picture instead, use landscape, about 1600×1200.
-3. In `src/content/gallery.md`, add a block at the **top** of `results:` (newest first):
+**Get written consent first.** Only real clients who have signed permission for their photos to go on the website. Marketing keeps the signed form. No retouching.
 
-```yaml
-  - treatment: "clario-porcelain"
-    note: "After 3 sessions over 6 weeks"
-    before: "/images/results/clario-2026-01-before.webp"
-    after: "/images/results/clario-2026-01-after.webp"
-    alt: "Client's cheek before and after CLARIO Porcelain Skin Therapy"
-    consent: true
+**Easiest way, from a phone or computer: Pages CMS.** Go to https://app.pagescms.org, sign in with GitHub, open this repo, then **Gallery results → Add an entry**: pick the treatment from the drop-down, set the date, write the note, upload the before and after photos (straight from the camera roll), switch on "Client has signed written consent" only when marketing has the form, and save. Pages CMS saves to GitHub, and the site republishes in a minute or two. Its settings are `.pages.yml`, which is made by `scripts/cms-config.mjs` (it runs at the end of `npm run build:treatments`, so the treatment drop-down stays in step with the menu workbook). Don't edit `.pages.yml` by hand.
+- First time only: Pages CMS asks to install its GitHub app on the `feisty171/marychia` repo; allow it.
+
+**By hand (on a computer):**
+1. Drop the photos into `src/assets/results/` as they are: JPG, PNG or WebP, any size, any file name.
+2. Copy a file in `src/data/results/`, rename it (e.g. `2026-11-24-juve.json`) and fill it in:
+
+```json
+{
+  "treatment": "JUVE Face Lift Therapy",
+  "date": "2026-11-24",
+  "note": "After 6 sessions over 8 weeks",
+  "before": "juve-jan-before.jpg",
+  "after": "juve-jan-after.jpg",
+  "consent": true
+}
 ```
 
-- `treatment` is the treatment's ID from the menu workbook (see `src/data/treatment-menu.json`); its name, Face/Body/Wellness filter and link fill in automatically.
-- For one combined picture, use `image: "/images/results/….webp"` instead of `before` and `after`.
-- **Photos only show when `consent: true`.** While it's `false`, the slot shows "Awaiting consent" instead of the photo. Never set it to `true` until marketing confirms the signed consent.
+Rules for both ways:
+- `treatment` is the name as it appears on the Treatments page (or its ID from `src/data/treatment-menu.json`; capitals and spacing don't matter). Its Face/Body/Wellness filter and link fill in automatically.
+- `date` sets the order: newest first.
+- Photos: the build makes web-sized WebP copies automatically (800 px wide for before/after, 1600 px for one combined picture), so nothing needs resizing or converting. iPhone HEIC files must be JPG (uploading through a phone browser usually converts them). Portrait before/after photos with the same framing and lighting look best; the cards crop them to 4:5. `before` / `after` can be a file name or the `src/assets/results/…` path Pages CMS writes. A full path like `/images/results/x.webp` still means a file in `public/` and is used as it is.
+- For one combined picture, use `image` instead of `before` and `after`.
+- `alt` is optional; without it the photos are described as "Client before and after <treatment>".
+- **Photos only show when `consent` is true.** While it's false, the slot shows "Awaiting consent" instead of the photo. Never set it to true until marketing confirms the signed consent.
 - `note` must be factual: no kg or cm lost, no "permanent", no medical claims, no "guaranteed".
-- The example blocks (empty photos, `[[CONFIRM: ...]]` notes) are placeholders: replace or delete them.
+- A treatment name that doesn't match, or a photo that isn't in the folder, **stops the build** with a message naming the problem (suggesting the right treatment names or listing the photos in the folder). On GitHub the live site simply stays as it was until it's fixed.
+- The six example results (empty photos, `[[CONFIRM: ...]]` notes, dated January 2026) are placeholders: replace or delete them.
 
 ### Contact Us page
 - **Our Location:** the label ("Our Location") and title ("Visit a studio") are in `src/content/contact.md` (`locations:` → `eyebrow`, `heading`, optional `lede`); the studio cards (map, address, phones, WhatsApp, hours, directions) come from `src/data/outlets.json`.

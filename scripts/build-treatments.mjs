@@ -169,3 +169,6 @@ const count = (a) => treatments.filter((t) => t.category === a).length;
 console.log(`Wrote ${relative(root, output)}: ${treatments.length} treatments (Face ${count("Face")}, Body ${count("Body")}, Wellness ${count("Wellness")}).`);
 const withPhoto = treatments.filter((t) => t.image).map((t) => t.name);
 console.log(`Photos: ${withPhoto.length ? withPhoto.join(", ") : "none"}. The rest show the placeholder.`);
+
+// Refresh the Treatment drop-down in Pages CMS (.pages.yml).
+await import("./cms-config.mjs");
