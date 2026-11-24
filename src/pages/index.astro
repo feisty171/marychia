@@ -48,6 +48,10 @@ const resultCards = ((gallery.results || []) as any[]).slice(0, h.results?.show 
     after: ok ? r.after || "" : "",
   };
 });
+// "Read on Google": the studio's Google Maps page (src/data/outlets.json)
+const googleFor = (studio?: string) => (outlets as any[]).find((o) => o.name === studio)?.mapsUrl || "";
+// Review avatar colour: a steady hue picked from the reviewer's name, like Google's initials
+const avatarHue = (n: string) => [...n].reduce((a, c) => a + c.charCodeAt(0), 0) % 360;
 const stars = (n: any) => (typeof n === "number" && n >= 1 ? Math.min(5, Math.round(n)) : 0);
 // "Our story" heading: *words* in italic rose
 const [storyBefore, storyEm = "", storyAfter = ""] = (h.experience?.heading || "").split("*");
@@ -258,15 +262,29 @@ const heroWords = h.hero.headline
               ))}
             </ul>
           )}
-          <ul class="res-reviews" data-reveal="stagger">
-            {h.testimonials.items.map((r: any) => (
-              <li class="res-review">
-                {stars(r.rating) > 0 && <p class="res-stars" aria-label={`${stars(r.rating)} out of 5 stars`}>{"★".repeat(stars(r.rating))}</p>}
-                <blockquote class="res-quote">{r.quote}</blockquote>
-                <p class="res-who">{r.name} · {h.results.reviewSource}</p>
-              </li>
+          <!-- Reviews: one list, shown twice in a row so it can scroll by endlessly (the copy is
+               hidden from screen readers). Styles: .res-marquee in home.css. -->
+          <div class="res-marquee" data-reveal>
+            {[0, 1].map((copy) => (
+              <ul class="res-reviews" aria-hidden={copy === 1 ? "true" : undefined}>
+                {h.testimonials.items.map((r: any) => (
+                  <li class="res-review">
+                    <div class="res-review__head">
+                      <span class="res-avatar" aria-hidden="true" style={`--hue:${avatarHue(r.name)}`}>{r.name.trim().charAt(0).toUpperCase()}</span>
+                      <span class="res-review__who">
+                        <b>{r.name}</b>
+                        <small>{r.studio}</small>
+                      </span>
+                      <svg class="res-g" viewBox="0 0 48 48" aria-label="Google review" role="img"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.6-.4-3.9z"/><path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.6-.4-3.9z"/></svg>
+                    </div>
+                    {stars(r.rating) > 0 && <p class="res-stars" aria-label={`${stars(r.rating)} out of 5 stars`}>{"★".repeat(stars(r.rating))}</p>}
+                    <blockquote class="res-quote">{r.quote}</blockquote>
+                    {googleFor(r.studio) && <a class="res-more" href={googleFor(r.studio)} target="_blank" rel="noopener" tabindex={copy === 1 ? -1 : undefined}>{h.results.reviewSource}<span class="visually-hidden"> (opens Google)</span></a>}
+                  </li>
+                ))}
+              </ul>
             ))}
-          </ul>
+          </div>
           {h.testimonials.trust?.length > 0 && (
             <ul class="trust" data-reveal>
               {h.testimonials.trust.map((t: string) => <li>{t}</li>)}

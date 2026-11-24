@@ -190,7 +190,7 @@ results:
   allLink: "See all results"
   allHref: "/gallery/"
   show: 3                                  # how many Gallery results to show
-  reviewSource: "Google review"            # shown after each reviewer's name
+  reviewSource: "Read more"                # opens that studio's Google reviews page
 
 # Products ("Take the care home"). Hidden for now: set show to true to bring the Shop section back.
 products:
@@ -254,24 +254,44 @@ experience:
   # Optional small photo overlapping the big one, bottom right: add image2 (path),
   # image2Alt and image2Caption to show it.
 
-# Client reviews, shown in the "Real results" section above (bottom row), with the trust
-# line under them. Use only real client reviews, each with the client's written permission.
-# Never write or paraphrase a review.
+# Client reviews, shown in the "Real results" section above as a row that scrolls by on its
+# own (it pauses when a visitor hovers or taps). The trust line sits under it.
+# These are real 5-star Google reviews, copied word for word from each studio's Google page
+# (November 2026). Never write, edit or paraphrase a review; each card shows the first 4 lines,
+# and "Read more" opens the full review on Google. Names are shortened to first name + initial.
+#   quote: the review text, exactly as on Google
+#   name, studio (must match a name in src/data/outlets.json, for the "Read on Google" link)
+#   rating: 1-5 stars from Google
 testimonials:
-  # rating: the review's star rating (1-5) from Google. Stars only show once it's filled in.
   items:
-    - quote: "[[CONFIRM: real testimonial about feeling relaxed and cared for]]"
-      name: "[[CONFIRM: client first name]]"
-      treatment: "[[CONFIRM: treatment]]"
-      rating: ""
-    - quote: "[[CONFIRM: real testimonial about cleanliness and the studio]]"
-      name: "[[CONFIRM: client first name]]"
-      treatment: "[[CONFIRM: treatment]]"
-      rating: ""
-    - quote: "[[CONFIRM: real testimonial about how their skin or body felt]]"
-      name: "[[CONFIRM: client first name]]"
-      treatment: "[[CONFIRM: treatment]]"
-      rating: ""
+    - quote: "Visited Mary Chia for a facial and was genuinely impressed. From the moment I walked in, the staff were welcoming and attentive. The therapist explained each step clearly, checked in with me often, and was extremely gentle. The facial itself was so relaxing that I almost fell asleep, and my skin looked brighter and calmer right after. Best part was that there was no pushy upselling at all. Just great service, a peaceful environment, and results you can actually feel. Highly recommend this place!"
+      name: "lexguas H."
+      studio: "Goldhill, Novena"
+      rating: 5
+    - quote: "I’ve been seeing Candy for my treatments and she’s honestly amazing. She’s super friendly, very patient, and knows exactly how to read your skin and recommend what’s suitable. Best part—no hard selling, just genuine advice. Every visit feels comfortable and well taken care of. Highly recommend her!"
+      name: "Shu Jun"
+      studio: "Jurong Gateway"
+      rating: 5
+    - quote: "Had my first visit yesterday for a consultation to explore suitable treatments for my skin. The staff was incredibly professional and knowledgeable—Irene, my Consultant, and Eileen, who handled my treatment, made me feel completely at ease. They carefully selected treatments tailored to my skin’s needs (hydration and deep moisture), rather than just suggesting random procedures. My skin felt noticeably refreshed afterward! I would highly recommend this place, as the team clearly knows what they’re doing."
+      name: "Genevieve W."
+      studio: "Goldhill, Novena"
+      rating: 5
+    - quote: "June Lim has been doing my facial  4 years ….she is very good and efficient. Indeed a good facial consultant and professional!!! Super satisfied with her service."
+      name: "Jonas T."
+      studio: "Eastpoint Mall"
+      rating: 5
+    - quote: "Enjoyed every session of my facial with Candy, Zhi Hui and Jessie. They were attentive, professional, and made the whole experience so relaxing. Truly felt well taken care of—highly recommend! They are very detailed, patient and able to explain every equipment and process very clearly. 👍🏼😊 Has been visiting them for quite sometime for my facial sessions, enjoyed each session with Candy."
+      name: "Michelle S."
+      studio: "Jurong Gateway"
+      rating: 5
+    - quote: "Went for my first facial in a long time here at Novena and would definitely come back~ the facial service was great, where the therapist explained each step clearly (loved the cooling mask!) and even managed to extract the little dots that I couldn’t do so myself at home🤣 + the relaxing neck massage at the end was a great touch to the entire facial service. Very clean and relaxing environment as well, would recommend!"
+      name: "Lee L."
+      studio: "Goldhill, Novena"
+      rating: 5
+    - quote: "Our family had an outstanding experience at this facial outlet, thanks to the impeccable service provided. We would like to extend our gratitude to Ms Valerie, the receptionist, for her exceptional performance and warm hospitality. Furthermore, the facial therapists, Ms Miao Miao and Ms Taozi, exhibited excellent personalities. Well done."
+      name: "Stephen L."
+      studio: "Jurong Gateway"
+      rating: 5
   trust:
     - "40+ years in Singapore"
     - "Specialists trained in-house"

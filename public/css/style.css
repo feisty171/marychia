@@ -23,6 +23,8 @@
   --tint: #f5ece8;            /* alternate section / panel background */
   --dark: #2f2427;            /* dark cards */
   --whatsapp: #25a35a;
+  --google-star: #fbbc04;     /* star colour on the Google-style review cards */
+  --google-blue: #1a73e8;     /* "Read more" link on the Google-style review cards */
   --shade: 46, 32, 30;        /* warm dark for scrims and shadows (rgb) */
   --wine: 107, 52, 63;        /* deep burgundy tint over photos, e.g. Home first-visit band (rgb) */
 
@@ -667,6 +669,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   .office__dir,
   .link-arrow,
   .res-caption,
+  .res-more,
   .tp .back-link {
     display: inline-flex;
     align-items: center;
