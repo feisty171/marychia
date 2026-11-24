@@ -362,7 +362,7 @@ sup { font-size: .55em; vertical-align: super; line-height: 0; }
 .trial__text { max-width: 36em; margin: 0 0 18px; font-size: var(--fs-body); line-height: 1.65; color: rgba(255, 255, 255, .92); }
 .trial__note { margin: 0 0 32px; font-size: var(--fs-small); color: rgba(255, 255, 255, .8); }
 .trial__note a { color: var(--white); text-decoration: underline; text-underline-offset: 3px; }
-.trial__note a:hover { color: var(--rose-lt); }
+.trial__note a:hover { color: var(--blush); }
 .trial__actions { display: flex; flex-direction: column; align-items: stretch; gap: 14px; width: 100%; max-width: 360px; }
 .trial .btn { padding: 18px 36px; border-radius: 999px; }
 .btn.trial__book { background: var(--blush); border-color: var(--blush); color: rgb(var(--wine)); }

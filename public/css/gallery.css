@@ -46,7 +46,7 @@
 .g-chip span { margin-left: 2px; font-size: var(--fs-label); color: var(--ink-faint); }
 .g-chip:hover { background: var(--tint); }
 .g-chip[aria-pressed="true"] { background: var(--ink); color: var(--white); }
-.g-chip[aria-pressed="true"] span { color: var(--rose-lt); }
+.g-chip[aria-pressed="true"] span { color: var(--blush); opacity: .75; }
 .g-chip:focus-visible { outline: 2px solid var(--rose); outline-offset: 2px; }
 .g-count { margin: 20px 0 24px; font-size: var(--fs-small); color: var(--ink-soft); }
 

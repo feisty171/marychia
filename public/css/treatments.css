@@ -92,7 +92,7 @@
 .tp .rl-hero .section-head{margin-bottom:0}
 .tp .rl-hero .back-link{color:rgba(255,255,255,.85)}
 .tp .rl-hero .back-link:hover{color:var(--white)}
-.tp .rl-hero .eyebrow{color:var(--rose-lt)}
+.tp .rl-hero .eyebrow{color:var(--blush)}
 .tp .rl-hero .section-head h1{color:var(--white)}
 .tp .rl-hero .section-head p{color:rgba(255,255,255,.9)}
 @media (max-width:960px){.tp .rl-hero{padding-top:calc(68px + 40px)}}
@@ -113,7 +113,7 @@
 /* Ribbon flourish: two strokes (deep + light rose) that draw in like a ribbon unfurling */
 .tp .svc-ribbon{position:absolute;left:30%;top:-46px;width:min(520px,44%);height:140px;z-index:0;pointer-events:none;overflow:visible}
 .tp .svc-ribbon path{stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2.4s cubic-bezier(.65,0,.25,1)}
-.tp .svc-ribbon__back{stroke:var(--rose-lt);stroke-width:9;opacity:.45}
+.tp .svc-ribbon__back{stroke:var(--rose-line);stroke-width:9;opacity:.45}
 .tp .svc-ribbon__front{stroke:var(--rose);stroke-width:1.4;opacity:.7;transition-delay:.25s!important}
 .tp .svc-ribbon.is-drawn path{stroke-dashoffset:0}
 @media (max-width:760px){
@@ -197,7 +197,7 @@
 .tp .range{--thumb:20px;position:relative;margin-top:18px;padding:0 calc(var(--thumb) / 2)}
 .tp .range__bars{display:grid;grid-template-columns:repeat(var(--n,1),1fr);align-items:end;gap:2px;height:44px;margin:0 calc(-100% / (2 * (var(--n,2) - 1)))} /* one column per price step, centred on its slider position */
 .tp .range__bar{height:var(--h);border-radius:3px 3px 0 0;background:var(--line);transition:background .2s var(--ease),height .3s var(--ease)}
-.tp .range__bar.is-in{background:var(--rose-lt)}
+.tp .range__bar.is-in{background:var(--rose-line)}
 .tp .range__track{position:relative;height:3px;border-radius:999px;background:var(--line)}
 .tp .range__fill{position:absolute;top:0;bottom:0;left:0;right:0;border-radius:999px;background:var(--ink)}
 .tp .range__input{position:absolute;left:0;right:0;bottom:-9px;width:100%;height:var(--thumb);margin:0;background:none;pointer-events:none;-webkit-appearance:none;appearance:none;z-index:2}
@@ -277,7 +277,7 @@ to{opacity:1;transform:none}
 .tp .card-top .tag{border-color:transparent}
 .tp .badge{display:inline-flex;align-items:center;gap:6px;font-size:var(--fs-label);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--ink-soft);font-weight:500}
 .tp .badge::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--dot,var(--rose-line))}
-.tp .badge[data-cat="Face"]{--dot:var(--rose-lt)}
+.tp .badge[data-cat="Face"]{--dot:var(--rose-line)}
 .tp .badge[data-cat="Body"]{--dot:var(--ink-soft)}
 .tp .badge[data-cat="Wellness"]{--dot:var(--rose)}
 .tp .tag{font-size:var(--fs-label);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--rose);border:1px solid rgba(var(--rose-rgb),.28);border-radius:999px;padding:3px 10px;font-weight:500}
