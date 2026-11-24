@@ -51,6 +51,73 @@
     onScroll();
   }
 
+  /* ---- Guided scroll: hero → Signature treatments ----
+     On wide screens (1100px+, where the hero fits one screen), one scroll down from the hero
+     glides the page so the Signature treatments heading sits just under the menu, with the
+     whole section in view. One scroll up from that point glides back to the top.
+     Phones and tablets, and "reduce motion", keep normal scrolling. */
+  var services = document.getElementById("services");
+  var servicesHead = services && services.querySelector(".h-split-head");
+  var wideMq = window.matchMedia("(min-width: 1100px)");
+  if (hero && servicesHead && !still) {
+    var HEADER = 76;          // menu height once scrolled (style.css)
+    var GAP = 40;             // space between the menu and the heading
+    var busy = false, quietUntil = 0;
+    // where the heading sits: measured from the section itself, so the heading's own
+    // fade-in movement doesn't shift the landing spot
+    var target = function () {
+      var pad = parseFloat(getComputedStyle(services).paddingTop) || 0;
+      return Math.round(services.getBoundingClientRect().top + window.scrollY + pad - HEADER - GAP);
+    };
+    var ease = function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+    var glide = function (to) {
+      var from = window.scrollY, dist = to - from;
+      if (Math.abs(dist) < 4) return;
+      busy = true;
+      var t0 = null, dur = Math.min(1300, Math.max(800, Math.abs(dist) * 0.9));
+      root.style.scrollBehavior = "auto";
+      requestAnimationFrame(function step(ts) {
+        if (!t0) t0 = ts;
+        var p = Math.min(1, (ts - t0) / dur);
+        window.scrollTo(0, from + dist * ease(p));
+        if (p < 1) requestAnimationFrame(step);
+        else { busy = false; quietUntil = Date.now() + 600; root.style.scrollBehavior = ""; }
+      });
+    };
+    // which way a scroll should glide from here: "down", "up" or null (normal scrolling)
+    var glideFor = function (down) {
+      if (!wideMq.matches || hero.offsetHeight > window.innerHeight + 40) return null;
+      var y = window.scrollY, end = target();
+      if (down && y < end - 4) return "down";
+      if (!down && y > 0 && y <= end + 4) return "up";
+      return null;
+    };
+    window.addEventListener("wheel", function (e) {
+      if (busy || Date.now() < quietUntil) {
+        // let the glide finish, and swallow the trackpad's leftover momentum
+        if (window.scrollY <= target() + 4) e.preventDefault();
+        if (!busy) quietUntil = Date.now() + 200;
+        return;
+      }
+      if (Math.abs(e.deltaY) < 2 || e.ctrlKey) return;
+      var dir = glideFor(e.deltaY > 0);
+      if (!dir) return;
+      e.preventDefault();
+      glide(dir === "down" ? target() : 0);
+    }, { passive: false });
+    window.addEventListener("keydown", function (e) {
+      if (e.target.closest && e.target.closest("input, textarea, select, [contenteditable]")) return;
+      var down = e.key === "ArrowDown" || e.key === "PageDown" || (e.key === " " && !e.shiftKey);
+      var up = e.key === "ArrowUp" || e.key === "PageUp" || (e.key === " " && e.shiftKey);
+      if (!down && !up) return;
+      if (busy) { e.preventDefault(); return; }
+      var dir = glideFor(down);
+      if (!dir) return;
+      e.preventDefault();
+      glide(dir === "down" ? target() : 0);
+    });
+  }
+
   /* ---- Signature list: big photo follows the active row ---- */
   var rows = Array.prototype.slice.call(document.querySelectorAll(".sig-row"));
   var imgs = document.querySelectorAll(".sig-stage__img");
