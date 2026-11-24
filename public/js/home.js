@@ -52,13 +52,13 @@
   }
 
   /* ---- Guided scroll: hero → Signature treatments ----
-     On wide screens (1100px+, where the hero fits one screen), one scroll down from the hero
+     On wide screens (961px+, where the hero fits one screen), one scroll down from the hero
      fades the page out and back in on Signature treatments, with its heading just under the
      menu and the whole section in view. One scroll up from that point fades back to the top.
      Phones and tablets, and "reduce motion", keep normal scrolling. */
   var services = document.getElementById("services");
   var servicesHead = services && services.querySelector(".h-split-head");
-  var wideMq = window.matchMedia("(min-width: 1100px)");
+  var wideMq = window.matchMedia("(min-width: 961px)");
   if (hero && servicesHead && !still) {
     var HEADER = 76;          // menu height once scrolled (style.css)
     var GAP = 40;             // space between the menu and the heading

@@ -74,7 +74,7 @@ body {
   margin: 0;
   font-family: var(--font-sans);
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--ink);
   background: var(--blush);
   -webkit-font-smoothing: antialiased;
@@ -261,11 +261,11 @@ ul { list-style: none; margin: 0; padding: 0; }
 .site-header--solid .nav__toggle span { background: var(--ink); }
 
 /* Clear header (Home): transparent over the hero photo.
-   Wide screens (1100px+, the photo sits behind the menu): white words, white logo and a white
+   Wide screens (961px+, the photo sits behind the menu): white words, white logo and a white
    Book Now outline, each with a soft warm glow behind it so they stay readable on the light photo.
    Narrower screens (the photo sits below the menu): dark words and the burgundy logo.
    Turns into the solid light header once the page scrolls, like every other page. */
-@media (min-width: 1100px) {
+@media (min-width: 961px) {
   .site-header--clear:not(.is-scrolled) .nav__link,
   .site-header--clear:not(.is-scrolled) .nav__caret {
     text-shadow: 0 0 2px rgba(var(--shade), .45), 0 0 10px rgba(var(--shade), .7), 0 0 24px rgba(var(--shade), .45);
@@ -278,7 +278,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   .site-header--clear:not(.is-scrolled) .btn--nav:hover { text-shadow: none; }
   .site-header--clear:not(.is-scrolled) .logo__emblem--light { filter: drop-shadow(0 0 2px rgba(var(--shade), .4)) drop-shadow(0 0 14px rgba(var(--shade), .55)); }
 }
-@media (max-width: 1099px) {
+@media (max-width: 960px) {
   .site-header--clear:not(.is-scrolled) .logo__emblem--light { opacity: 0; }
   .site-header--clear:not(.is-scrolled) .logo__emblem--dark { opacity: 1; }
   .site-header--clear .nav__link { color: var(--ink); text-shadow: none; }
@@ -653,6 +653,29 @@ ul { list-style: none; margin: 0; padding: 0; }
 @media (max-width: 640px) {
   .btn--hero { width: 100%; }
 
+}
+
+/* ---------- Touch targets ----------
+   On phones and tablets (and any touch screen), small text links get a 44px-tall tap area
+   without changing how they look. Add a selector here for any new small link. */
+@media (max-width: 960px), (pointer: coarse) {
+  .footer-links a,
+  .footer-links__pending,
+  .outlet__tel a,
+  .h-studio__line a,
+  .office__rows a,
+  .office__dir,
+  .link-arrow,
+  .res-caption,
+  .tp .back-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .footer-links { gap: 0 24px; }
+  .socials a,
+  .socials__pending { width: 44px; height: 44px; }
+  .tp .sheet-close { min-width: 44px; min-height: 44px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

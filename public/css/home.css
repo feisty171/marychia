@@ -30,7 +30,7 @@
   line-height: 1.7;
   color: var(--ink-soft);
 }
-.h-intro { margin: 0; }
+.h-intro { margin: 0; max-width: 60ch; } /* comfortable reading width */
 .h-note { margin: 12px 0 0; font-size: var(--fs-ui); color: var(--ink-soft); }
 .h-center { display: flex; justify-content: center; margin-top: 40px; }
 .h-head--wide { max-width: 880px; } /* longer intro fits in 3 lines on desktop */
@@ -266,7 +266,7 @@ sup { font-size: .55em; vertical-align: super; line-height: 0; }
 .fav-card__media img, .fav-card__media .ph { width: 100%; height: 100%; object-fit: cover; }
 .fav-card__media img { transition: transform .9s cubic-bezier(.2, .7, .2, 1); }
 .fav-card:hover .fav-card__media img { transform: scale(1.05); }
-.fav-card__body { display: flex; flex: 1; flex-direction: column; padding: 24px 24px 26px; }
+.fav-card__body { display: flex; flex: 1; flex-direction: column; padding: clamp(1.25rem, 1.6vw, 2rem); }
 .fav-card__cat {
   margin: 0 0 10px;
   font-size: var(--fs-label);
@@ -323,7 +323,6 @@ sup { font-size: .55em; vertical-align: super; line-height: 0; }
 @media (min-width: 1100px) { .fav-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; } }
 /* Between 1100 and 1360px the cards are narrow: tighter padding and buttons */
 @media (min-width: 1100px) and (max-width: 1360px) {
-  .fav-card__body { padding: 20px 18px 22px; }
   .fav-btn { padding: 0 12px; }
 }
 
@@ -374,7 +373,9 @@ sup { font-size: .55em; vertical-align: super; line-height: 0; }
   .trial__actions { flex-direction: row; justify-content: center; width: auto; max-width: none; gap: 20px; }
 }
 @media (min-width: 961px) {
-  .trial { aspect-ratio: 1280 / 560; max-height: 720px; }
+  /* full width, height from the photo's 1280 : 560 shape (capped). Set as a height, not
+     aspect-ratio + max-height, which Safari honours by making the band narrower. */
+  .trial { width: 100%; height: min(calc(100vw * 560 / 1280), 720px); }
   .trial__inner { width: 100%; padding-top: 48px; padding-bottom: 48px; }
 }
 
@@ -399,7 +400,7 @@ sup { font-size: .55em; vertical-align: super; line-height: 0; }
 .res-caption:hover { color: var(--rose); }
 .res-caption:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
 .res-reviews { display: grid; gap: 20px; }
-.res-review { padding: clamp(24px, 2.6vw, 40px); background: var(--white); border: 1px solid var(--line); }
+.res-review { padding: clamp(1.25rem, 2.6vw, 2rem); background: var(--white); border: 1px solid var(--line); }
 .res-stars { margin: 0 0 16px; font-size: var(--fs-h5); letter-spacing: .12em; color: var(--rose); }
 .res-quote {
   margin: 0 0 18px;
@@ -872,7 +873,7 @@ a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset
   .ledger__label { font-size: var(--fs-small); }
 }
 /* Wide screens: the card rises over the bottom of the hero photo */
-@media (min-width: 1100px) {
+@media (min-width: 961px) {
   .ledger { margin-top: calc(-1 * clamp(64px, 6vw, 104px)); }
   /* keep the hero's words centred in the part the card doesn't cover */
   .ed-hero:has(+ .ledger) { padding-bottom: calc(48px + clamp(64px, 6vw, 104px)); }
@@ -893,7 +894,7 @@ a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset
 /* =========================================================
    Hero. Words and photo: src/content/home.md → hero.
    The photo (.ed-hero__bg) is always shown whole, never cropped:
-   - wide screens (1100px+): the hero takes the photo's exact shape (1366 × 768) and the
+   - wide screens (961px+): the hero takes the photo's exact shape (1366 × 768) and the
      words sit on its plain left side; the transparent menu sits on top of it
      (clearHeader in src/pages/index.astro);
    - narrower screens: the photo sits full width under the menu, the words below it.
@@ -944,7 +945,7 @@ a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset
 }
 .ed-hero__title em { font-style: italic; color: var(--rose); }
 .ed-hero__br { display: none; }
-@media (min-width: 1100px) { .ed-hero__br { display: inline; } }
+@media (min-width: 961px) { .ed-hero__br { display: inline; } }
 /* each word sits in a mask and slides up into view */
 .ed-hero__w {
   display: inline-block;
@@ -980,14 +981,22 @@ a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset
   .ed-hero { padding-top: 76px; }
 }
 @media (max-width: 640px) {
-  .ed-hero { padding-top: 68px; }
+  .ed-hero { padding-top: 68px; padding-bottom: 40px; }
+  /* tighter spacing so the first button stays on the first screen */
+  .ed-hero__bg { margin-bottom: 24px; }
+  .ed-hero__grid { gap: 22px; }
+  .ed-hero__eyebrow { margin-bottom: 14px; }
+  .ed-hero__title { font-size: clamp(2.5rem, 10.5vw, 3rem); line-height: 1.02; }
+  .ed-hero__lead { font-size: var(--fs-text); line-height: 1.6; }
+  .ed-hero__foot { gap: 22px; }
   .ed-hero__actions { flex-direction: column; align-items: stretch; }
   .ed-hero__actions .btn { width: 100%; }
   .ed-hero__actions .h-textlink { align-self: center; }
 }
 
-/* Wide screens: the hero is exactly the photo's shape, words on its plain left side */
-@media (min-width: 1100px) {
+/* Wide screens (961px+, where the full menu shows): the hero is exactly the photo's shape,
+   words on its plain left side */
+@media (min-width: 961px) {
   .ed-hero {
     display: flex;
     align-items: center;
@@ -1014,10 +1023,20 @@ a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset
   .ed-hero__foot { transform: translateY(calc(var(--hp) * -30px)); }
 }
 /* the copy sits right on the photo: keep the paragraph crisp on the light background */
-@media (min-width: 1100px) and (max-width: 1360px) {
+@media (min-width: 961px) and (max-width: 1360px) {
   .ed-hero__lead { font-size: var(--fs-text); }
   .ed-hero__eyebrow { margin-bottom: 16px; }
   .ed-hero__grid { gap: 24px; }
+}
+/* Small laptops: the photo is short, so the words get smaller to stay clear of her and
+   keep the buttons on the first screen */
+@media (min-width: 961px) and (max-width: 1199px) {
+  .ed-hero { padding-top: calc(var(--header-h) - 28px); padding-bottom: 24px; }
+  .ed-hero:has(+ .ledger) { padding-bottom: calc(24px + clamp(64px, 6vw, 104px)); }
+  .ed-hero__title { font-size: 3.9vw; }
+  .ed-hero__foot { max-width: 44%; gap: 20px; }
+  .ed-hero__lead { line-height: 1.55; }
+  .ed-hero__actions .btn { padding: 14px 24px; }
 }
 
 /* =========================================================
