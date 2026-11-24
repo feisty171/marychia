@@ -215,9 +215,13 @@ ul { list-style: none; margin: 0; padding: 0; }
   transform: scaleX(0);
   transition: transform .25s ease;
 }
-.nav__link:hover::after,
-.nav__link:focus-visible::after,
+/* The underline marks the current page only. Hovering a link makes the word pop up instead. */
 .nav__link.is-active::after { transform: scaleX(1); }
+.nav__link { display: inline-block; transition: transform .35s cubic-bezier(.34, 1.56, .64, 1); }
+.nav__link:hover,
+.nav__link:focus-visible { transform: translateY(-3px) scale(1.08); }
+.nav__link.is-active:hover::after,
+.nav__link.is-active:focus-visible::after { transform: scaleX(0); }
 
 /* Logo: the full ribbon-M logo shows at the top of the page and crossfades
    to the ribbon "M" on its own once the page scrolls (.is-scrolled, set in main.js).
