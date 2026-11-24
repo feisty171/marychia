@@ -24,21 +24,22 @@ const initials = (s: string) => (s.includes("[[") ? "?" : s.trim().charAt(0));
 const heroWords = h.hero.headline
   .split("*")
   .flatMap((part: string, i: number) => part.trim().split(/\s+/).filter(Boolean).map((w) => ({ w, em: i % 2 === 1 })));
-const ringText = `${site.tagline} · Since 1984 · `;
 ---
 <Base
   title="Mary Chia | Face • Body • Wellness"
   description="Mary Chia — the beauty and slimming specialist. Four decades of facial, spa and slimming expertise, personalised for your skin, your body and your goals."
   current="home"
-  solidHeader
+  clearHeader
   styles={["home.css", "treatments.css"]}
   scripts={["treatment-cards.js", "home.js"]}
 >
   <main>
-    <!-- ============ HERO (editorial) ============
-         Words and photos: src/content/home.md → hero. Styles: "Hero" in public/css/home.css.
-         public/js/home.js sets --hp (0 → 1) as the hero scrolls away, for the gentle parallax. -->
+    <!-- ============ HERO ============
+         Words and photo: src/content/home.md → hero. Styles: "Hero" in public/css/home.css.
+         public/js/home.js sets --hp (0 → 1) as the hero scrolls away; the photo fades and drifts. -->
     <section class="ed-hero" id="home">
+      <!-- The photo is shown whole (never cropped): behind the words on wide screens, above them on phones -->
+      <img class="ed-hero__bg" src={h.hero.image} alt={h.hero.imageAlt} width="1366" height="768" fetchpriority="high" />
       <div class="h-container ed-hero__grid">
         <div class="ed-hero__copy">
           <p class="ed-hero__eyebrow">{h.hero.eyebrow}</p>
@@ -49,19 +50,6 @@ const ringText = `${site.tagline} · Since 1984 · `;
           </h1>
         </div>
 
-        <div class="ed-hero__media">
-          <figure class="ed-hero__arch">
-            <img src={h.hero.image} alt={h.hero.imageAlt} width="900" height="1100" fetchpriority="high" />
-          </figure>
-          <div class="ed-hero__inset">
-            <img src={h.hero.inset} alt={h.hero.insetAlt} loading="eager" />
-            <svg class="ed-hero__ring" viewBox="0 0 200 200" aria-hidden="true">
-              <defs><path id="heroRing" d="M100,100 m-84,0 a84,84 0 1,1 168,0 a84,84 0 1,1 -168,0" /></defs>
-              <text><textPath href="#heroRing" textLength="520">{ringText}</textPath></text>
-            </svg>
-          </div>
-        </div>
-
         <div class="ed-hero__foot">
           <p class="ed-hero__lead">{h.hero.text}</p>
           <div class="ed-hero__actions">
@@ -70,7 +58,6 @@ const ringText = `${site.tagline} · Since 1984 · `;
           </div>
         </div>
 
-        <a class="ed-hero__scroll" href="#services" aria-label="Scroll to our signature treatments"><span></span></a>
       </div>
     </section>
 

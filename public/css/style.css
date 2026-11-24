@@ -255,6 +255,16 @@ ul { list-style: none; margin: 0; padding: 0; }
 .site-header.is-scrolled .nav__toggle span,
 .site-header--solid .nav__toggle span { background: var(--ink); }
 
+/* Clear header (Home): transparent over the light hero photo, with dark text and the burgundy logo.
+   Turns into the solid light header once the page scrolls, like every other page. */
+.site-header--clear:not(.is-scrolled) .logo__emblem--light { opacity: 0; }
+.site-header--clear:not(.is-scrolled) .logo__emblem--dark { opacity: 1; }
+.site-header--clear .nav__link { color: var(--ink); text-shadow: none; }
+.site-header--clear .btn--nav { color: var(--ink); border-color: var(--ink); }
+.site-header--clear .btn--nav:hover { background: var(--ink); color: var(--white); }
+.site-header--clear .nav__toggle span { background: var(--ink); }
+.site-header--clear .nav__caret { color: var(--ink); }
+
 /* Hamburger (mobile only) */
 .nav__toggle {
   display: none;

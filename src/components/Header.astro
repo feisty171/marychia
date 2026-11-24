@@ -4,6 +4,7 @@
  * Props:
  *   current – which nav item is active: "home" | "treatments" | "shop" | "about" | "investors" | "contact" | "careers"
  *   solid   – true on pages without a dark photo hero (light header from the start)
+ *   clear   – transparent at the top with dark text and logo, for a light photo hero (Home)
  *
  * "Treatments", "About Us" and "Contact Us" have dropdowns (desktop) / expandable lists (mobile menu).
  * Edit the `dropdowns` list below to rename, add or remove a shortcut.
@@ -16,8 +17,9 @@ import NavDropdown, { type Dropdown } from "./NavDropdown.astro";
 interface Props {
   current?: string;
   solid?: boolean;
+  clear?: boolean;
 }
-const { current = "", solid = false } = Astro.props;
+const { current = "", solid = false, clear = false } = Astro.props;
 
 const treatments: Dropdown = {
   id: "treatments",
@@ -65,7 +67,7 @@ const dropdowns: Dropdown[] = [
   },
 ];
 ---
-<header class:list={["site-header", { "site-header--solid": solid }]} id="siteHeader">
+<header class:list={["site-header", { "site-header--solid": solid, "site-header--clear": clear }]} id="siteHeader">
   <nav class="nav" aria-label="Main">
     <ul class="nav__group nav__group--left">
       {left.map((l) => isDrop(l) ? <NavDropdown d={l} current={current} /> : (

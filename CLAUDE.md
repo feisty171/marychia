@@ -16,7 +16,7 @@ Static site built with [Astro](https://astro.build). No CMS, no database. The ma
 
 | What | File |
 |---|---|
-| Home page words and photos (hero eyebrow, headline, paragraph, buttons and its two photos; the drifting word ribbon (`ribbon:`); numbers band; signature treatments; ad banner below them (`banner:`, placeholder until an image is set); products below the banner (`products:`, a "shelf" design via `src/components/ProductCard.astro`, styles `.shop-*`; the nav "Shop" link jumps here); experience, reviews, first-visit offer, visit info, final CTA) | `src/content/home.md` |
+| Home page words and photos (hero eyebrow, headline, paragraph, buttons and its photo; the drifting word ribbon (`ribbon:`); numbers band; signature treatments; ad banner below them (`banner:`, placeholder until an image is set); products below the banner (`products:`, a "shelf" design via `src/components/ProductCard.astro`, styles `.shop-*`; the nav "Shop" link jumps here); experience, reviews, first-visit offer, visit info, final CTA) | `src/content/home.md` |
 | About Us page words (heritage opening, timeline milestones + photos, vision & mission, SEO title/description) | `src/content/about.md` |
 | Contact Us page words (Our Location, Feedback/Enquiry form topics) | `src/content/contact.md` |
 | Career page words (/careers/: intro, roles, how to apply) | `src/content/careers.md` |
@@ -130,7 +130,7 @@ To add a photo: put it in `public/images/treatments/` (square-ish works best for
 
 ### Home page design and motion
 The Home page is an editorial layout. Words and photos are in `src/content/home.md`; styles in `public/css/home.css`; motion in `public/js/home.js`.
-- **Hero:** big serif headline (its words slide up as the page opens; `*asterisks*` = italic rose), a tall arched portrait (`hero: image`) and a small round photo (`hero: inset`) with the tagline from `src/data/site.json` turning around it. The photos drift at different speeds as you scroll.
+- **Hero:** the photo `hero: image` (a wide 1366×768 picture with a plain, light left side) is always shown whole, never cropped. On screens 1100px and wider the hero takes the photo's exact shape, the words sit on its left side and the menu is transparent on top of it (`clearHeader` on `<Base>` in `src/pages/index.astro`: transparent with dark text, turning solid once you scroll; styles `.site-header--clear` in `style.css`). On narrower screens the photo sits full width under the menu with the words below. The headline's words slide up as the page opens (`*asterisks*` = italic rose); as you scroll, the photo fades and drifts.
 - **Ribbon:** the words drifting across under the hero are `ribbon:` in `home.md`.
 - **Story section:** a big photo (`experience: image`) with a small "polaroid" photo overlapping it (`image2`, `image2Caption`; leave `image2` empty to hide it).
 - **Scroll reveal:** add `data-reveal` to an element to fade it up as it reaches the screen (`data-reveal="stagger"` brings its children in one by one, `"wipe"` opens the banner like a curtain); `data-speed="0.1"` makes a photo drift. Visitors with "reduce motion" on see everything still.

@@ -11,6 +11,7 @@ interface Props {
   description: string;
   current?: string;
   solidHeader?: boolean;
+  clearHeader?: boolean;  // transparent header with dark text, over a light photo (Home)
   bodyClass?: string;
   ogImage?: string;
   styles?: string[];     // extra stylesheets in /public/css
@@ -21,6 +22,7 @@ const {
   description,
   current,
   solidHeader = false,
+  clearHeader = false,
   bodyClass,
   ogImage = site.ogImage,
   styles = [],
@@ -57,7 +59,7 @@ const isDev = import.meta.env.DEV;
   <slot name="head" />
 </head>
 <body class={bodyClass}>
-  <Header current={current} solid={solidHeader} />
+  <Header current={current} solid={solidHeader} clear={clearHeader} />
   <slot />
   <script is:inline src="/js/main.js"></script>
   {scripts.map((s) => <script is:inline src={`/js/${s}`}></script>)}

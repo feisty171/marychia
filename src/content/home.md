@@ -15,12 +15,11 @@ hero:
   exploreButton: "Explore treatments"
   exploreLink: "/treatments/"
   bookButton: "Book your first visit"
-  # Photos (editorial layout): a tall portrait shown as an arch, and a small round
-  # photo that overlaps it with the tagline (src/data/site.json) turning around it.
-  image: "/images/site/hero.webp"          # portrait, about 900 x 1100
+  # Photo behind the hero. It is always shown whole, never cropped: behind the words on
+  # wide screens (the transparent menu sits on top of it), above the words on phones.
+  # Use a wide 1366 x 768 (16:9) image with a plain, light area on the left for the words.
+  image: "/images/hero-home-portrait.webp"
   imageAlt: "A woman with soft, glowing skin resting her chin on her hands"
-  inset: "/images/hero-home.webp"          # any shape; it is cropped to a circle
-  insetAlt: "The softly lit reception of a Mary Chia studio, with the Embracing Beauty neon sign"
 
 # Ribbon of words that drifts slowly across the page under the hero.
 ribbon:
