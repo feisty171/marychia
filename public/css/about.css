@@ -38,8 +38,9 @@
   transform-origin: center top;
   will-change: opacity, transform;
 }
-/* Even shade over the photo so the centred white words read clearly; deepest in the middle
-   and along the bottom. It fades out with the photo. */
+/* Tint over the photo so the centred words read clearly: a deep maroon wash (the brand red,
+   not pink) over an even shade that is darkest in the middle and along the bottom.
+   It fades out with the photo as you scroll. */
 .heritage-opening::before {
   content: "";
   position: absolute;
@@ -47,8 +48,9 @@
   z-index: -1;
   opacity: calc(1 - var(--hp) * .9);
   background:
-    radial-gradient(ellipse 70% 60% at 50% 48%, rgba(var(--shade), .72) 0%, rgba(var(--shade), .5) 60%, rgba(var(--shade), .38) 100%),
-    linear-gradient(180deg, rgba(var(--shade), .45) 0%, rgba(var(--shade), 0) 24%, rgba(var(--shade), 0) 62%, rgba(var(--shade), .75) 100%);
+    linear-gradient(rgba(var(--wine), .38), rgba(var(--wine), .38)),
+    radial-gradient(ellipse 70% 60% at 50% 48%, rgba(var(--shade), .8) 0%, rgba(var(--shade), .62) 60%, rgba(var(--shade), .52) 100%),
+    linear-gradient(180deg, rgba(var(--shade), .5) 0%, rgba(var(--shade), 0) 24%, rgba(var(--shade), 0) 62%, rgba(var(--shade), .8) 100%);
 }
 /* Soft bottom edge: as you scroll, the bottom of the opening melts into the page instead of ending in a hard line */
 .heritage-opening::after {
@@ -95,7 +97,7 @@
   font-weight: 500;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
-  color: var(--rose-lt);
+  color: var(--blush);
 }
 .heritage-hero__eyebrow::before,
 .heritage-hero__eyebrow::after { content: ""; width: 36px; height: 1px; background: currentColor; opacity: .7; }
@@ -108,7 +110,7 @@
   letter-spacing: -.01em;
   color: var(--white);
 }
-.heritage-hero__title em { font-style: italic; color: var(--rose-lt); }
+.heritage-hero__title em { font-style: italic; color: var(--blush); }
 .heritage-hero__tagline {
   margin: 0 0 22px;
   font-family: var(--font-serif);
@@ -181,7 +183,7 @@
   font-weight: 500;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
-  color: var(--rose-lt);
+  color: var(--white);
 }
 .heritage-portal small {
   font-size: var(--fs-label);
@@ -203,7 +205,7 @@
 .heritage-portal__ring b { font-weight: 400; transition: transform .4s cubic-bezier(.22, 1, .36, 1); }
 .heritage-portal:hover .heritage-portal__ring { background: rgba(255, 255, 255, .12); border-color: rgba(255, 255, 255, .8); }
 .heritage-portal:hover .heritage-portal__ring b { transform: translateY(4px); }
-.heritage-portal:focus-visible { outline: 2px solid var(--rose-lt); outline-offset: 6px; }
+.heritage-portal:focus-visible { outline: 2px solid var(--white); outline-offset: 6px; }
 @media (max-width: 640px) {
   .heritage-facts li { padding: 0 6px; }
   .heritage-facts strong { font-size: var(--fs-h4); }
@@ -514,7 +516,7 @@
     inset: 4% 2%;
     z-index: -1;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(var(--rose-lt-rgb), .45), rgba(var(--rose-lt-rgb), .12) 55%, transparent 72%);
+    background: radial-gradient(circle, rgba(var(--rose-rgb), .22), rgba(var(--rose-rgb), .06) 55%, transparent 72%);
     filter: blur(18px);
   }
   .sl-media-item img,
