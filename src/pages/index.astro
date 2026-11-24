@@ -62,23 +62,13 @@ const heroWords = h.hero.headline
       </div>
     </section>
 
-    <!-- ============ RIBBON (src/content/home.md → ribbon) ============ -->
-    {h.ribbon?.length > 0 && (
-      <div class="ribbon" aria-label={h.ribbon.join(", ")}>
-        {[0, 1].map((n) => (
-          <ul class="ribbon__track" aria-hidden="true">
-            {h.ribbon.map((r: string, i: number) => <li class:list={{ "is-em": i % 2 === 1 }}>{r}</li>)}
-            {h.ribbon.map((r: string, i: number) => <li class:list={{ "is-em": i % 2 === 1 }}>{r}</li>)}
-          </ul>
-        ))}
-      </div>
-    )}
-
-    <!-- ============ KEY FIGURES (hidden while stats.show is false in home.md) ============ -->
+    <!-- ============ KEY FIGURES (src/content/home.md → stats; hidden while show is false) ============
+         Four facts in a row under the hero. Styles: "Key figures" in public/css/home.css;
+         the count-up is in public/js/main.js. -->
     {h.stats.show && <section class="ledger" id="numbers" aria-labelledby="ledger-title">
       <div class="h-container">
-        <h2 class="eyebrow ledger__eyebrow" id="ledger-title">{h.stats.eyebrow}</h2>
-        <ul class="ledger__row">
+        <h2 class="visually-hidden" id="ledger-title">{h.stats.eyebrow}</h2>
+        <ul class="ledger__row" data-reveal="stagger">
           {h.stats.items.map((st: any) => (
             <li class="ledger__item">
               <p class="ledger__num"><span data-count={st.count ? st.value.replace(/\D/g, "") : undefined}>{st.value}</span>{st.suffix}</p>

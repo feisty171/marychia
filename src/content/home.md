@@ -21,30 +21,22 @@ hero:
   image: "/images/hero-home-portrait.webp"
   imageAlt: "A woman with soft, glowing skin resting her chin on her hands"
 
-# Ribbon of words that drifts slowly across the page under the hero.
-ribbon:
-  - "Facials"
-  - "Body treatments"
-  - "Lymphatic drainage"
-  - "Wellness rituals"
-  - "Since 1984"
-
-# Key figures, just below the hero: a simple row of numbers (two by two on phones).
-# "count: true" makes that number count up when it scrolls into view.
-# The 2009 SGX Catalist milestone is an owner-approved exception (see CLAUDE.md,
-# "Brand and compliance rules"). Don't add share price or financial figures here.
+# Key figures: a band of four facts right under the hero (two by two on phones).
+# "count: true" makes that number count up when it comes into view.
+# The SGX line is an owner-approved exception with fixed wording: "2009 – Listed on SGX Catalist"
+# (see CLAUDE.md, "Brand and compliance rules"). Don't add share price or financial figures here.
 stats:
-  show: false   # hidden for now; set to true to bring the Key figures section back
-  eyebrow: "Key figures"
+  show: true   # set to false to hide the band
+  eyebrow: "Key figures"   # read out to screen readers only
   items:
-    - value: "1984"
-      label: "Founded by Madam Mary Chia"
+    - value: "Since 1984"
+      label: "Four decades of beauty & slimming"
     - value: "300,000"
       suffix: "+"
       count: true
-      label: "Clients welcomed as friends"
-    - value: "2004"
-      label: "Entrepreneurs of the Year, Rotary–ASME"
+      label: "Clients who trusted us"
+    - value: "3 studios"
+      label: "Goldhill · Eastpoint · Jurong"
     - value: "2009"
       label: "Listed on SGX Catalist"
 

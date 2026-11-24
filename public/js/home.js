@@ -63,9 +63,13 @@
     var HEADER = 76;          // menu height once scrolled (style.css)
     var GAP = 40;             // space between the menu and the heading
     var busy = false, quietUntil = 0;
-    // where the heading sits: measured from the section itself, so the heading's own
-    // fade-in movement doesn't shift the landing spot
+    // where to land: measured from the sections themselves, so their fade-in movement
+    // doesn't shift the landing spot.
+    // With the Key figures band showing, it lands with that band just under the menu
+    // (the band sits right above Signature treatments).
+    var band = document.getElementById("numbers");
     var target = function () {
+      if (band) return Math.round(band.getBoundingClientRect().top + window.scrollY - HEADER);
       var pad = parseFloat(getComputedStyle(services).paddingTop) || 0;
       return Math.round(services.getBoundingClientRect().top + window.scrollY + pad - HEADER - GAP);
     };

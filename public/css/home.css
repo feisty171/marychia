@@ -640,51 +640,55 @@ a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset
 }
 
 /* =========================================================
-   Key figures, just below the hero: a simple row of numbers with thin
-   dividers (two by two on phones). Words: src/content/home.md → stats.
-   The "count: true" number counts up (public/js/main.js).
+   Key figures, right under the hero: four facts in a row, each a serif figure
+   with a short line under it, split by thin rose rules (two by two on phones).
+   A rose line draws across the top as it comes into view.
+   Words: src/content/home.md → stats. The "count: true" number counts up (public/js/main.js).
    ========================================================= */
-.ledger { padding: 16px 0 64px; }
-.ledger__eyebrow { margin: 0 0 28px; text-align: center; }
-
+.ledger { position: relative; background: var(--blush); }
 .ledger__row {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 32px 0;
   margin: 0;
-  padding: 32px 0;
+  padding: 0;
   list-style: none;
-  border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
-
-.ledger__item { padding: 0 12px; text-align: center; }
-.ledger__item:nth-child(even) { border-left: 1px solid var(--line); }
-
+.ledger__item { padding: 28px 16px 26px 0; }
+.ledger__item:nth-child(even) { padding-left: 20px; border-left: 1px solid var(--line); }
+.ledger__item:nth-child(-n + 2) { border-bottom: 1px solid var(--line); }
 .ledger__num {
   margin: 0 0 8px;
   font-family: var(--font-serif);
   font-weight: 500;
-  font-size: var(--fs-stat);
+  font-size: var(--fs-h3);
   line-height: 1;
+  color: var(--ink);
   font-variant-numeric: lining-nums;
-  color: var(--rose);
+  white-space: nowrap;
 }
-
 .ledger__label {
-  margin: 0 auto;
-  max-width: 20ch;
-  font-size: var(--fs-ui);
+  margin: 0;
+  font-size: var(--fs-caption);
   line-height: 1.5;
   color: var(--ink-soft);
 }
+/* the client count in rose, like the prices */
+.ledger__item:nth-child(2) .ledger__num { color: var(--rose); }
 
 @media (min-width: 861px) {
-  .ledger { padding: 24px 0 88px; }
-  .ledger__row { grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 40px 0; }
+  .ledger__row { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .ledger__item,
+  .ledger__item:nth-child(even) { padding: clamp(32px, 3.4vw, 48px) clamp(16px, 2vw, 32px); border-bottom: 0; border-left: 0; }
+  .ledger__item:first-child { padding-left: 0; }
   .ledger__item + .ledger__item { border-left: 1px solid var(--line); }
+  .ledger__num { font-size: var(--fs-h3-lg); margin-bottom: 10px; }
   .ledger__label { font-size: var(--fs-small); }
 }
+
+/* Signature treatments follows straight on, so it needs less space above */
+.ledger + .sig { padding-top: clamp(48px, 5vw, 80px); }
 
 /* =========================================================
    Hero. Words and photo: src/content/home.md → hero.
@@ -815,41 +819,6 @@ a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset
   .ed-hero__eyebrow { margin-bottom: 16px; }
   .ed-hero__grid { gap: 24px; }
 }
-
-/* ---------- Ribbon of words under the hero (src/content/home.md → ribbon) ---------- */
-.ribbon {
-  display: flex;
-  overflow: hidden;
-  padding: 22px 0;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  user-select: none;
-}
-.ribbon__track {
-  display: flex;
-  flex-shrink: 0;
-  animation: marquee 48s linear infinite;
-}
-.ribbon__track li {
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
-  font-family: var(--font-serif);
-  font-weight: 500;
-  font-size: var(--fs-h3-lg);
-  line-height: 1;
-  color: var(--ink);
-}
-.ribbon__track li.is-em { font-style: italic; color: var(--rose); }
-.ribbon__track li::after {
-  content: "";
-  width: 7px;
-  height: 7px;
-  margin: 0 clamp(24px, 3vw, 48px);
-  border: 1px solid var(--rose-line);
-  rotate: 45deg;
-}
-@keyframes marquee { to { transform: translateX(-100%); } }
 
 /* =========================================================
    Reveal on scroll ([data-reveal], public/js/home.js adds .motion + .is-in).
