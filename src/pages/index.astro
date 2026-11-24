@@ -49,6 +49,8 @@ const resultCards = ((gallery.results || []) as any[]).slice(0, h.results?.show 
   };
 });
 const stars = (n: any) => (typeof n === "number" && n >= 1 ? Math.min(5, Math.round(n)) : 0);
+// "Our story" heading: *words* in italic rose
+const [storyBefore, storyEm = "", storyAfter = ""] = (h.experience?.heading || "").split("*");
 const initials = (s: string) => (s.includes("[[") ? "?" : s.trim().charAt(0));
 // Hero headline: the *word* in asterisks shows in italic rose. Each word is wrapped
 // so it can slide up into place when the page opens (public/css/home.css, .ed-hero__w).
@@ -293,27 +295,37 @@ const heroWords = h.hero.headline
       </div>
     </section>}
 
-    <!-- ============ 2. EXPERIENCE & STORY (editorial) ============
-         Words and photos: src/content/home.md → experience. The two photos drift at
-         different speeds as you scroll ([data-speed], public/js/home.js). -->
+    <!-- ============ 2. OUR STORY (src/content/home.md → experience) ============
+         Archive photo left; story, milestones and "Read our story" right.
+         Styles: "Our story" in public/css/home.css. -->
     <section class="h-section story" id="experience">
       <div class="h-container story__grid">
-        <div class="story__media">
-          <figure class="story__main" data-speed="-0.06">
-            <img src={h.experience.image} alt={h.experience.imageAlt} width="1366" height="764" loading="lazy" />
+        <div class="story__media" data-reveal>
+          <figure class="story__photo">
+            <img src={h.experience.image} alt={h.experience.imageAlt} loading="lazy" />
+            {h.experience.caption && <figcaption>{h.experience.caption}</figcaption>}
           </figure>
-          {h.experience.image2 && (
-            <figure class="story__small" data-speed="0.1">
-              <img src={h.experience.image2} alt={h.experience.image2Alt} loading="lazy" />
+          {(h.experience.image2 || (h.experience.image2Caption && treatmentsData.config.showPlaceholderHints)) && (
+            <figure class="story__inset">
+              {h.experience.image2
+                ? <img src={h.experience.image2} alt={h.experience.image2Alt} loading="lazy" />
+                : <div class="story__inset-ph" role="img" aria-label="Photo to come">Photo to come</div>}
               {h.experience.image2Caption && <figcaption>{h.experience.image2Caption}</figcaption>}
             </figure>
           )}
         </div>
         <div class="story__copy" data-reveal>
           <p class="eyebrow">{h.experience.eyebrow}</p>
-          <h2 class="h-title story__title">{h.experience.heading}</h2>
-          {h.experience.paragraphs.map((p, i) => <p class:list={["h-body", { "story__lead": i === 0 }]}>{p}</p>)}
-          <a class="link-arrow" href="/about/">{h.experience.link}</a>
+          <h2 class="h-title story__title">{storyBefore}{storyEm && <em>{storyEm}</em>}{storyAfter}</h2>
+          {h.experience.paragraphs.map((p: string) => <p class="h-body">{p}</p>)}
+          {h.experience.milestones?.length > 0 && (
+            <ul class="story__miles">
+              {h.experience.milestones.map((m: any) => (
+                <li><span class="story__year">{m.year}</span><span class="story__label">{m.label}</span></li>
+              ))}
+            </ul>
+          )}
+          <a class="h-textlink" href={h.experience.linkHref || "/about/"}>{h.experience.link} <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>

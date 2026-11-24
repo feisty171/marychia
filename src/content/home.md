@@ -238,20 +238,34 @@ products:
       imageAlt: "Organica Repair+ Skin Rescue Concentrate box"
       link: "[[CONFIRM: product page link]]"
 
+# "Our story": archive photo on the left; on the right the story, a row of milestones and a
+# link to the About page. *asterisks* in the heading = italic rose.
+# Milestones come from the About timeline (src/content/about.md). Never add finances, share
+# price or listing status here: the SGX line is only allowed in the Key figures band (CLAUDE.md).
 experience:
-  eyebrow: "The Mary Chia experience"
-  heading: "Personal care, the way it began."
+  eyebrow: "Our story"
+  heading: "It began with *one beauty kit*."
   paragraphs:
-    - "Mary Chia started by giving facials in her customers' homes. Every visit was personal, unhurried and built on trust."
-    - "Four decades on, that hasn't changed. Your therapist listens first, then shapes each treatment around your skin, your body and how you want to feel."
-    - "Our studios are calm, warm and private: a quiet pause in a busy day. Our specialists are trained in-house, so the care feels the same at every visit."
+    - "Long before there was a Mary Chia shop, there was Mary. She sewed wedding gowns until brides began asking her to do their make-up too. She had no shop and no savings, so she carried her kit from home to home, one facial at a time. In 1984 she opened a 300 sq ft shop in Tanjong Katong, and soon women were queuing from 7am. More than 300,000 clients later, everyone who walks through our doors is still treated as a friend."
+  milestones:
+    - year: "1984"
+      label: "First shop, Tanjong Katong"
+    - year: "1989"
+      label: "First beauty & slimming centre"
+    - year: "2007"
+      label: "Singapore Prestige Brand Award"
+    - year: "Today"
+      label: "3 studios"
   link: "Read our story"
-  image: "/images/hero-reception.webp"
-  imageAlt: "The warm, softly lit reception at a Mary Chia studio"
-  # Small photo that overlaps the big one (leave "" to hide it)
-  image2: "/images/about/hero-1994-team.webp"
-  image2Alt: "The Mary Chia team in 1994, outside Mary Chia Beauty House"
-  image2Caption: "Mary Chia Beauty House, 1994"
+  linkHref: "/about/"
+  image: "/images/heritage/tanjong-pagar-1984.webp"
+  imageAlt: "Six Mary Chia beauticians in white uniforms outside the Tanjong Pagar outlet on its opening day, with flowers and an Opening Now banner"
+  caption: "Tanjong Pagar outlet, 1984"
+  # Small photo overlapping the big one, bottom right. Leave image2 "" until the photo is
+  # ready: a labelled placeholder shows while showPlaceholderHints is on (treatments.json).
+  image2: ""
+  image2Alt: "The first Mary Chia Goldhill outlet"
+  image2Caption: "First Goldhill outlet"
 
 testimonials:
   eyebrow: "Kind words"

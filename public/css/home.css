@@ -569,51 +569,75 @@ a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset
   .h-banner__text { font-size: var(--fs-body); }
 }
 
-/* ---------- 2. Experience & story (editorial) ----------
-   A big photo with a small "polaroid" overlapping it; each drifts at its own pace
-   (--drift, set from data-speed by public/js/home.js). */
-.story__grid { display: grid; gap: 56px; }
-.story__media { position: relative; padding-bottom: 18%; }
-.story__main {
-  width: 84%;
-  margin: 0;
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
-  border-radius: 4px;
-  transform: translateY(var(--drift, 0px));
-}
-.story__main img { width: 100%; height: 100%; object-fit: cover; object-position: 45% center; }
-.story__small {
+/* ---------- 2. Our story (src/content/home.md → experience) ----------
+   Archive photo on the left (caption on it) with a smaller photo overlapping its corner; on the right the eyebrow,
+   heading, story, a hairline, a row of milestones and "Read our story". */
+.story { background: var(--white); }
+.story__grid { display: grid; gap: 40px; }
+.story__media { position: relative; padding: 0 0 48px; }
+.story__photo { position: relative; margin: 0; aspect-ratio: 3 / 2; overflow: hidden; background: var(--tint); }
+.story__photo img { width: 100%; height: 100%; object-fit: cover; }
+.story__photo figcaption {
   position: absolute;
+  left: 0;
   right: 0;
   bottom: 0;
-  width: 50%;
+  padding: 40px 20px 16px;
+  font-size: var(--fs-caption);
+  color: var(--white);
+  background: linear-gradient(180deg, rgba(var(--shade), 0), rgba(var(--shade), .55));
+}
+/* Second photo: a small print overlapping the bottom-right corner */
+.story__inset {
+  position: absolute;
+  right: 16px;
+  bottom: 0;
+  width: 44%;
   margin: 0;
-  padding: 10px 10px 0;
+  padding: 8px 8px 0;
   background: var(--white);
   box-shadow: var(--shadow-card);
-  rotate: 2.5deg;
-  transform: translateY(var(--drift, 0px));
+  rotate: 2deg;
 }
-.story__small img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
-.story__small figcaption {
-  padding: 10px 4px 12px;
+.story__inset img, .story__inset-ph { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.story__inset-ph {
+  display: grid;
+  place-items: center;
+  background: var(--ph-bg);
+  font-size: var(--fs-caption);
+  color: var(--ink-faint);
+}
+.story__inset figcaption {
+  padding: 8px 4px 10px;
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: var(--fs-h5);
+  font-size: var(--fs-text);
   color: var(--ink-soft);
 }
-.story__lead {
-  font-family: var(--font-serif);
-  font-size: var(--fs-h4);
-  line-height: 1.4;
-  color: var(--ink);
+.story__title em { font-style: italic; color: var(--rose); }
+.story__copy .h-body { margin-bottom: 0; }
+.story__miles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px 16px;
+  margin: 28px 0 28px;
+  padding: 28px 0 0;
+  border-top: 1px solid var(--line);
 }
-.story__copy .link-arrow { margin-top: 8px; }
+.story__miles li { display: grid; gap: 6px; }
+.story__year {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: var(--fs-h3);
+  line-height: 1;
+  color: var(--rose);
+  font-variant-numeric: lining-nums;
+}
+.story__label { font-size: var(--fs-small); line-height: 1.4; color: var(--ink-soft); }
+@media (min-width: 641px) { .story__miles { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 @media (min-width: 961px) {
-  .story__grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); align-items: center; gap: clamp(56px, 7vw, 128px); }
-  .story__main { max-height: 82vh; }
-  .story__lead { font-size: var(--fs-h3); }
+  .story__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(48px, 5vw, 96px); }
+  .story__year { font-size: var(--fs-h3-lg); }
 }
 
 /* ---------- 3. Reviews + trust ---------- */
