@@ -46,7 +46,7 @@ services:
   eyebrow: "Find a treatment"
   heading: "What would you like to work on today?"
   intro: ""
-  menuButton: "View All Treatments"
+  menuButton: "View All Treatments"   # shown under the tiles only while showList is true
   menuLink: "/treatments/"
   # The signature treatments list below the tiles. Hidden for now: set to true to show it again.
   showList: false
@@ -126,8 +126,16 @@ services:
 banner:
   image: "/images/banners/hydration-banner.webp"
   alt: "A woman resting her face on rippling water, her skin dewy with water droplets"
-  link: ""
+  link: ""            # only used when there is no button: makes the whole banner a link
   phoneFocus: "right"
+  # Words on the banner (left side on wide screens, under the picture on phones).
+  # Leave heading "" for a picture-only banner. *asterisks* = italic rose.
+  # {count} = how many treatments are on the site. No guaranteed results (see CLAUDE.md).
+  eyebrow: "Face · Body · Wellness"
+  heading: "A little time, *just for you*."
+  text: "Explore {count} treatments, each one shaped around your skin, your body and how you want to feel."
+  button: "View all treatments"
+  buttonLink: "/rituals/"
 
 # Products, below the ad banner. "Shelf" design: tinted photo panels with the
 # details underneath (deliberately different from the Signature treatment cards).

@@ -413,7 +413,7 @@ a.shop-item__link:focus-visible,
    Words/image: src/content/home.md → banner. Wide (4:1) on desktop,
    taller crop on phones. Placeholder shows until an image is set. */
 .h-banner { padding: 0; }
-#services { padding-bottom: 56px; } /* keep the banner close to the cards */
+#services { padding-bottom: clamp(28px, 3vw, 40px); } /* keep the banner close to the tiles */
 .h-banner__frame {
   position: relative;
   display: block;
@@ -448,6 +448,36 @@ a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset
 }
 @media (min-width: 641px) {
   .h-banner__frame { aspect-ratio: 4 / 1; }
+}
+
+/* Banner with words: phones show the picture with the words in a panel underneath;
+   wide screens lay the words over the plain left side of the picture. */
+.h-banner--copy .h-banner__frame { display: flex; flex-direction: column; aspect-ratio: auto; background: var(--tint); }
+.h-banner--copy .h-banner__frame img { aspect-ratio: 16 / 9; height: auto; }
+.h-banner__copy { display: grid; gap: 14px; justify-items: start; padding: 28px 22px 30px; }
+.h-banner__copy .eyebrow { margin: 0; }
+.h-banner__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: var(--fs-h2);
+  line-height: 1.08;
+  color: var(--ink);
+}
+.h-banner__title em { font-style: italic; color: var(--rose); }
+.h-banner__text { margin: 0 0 6px; max-width: 36ch; font-size: var(--fs-text); line-height: 1.65; color: var(--ink-soft); }
+@media (min-width: 900px) {
+  .h-banner--copy .h-banner__frame { display: block; aspect-ratio: auto; height: clamp(360px, 27vw, 520px); }
+  .h-banner--copy .h-banner__frame img { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; object-position: right center !important; }
+  .h-banner__copy {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    max-width: min(46%, 560px);
+    align-content: center;
+    padding: clamp(28px, 3vw, 48px) clamp(32px, 5vw, 88px);
+  }
+  .h-banner__text { font-size: var(--fs-body); }
 }
 
 /* ---------- 2. Experience & story (editorial) ----------

@@ -26,6 +26,9 @@ const favs = (h.favourites?.items || [])
   .map((id: string) => treatmentData.treatments.find((t: any) => t.id === id))
   .filter(Boolean);
 const [favBefore, favEm = "", favAfter = ""] = (h.favourites?.heading || "").split("*");
+// Ad banner words (optional)
+const bannerHasCopy = !!h.banner?.heading;
+const [bannerBefore, bannerEm = "", bannerAfter = ""] = (h.banner?.heading || "").split("*");
 const initials = (s: string) => (s.includes("[[") ? "?" : s.trim().charAt(0));
 // Hero headline: the *word* in asterisks shows in italic rose. Each word is wrapped
 // so it can slide up into place when the page opens (public/css/home.css, .ed-hero__w).
@@ -123,19 +126,35 @@ const heroWords = h.hero.headline
             <BookingSheet />
           </div>
         )}
-        <div class="h-center">
-          <a class="h-textlink" href={h.services.menuLink}>{h.services.menuButton} <span aria-hidden="true">→</span></a>
-        </div>
+        {h.services.showList && (
+          <div class="h-center">
+            <a class="h-textlink" href={h.services.menuLink}>{h.services.menuButton} <span aria-hidden="true">→</span></a>
+          </div>
+        )}
       </div>
     </section>
 
-    <!-- ============ AD BANNER (src/content/home.md → banner) ============ -->
-    <section class="h-banner" aria-label="Promotion" data-reveal="wipe">
+    <!-- ============ AD BANNER (src/content/home.md → banner) ============
+         Picture with words and a button on its plain left side (wide screens); on phones the
+         words sit under the picture. Styles: "Ad banner" in public/css/home.css. -->
+    <section class:list={["h-banner", { "h-banner--copy": bannerHasCopy }]} aria-label="Promotion" data-reveal="wipe">
       <div class="h-container h-container--full">
         {h.banner?.image
-          ? (h.banner.link
+          ? (h.banner.link && !bannerHasCopy
               ? <a class="h-banner__frame" href={h.banner.link}><img src={h.banner.image} alt={h.banner.alt} loading="lazy" style={`object-position:${h.banner.phoneFocus || "center"} center`} /></a>
-              : <div class="h-banner__frame"><img src={h.banner.image} alt={h.banner.alt} loading="lazy" style={`object-position:${h.banner.phoneFocus || "center"} center`} /></div>)
+              : (
+                <div class="h-banner__frame">
+                  <img src={h.banner.image} alt={h.banner.alt} loading="lazy" style={`object-position:${h.banner.phoneFocus || "center"} center`} />
+                  {bannerHasCopy && (
+                    <div class="h-banner__copy">
+                      {h.banner.eyebrow && <p class="eyebrow">{h.banner.eyebrow}</p>}
+                      <h2 class="h-banner__title">{bannerBefore}{bannerEm && <em>{bannerEm}</em>}{bannerAfter}</h2>
+                      {h.banner.text && <p class="h-banner__text">{h.banner.text.replace("{count}", String(treatmentData.treatments.length))}</p>}
+                      {h.banner.button && <a class="btn btn--rose" href={h.banner.buttonLink}>{h.banner.button}</a>}
+                    </div>
+                  )}
+                </div>
+              ))
           : (
             <div class="h-banner__frame h-banner__frame--ph" role="img" aria-label="Ad banner placeholder">
               <span class="h-banner__label">Ad banner</span>
