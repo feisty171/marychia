@@ -258,9 +258,9 @@ experience:
       label: "3 studios"
   link: "Read our story"
   linkHref: "/about/"
-  image: "/images/heritage/tanjong-pagar-1984.webp"
-  imageAlt: "Six Mary Chia beauticians in white uniforms outside the Tanjong Pagar outlet on its opening day, with flowers and an Opening Now banner"
-  caption: "Tanjong Pagar outlet, 1984"
+  image: "/images/heritage/tanjong-katong-1984.webp"
+  imageAlt: "Six Mary Chia beauticians in white uniforms outside the Tanjong Katong outlet on its opening day, with flowers and an Opening Now banner"
+  caption: "Tanjong Katong outlet, 1984"
   # Small photo overlapping the big one, bottom right. Leave image2 "" until the photo is
   # ready: a labelled placeholder shows while showPlaceholderHints is on (treatments.json).
   image2: ""
