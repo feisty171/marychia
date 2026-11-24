@@ -255,15 +255,33 @@ ul { list-style: none; margin: 0; padding: 0; }
 .site-header.is-scrolled .nav__toggle span,
 .site-header--solid .nav__toggle span { background: var(--ink); }
 
-/* Clear header (Home): transparent over the light hero photo, with dark text and the burgundy logo.
+/* Clear header (Home): transparent over the hero photo.
+   Wide screens (1100px+, the photo sits behind the menu): white words, white logo and a white
+   Book Now outline, each with a soft warm glow behind it so they stay readable on the light photo.
+   Narrower screens (the photo sits below the menu): dark words and the burgundy logo.
    Turns into the solid light header once the page scrolls, like every other page. */
-.site-header--clear:not(.is-scrolled) .logo__emblem--light { opacity: 0; }
-.site-header--clear:not(.is-scrolled) .logo__emblem--dark { opacity: 1; }
-.site-header--clear .nav__link { color: var(--ink); text-shadow: none; }
-.site-header--clear .btn--nav { color: var(--ink); border-color: var(--ink); }
-.site-header--clear .btn--nav:hover { background: var(--ink); color: var(--white); }
-.site-header--clear .nav__toggle span { background: var(--ink); }
-.site-header--clear .nav__caret { color: var(--ink); }
+@media (min-width: 1100px) {
+  .site-header--clear:not(.is-scrolled) .nav__link,
+  .site-header--clear:not(.is-scrolled) .nav__caret {
+    text-shadow: 0 0 2px rgba(var(--shade), .45), 0 0 10px rgba(var(--shade), .7), 0 0 24px rgba(var(--shade), .45);
+  }
+  .site-header--clear:not(.is-scrolled) .nav__caret svg { filter: drop-shadow(0 0 3px rgba(var(--shade), .7)); }
+  .site-header--clear:not(.is-scrolled) .btn--nav {
+    text-shadow: 0 0 2px rgba(var(--shade), .45), 0 0 10px rgba(var(--shade), .7);
+    box-shadow: 0 0 16px rgba(var(--shade), .3), inset 0 0 14px rgba(var(--shade), .2);
+  }
+  .site-header--clear:not(.is-scrolled) .btn--nav:hover { text-shadow: none; }
+  .site-header--clear:not(.is-scrolled) .logo__emblem--light { filter: drop-shadow(0 0 2px rgba(var(--shade), .4)) drop-shadow(0 0 14px rgba(var(--shade), .55)); }
+}
+@media (max-width: 1099px) {
+  .site-header--clear:not(.is-scrolled) .logo__emblem--light { opacity: 0; }
+  .site-header--clear:not(.is-scrolled) .logo__emblem--dark { opacity: 1; }
+  .site-header--clear .nav__link { color: var(--ink); text-shadow: none; }
+  .site-header--clear .btn--nav { color: var(--ink); border-color: var(--ink); }
+  .site-header--clear .btn--nav:hover { background: var(--ink); color: var(--white); }
+  .site-header--clear .nav__toggle span { background: var(--ink); }
+  .site-header--clear .nav__caret { color: var(--ink); }
+}
 
 /* Hamburger (mobile only) */
 .nav__toggle {

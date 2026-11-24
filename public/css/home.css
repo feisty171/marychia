@@ -791,6 +791,18 @@ a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset
     padding: calc(var(--header-h) - 16px) 0 48px;
   }
   .ed-hero__bg { position: absolute; inset: 0 0 auto 0; margin: 0; }
+  /* soft warm shade along the top of the photo, behind the white menu */
+  .ed-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    z-index: 1;
+    height: 22%;
+    background: linear-gradient(180deg, rgba(var(--shade), .28), rgba(var(--shade), 0));
+    opacity: calc(1 - var(--hp));
+    pointer-events: none;
+  }
+  .ed-hero__grid { z-index: 2; }
   .ed-hero__grid { width: 100%; }
   .ed-hero__foot { max-width: min(46%, 640px); }
   /* two lines ("Every transformation is a / story worth telling."), kept clear of the photo's subject */
