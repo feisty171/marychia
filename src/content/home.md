@@ -11,7 +11,7 @@
 hero:
   eyebrow: "Since 1984 · Singapore's Beauty & Slimming Pioneer"
   headline: "Every transformation is a *story* worth telling."
-  text: "Expert facials, body slimming and relaxing spa treatments in Singapore, tailored to you. Since our founder began with one beauty kit in 1984, more than 300,000 clients have trusted us to help them look and feel their best."
+  text: "Tailored facials, body treatments and wellness rituals. Your therapist starts with a consultation, then builds a plan around your skin, body and goals."
   exploreButton: "Explore treatments"
   exploreLink: "/treatments/"
   bookButton: "Book your first visit"
