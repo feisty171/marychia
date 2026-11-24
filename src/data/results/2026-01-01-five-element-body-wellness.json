@@ -1,7 +1,7 @@
 {
   "treatment": "Five Element Body Wellness Therapy",
   "date": "2026-01-01",
-  "note": "After 1 session",
+  "note": "After session",
   "before": "5elementswellness/5elementsbefore.png",
   "after": "5elementswellness/5elementsafter.png",
   "consent": true
