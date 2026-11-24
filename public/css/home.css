@@ -640,23 +640,28 @@ a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset
 }
 
 /* =========================================================
-   Key figures, right under the hero: four facts in a row, each a serif figure
-   with a short line under it, split by thin rose rules (two by two on phones).
-   A rose line draws across the top as it comes into view.
+   Key figures: a rounded card right under the hero, four facts in a row, each a serif
+   figure with a short line under it, split by thin rose rules (two by two on phones).
+   On wide screens the card overlaps the bottom of the hero photo, which fades into
+   the page behind it (.ed-hero::after), so the hero and the card fit one screen.
    Words: src/content/home.md → stats. The "count: true" number counts up (public/js/main.js).
    ========================================================= */
-.ledger { position: relative; background: var(--blush); }
+.ledger { position: relative; z-index: 3; }
 .ledger__row {
-  position: relative;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin: 0;
-  padding: 0;
+  padding: 0 20px;
   list-style: none;
-  border-bottom: 1px solid var(--line);
+  background: rgba(251, 245, 242, .9);   /* --blush, slightly see-through */
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
 }
-.ledger__item { padding: 28px 16px 26px 0; }
-.ledger__item:nth-child(even) { padding-left: 20px; border-left: 1px solid var(--line); }
+.ledger__item { padding: 24px 12px 22px 0; }
+.ledger__item:nth-child(even) { padding-left: 18px; border-left: 1px solid var(--line); }
 .ledger__item:nth-child(-n + 2) { border-bottom: 1px solid var(--line); }
 .ledger__num {
   margin: 0 0 8px;
@@ -678,13 +683,28 @@ a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset
 .ledger__item:nth-child(2) .ledger__num { color: var(--rose); }
 
 @media (min-width: 861px) {
-  .ledger__row { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .ledger__row { grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 0 clamp(24px, 3vw, 48px); }
   .ledger__item,
-  .ledger__item:nth-child(even) { padding: clamp(32px, 3.4vw, 48px) clamp(16px, 2vw, 32px); border-bottom: 0; border-left: 0; }
+  .ledger__item:nth-child(even) { padding: clamp(28px, 3vw, 40px) clamp(16px, 2vw, 32px); border-bottom: 0; border-left: 0; }
   .ledger__item:first-child { padding-left: 0; }
   .ledger__item + .ledger__item { border-left: 1px solid var(--line); }
   .ledger__num { font-size: var(--fs-h3-lg); margin-bottom: 10px; }
   .ledger__label { font-size: var(--fs-small); }
+}
+/* Wide screens: the card rises over the bottom of the hero photo */
+@media (min-width: 1100px) {
+  .ledger { margin-top: calc(-1 * clamp(64px, 6vw, 104px)); }
+  /* keep the hero's words centred in the part the card doesn't cover */
+  .ed-hero:has(+ .ledger) { padding-bottom: calc(48px + clamp(64px, 6vw, 104px)); }
+  .ed-hero::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    z-index: 1;
+    height: 30%;
+    background: linear-gradient(180deg, rgba(251, 245, 242, 0) 0%, rgba(251, 245, 242, .55) 55%, var(--blush) 100%);
+    pointer-events: none;
+  }
 }
 
 /* Signature treatments follows straight on, so it needs less space above */
