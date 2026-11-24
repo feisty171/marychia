@@ -532,7 +532,21 @@
 /* ---------- Scroll fade: "Our history" rises in as the opening fades away ---------- */
 .storyline.fade-in { opacity: 0; transform: translateY(48px); transition: opacity .9s ease, transform 1.1s cubic-bezier(.22, 1, .36, 1); }
 .storyline.fade-in.is-in { opacity: 1; transform: none; }
+/* ---------- Last chapter fade: words, year column and photo dissolve as you scroll past ----------
+   --out (0 → 1) is set by public/js/about.js from where the last chapter sits on screen.
+   Wide screens only: on phones the chapter is taller than the screen, so it would fade mid-read. */
+@media (min-width: 1025px) {
+  .sl-item:last-child > *,
+  .storyline-sticky,
+  .storyline-media {
+    opacity: calc(1 - var(--out, 0));
+    translate: 0 calc(var(--out, 0) * -28px);
+  }
+  .storyline-media { scale: calc(1 - var(--out, 0) * .08); }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .storyline { --out: 0 !important; }
   .heritage-opening { --hp: 0 !important; }
   .storyline.fade-in { opacity: 1; transform: none; transition: none; }
 }

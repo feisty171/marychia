@@ -69,6 +69,30 @@
     window.addEventListener("resize", setFade);
     setFade();
   }
+  /* ---- Last chapter fades away as you scroll past it ----
+     --out on .storyline goes from 0 (last chapter centred on screen) to 1 (it has moved up
+     out of view). It fades the last chapter's words, the pinned year column and the circle
+     photo. Styles: "Last chapter fade" in public/css/about.css. */
+  var lastItem = items[items.length - 1];
+  if (story && lastItem && !still) {
+    var outTicking = false;
+    var setOut = function () {
+      outTicking = false;
+      var vh = window.innerHeight || 1;
+      var r = lastItem.getBoundingClientRect();
+      var centre = (r.top + r.bottom) / 2;
+      var p = Math.min(1, Math.max(0, (vh * 0.5 - centre) / (vh * 0.4)));
+      story.style.setProperty("--out", p.toFixed(3));
+    };
+    window.addEventListener("scroll", function () {
+      if (outTicking) return;
+      outTicking = true;
+      requestAnimationFrame(setOut);
+    }, { passive: true });
+    window.addEventListener("resize", setOut);
+    setOut();
+  }
+
   // End of "Our history": draw the closing line when it comes into view
   var close = document.querySelector(".story-close");
   if (close) {
