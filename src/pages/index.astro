@@ -21,6 +21,7 @@ const bookHref = siteWa ?? "#visit";
 const initials = (s: string) => (s.includes("[[") ? "?" : s.trim().charAt(0));
 // Hero headline: the *word* in asterisks shows in italic rose. Each word is wrapped
 // so it can slide up into place when the page opens (public/css/home.css, .ed-hero__w).
+// On wide screens the italic word starts the second line (.ed-hero__br).
 const heroWords = h.hero.headline
   .split("*")
   .flatMap((part: string, i: number) => part.trim().split(/\s+/).filter(Boolean).map((w) => ({ w, em: i % 2 === 1 })));
@@ -45,7 +46,7 @@ const heroWords = h.hero.headline
           <p class="ed-hero__eyebrow">{h.hero.eyebrow}</p>
           <h1 class="ed-hero__title">
             {heroWords.map((x, i) => (
-              <span class="ed-hero__w" style={`--w:${i}`}><span>{x.em ? <em>{x.w}</em> : x.w}</span></span>
+              <>{x.em && (i === 0 || !heroWords[i - 1].em) && <br class="ed-hero__br" />}<span class="ed-hero__w" style={`--w:${i}`}><span>{x.em ? <em>{x.w}</em> : x.w}</span></span></>
             ))}
           </h1>
         </div>
