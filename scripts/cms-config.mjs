@@ -57,7 +57,7 @@ ${names.map((n) => `            - ${q(n)}`).join("\n")}
         type: string
       - name: before
         label: Before photo
-        description: Portrait works best. Same framing and lighting as the after photo. Not retouched.
+        description: Tip - keep each result's before and after together in its own folder (e.g. five-element-2026-11). Portrait works best, same framing and lighting as the after photo, not retouched.
         type: image
         options:
           rename: random
@@ -84,4 +84,5 @@ ${names.map((n) => `            - ${q(n)}`).join("\n")}
 `;
 
 writeFileSync(join(root, ".pages.yml"), yml);
+
 console.log(`Wrote .pages.yml (Pages CMS) with ${names.length} treatments in the drop-down.`);

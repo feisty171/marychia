@@ -222,17 +222,19 @@ The page is `/gallery/`, linked from the Treatments dropdown ("Gallery / Results
 **Easiest way, from a phone or computer: Pages CMS.** Go to https://app.pagescms.org, sign in with GitHub, open this repo, then **Gallery results → Add an entry**: pick the treatment from the drop-down, set the date, write the note, upload the before and after photos (straight from the camera roll), switch on "Client has signed written consent" only when marketing has the form, and save. Pages CMS saves to GitHub, and the site republishes in a minute or two. Its settings are `.pages.yml`, which is made by `scripts/cms-config.mjs` (it runs at the end of `npm run build:treatments`, so the treatment drop-down stays in step with the menu workbook). Don't edit `.pages.yml` by hand.
 - First time only: Pages CMS asks to install its GitHub app on the `feisty171/marychia` repo; allow it.
 
+**Photo folders (optional):** to keep things tidy, put each result's before and after photos together in their own folder inside `src/assets/results/`, e.g. `src/assets/results/five-element-2026-11/before.jpg` and `after.jpg`. Make a folder only when there's a result for it.
+
 **By hand (on a computer):**
-1. Drop the photos into `src/assets/results/` as they are: JPG, PNG or WebP, any size, any file name.
-2. Copy a file in `src/data/results/`, rename it (e.g. `2026-11-24-juve.json`) and fill it in:
+1. Make a folder for the result in `src/assets/results/` (e.g. `five-element-2026-11`) and drop the before and after photos in as they are: JPG, PNG or WebP, any size, any file name.
+2. Copy a file in `src/data/results/`, rename it (e.g. `2026-11-24-five-element.json`) and fill it in, with the folder name in front of each photo:
 
 ```json
 {
-  "treatment": "JUVE Face Lift Therapy",
+  "treatment": "Five Element Body Wellness Therapy",
   "date": "2026-11-24",
-  "note": "After 6 sessions over 8 weeks",
-  "before": "juve-jan-before.jpg",
-  "after": "juve-jan-after.jpg",
+  "note": "After 4 sessions",
+  "before": "five-element-2026-11/before.jpg",
+  "after": "five-element-2026-11/after.jpg",
   "consent": true
 }
 ```
@@ -240,7 +242,7 @@ The page is `/gallery/`, linked from the Treatments dropdown ("Gallery / Results
 Rules for both ways:
 - `treatment` is the name as it appears on the Treatments page (or its ID from `src/data/treatment-menu.json`; capitals and spacing don't matter). Its Face/Body/Wellness filter and link fill in automatically.
 - `date` sets the order: newest first.
-- Photos: the build makes web-sized WebP copies automatically (800 px wide for before/after, 1600 px for one combined picture), so nothing needs resizing or converting. iPhone HEIC files must be JPG (uploading through a phone browser usually converts them). Portrait before/after photos with the same framing and lighting look best; the cards crop them to 4:5. `before` / `after` can be a file name or the `src/assets/results/…` path Pages CMS writes. A full path like `/images/results/x.webp` still means a file in `public/` and is used as it is.
+- Photos: the build makes web-sized WebP copies automatically (800 px wide for before/after, 1600 px for one combined picture), so nothing needs resizing or converting. iPhone HEIC files must be JPG (uploading through a phone browser usually converts them). Portrait before/after photos with the same framing and lighting look best; the cards crop them to 4:5. `before` / `after` can be a path inside `src/assets/results/` like `five-element-2026-11/before.jpg`, just the file name if no other photo has that name, or the `src/assets/results/…` path Pages CMS writes. A full path like `/images/results/x.webp` still means a file in `public/` and is used as it is.
 - For one combined picture, use `image` instead of `before` and `after`.
 - `alt` is optional; without it the photos are described as "Client before and after <treatment>".
 - **Photos only show when `consent` is true.** While it's false, the slot shows "Awaiting consent" instead of the photo. Never set it to true until marketing confirms the signed consent.

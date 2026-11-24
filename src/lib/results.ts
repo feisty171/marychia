@@ -6,8 +6,10 @@
  * Treatment: write the name as it appears on the Treatments page (e.g. "JUVE Face Lift Therapy")
  *   or its ID from the menu workbook (e.g. "juve-face-lift"). Capitals and spacing don't matter.
  *
- * Photos: in src/assets/results/. A result can give just the file name ("juve-jan-before.jpg") or
- *   the path Pages CMS writes ("src/assets/results/juve-jan-before.jpg"); both work. Straight from the phone or camera is fine: any size of
+ * Photos: in src/assets/results/, loose or in a folder per result (e.g. five-element-2026-11/ holding
+ *   that client's before.jpg and after.jpg). A result gives the path inside that folder
+ *   ("five-element-2026-11/before.jpg"), just the file name if it's unique, or the full path
+ *   Pages CMS writes ("src/assets/results/five-element-2026-11/before.jpg"). Straight from the phone or camera is fine: any size of
  *   JPG, PNG or WebP. The build makes a light, web-sized WebP copy (800 px wide for a before/after
  *   photo, 1600 px for one combined picture), so nobody has to resize or convert anything.
  *   A full path like "/images/results/x.webp" (a file in public/) is still used as it is.
@@ -47,22 +49,30 @@ export function loadResults(): RawResult[] {
     .sort((a, b) => String(b.date ?? "").localeCompare(String(a.date ?? "")) || b.file.localeCompare(a.file));
 }
 
-// Every photo in src/assets/results/, found by file name (with or without the extension).
+// Every photo in src/assets/results/, including any folders inside it.
+const ROOT = "/src/assets/results/";
 const files = import.meta.glob<{ default: any }>(
-  "/src/assets/results/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}",
+  "/src/assets/results/**/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}",
   { eager: true },
 );
-const byName = new Map<string, any>();
-const byStem = new Map<string, any>();
+const noExt = (s: string) => s.replace(/\.[^./]+$/, "");
+const byPath = new Map<string, any>(); // "five-element-body-wellness/jan-before.jpg" (and without .jpg)
+const byFile = new Map<string, string[]>(); // "jan-before.jpg" → every folder path that has one
 for (const [path, mod] of Object.entries(files)) {
-  const file = path.split("/").pop()!.toLowerCase();
-  byName.set(file, mod.default);
-  byStem.set(file.replace(/\.[^.]+$/, ""), mod.default);
+  const rel = path.slice(ROOT.length).toLowerCase();
+  byPath.set(rel, mod.default);
+  if (!byPath.has(noExt(rel))) byPath.set(noExt(rel), mod.default);
+  for (const k of new Set([rel.split("/").pop()!, noExt(rel.split("/").pop()!)])) {
+    byFile.set(k, [...(byFile.get(k) ?? []), rel]);
+  }
 }
 
-const folderFiles = () => {
+// Photo files in a folder (for error messages).
+const folderFiles = (sub = "") => {
   try {
-    return readdirSync(join(process.cwd(), FOLDER)).filter((n) => !n.startsWith("."));
+    return readdirSync(join(process.cwd(), FOLDER, sub), { withFileTypes: true })
+      .filter((e) => e.isFile() && !e.name.startsWith("."))
+      .map((e) => e.name);
   } catch {
     return [];
   }
@@ -93,21 +103,37 @@ function findTreatment(value: string) {
   );
 }
 
-async function photo(fileName: string | undefined, width: number): Promise<string> {
+/**
+ * Finds a photo. Looks, in this order, for: the exact path inside src/assets/results/
+ * ("five-element-2026-11/before.jpg", or the full path Pages CMS writes); a folder named after the
+ * treatment ID, if there is one; then a file with that name anywhere in src/assets/results/, if
+ * there's only one. The extension can be left off.
+ */
+async function photo(fileName: string | undefined, width: number, treatmentId: string): Promise<string> {
   let v = String(fileName || "").trim();
   if (!v) return "";
   const inFolder = v.match(/(?:^|\/)assets\/results\/(.+)$/); // path written by Pages CMS
   if (inFolder) v = inFolder[1];
   if (v.startsWith("/") || /^https?:\/\//.test(v)) return v; // older entries: a file in public/
-  const meta = byName.get(v.toLowerCase()) ?? (!/\.[a-z0-9]+$/i.test(v) ? byStem.get(v.toLowerCase()) : undefined);
+  const key = v.toLowerCase();
+  let meta = byPath.get(key) ?? byPath.get(`${treatmentId}/${key}`);
+  if (!meta && !key.includes("/")) {
+    const found = byFile.get(key) ?? [];
+    if (found.length === 1) meta = byPath.get(found[0]);
+    else if (found.length > 1)
+      throw new Error(
+        `Gallery results (src/data/results/): there's more than one photo called "${v}" (${found.join(", ")}). ` +
+          `Write the folder too, e.g. "${found[0]}".`,
+      );
+  }
   if (!meta) {
-    const here = folderFiles();
+    const inTreatment = folderFiles(treatmentId);
     const hint = /\.(heic|heif)$/i.test(v)
       ? " iPhone HEIC photos can't be shown on websites: export or save it as a JPG first."
-      : here.length
-        ? ` The photos in that folder are: ${here.join(", ")}.`
-        : " That folder is empty.";
-    throw new Error(`Gallery results (src/data/results/): can't find the photo "${v}" in ${FOLDER}/.${hint}`);
+      : inTreatment.length
+        ? ` The photos in ${FOLDER}/${treatmentId}/ are: ${inTreatment.join(", ")}.`
+        : ` Check the spelling, and write the folder too if it's in one (e.g. "five-element-2026-11/before.jpg").`;
+    throw new Error(`Gallery results (src/data/results/): can't find the photo "${v}".${hint}`);
   }
   const img = await getImage({ src: meta, width: Math.min(width, meta.width), format: "webp" });
   return img.src;
@@ -131,9 +157,9 @@ export async function resolveResults(raw: RawResult[] = []) {
         category,
         alt: r.alt?.trim() || `Client before and after ${t.name}`,
         single,
-        beforeSrc: show && !single ? await photo(r.before, 800) : "",
-        afterSrc: show && !single ? await photo(r.after, 800) : "",
-        imageSrc: show && single ? await photo(r.image, 1600) : "",
+        beforeSrc: show && !single ? await photo(r.before, 800, t.id) : "",
+        afterSrc: show && !single ? await photo(r.after, 800, t.id) : "",
+        imageSrc: show && single ? await photo(r.image, 1600, t.id) : "",
         // Photos were added but consent isn't confirmed yet: the placeholder says so.
         awaiting: !show && !!(r.before || r.after || r.image),
       };
