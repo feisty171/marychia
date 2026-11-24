@@ -164,7 +164,7 @@ favourites:
     - "five-element-body-wellness"
 
 # First-visit band, right under "Our clients' favourites": words over the studio photo
-# with a burgundy tint. The photo is 1280 x 560 and the band keeps that shape on wide screens.
+# (shown as it is, no tint). The photo is 1280 x 560 and the band keeps that shape on wide screens.
 # "Book my trial" uses bookingUrl in src/data/site.json. "Explore trial offers" opens the
 # treatment list on First trial prices. termsLink: the trial terms page; until it's a real
 # link, "Terms apply" shows as plain text. No guaranteed results (see CLAUDE.md).
