@@ -1,8 +1,8 @@
 {
   "treatment": "Five Element Body Wellness Therapy",
   "date": "2026-01-01",
-  "note": "[[CONFIRM: e.g. After 4 sessions]]",
-  "image": "",
-  "alt": "Client after Five Element Body Wellness Therapy",
-  "consent": false
+  "note": "After 1 session",
+  "before": "5elementswellness/5elementsbefore.png",
+  "after": "5elementswellness/5elementsafter.png",
+  "consent": true
 }
