@@ -267,10 +267,10 @@ experience:
   image2Alt: "The first Mary Chia Goldhill outlet"
   image2Caption: "First Goldhill outlet"
 
+# Client reviews, shown in the "Real results" section above (bottom row), with the trust
+# line under them. Use only real client reviews, each with the client's written permission.
+# Never write or paraphrase a review.
 testimonials:
-  eyebrow: "Kind words"
-  heading: "From our guests."
-  note: "[[CONFIRM: use only real client reviews, each with the client's written permission. Do not invent quotes.]]"
   # rating: the review's star rating (1-5) from Google. Stars only show once it's filled in.
   items:
     - quote: "[[CONFIRM: real testimonial about feeling relaxed and cared for]]"

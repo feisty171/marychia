@@ -51,7 +51,6 @@ const resultCards = ((gallery.results || []) as any[]).slice(0, h.results?.show 
 const stars = (n: any) => (typeof n === "number" && n >= 1 ? Math.min(5, Math.round(n)) : 0);
 // "Our story" heading: *words* in italic rose
 const [storyBefore, storyEm = "", storyAfter = ""] = (h.experience?.heading || "").split("*");
-const initials = (s: string) => (s.includes("[[") ? "?" : s.trim().charAt(0));
 // Hero headline: the *word* in asterisks shows in italic rose. Each word is wrapped
 // so it can slide up into place when the page opens (public/css/home.css, .ed-hero__w).
 // On wide screens the italic word starts the second line (.ed-hero__br).
@@ -268,6 +267,11 @@ const heroWords = h.hero.headline
               </li>
             ))}
           </ul>
+          {h.testimonials.trust?.length > 0 && (
+            <ul class="trust" data-reveal>
+              {h.testimonials.trust.map((t: string) => <li>{t}</li>)}
+            </ul>
+          )}
         </div>
       </section>
     )}
@@ -327,32 +331,6 @@ const heroWords = h.hero.headline
           )}
           <a class="h-textlink" href={h.experience.linkHref || "/about/"}>{h.experience.link} <span aria-hidden="true">→</span></a>
         </div>
-      </div>
-    </section>
-
-    <!-- ============ 3. SOCIAL PROOF ============ -->
-    <section class="h-section" id="reviews">
-      <div class="h-container">
-        <header class="h-head h-head--center" data-reveal>
-          <p class="eyebrow">{h.testimonials.eyebrow}</p>
-          <h2 class="h-title">{h.testimonials.heading}</h2>
-          {h.testimonials.note && <p class="h-note">{h.testimonials.note}</p>}
-        </header>
-        <ul class="reviews" data-reveal="stagger">
-          {h.testimonials.items.map((r) => (
-            <li class="review">
-              <svg class="review__mark" viewBox="0 0 32 24" aria-hidden="true"><path d="M0 24V14C0 6 4 1 12 0l1 4c-4 1-6 4-6 8h6v12H0zm19 0V14c0-8 4-13 12-14l1 4c-4 1-6 4-6 8h6v12H19z"/></svg>
-              <blockquote class="review__quote">{r.quote}</blockquote>
-              <footer class="review__who">
-                <span class="review__avatar" aria-hidden="true">{initials(r.name)}</span>
-                <span><strong>{r.name}</strong><br /><span class="review__treatment">{r.treatment}</span></span>
-              </footer>
-            </li>
-          ))}
-        </ul>
-        <ul class="trust">
-          {h.testimonials.trust.map((t) => <li>{t}</li>)}
-        </ul>
       </div>
     </section>
 
