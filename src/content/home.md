@@ -135,7 +135,7 @@ banner:
   # {count} = how many treatments are on the site. No guaranteed results (see CLAUDE.md).
   eyebrow: "Face · Body · Wellness"
   heading: "A little time, *just for you*."
-  text: "Explore {count} treatments, each one shaped around your skin, your body and how you want to feel."
+  text: "Every treatment is shaped around your skin, your body and how you want to feel."
   button: "View all treatments"
   buttonLink: "/rituals/"
 

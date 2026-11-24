@@ -9,7 +9,7 @@
 import { treatmentData as data } from "../lib/treatmentData";
 
 interface Props { compact?: boolean }
-// compact (Home): shorter landscape tiles with a 01/02/03 number, italic title and a short sentence
+// compact (Home): shorter landscape tiles with an italic title and a short sentence
 const { compact = false } = Astro.props;
 const DESC: Record<string, string> = {
   Face: "Facials for glow, lift and clarity, shaped around your skin.",
@@ -27,7 +27,7 @@ const tiles = ["Face", "Body", "Wellness"].map((c) => {
 });
 ---
 <div class:list={["tiles", { "tiles--compact": compact }]} id={compact ? undefined : "tiles"} data-reveal="stagger">
-  {tiles.map((t, i) => (
+  {tiles.map((t) => (
     <a class:list={["tile", { "is-ph": !t.img }]} href={`/rituals/?area=${t.c.toLowerCase()}`} data-cat={t.c}
        aria-label={`Show ${t.c} treatments: ${t.count} treatments${t.from ? `, from ${t.from}` : ""}`}>
       <div class="media">
@@ -35,7 +35,6 @@ const tiles = ["Face", "Body", "Wellness"].map((c) => {
           ? <img src={t.img} alt={`${t.c} treatments`} loading="lazy" decoding="async" />
           : <div class="ph" data-cat={t.c} aria-hidden="true"><div class="ph-inner"><span class="ph-hint">Tile · 700 × 840</span></div></div>}
       </div>
-      {compact && <span class="tile-num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>}
       <div class="tile-label">
         <div class="tile-text">
           <h3>{t.c}</h3>
