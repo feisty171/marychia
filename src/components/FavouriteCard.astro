@@ -1,0 +1,35 @@
+---
+/**
+ * Home "Our clients' favourites" card: photo, area, name, one line, "60 min · from S$89",
+ * and two buttons: Book (WhatsApp studio picker) and Details (the treatment in the list).
+ * Everything comes from the treatment list (src/data/treatment-menu.json, built from the
+ * menu workbook), so names and prices always match the Rituals page.
+ * Pick which treatments show in src/content/home.md → favourites.items.
+ * Styles: .fav-* in public/css/home.css. Booking: public/js/treatment-cards.js + BookingSheet.astro.
+ */
+interface Props { t: any; index?: number; bookLabel: string; detailsLabel: string; }
+const { t, index = 0, bookLabel, detailsLabel } = Astro.props;
+const money = (n: number) => "S$" + n.toLocaleString("en-SG");
+const src = !t.image ? "" : t.image.startsWith("/") ? t.image : "/images/treatments/" + t.image;
+const mins = (t.minutes || []).length ? `${Math.min(...t.minutes)} min` : "";
+const price = t.from != null ? `from ${money(t.from)}` : t.priceText;
+const meta = [mins, price].filter(Boolean).join(" · ");
+const details = `/rituals/?q=${encodeURIComponent(t.name)}`;
+---
+<article class="fav-card" style={`--i:${index}`} data-id={t.id} data-name={t.name}>
+  <a class="fav-card__media" href={details} tabindex="-1" aria-hidden="true">
+    {src
+      ? <img src={src} alt="" loading="lazy" decoding="async" />
+      : <div class="ph" data-cat={t.category}><div class="ph-inner"><span class="ph-hint">Photo · 1200 × 900</span></div></div>}
+  </a>
+  <div class="fav-card__body">
+    <p class="fav-card__cat">{t.category}</p>
+    <h3 class="fav-card__name">{t.name}</h3>
+    <p class="fav-card__line">{t.description || t.for}</p>
+    {meta && <p class="fav-card__meta">{meta}</p>}
+    <div class="fav-card__actions">
+      <button type="button" class="fav-btn fav-btn--book js-book">{bookLabel}</button>
+      <a class="fav-btn fav-btn--details" href={details}>{detailsLabel}<span class="visually-hidden">: {t.name}</span></a>
+    </div>
+  </div>
+</article>

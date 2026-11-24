@@ -482,5 +482,8 @@ addEventListener("hashchange", () => {
 const startArea = areaFromUrl();
 setArea(startArea, { silent: !location.hash });
 if (location.hash && startArea !== "All") writeUrl(); // turn an old #face link into ?area=face
+// ?q=… opens the list already searched (used by the Home "Details" buttons)
+const startQ = new URLSearchParams(location.search).get("q");
+if (startQ) { search.value = startQ; $("#clearSearch").classList.add("show"); state.q = startQ.trim(); update(true); }
 
 } // end: treatment list

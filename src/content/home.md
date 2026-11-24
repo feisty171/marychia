@@ -138,7 +138,26 @@ banner:
 #          portrait about 800 x 1000), or "" for a placeholder
 #   link: the product page. Until it's a real URL, the card says "Coming soon".
 # Only real products and prices from marketing. No medical claims or guaranteed results (see CLAUDE.md).
+# "Our clients' favourites": treatment cards below the ad banner. Each card's name, photo,
+# one-line description, time and "from" price come from the treatment list (the menu workbook),
+# so they always match the Rituals page. List the treatments by their ID from the workbook
+# (see src/data/treatment-menu.json). Four works best (four across on wide screens).
+# The *word in asterisks* in the heading shows in italic rose.
+favourites:
+  eyebrow: "Signature treatments"
+  heading: "Our clients' *favourites*"
+  allLink: "View all {count} treatments"   # {count} = how many treatments are on the site
+  bookButton: "Book"
+  detailsButton: "Details"
+  items:
+    - "hydration-booster-facial"
+    - "lemongrass-lymphatic"
+    - "classic-coffee-drainage"
+    - "five-element-body-wellness"
+
+# Products ("Take the care home"). Hidden for now: set show to true to bring the Shop section back.
 products:
+  show: false
   eyebrow: "Shop"
   heading: "Take the care home."
   intro: "Studio favourites to keep your skin and body feeling cared for between visits."

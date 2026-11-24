@@ -16,7 +16,7 @@ Static site built with [Astro](https://astro.build). No CMS, no database. The ma
 
 | What | File |
 |---|---|
-| Home page words and photos (hero eyebrow, headline, paragraph, buttons and its photo; the Key figures band right under the hero (`stats:`); "Find a treatment" heading over the Face/Body/Wellness tiles, plus the hidden signature list (`services:`); ad banner below them (`banner:`, placeholder until an image is set); products below the banner (`products:`, a "shelf" design via `src/components/ProductCard.astro`, styles `.shop-*`; the nav "Shop" link jumps here); experience, reviews, first-visit offer, visit info, final CTA) | `src/content/home.md` |
+| Home page words and photos (hero eyebrow, headline, paragraph, buttons and its photo; the Key figures band right under the hero (`stats:`); "Find a treatment" heading over the Face/Body/Wellness tiles, plus the hidden signature list (`services:`); ad banner below them (`banner:`, placeholder until an image is set); "Our clients' favourites" cards below the banner (`favourites:`, `src/components/FavouriteCard.astro`, styles `.fav-*`); the Shop section (`products:`, hidden with `show: false`; a "shelf" design via `src/components/ProductCard.astro`, styles `.shop-*`; the nav "Shop" link points to it); experience, reviews, first-visit offer, visit info, final CTA) | `src/content/home.md` |
 | About Us page words (heritage opening, timeline milestones + photos, vision & mission, SEO title/description) | `src/content/about.md` |
 | Contact Us page words (Our Location, Feedback/Enquiry form topics) | `src/content/contact.md` |
 | Career page words (/careers/: intro, roles, how to apply) | `src/content/careers.md` |
@@ -136,6 +136,11 @@ The Home page is an editorial layout. Words and photos are in `src/content/home.
 - **Story section:** a big photo (`experience: image`) with a small "polaroid" photo overlapping it (`image2`, `image2Caption`; leave `image2` empty to hide it).
 - **Guided scroll (wide screens, 1100px+):** one scroll down (mouse, trackpad or arrow / Page Down / space keys) from the hero fades the page out and back in with the Key figures band just under the menu and Signature treatments below it (or, if the band is hidden, the Signature heading just under the menu); one scroll up from there fades back to the top (veil: `.page-fade` in `home.css`). Phones, tablets and "reduce motion" keep normal scrolling. Settings (`HEADER`, `GAP`) under "Guided scroll" in `public/js/home.js`.
 - **Scroll reveal:** add `data-reveal` to an element to fade it up as it reaches the screen (`data-reveal="stagger"` brings its children in one by one, `"wipe"` opens the banner like a curtain); `data-speed="0.1"` makes a photo drift. Visitors with "reduce motion" on see everything still.
+
+### Home page "Our clients' favourites"
+Below the ad banner (where the Shop section was): "Signature treatments / Our clients' *favourites*" with a "View all N treatments →" link to `/rituals/` (N is counted automatically), then four cards. Edit `favourites:` in `src/content/home.md`: `eyebrow`, `heading` (`*asterisks*` = italic rose), `allLink` (`{count}` = number of treatments), button labels, and `items:`, a list of treatment IDs from the menu workbook (see `src/data/treatment-menu.json`). Each card's photo, area, name, one line (Description, or "For you if…"), time and "from" price come from the treatment list, so they always match the Rituals page. **Book** opens the WhatsApp studio picker; **Details** opens `/rituals/?q=<name>`, the list already searched for that treatment. Cards: `src/components/FavouriteCard.astro`; styles: "Clients' favourites" in `public/css/home.css`.
+
+The Shop section ("Take the care home", `products:`) is hidden (`show: false`); set `show: true` to bring it back.
 
 ### Testimonials
 In `src/content/home.md`, under `testimonials:` → `items:`. **Only real client reviews with the client's written permission.** Never write or paraphrase a review. Replace every `[[CONFIRM...]]` in a review together (quote, name, treatment).

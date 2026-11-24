@@ -9,6 +9,8 @@ import Footer from "../components/Footer.astro";
 import SignatureCard from "../components/SignatureCard.astro";
 import CategoryTiles from "../components/CategoryTiles.astro";
 import ProductCard from "../components/ProductCard.astro";
+import FavouriteCard from "../components/FavouriteCard.astro";
+import { treatmentData } from "../lib/treatmentData";
 import BookingSheet from "../components/BookingSheet.astro";
 import treatmentsData from "../data/treatments.json";
 import site from "../data/site.json";
@@ -19,6 +21,11 @@ import { tel, waHref, realUrl } from "../lib/links";
 const siteWa = waHref(site.whatsappUrl);
 // "Book your escape": WhatsApp once the number is confirmed, otherwise the studio list
 const bookHref = siteWa ?? "#visit";
+// "Our clients' favourites": treatments picked by ID in home.md, details from the treatment list
+const favs = (h.favourites?.items || [])
+  .map((id: string) => treatmentData.treatments.find((t: any) => t.id === id))
+  .filter(Boolean);
+const [favBefore, favEm = "", favAfter = ""] = (h.favourites?.heading || "").split("*");
 const initials = (s: string) => (s.includes("[[") ? "?" : s.trim().charAt(0));
 // Hero headline: the *word* in asterisks shows in italic rose. Each word is wrapped
 // so it can slide up into place when the page opens (public/css/home.css, .ed-hero__w).
@@ -138,8 +145,30 @@ const heroWords = h.hero.headline
       </div>
     </section>
 
+    <!-- ============ OUR CLIENTS' FAVOURITES (src/content/home.md → favourites) ============
+         Cards: src/components/FavouriteCard.astro. Styles: "Clients' favourites" in public/css/home.css. -->
+    {favs.length > 0 && (
+      <section class="h-section h-section--tint fav" id="favourites">
+        <div class="h-container">
+          <header class="fav-head" data-reveal>
+            <div>
+              <p class="eyebrow">{h.favourites.eyebrow}</p>
+              <h2 class="h-title">{favBefore}{favEm && <em>{favEm}</em>}{favAfter}</h2>
+            </div>
+            <a class="h-textlink" href="/rituals/">{h.favourites.allLink.replace("{count}", String(treatmentData.treatments.length))} <span aria-hidden="true">→</span></a>
+          </header>
+          <div class:list={["tp", "tp--embed", { "show-hints": treatmentsData.config.showPlaceholderHints }]}>
+            <div class="fav-grid" data-reveal="stagger">
+              {favs.map((t: any, i: number) => <FavouriteCard t={t} index={i} bookLabel={h.favourites.bookButton} detailsLabel={h.favourites.detailsButton} />)}
+            </div>
+            {!h.services.showList && <BookingSheet />}
+          </div>
+        </div>
+      </section>
+    )}
+
     <!-- ============ PRODUCTS (src/content/home.md → products; nav "Shop" links here) ============ -->
-    <section class="h-section" id="shop">
+    {h.products.show && <section class="h-section" id="shop">
       <div class="h-container">
         <header class="h-split-head" data-reveal>
           <div>
@@ -159,12 +188,12 @@ const heroWords = h.hero.headline
           </div>
         )}
       </div>
-    </section>
+    </section>}
 
     <!-- ============ 2. EXPERIENCE & STORY (editorial) ============
          Words and photos: src/content/home.md → experience. The two photos drift at
          different speeds as you scroll ([data-speed], public/js/home.js). -->
-    <section class="h-section h-section--tint story" id="experience">
+    <section class="h-section story" id="experience">
       <div class="h-container story__grid">
         <div class="story__media">
           <figure class="story__main" data-speed="-0.06">

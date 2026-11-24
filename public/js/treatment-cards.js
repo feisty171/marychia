@@ -4,7 +4,7 @@
 (function () {
   "use strict";
   var sheet = document.getElementById("bookSheet");
-  var cards = document.querySelectorAll(".sig-row[data-name], .tp .card[data-name]");
+  var cards = document.querySelectorAll(".sig-row[data-name], .fav-card[data-name], .tp .card[data-name]");
   if (!cards.length) return;
 
   var esc = function (s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
