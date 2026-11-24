@@ -238,34 +238,21 @@ products:
       imageAlt: "Organica Repair+ Skin Rescue Concentrate box"
       link: "[[CONFIRM: product page link]]"
 
-# "Our story": archive photo on the left; on the right the story, a row of milestones and a
-# link to the About page. *asterisks* in the heading = italic rose.
-# Milestones come from the About timeline (src/content/about.md). Never add finances, share
-# price or listing status here: the SGX line is only allowed in the Key figures band (CLAUDE.md).
+# "Our story": archive photo on the left; on the right the story and a link to the About page.
+# *asterisks* in the heading = italic rose. An optional row of milestones can be added as
+# milestones: (year, label); never add finances, share price or listing status (CLAUDE.md).
 experience:
   eyebrow: "Our story"
   heading: "It began with *one beauty kit*."
   paragraphs:
     - "Long before there was a Mary Chia shop, there was Mary. She sewed wedding gowns until brides began asking her to do their make-up too. She had no shop and no savings, so she carried her kit from home to home, one facial at a time. In 1984 she opened a 300 sq ft shop in Tanjong Katong, and soon women were queuing from 7am. More than 300,000 clients later, everyone who walks through our doors is still treated as a friend."
-  milestones:
-    - year: "1984"
-      label: "First shop, Tanjong Katong"
-    - year: "1989"
-      label: "First beauty & slimming centre"
-    - year: "2007"
-      label: "Singapore Prestige Brand Award"
-    - year: "Today"
-      label: "3 studios"
   link: "Read our story"
   linkHref: "/about/"
   image: "/images/heritage/tanjong-katong-1984.webp"
-  imageAlt: "Six Mary Chia beauticians in white uniforms outside the Tanjong Katong outlet on its opening day, with flowers and an Opening Now banner"
-  caption: "Tanjong Katong outlet, 1984"
-  # Small photo overlapping the big one, bottom right. Leave image2 "" until the photo is
-  # ready: a labelled placeholder shows while showPlaceholderHints is on (treatments.json).
-  image2: ""
-  image2Alt: "The first Mary Chia Goldhill outlet"
-  image2Caption: "First Goldhill outlet"
+  imageAlt: "Six Mary Chia beauticians in white uniforms outside the Tanjong Katong shop on its opening day, with flowers and an Opening Now banner"
+  caption: "Tanjong Katong shop, 1984"
+  # Optional small photo overlapping the big one, bottom right: add image2 (path),
+  # image2Alt and image2Caption to show it.
 
 # Client reviews, shown in the "Real results" section above (bottom row), with the trust
 # line under them. Use only real client reviews, each with the client's written permission.

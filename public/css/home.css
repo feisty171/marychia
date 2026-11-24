@@ -575,7 +575,8 @@ a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset
    heading, story, a hairline, a row of milestones and "Read our story". */
 .story { background: var(--white); }
 .story__grid { display: grid; gap: 40px; }
-.story__media { position: relative; padding: 0 0 48px; }
+.story__media { position: relative; }
+.story__media:has(.story__inset) { padding-bottom: 48px; }
 .story__photo { position: relative; margin: 0; aspect-ratio: 3 / 2; overflow: hidden; background: var(--tint); }
 .story__photo img { width: 100%; height: 100%; object-fit: cover; }
 .story__photo figcaption {
@@ -616,7 +617,8 @@ a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset
   color: var(--ink-soft);
 }
 .story__title em { font-style: italic; color: var(--rose); }
-.story__copy .h-body { margin-bottom: 0; }
+.story__copy .h-body { margin-bottom: 28px; }
+.story__miles + .h-textlink, .story__copy .h-body + .h-textlink { margin-top: 0; }
 .story__miles {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
