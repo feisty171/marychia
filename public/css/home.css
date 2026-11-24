@@ -884,3 +884,17 @@ a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset
 .motion [data-reveal="wipe"] .h-banner__frame img { scale: 1.15; transition: scale 1.8s cubic-bezier(.2, .7, .2, 1); }
 .motion [data-reveal="wipe"].is-in .h-banner__frame { clip-path: inset(0 0 0 0 round 16px); }
 .motion [data-reveal="wipe"].is-in .h-banner__frame img { scale: 1; }
+
+/* Guided scroll (public/js/home.js): a cream veil that fades in, then out on the new spot.
+   Sits under the menu so the menu stays put. */
+.page-fade {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: var(--blush);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .65s ease;
+}
+.page-fade.is-on { opacity: 1; transition-duration: .42s; }
+

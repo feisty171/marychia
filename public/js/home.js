@@ -53,8 +53,8 @@
 
   /* ---- Guided scroll: hero → Signature treatments ----
      On wide screens (1100px+, where the hero fits one screen), one scroll down from the hero
-     glides the page so the Signature treatments heading sits just under the menu, with the
-     whole section in view. One scroll up from that point glides back to the top.
+     fades the page out and back in on Signature treatments, with its heading just under the
+     menu and the whole section in view. One scroll up from that point fades back to the top.
      Phones and tablets, and "reduce motion", keep normal scrolling. */
   var services = document.getElementById("services");
   var servicesHead = services && services.querySelector(".h-split-head");
@@ -69,20 +69,26 @@
       var pad = parseFloat(getComputedStyle(services).paddingTop) || 0;
       return Math.round(services.getBoundingClientRect().top + window.scrollY + pad - HEADER - GAP);
     };
-    var ease = function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+    // A soft cream veil fades in over the page, the page moves while it's covered,
+    // then the veil fades away to reveal the new spot (styles: .page-fade in home.css).
+    var veil = document.createElement("div");
+    veil.className = "page-fade";
+    veil.setAttribute("aria-hidden", "true");
+    document.body.appendChild(veil);
+    var FADE_OUT = 420, FADE_IN = 650;   // ms; keep in step with .page-fade in home.css
     var glide = function (to) {
-      var from = window.scrollY, dist = to - from;
-      if (Math.abs(dist) < 4) return;
+      if (Math.abs(to - window.scrollY) < 4) return;
       busy = true;
-      var t0 = null, dur = Math.min(1300, Math.max(800, Math.abs(dist) * 0.9));
-      root.style.scrollBehavior = "auto";
-      requestAnimationFrame(function step(ts) {
-        if (!t0) t0 = ts;
-        var p = Math.min(1, (ts - t0) / dur);
-        window.scrollTo(0, from + dist * ease(p));
-        if (p < 1) requestAnimationFrame(step);
-        else { busy = false; quietUntil = Date.now() + 600; root.style.scrollBehavior = ""; }
-      });
+      veil.classList.add("is-on");
+      setTimeout(function () {
+        root.style.scrollBehavior = "auto";
+        window.scrollTo(0, to);
+        root.style.scrollBehavior = "";
+        requestAnimationFrame(function () {
+          veil.classList.remove("is-on");
+          setTimeout(function () { busy = false; quietUntil = Date.now() + 300; }, FADE_IN);
+        });
+      }, FADE_OUT);
     };
     // which way a scroll should glide from here: "down", "up" or null (normal scrolling)
     var glideFor = function (down) {
