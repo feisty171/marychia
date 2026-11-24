@@ -58,7 +58,7 @@
     var setFade = function () {
       fadeTicking = false;
       var h = opening.offsetHeight || 1;
-      var p = Math.min(1, Math.max(0, window.scrollY / (h * 0.85)));
+      var p = Math.min(1, Math.max(0, window.scrollY / h)); // same pace as the Home hero
       opening.style.setProperty("--hp", p.toFixed(3));
     };
     window.addEventListener("scroll", function () {

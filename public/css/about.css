@@ -20,10 +20,11 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  background: var(--dark);
+  background: var(--blush); /* what the photo fades into, as on the Home hero */
   --hp: 0; /* scroll progress through the hero, 0 → 1 (set by public/js/about.js) */
 }
-/* Photo (set in src/content/about.md → hero.image). Drifts and zooms gently as you scroll. */
+/* Photo (set in src/content/about.md → hero.image). As on the Home hero (.hero::before in
+   style.css): as you scroll it fades into the page, drifts down and zooms in slightly. */
 .heritage-opening__photo {
   position: absolute;
   inset: 0;
@@ -32,27 +33,21 @@
   height: 100%;
   object-fit: cover;
   object-position: 62% 70%;
-  transform: translate3d(0, calc(var(--hp) * 60px), 0) scale(calc(1.04 + var(--hp) * .08));
-  will-change: transform;
+  opacity: calc(1 - var(--hp) * .9);
+  transform: translate3d(0, calc(var(--hp) * 18%), 0) scale(calc(1.04 + var(--hp) * .06));
+  transform-origin: center top;
+  will-change: opacity, transform;
 }
-/* Scrims that keep the white text readable */
+/* Scrims that keep the white text readable. They fade out with the photo. */
 .heritage-opening::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
+  opacity: calc(1 - var(--hp) * .9);
   /* Phones: the text covers most of the photo, so the overlay is deeper (the 1994 photo is bright) */
   background:
     linear-gradient(0deg, rgba(var(--shade), .88) 0%, rgba(var(--shade), .7) 45%, rgba(var(--shade), .62) 78%, rgba(var(--shade), .7) 100%);
-}
-/* Fade into the page as you scroll down to "Our history": the whole opening dissolves into the blush background */
-.heritage-opening__veil {
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  pointer-events: none;
-  background: var(--blush);
-  opacity: calc(var(--hp) * var(--hp) * .95);
 }
 /* Soft bottom edge: as you scroll, the bottom of the opening melts into the page instead of ending in a hard line */
 .heritage-opening::after {
