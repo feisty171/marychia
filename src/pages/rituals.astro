@@ -1,8 +1,8 @@
 ---
 /**
- * Rituals page (/rituals/): "Our most-loved rituals" — the full signature treatment list
+ * Rituals page (/rituals/): the full treatment list. Hero words: "ritualsHero" in src/data/treatments.json
  * with search, Face/Body/Wellness filters, session picker and WhatsApp booking.
- * Links like /rituals/?area=face open it filtered (older /rituals/#face links still work). The Treatments page (/treatments/) links here.
+ * Links like /rituals/?area=face open it filtered (older /rituals/#face links still work). The menu's "Treatments" item links here.
  * Design: mary-chia-treatments-page.zip (scoped styles in public/css/treatments.css).
  * Treatment list, prices, concerns and collections: the menu workbook → `npm run build:treatments`
  *   → src/data/treatment-menu.json. Page settings, photos and PDF settings: src/data/treatments.json
@@ -33,7 +33,6 @@ const pageData = { ...data, studios };
   title="Our Most-Loved Rituals | Mary Chia Treatments"
   description="Browse Mary Chia's signature face, body and wellness treatments, choose your session and book on WhatsApp with the studio nearest you."
   current="treatments"
-  solidHeader
   bodyClass="page-rituals"
   styles={["treatments.css", "menu-viewer.css"]}
   scripts={["menu-viewer.js"]}
@@ -42,19 +41,14 @@ const pageData = { ...data, studios };
   <div class="tp" id="tp">
 <main>
 <!-- ======================= HEADING (photo: "siteImages" → "rituals" in src/data/treatments.json) ======================= -->
-<section class="rl-hero" style={data.siteImages.rituals ? `--rl-hero-img:url("${data.siteImages.rituals}")` : undefined}>
+<!-- Hero: heading and line centred over the photo (.tp-hero in public/css/treatments.css),
+     in the shorter band (.tp-hero--short).
+     Words: "ritualsHero" in src/data/treatments.json; photo: siteImages.rituals. -->
+<section class="tp-hero tp-hero--short" style={data.siteImages.rituals ? `--tp-hero-img:url("${data.siteImages.rituals}")` : undefined}>
   <div class="wrap">
-    <a class="back-link" href="/treatments/">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 12H5m5-5-5 5 5 5"/></svg>
-      Back to Treatments
-    </a>
-    <div class="section-head">
-      <div>
-        <p class="eyebrow">Signature selection</p>
-        <h1>Our most-loved rituals</h1>
-      </div>
-      <p>Choose your session, then book with the studio nearest you. Our therapists will tailor every treatment to you on the day.</p>
-    </div>
+    {data.ritualsHero.eyebrow && <p class="eyebrow">{data.ritualsHero.eyebrow}</p>}
+    <h1>{data.ritualsHero.heading}</h1>
+    {data.ritualsHero.text && <p class="hero-lede">{data.ritualsHero.text}</p>}
   </div>
 </section>
 

@@ -45,6 +45,11 @@
     var(--tp-hero-img,none) center / cover no-repeat,var(--dark)}
 .tp .tp-hero > .wrap{width:100%;display:flex;flex-direction:column;align-items:center;animation:rise .9s ease both .15s}
 @media (max-width:640px){.tp .tp-hero{background-position:center,center,35% center,center}}
+/* Shorter version (treatment list page): the same centred words over the photo, in the
+   shorter band the list page used before, with the photo framed a little lower (center 60%) */
+.tp .tp-hero--short h1,.tp .tp-hero--short .hero-lede{text-shadow:0 1px 14px rgba(var(--shade),.45)}
+.tp .tp-hero--short{aspect-ratio:auto;min-height:0;padding:calc(var(--header-h) + 36px) 0 clamp(44px,5vw,72px);background-position:center,center,center 60%,center}
+@media (max-width:960px){.tp .tp-hero--short{padding-top:calc(68px + 40px)}}
 .tp .tp-hero .btn-primary{background:var(--white);border-color:var(--white);color:var(--ink)}
 .tp .tp-hero .btn-primary:hover{background:transparent;border-color:var(--white);color:var(--white)}
 .tp .tp-hero .btn-ghost{border-color:rgba(255,255,255,.7);color:var(--white);background:rgba(255,255,255,.08);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
@@ -85,17 +90,6 @@
 /* Rituals page: the list is the first thing under the light header */
 .page-rituals .tp .menu-section{padding-top:40px}
 /* Rituals heading on the spa-room photo ("siteImages" → "rituals" in src/data/treatments.json) */
-.tp .rl-hero{position:relative;padding:calc(76px + 56px) 0 clamp(48px,6vw,80px);color:var(--white);
-  background:linear-gradient(90deg,rgba(var(--shade),.62) 0%,rgba(var(--shade),.42) 45%,rgba(var(--shade),.22) 100%),
-    linear-gradient(180deg,rgba(var(--shade),.35) 0%,rgba(var(--shade),0) 40%),
-    var(--rl-hero-img,none) center 60% / cover no-repeat,var(--dark)}
-.tp .rl-hero .section-head{margin-bottom:0}
-.tp .rl-hero .back-link{color:rgba(255,255,255,.85)}
-.tp .rl-hero .back-link:hover{color:var(--white)}
-.tp .rl-hero .eyebrow{color:var(--blush)}
-.tp .rl-hero .section-head h1{color:var(--white)}
-.tp .rl-hero .section-head p{color:rgba(255,255,255,.9)}
-@media (max-width:960px){.tp .rl-hero{padding-top:calc(68px + 40px)}}
 /* Rituals page: "Back to Treatments" link above the heading */
 .tp .back-link{display:inline-flex;align-items:center;gap:10px;margin-bottom:28px;font-size:var(--fs-caption);font-weight:500;letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--ink-soft);transition:color .2s ease}
 .tp .back-link svg{width:18px;height:18px;transition:transform .2s ease}
@@ -271,39 +265,36 @@ to{opacity:1;transform:none}
 }
 .tp .card-media{aspect-ratio:4/3}
 .tp .card:hover .card-media img{transform:scale(1.045)}
-.tp .card-body{display:flex;flex-direction:column;flex:1;padding:20px 22px 22px}
-.tp .card-top{position:absolute;top:14px;left:14px;right:14px;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:8px}
-.tp .card-top .badge,.tp .card-top .tag{background:rgba(255,255,255,.88);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-radius:999px;padding:5px 11px}
-.tp .card-top .tag{border-color:transparent}
 .tp .badge{display:inline-flex;align-items:center;gap:6px;font-size:var(--fs-label);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--ink-soft);font-weight:500}
 .tp .badge::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--dot,var(--rose-line))}
 .tp .badge[data-cat="Face"]{--dot:var(--rose-line)}
 .tp .badge[data-cat="Body"]{--dot:var(--ink-soft)}
 .tp .badge[data-cat="Wellness"]{--dot:var(--rose)}
 .tp .tag{font-size:var(--fs-label);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--rose);border:1px solid rgba(var(--rose-rgb),.28);border-radius:999px;padding:3px 10px;font-weight:500}
-.tp .card h3{font-family:var(--font-serif);font-weight:500;font-size:var(--fs-h3);line-height:1.15;color:var(--ink);margin:0 0 6px}
-.tp .card .for{font-family:var(--font-serif);font-style:italic;font-weight:500;font-size:var(--fs-h5);line-height:1.35;color:var(--ink-soft);margin:0 0 12px}
-.tp .card .desc{color:var(--ink-soft);margin:0 0 22px;font-size:var(--fs-text)}
-.tp .card-bottom{margin-top:auto;border-top:1px solid var(--line);padding-top:18px}
-/* Price as "from S$xx" (lowest option price), next to Book Now — cards and Spotlight */
-.tp .price-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
-.tp .from{display:flex;align-items:baseline;gap:6px;margin:0;font-size:var(--fs-caption);font-weight:500;letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--ink-soft)}
-.tp .from b{font-family:var(--font-serif);font-weight:500;font-size:var(--fs-h3);letter-spacing:0;text-transform:none;color:var(--rose);font-variant-numeric:lining-nums}
-.tp .card .btn{padding:11px 16px;font-size:var(--fs-label);white-space:nowrap}
-/* Narrow cards (4 across): smaller price so price + Book now stay on one line */
-.tp .card-body{container-type:inline-size}
+/* ---------- Standard treatment card (public/js/treatments.js → cardHTML) ----------
+   photo · title (2 lines kept) · description (exactly 3 lines kept, clamped) · divider ·
+   price block (two fixed rows) · Book Now. Every card in a row lines up. */
+.tp .card-body{display:flex;flex-direction:column;flex:1;padding:20px 22px 22px;container-type:inline-size}
+.tp .card h3{font-family:var(--font-serif);font-weight:500;font-size:var(--fs-h3);line-height:1.15;color:var(--ink);margin:0 0 10px;min-height:2.3em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tp .card .desc{margin:0 0 18px;font-size:var(--fs-text);line-height:1.6;color:var(--ink-soft);height:4.8em;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.tp .card-price{margin-top:auto;padding-top:16px;border-top:1px solid var(--line)}
+.tp .card-price__top{display:flex;align-items:center;justify-content:space-between;gap:8px;white-space:nowrap;min-height:26px;margin:0 0 6px;font-size:var(--fs-caption);font-weight:500;letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--ink-soft)}
+.tp .trial-pill{flex:none;padding:4px 10px;border-radius:999px;background:rgba(var(--rose-rgb),.1);color:var(--rose-deep);font-size:var(--fs-label);font-weight:600;letter-spacing:var(--tracking-ui)}
+.tp .trial-pill[data-empty]{visibility:hidden}
+.tp .card-price__amt{display:flex;align-items:baseline;gap:10px;min-height:44px;margin:0 0 18px}
+.tp .card-price__amt b{font-family:var(--font-serif);font-weight:500;font-size:var(--fs-h3-lg);line-height:1;color:var(--rose);font-variant-numeric:lining-nums}
+.tp .card-price__amt s{font-size:var(--fs-small);color:var(--ink-faint);font-variant-numeric:lining-nums}
+.tp .card-price__text{font-family:var(--font-serif);font-weight:500;font-size:var(--fs-h4);line-height:1.2;color:var(--rose)}
+.tp .card .btn{width:100%;justify-content:center;padding:14px 16px;font-size:var(--fs-label);white-space:nowrap}
+/* One card per row (phones): no need to keep a second title line */
+@media (max-width:640px){.tp .card h3{min-height:0}}
+/* Narrow cards (4 across on a laptop): slightly smaller type */
 @container (max-width:250px){
-  .tp .from{gap:4px;letter-spacing:var(--tracking-ui)}
-  .tp .from b{font-size:var(--fs-h4)}
-  .tp .card .btn{padding:10px 14px}
-}
-/* Narrowest cards (4 across on a laptop): smaller title, Book now full width under the price */
-@container (max-width:205px){
   .tp .card h3{font-size:var(--fs-h4)}
-  .tp .card .for{font-size:var(--fs-text)}
   .tp .card .desc{font-size:var(--fs-small)}
-  .tp .price-row{flex-direction:column;align-items:stretch;gap:12px}
-  .tp .card .btn{width:100%;justify-content:center}
+  .tp .card-price__top{font-size:var(--fs-label);letter-spacing:.08em}
+  .tp .trial-pill{padding:3px 8px;letter-spacing:.06em}
+  .tp .card-price__amt b{font-size:var(--fs-h3)}
 }
 /* "Show more" under the cards (12 at a time) */
 .tp .more-wrap{display:flex;justify-content:center;margin-top:40px}

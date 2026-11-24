@@ -1,5 +1,5 @@
 /* Mary Chia — shared by two pages (from mary-chia-treatments-page.zip):
-   - /treatments/  Face / Body / Wellness tiles that link to the list, plus the PDF menu links
+   - (the /treatments/ page was removed; the Face / Body / Wellness tiles are built by src/components/CategoryTiles.astro)
    - /rituals/     the treatment list: search, filters, session picker and WhatsApp booking sheet
    Each part only runs when its elements are on the page. */
 
@@ -302,25 +302,48 @@ function writeUrl() {
 }
 
 // ---------- Cards ----------
-// Cards show no sessions or durations. Price: "from S$xx" (worked out by the build script),
-// or the workbook's Price text (e.g. "Quoted per case") when there's no single price.
-const priceHTML = t => t.from != null ? `from <b>${fmt(t.from)}</b>` : `<b>${esc(t.priceText)}</b>`;
+// One standard card for every treatment (all filters, all screen sizes):
+//   photo · title · description (3 lines, space kept even when empty) · divider ·
+//   price block (row 1 "FROM · 60 MIN" + "FIRST TRIAL" pill; row 2 the price) · Book Now.
+// The price block always shows the shortest duration with the cheapest price:
+// the first-trial price if there is one (regular price crossed out next to it), otherwise
+// the regular "from" price; a price text (e.g. "Quoted per case") replaces the number.
+// Styles: ".tp .card" in public/css/treatments.css.
+const shortestMins = t => (t.minutes || []).length ? Math.min(...t.minutes) : null;
+const hasTrial = t => !t.priceText && t.trialPrice != null;
+function fromLine(t) {             // "From · 75 min", or just "From"
+  const m = shortestMins(t);
+  return m != null ? `From · ${m} min` : "From";
+}
+function priceBlockHTML(t) {
+  const trial = hasTrial(t);
+  let amount;
+  if (t.priceText) amount = `<span class="card-price__text">${esc(t.priceText)}</span>`;
+  else if (trial) amount = `<b>${fmt(t.trialPrice)}</b>${t.usualPrice != null && t.usualPrice > t.trialPrice ? ` <s aria-label="usual price ${fmt(t.usualPrice)}">${fmt(t.usualPrice)}</s>` : ""}`;
+  else amount = t.from != null ? `<b>${fmt(t.from)}</b>` : "";
+  return `
+    <div class="card-price">
+      <p class="card-price__top"><span>${esc(fromLine(t))}</span><span class="trial-pill"${trial ? "" : ' aria-hidden="true" data-empty'}>First trial</span></p>
+      <p class="card-price__amt">${amount}</p>
+    </div>`;
+}
+// The line used in the WhatsApp booking message, e.g. "first trial, from 75 min · S$69"
+function bookingLine(t) {
+  const m = shortestMins(t);
+  if (t.priceText) return m != null ? `from ${m} min · ${t.priceText}` : t.priceText;
+  const price = hasTrial(t) ? t.trialPrice : t.from;
+  const parts = [m != null ? `from ${m} min` : "from", price != null ? fmt(price) : ""].filter(Boolean);
+  return (hasTrial(t) ? "first trial, " : "") + (m != null ? parts.join(" · ") : parts.join(" "));
+}
 function cardHTML(t, i) {
   return `
   <article class="card" style="--i:${i}" data-id="${t.id}">
-    <div class="card-top">
-      <span class="badge" data-cat="${t.category}">${t.category}</span>
-      ${t.tag ? `<span class="tag">${esc(t.tag)}</span>` : ""}
-    </div>
     <div class="media card-media">${mediaHTML(treatmentSrc(t), t.category, t.name, "Photo · 1200 × 900")}</div>
     <div class="card-body">
-    <h3>${esc(t.name)}</h3>
-    <p class="for">${esc(t.for)}</p>
-    ${t.description ? `<p class="desc">${esc(t.description)}</p>` : ""}
-    <div class="card-bottom price-row">
-      <p class="from">${priceHTML(t)}</p>
+      <h3>${esc(t.name)}</h3>
+      <p class="desc">${esc(t.description || "")}</p>
+      ${priceBlockHTML(t)}
       <button type="button" class="btn btn-primary js-book" data-id="${t.id}">Book Now</button>
-    </div>
     </div>
   </article>`;
 }
@@ -444,10 +467,8 @@ function openSheet(id, trigger) {
   const t = TREATMENTS.find(x => x.id === id);
   lastFocus = trigger;
   $("#sheetTitle").textContent = t.name;
-  const msg = (studio) =>
-`Hi Mary Chia ${studio.name}! I'd like to book:
-• Treatment: ${t.name}
-Could you share your available slots? Thank you!`;
+  // e.g. "Hi Mary Chia, I would like to book Hydration Booster Facial (first trial, from 75 min · S$69) at Goldhill, Novena."
+  const msg = (studio) => `Hi Mary Chia, I would like to book ${t.name} (${bookingLine(t)}) at ${studio.name}.`;
   $("#studioList").innerHTML = STUDIOS.map(s => `
     <a class="studio" href="https://wa.me/${s.whatsapp}?text=${encodeURIComponent(msg(s))}" target="_blank" rel="noopener">
       <div><b>${esc(s.name)}</b><span>${esc(s.address)}</span></div>

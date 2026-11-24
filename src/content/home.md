@@ -13,7 +13,7 @@ hero:
   headline: "Every transformation is a *story* worth telling."
   text: "Tailored facials, body treatments and wellness rituals. Your therapist starts with a consultation, then builds a plan around your skin, body and goals."
   exploreButton: "Explore treatments"
-  exploreLink: "/treatments/"
+  exploreLink: "/rituals/"
   bookButton: "Book your first visit"
   # Photo behind the hero. It is always shown whole, never cropped: behind the words on
   # wide screens (the transparent menu sits on top of it), above the words on phones.
@@ -49,7 +49,7 @@ services:
   intro: "Face, body and wellness treatments, each one shaped around you."   # small line on the right
   button: "Book now"            # button on the right; uses bookingUrl in src/data/site.json ("" to hide)
   menuButton: "View All Treatments"   # shown under the tiles only while showList is true
-  menuLink: "/treatments/"
+  menuLink: "/rituals/"
   # The signature treatments list below the tiles. Hidden for now: set to true to show it again.
   showList: false
   # Editorial list: numbered rows (name, the short "for" line, "from S$xx" price, Book now).
@@ -121,7 +121,7 @@ services:
 # While "image" is empty, a placeholder shows the recommended size.
 #   image:   e.g. "/images/banners/your-banner.webp" (wide, about 1920 x 480; phones crop the sides)
 #   alt:     what the banner says or shows, for screen readers
-#   link:    where it goes when clicked, e.g. "/treatments/" (leave "" for no link)
+#   link:    where it goes when clicked, e.g. "/rituals/" (leave "" for no link)
 #   phoneFocus: which side to keep when phones crop the sides: "left", "center" or "right"
 #            (use the side the person or main message is on)
 # No before-and-after images or guaranteed results (see CLAUDE.md).
@@ -148,17 +148,16 @@ banner:
 #          portrait about 800 x 1000), or "" for a placeholder
 #   link: the product page. Until it's a real URL, the card says "Coming soon".
 # Only real products and prices from marketing. No medical claims or guaranteed results (see CLAUDE.md).
-# "Our clients' favourites": treatment cards below the ad banner. Each card's name, photo,
-# one-line description, time and "from" price come from the treatment list (the menu workbook),
-# so they always match the Rituals page. List the treatments by their ID from the workbook
+# "Our clients' favourites": treatment cards below the ad banner, identical to the cards on the
+# treatment list (/rituals/). Name, photo, description, duration and prices come from the menu
+# workbook, so they always match. List the treatments by their ID from the workbook
 # (see src/data/treatment-menu.json). Four works best (four across on wide screens).
 # The *word in asterisks* in the heading shows in italic rose.
 favourites:
   eyebrow: "Signature treatments"
   heading: "Our clients' *favourites*"
   allLink: "View all {count} treatments"   # {count} = how many treatments are on the site
-  bookButton: "Book"
-  detailsButton: "Details"
+  bookButton: "Book Now"
   items:
     - "hydration-booster-facial"
     - "lemongrass-lymphatic"

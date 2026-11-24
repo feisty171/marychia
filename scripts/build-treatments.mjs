@@ -8,7 +8,7 @@
 // - Rows with "Show on website" = No are skipped. "Internal note" columns are never read.
 // - Concern labels become concern ids via the Concerns tab. Concern 1 sets the Area.
 // - Tagline empty → the "For you if…" line of Concern 1.
-// - Description empty → "Helps with …" built from the treatment's concerns.
+// - Description: written in the workbook only (empty = empty; nothing is generated).
 // - "From" price: Price text if filled, else the first-trial price, else the lowest
 //   Session Options price, else the usual price.
 // - Image: the "Image file" column, else the photo listed for that treatment name under
@@ -127,8 +127,9 @@ for (const r of T.rows) {
   const minutes = opts.length ? [...new Set(opts.map((o) => o.minutes).filter((m) => m != null))] : duration != null ? [duration] : [];
   const from = priceText ? null : trialPrice != null ? trialPrice : opts.length ? Math.min(...opts.map((o) => o.price)) : usual;
 
-  // "Helps with …" when the Description is empty ("Just a good facial" isn't something a treatment helps with)
-  const helps = ids.filter((x) => x !== "facial").map((x) => lower(concerns.find((c) => c.id === x).label));
+  // Regular price (shown crossed out next to a first-trial price): the usual price, else the
+  // cheapest session option. Display only; nothing is calculated into the prices themselves.
+  const usualPrice = priceText ? null : usual != null ? usual : opts.length ? Math.min(...opts.map((o) => o.price)) : null;
 
   treatments.push({
     id,
@@ -137,12 +138,13 @@ for (const r of T.rows) {
     tag: text(g("Badge")),
     collection,
     for: text(g("Tagline")) || c1.forYou,
-    description: text(g("Description")) || (helps.length ? `Helps with ${listWords(helps)}.` : ""),
+    description: text(g("Description")),
     image: text(g("Image file")) || photos[name.toLowerCase()] || "",
     concerns: ids,
     from,
     priceText,
     trialPrice,
+    usualPrice,
     minutes,
   });
 }

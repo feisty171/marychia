@@ -13,19 +13,25 @@
     "Body": "/images/site/tile-body.webp",
     "Wellness": "/images/site/tile-wellness.webp"
   },
+  "ritualsHero": {
+    "_note": "Rituals page (/rituals/, the full treatment list) heading and the line beside it. Leave eyebrow \"\" for none.",
+    "eyebrow": "",
+    "heading": "Treatments",
+    "text": "Facials, body slimming and spa treatments shaped around you, with the warm care and proven technology we’ve been known for since 1984."
+  },
   "hero": {
-    "_note": "Treatments page (/treatments/) hero: the big heading and the line under it.",
+    "_note": "Not shown: the Treatments page (/treatments/) was removed. The treatment list hero words are in ritualsHero.",
     "heading": "Treatments",
     "text": "Facials, body slimming and spa treatments shaped around you, with the warm care and proven technology we’ve been known for since 1984."
   },
   "services": {
-    "_note": "Heading above the Face / Body / Wellness tiles on /treatments/. Put *asterisks* around words to show them in italic rose. Each tile's treatment count, starting price and peek list come from the treatments below automatically.",
+    "_note": "Not shown (the Treatments page was removed). Was: heading above the Face / Body / Wellness tiles on /treatments/. Put *asterisks* around words to show them in italic rose. Each tile's treatment count, starting price and peek list come from the treatments below automatically.",
     "eyebrow": "Find your ritual",
     "heading": "Explore our *services*",
     "lede": "Three ways to feel like you, each one personalised by our therapists."
   },
   "trending": {
-    "_note": "New & trending banners on /treatments/ (below the Face/Body/Wellness tiles). One wide banner on top (1920 x 480) and two half-width banners under it (960 x 480 each), in that order. image = a file path in public/images/banners/, or \"\" for a placeholder. Any words should be part of the image itself. alt = what the banner says or shows, for screen readers. link = where it goes when clicked, e.g. \"/rituals/?area=face\" (or \"\" for no link). Write the heading with *asterisks* around the words to show in italic rose. No before-and-after images or guaranteed results.",
+    "_note": "Not shown (the Treatments page was removed). Was: New & trending banners on /treatments/ (below the Face/Body/Wellness tiles). One wide banner on top (1920 x 480) and two half-width banners under it (960 x 480 each), in that order. image = a file path in public/images/banners/, or \"\" for a placeholder. Any words should be part of the image itself. alt = what the banner says or shows, for screen readers. link = where it goes when clicked, e.g. \"/rituals/?area=face\" (or \"\" for no link). Write the heading with *asterisks* around the words to show in italic rose. No before-and-after images or guaranteed results.",
     "eyebrow": "New & trending",
     "heading": "This season's *spotlight*",
     "lede": "New arrivals and the rituals our guests keep coming back for. Tap one to take a closer look.",

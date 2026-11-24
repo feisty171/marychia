@@ -197,7 +197,7 @@ const heroWords = h.hero.headline
     </section>
 
     <!-- ============ OUR CLIENTS' FAVOURITES (src/content/home.md → favourites) ============
-         Cards: src/components/FavouriteCard.astro. Styles: "Clients' favourites" in public/css/home.css. -->
+         Cards: src/components/FavouriteCard.astro, the same card as the treatment list (styles ".tp .card" in treatments.css). -->
     {favs.length > 0 && (
       <section class="h-section h-section--tint fav" id="favourites">
         <div class="h-container">
@@ -210,7 +210,7 @@ const heroWords = h.hero.headline
           </header>
           <div class:list={["tp", "tp--embed", { "show-hints": treatmentsData.config.showPlaceholderHints }]}>
             <div class="fav-grid" data-reveal="stagger">
-              {favs.map((t: any, i: number) => <FavouriteCard t={t} index={i} bookLabel={h.favourites.bookButton} detailsLabel={h.favourites.detailsButton} />)}
+              {favs.map((t: any, i: number) => <FavouriteCard t={t} index={i} bookLabel={h.favourites.bookButton} />)}
             </div>
             {!h.services.showList && <BookingSheet />}
           </div>

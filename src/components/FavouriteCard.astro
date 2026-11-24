@@ -1,35 +1,56 @@
 ---
 /**
- * Home "Our clients' favourites" card: photo, area, name, one line, "60 min · from S$89",
- * and two buttons: Book (WhatsApp studio picker) and Details (the treatment in the list).
- * Everything comes from the treatment list (src/data/treatment-menu.json, built from the
- * menu workbook), so names and prices always match the Rituals page.
+ * Home "Signature treatments / Our clients' favourites" card. It is the SAME card as the
+ * treatment list on /rituals/ (cardHTML() in public/js/treatments.js): same markup, same
+ * classes, same styles (".tp .card" in public/css/treatments.css), so the two always match.
+ * If you change one, change the other.
+ *   photo · title · description (3 lines kept) · divider · price block · Book Now
+ * Price block: row 1 "FROM · [shortest] MIN" + "FIRST TRIAL" pill (space kept when there's no
+ * trial); row 2 the trial price with the regular price crossed out, or the "from" price, or the
+ * price text. Data: src/data/treatment-menu.json (from the menu workbook).
  * Pick which treatments show in src/content/home.md → favourites.items.
- * Styles: .fav-* in public/css/home.css. Booking: public/js/treatment-cards.js + BookingSheet.astro.
+ * Book Now: WhatsApp studio picker (public/js/treatment-cards.js + BookingSheet.astro), with the
+ * same message as the treatment list, e.g. "(first trial, from 75 min · S$69)".
+ * Must sit inside an element with class "tp".
  */
-interface Props { t: any; index?: number; bookLabel: string; detailsLabel: string; }
-const { t, index = 0, bookLabel, detailsLabel } = Astro.props;
+interface Props { t: any; index?: number; bookLabel?: string }
+const { t, index = 0, bookLabel = "Book Now" } = Astro.props;
+
 const money = (n: number) => "S$" + n.toLocaleString("en-SG");
 const src = !t.image ? "" : t.image.startsWith("/") ? t.image : "/images/treatments/" + t.image;
-const mins = (t.minutes || []).length ? `${Math.min(...t.minutes)} min` : "";
-const price = t.from != null ? `from ${money(t.from)}` : t.priceText;
-const meta = [mins, price].filter(Boolean).join(" · ");
-const details = `/rituals/?q=${encodeURIComponent(t.name)}`;
+const shortest = (t.minutes || []).length ? Math.min(...t.minutes) : null;
+const trial = !t.priceText && t.trialPrice != null;
+const fromLine = shortest != null ? `From · ${shortest} min` : "From";
+const showUsual = trial && t.usualPrice != null && t.usualPrice > t.trialPrice;
+
+// Line for the WhatsApp booking message
+const bookPrice = trial ? t.trialPrice : t.from;
+const bookLine = t.priceText
+  ? (shortest != null ? `from ${shortest} min · ${t.priceText}` : t.priceText)
+  : (trial ? "first trial, " : "") + (shortest != null ? `from ${shortest} min` : "from") + (bookPrice != null ? (shortest != null ? " · " : " ") + money(bookPrice) : "");
 ---
-<article class="fav-card" style={`--i:${index}`} data-id={t.id} data-name={t.name}>
-  <a class="fav-card__media" href={details} tabindex="-1" aria-hidden="true">
+<article class="card" style={`--i:${index}`} data-id={t.id} data-name={t.name} data-line={bookLine}>
+  <div class="media card-media">
     {src
-      ? <img src={src} alt="" loading="lazy" decoding="async" />
-      : <div class="ph" data-cat={t.category}><div class="ph-inner"><span class="ph-hint">Photo · 1200 × 900</span></div></div>}
-  </a>
-  <div class="fav-card__body">
-    <p class="fav-card__cat">{t.category}</p>
-    <h3 class="fav-card__name">{t.name}</h3>
-    <p class="fav-card__line">{t.description || t.for}</p>
-    {meta && <p class="fav-card__meta">{meta}</p>}
-    <div class="fav-card__actions">
-      <button type="button" class="fav-btn fav-btn--book js-book">{bookLabel}</button>
-      <a class="fav-btn fav-btn--details" href={details}>{detailsLabel}<span class="visually-hidden">: {t.name}</span></a>
+      ? <img src={src} alt={t.name} loading="lazy" decoding="async" />
+      : <div class="ph" data-cat={t.category} aria-hidden="true"><div class="ph-inner"><span class="ph-hint">Photo · 1200 × 900</span></div></div>}
+  </div>
+  <div class="card-body">
+    <h3>{t.name}</h3>
+    <p class="desc">{t.description || ""}</p>
+    <div class="card-price">
+      <p class="card-price__top">
+        <span>{fromLine}</span>
+        {trial ? <span class="trial-pill">First trial</span> : <span class="trial-pill" aria-hidden="true" data-empty>First trial</span>}
+      </p>
+      <p class="card-price__amt">
+        {t.priceText
+          ? <span class="card-price__text">{t.priceText}</span>
+          : trial
+            ? <><b>{money(t.trialPrice)}</b>{showUsual && <> <s aria-label={`usual price ${money(t.usualPrice)}`}>{money(t.usualPrice)}</s></>}</>
+            : t.from != null && <b>{money(t.from)}</b>}
+      </p>
     </div>
+    <button type="button" class="btn btn-primary js-book">{bookLabel}</button>
   </div>
 </article>

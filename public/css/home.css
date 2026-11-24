@@ -327,86 +327,15 @@ sup { font-size: .55em; vertical-align: super; line-height: 0; }
 }
 
 /* ---------- Clients' favourites (src/components/FavouriteCard.astro) ----------
-   Heading left with "View all … treatments" on the right; four cards: photo on top, white
-   body with area, name, one line, time and price, then Book (rose) and Details (outline).
-   Four across on wide screens, two on tablets, one on phones. */
+   Heading left with "View all … treatments" on the right; four cards, identical to the
+   treatment list cards (".tp .card" in treatments.css). Four across on wide screens, two on
+   tablets, one on phones. */
 .fav-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 32px; margin-bottom: clamp(28px, 3vw, 44px); }
 .fav-head .h-title { margin: 0; }
 .fav-head .h-title em { font-style: italic; color: var(--rose); }
 .fav-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; }
-.fav-card {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  background: var(--white);
-  border-radius: 4px;
-  box-shadow: 0 14px 30px -26px rgba(var(--shade), .35);
-  transition: transform .4s cubic-bezier(.2, .7, .2, 1), box-shadow .4s ease;
-}
-.fav-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); }
-.fav-card__media { display: block; aspect-ratio: 5 / 4; overflow: hidden; background: var(--tint); }
-.fav-card__media img, .fav-card__media .ph { width: 100%; height: 100%; object-fit: cover; }
-.fav-card__media img { transition: transform .9s cubic-bezier(.2, .7, .2, 1); }
-.fav-card:hover .fav-card__media img { transform: scale(1.05); }
-.fav-card__body { display: flex; flex: 1; flex-direction: column; padding: clamp(1.25rem, 1.6vw, 2rem); }
-.fav-card__cat {
-  margin: 0 0 10px;
-  font-size: var(--fs-label);
-  font-weight: 600;
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--rose);
-}
-.fav-card__name {
-  margin: 0 0 10px;
-  font-family: var(--font-serif);
-  font-weight: 500;
-  font-size: var(--fs-h3);
-  line-height: 1.12;
-  color: var(--ink);
-}
-.fav-card__line {
-  margin: 0 0 12px;
-  font-size: var(--fs-text);
-  line-height: 1.6;
-  color: var(--ink-soft);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.fav-card__meta { margin: 0 0 20px; font-size: var(--fs-text); color: var(--ink); font-variant-numeric: lining-nums; }
-.fav-card__actions { display: flex; gap: 12px; margin-top: auto; }
-.fav-btn {
-  display: inline-flex;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  min-height: 48px;
-  padding: 0 20px;
-  border: 1px solid var(--rose-line);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--ink);
-  font: inherit;
-  font-size: var(--fs-ui);
-  font-weight: 500;
-  letter-spacing: var(--tracking-ui);
-  text-transform: uppercase;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background-color .25s ease, color .25s ease, border-color .25s ease;
-}
-.fav-btn--book { background: var(--rose); border-color: var(--rose); color: var(--white); }
-.fav-btn--book:hover { background: var(--rose-deep); border-color: var(--rose-deep); }
-.fav-btn--details:hover { border-color: var(--ink); background: var(--ink); color: var(--white); }
-.fav-btn:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
 @media (min-width: 641px) { .fav-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; } }
 @media (min-width: 1100px) { .fav-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; } }
-/* Between 1100 and 1360px the cards are narrow: tighter padding and buttons */
-@media (min-width: 1100px) and (max-width: 1360px) {
-  .fav-btn { padding: 0 12px; }
-}
 
 /* ---------- First-visit band (src/content/home.md → trial) ----------
    Studio photo (1280 × 560) as it is, no tint; words centred with a soft shadow. On wide screens the band

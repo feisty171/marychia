@@ -160,6 +160,7 @@
       "from": 69,
       "priceText": "",
       "trialPrice": 69,
+      "usualPrice": 189,
       "minutes": [
         75
       ]
@@ -179,6 +180,7 @@
       "from": 69,
       "priceText": "",
       "trialPrice": 69,
+      "usualPrice": 189,
       "minutes": [
         60
       ]
@@ -190,7 +192,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "Skin feels tight, flaky or tired, even with moisturiser",
-      "description": "Helps with dryness and acne & breakouts.",
+      "description": "",
       "image": "",
       "concerns": [
         "dry",
@@ -199,6 +201,7 @@
       "from": 380,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 380,
       "minutes": [
         60
       ]
@@ -210,7 +213,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "Skin feels tight, flaky or tired, even with moisturiser",
-      "description": "Helps with dryness.",
+      "description": "",
       "image": "oxy-4-step-deluxe.webp",
       "concerns": [
         "dry"
@@ -218,6 +221,7 @@
       "from": 490,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 490,
       "minutes": [
         60
       ]
@@ -238,6 +242,7 @@
       "from": 298,
       "priceText": "",
       "trialPrice": 298,
+      "usualPrice": 980,
       "minutes": [
         60
       ]
@@ -258,6 +263,7 @@
       "from": 599,
       "priceText": "",
       "trialPrice": 599,
+      "usualPrice": 980,
       "minutes": []
     },
     {
@@ -267,7 +273,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "Skin looks flat, grey or patchy and you want your glow back",
-      "description": "Helps with dullness and pigmentation & dark spots.",
+      "description": "",
       "image": "fairness-radiance-facial.webp",
       "concerns": [
         "dull",
@@ -276,6 +282,7 @@
       "from": 148,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 148,
       "minutes": [
         45
       ]
@@ -287,7 +294,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "For dullness and uneven-looking tone",
-      "description": "Helps with dullness.",
+      "description": "",
       "image": "classic-radiance-revival.webp",
       "concerns": [
         "dull"
@@ -295,6 +302,7 @@
       "from": 69,
       "priceText": "",
       "trialPrice": 69,
+      "usualPrice": 280,
       "minutes": [
         60
       ]
@@ -306,7 +314,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "Skin looks flat, grey or patchy and you want your glow back",
-      "description": "Helps with dullness.",
+      "description": "",
       "image": "dermabright-facial.webp",
       "concerns": [
         "dull"
@@ -314,6 +322,7 @@
       "from": 280,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 280,
       "minutes": [
         60
       ]
@@ -325,7 +334,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "Skin looks flat, grey or patchy and you want your glow back",
-      "description": "Helps with dullness and pores, scars & texture.",
+      "description": "",
       "image": "",
       "concerns": [
         "dull",
@@ -334,6 +343,7 @@
       "from": 390,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 390,
       "minutes": [
         60
       ]
@@ -354,6 +364,7 @@
       "from": 380,
       "priceText": "",
       "trialPrice": 380,
+      "usualPrice": 980,
       "minutes": [
         60
       ]
@@ -373,6 +384,7 @@
       "from": 69,
       "priceText": "",
       "trialPrice": 69,
+      "usualPrice": 189,
       "minutes": [
         60
       ]
@@ -384,7 +396,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "You get pimples, blackheads or oily, congested skin",
-      "description": "Helps with acne & breakouts.",
+      "description": "",
       "image": "hydro-h2o-6-in-1.webp",
       "concerns": [
         "acne"
@@ -392,6 +404,7 @@
       "from": 580,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 580,
       "minutes": [
         90
       ]
@@ -413,6 +426,7 @@
       "from": 298,
       "priceText": "",
       "trialPrice": 298,
+      "usualPrice": 980,
       "minutes": [
         60
       ]
@@ -424,7 +438,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "Your skin flushes easily, stings or feels irritated",
-      "description": "Helps with redness & sensitivity.",
+      "description": "",
       "image": "",
       "concerns": [
         "sensitive"
@@ -432,6 +446,7 @@
       "from": 280,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 280,
       "minutes": [
         60
       ]
@@ -443,7 +458,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "Your skin flushes easily, stings or feels irritated",
-      "description": "Helps with redness & sensitivity.",
+      "description": "",
       "image": "cryoboost-face-spa.webp",
       "concerns": [
         "sensitive"
@@ -451,6 +466,7 @@
       "from": 280,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 280,
       "minutes": [
         60
       ]
@@ -472,6 +488,7 @@
       "from": 2000,
       "priceText": "",
       "trialPrice": 2000,
+      "usualPrice": 4000,
       "minutes": []
     },
     {
@@ -490,6 +507,7 @@
       "from": null,
       "priceText": "Quoted per case",
       "trialPrice": 298,
+      "usualPrice": null,
       "minutes": []
     },
     {
@@ -507,6 +525,7 @@
       "from": 99,
       "priceText": "",
       "trialPrice": 99,
+      "usualPrice": 280,
       "minutes": [
         60
       ]
@@ -518,7 +537,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "For skin that looks less firm, and facial contour concerns",
-      "description": "Helps with sagging & firmness.",
+      "description": "",
       "image": "",
       "concerns": [
         "sagging"
@@ -526,6 +545,7 @@
       "from": 99,
       "priceText": "",
       "trialPrice": 99,
+      "usualPrice": 299,
       "minutes": [
         60
       ]
@@ -537,7 +557,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "Your jawline is softening or your face looks puffy or wider",
-      "description": "Helps with sagging & firmness.",
+      "description": "",
       "image": "",
       "concerns": [
         "sagging"
@@ -545,6 +565,7 @@
       "from": 298,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 298,
       "minutes": [
         20
       ]
@@ -556,7 +577,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "Your jawline is softening or your face looks puffy or wider",
-      "description": "Helps with sagging & firmness and fine lines & wrinkles.",
+      "description": "",
       "image": "venus-freeze-face.webp",
       "concerns": [
         "sagging",
@@ -565,6 +586,7 @@
       "from": 280,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 280,
       "minutes": [
         20,
         30,
@@ -580,7 +602,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "Your jawline is softening or your face looks puffy or wider",
-      "description": "Helps with sagging & firmness.",
+      "description": "",
       "image": "",
       "concerns": [
         "sagging"
@@ -588,6 +610,7 @@
       "from": 280,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 280,
       "minutes": [
         15,
         30,
@@ -601,7 +624,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "Your jawline is softening or your face looks puffy or wider",
-      "description": "Helps with sagging & firmness.",
+      "description": "",
       "image": "",
       "concerns": [
         "sagging"
@@ -609,6 +632,7 @@
       "from": 390,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 390,
       "minutes": [
         60
       ]
@@ -620,7 +644,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "Your jawline is softening or your face looks puffy or wider",
-      "description": "Helps with sagging & firmness.",
+      "description": "",
       "image": "",
       "concerns": [
         "sagging"
@@ -628,6 +652,7 @@
       "from": 390,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 390,
       "minutes": [
         60
       ]
@@ -639,7 +664,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "Your jawline is softening or your face looks puffy or wider",
-      "description": "Helps with sagging & firmness.",
+      "description": "",
       "image": "",
       "concerns": [
         "sagging"
@@ -647,6 +672,7 @@
       "from": 500,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 500,
       "minutes": [
         70
       ]
@@ -658,7 +684,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "For skin that needs a quick collagen boost",
-      "description": "Helps with sagging & firmness.",
+      "description": "",
       "image": "",
       "concerns": [
         "sagging"
@@ -666,6 +692,7 @@
       "from": 128,
       "priceText": "",
       "trialPrice": 128,
+      "usualPrice": 500,
       "minutes": [
         30
       ]
@@ -677,7 +704,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "For skin that needs a quick collagen boost",
-      "description": "Helps with sagging & firmness and fine lines & wrinkles.",
+      "description": "",
       "image": "",
       "concerns": [
         "sagging",
@@ -686,6 +713,7 @@
       "from": 128,
       "priceText": "",
       "trialPrice": 128,
+      "usualPrice": 500,
       "minutes": [
         30
       ]
@@ -705,6 +733,7 @@
       "from": 148,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 148,
       "minutes": [
         45
       ]
@@ -724,6 +753,7 @@
       "from": 189,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 189,
       "minutes": [
         60
       ]
@@ -735,7 +765,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "You have puffy eyes, eye bags, dark circles or screen strain",
-      "description": "Helps with tired eyes & dark circles.",
+      "description": "",
       "image": "",
       "concerns": [
         "eyes"
@@ -743,6 +773,7 @@
       "from": 99,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 99,
       "minutes": [
         40
       ]
@@ -754,7 +785,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "You have puffy eyes, eye bags, dark circles or screen strain",
-      "description": "Helps with tired eyes & dark circles.",
+      "description": "",
       "image": "",
       "concerns": [
         "eyes"
@@ -762,6 +793,7 @@
       "from": 159,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 159,
       "minutes": [
         45
       ]
@@ -773,7 +805,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "You have puffy eyes, eye bags, dark circles or screen strain",
-      "description": "Helps with tired eyes & dark circles.",
+      "description": "",
       "image": "",
       "concerns": [
         "eyes"
@@ -781,6 +813,7 @@
       "from": 159,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 159,
       "minutes": [
         25
       ]
@@ -792,7 +825,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "You have puffy eyes, eye bags, dark circles or screen strain",
-      "description": "Helps with tired eyes & dark circles.",
+      "description": "",
       "image": "",
       "concerns": [
         "eyes"
@@ -800,6 +833,7 @@
       "from": 189,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 189,
       "minutes": [
         15
       ]
@@ -811,7 +845,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "Your tummy, arms or thighs won't shift with diet and exercise",
-      "description": "Helps with stubborn fat.",
+      "description": "",
       "image": "",
       "concerns": [
         "fat"
@@ -819,6 +853,7 @@
       "from": 189,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 189,
       "minutes": [
         60
       ]
@@ -830,7 +865,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "Your tummy, arms or thighs won't shift with diet and exercise",
-      "description": "Helps with stubborn fat.",
+      "description": "",
       "image": "",
       "concerns": [
         "fat"
@@ -838,6 +873,7 @@
       "from": 189,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 189,
       "minutes": [
         60
       ]
@@ -849,7 +885,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "Your tummy, arms or thighs won't shift with diet and exercise",
-      "description": "Helps with stubborn fat.",
+      "description": "",
       "image": "",
       "concerns": [
         "fat"
@@ -857,6 +893,7 @@
       "from": 189,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 189,
       "minutes": [
         60
       ]
@@ -868,7 +905,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "Your tummy, arms or thighs won't shift with diet and exercise",
-      "description": "Helps with stubborn fat.",
+      "description": "",
       "image": "",
       "concerns": [
         "fat"
@@ -876,6 +913,7 @@
       "from": 189,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 189,
       "minutes": [
         75
       ]
@@ -887,7 +925,7 @@
       "tag": "",
       "collection": "Five Elements Wellness",
       "for": "Your tummy, arms or thighs won't shift with diet and exercise",
-      "description": "Helps with stubborn fat.",
+      "description": "",
       "image": "",
       "concerns": [
         "fat"
@@ -895,6 +933,7 @@
       "from": 380,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 380,
       "minutes": [
         60
       ]
@@ -906,7 +945,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "Your tummy, arms or thighs won't shift with diet and exercise",
-      "description": "Helps with stubborn fat.",
+      "description": "",
       "image": "",
       "concerns": [
         "fat"
@@ -914,6 +953,7 @@
       "from": 380,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 380,
       "minutes": [
         60
       ]
@@ -925,7 +965,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "Your tummy, arms or thighs won't shift with diet and exercise",
-      "description": "Helps with stubborn fat.",
+      "description": "",
       "image": "",
       "concerns": [
         "fat"
@@ -933,6 +973,7 @@
       "from": 490,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 490,
       "minutes": [
         60
       ]
@@ -944,7 +985,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "Your tummy, arms or thighs won't shift with diet and exercise",
-      "description": "Helps with stubborn fat.",
+      "description": "",
       "image": "",
       "concerns": [
         "fat"
@@ -952,6 +993,7 @@
       "from": 580,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 580,
       "minutes": [
         90
       ]
@@ -963,7 +1005,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "For cellulite and loose skin",
-      "description": "Helps with cellulite & loose skin.",
+      "description": "",
       "image": "",
       "concerns": [
         "cellulite"
@@ -971,6 +1013,7 @@
       "from": 288,
       "priceText": "",
       "trialPrice": 288,
+      "usualPrice": 280,
       "minutes": [
         60
       ]
@@ -982,7 +1025,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "You have dimpled thighs or loose skin after weight loss or pregnancy",
-      "description": "Helps with cellulite & loose skin.",
+      "description": "",
       "image": "lpg-body.webp",
       "concerns": [
         "cellulite"
@@ -990,6 +1033,7 @@
       "from": 280,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 280,
       "minutes": [
         15,
         30,
@@ -1003,7 +1047,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "You have dimpled thighs or loose skin after weight loss or pregnancy",
-      "description": "Helps with cellulite & loose skin.",
+      "description": "",
       "image": "",
       "concerns": [
         "cellulite"
@@ -1011,6 +1055,7 @@
       "from": 280,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 280,
       "minutes": [
         20,
         30,
@@ -1026,7 +1071,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "For a tired, sluggish, puffy body",
-      "description": "Helps with bloating & water retention.",
+      "description": "",
       "image": "lemongrass-lymphatic.webp",
       "concerns": [
         "bloat"
@@ -1034,6 +1079,7 @@
       "from": 89,
       "priceText": "",
       "trialPrice": 89,
+      "usualPrice": 280,
       "minutes": [
         60
       ]
@@ -1045,7 +1091,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "You feel puffy or sluggish, with swollen ankles or heavy legs",
-      "description": "Helps with bloating & water retention.",
+      "description": "",
       "image": "",
       "concerns": [
         "bloat"
@@ -1053,6 +1099,7 @@
       "from": 280,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 280,
       "minutes": [
         60
       ]
@@ -1064,7 +1111,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "You feel puffy or sluggish, with swollen ankles or heavy legs",
-      "description": "Helps with bloating & water retention.",
+      "description": "",
       "image": "electro-lymphatic.webp",
       "concerns": [
         "bloat"
@@ -1072,6 +1119,7 @@
       "from": 280,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 280,
       "minutes": [
         60
       ]
@@ -1091,6 +1139,7 @@
       "from": 89,
       "priceText": "",
       "trialPrice": 89,
+      "usualPrice": 299,
       "minutes": [
         60
       ]
@@ -1102,7 +1151,7 @@
       "tag": "",
       "collection": "Five Elements Wellness",
       "for": "You feel puffy or sluggish, with swollen ankles or heavy legs",
-      "description": "Helps with bloating & water retention.",
+      "description": "",
       "image": "",
       "concerns": [
         "bloat"
@@ -1110,6 +1159,7 @@
       "from": 380,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 380,
       "minutes": [
         60
       ]
@@ -1121,7 +1171,7 @@
       "tag": "",
       "collection": "Five Elements Wellness",
       "for": "You feel puffy or sluggish, with swollen ankles or heavy legs",
-      "description": "Helps with bloating & water retention.",
+      "description": "",
       "image": "",
       "concerns": [
         "bloat"
@@ -1129,6 +1179,7 @@
       "from": 380,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 380,
       "minutes": [
         60
       ]
@@ -1140,7 +1191,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "For bloating and irregular digestion",
-      "description": "Helps with tummy & digestion.",
+      "description": "",
       "image": "",
       "concerns": [
         "tummy"
@@ -1148,6 +1199,7 @@
       "from": 89,
       "priceText": "",
       "trialPrice": 89,
+      "usualPrice": 500,
       "minutes": [
         30
       ]
@@ -1159,7 +1211,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "Your tummy feels bloated or your digestion is irregular",
-      "description": "Helps with tummy & digestion.",
+      "description": "",
       "image": "",
       "concerns": [
         "tummy"
@@ -1167,6 +1219,7 @@
       "from": 500,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 500,
       "minutes": [
         30
       ]
@@ -1178,7 +1231,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "Your tummy feels bloated or your digestion is irregular",
-      "description": "Helps with tummy & digestion.",
+      "description": "",
       "image": "",
       "concerns": [
         "tummy"
@@ -1186,6 +1239,7 @@
       "from": 980,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 980,
       "minutes": [
         60
       ]
@@ -1205,6 +1259,7 @@
       "from": 99,
       "priceText": "",
       "trialPrice": 99,
+      "usualPrice": 380,
       "minutes": []
     },
     {
@@ -1214,7 +1269,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "You have tight shoulders, back tension, cold hands or poor sleep",
-      "description": "Helps with aches & tension.",
+      "description": "",
       "image": "",
       "concerns": [
         "aches"
@@ -1222,6 +1277,7 @@
       "from": 390,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 390,
       "minutes": [
         60
       ]
@@ -1233,7 +1289,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "For a fuller-looking bust, using natural techniques",
-      "description": "Helps with bust care.",
+      "description": "",
       "image": "",
       "concerns": [
         "bust"
@@ -1241,6 +1297,7 @@
       "from": 189,
       "priceText": "",
       "trialPrice": 189,
+      "usualPrice": 280,
       "minutes": [
         60
       ]
@@ -1252,7 +1309,7 @@
       "tag": "",
       "collection": "Mary Chia Classics",
       "for": "For a fuller-looking bust, using natural techniques",
-      "description": "Helps with bust care.",
+      "description": "",
       "image": "",
       "concerns": [
         "bust"
@@ -1260,6 +1317,7 @@
       "from": 390,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 390,
       "minutes": [
         60
       ]
@@ -1279,6 +1337,7 @@
       "from": 480,
       "priceText": "",
       "trialPrice": null,
+      "usualPrice": 480,
       "minutes": []
     }
   ]
