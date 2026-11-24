@@ -29,6 +29,9 @@ const [favBefore, favEm = "", favAfter = ""] = (h.favourites?.heading || "").spl
 // Ad banner words (optional)
 const bannerHasCopy = !!h.banner?.heading;
 const [bannerBefore, bannerEm = "", bannerAfter = ""] = (h.banner?.heading || "").split("*");
+// First-visit band
+const [trialBefore, trialEm = "", trialAfter = ""] = (h.trial?.heading || "").split("*");
+const trialTerms = realUrl(h.trial?.termsLink);
 const initials = (s: string) => (s.includes("[[") ? "?" : s.trim().charAt(0));
 // Hero headline: the *word* in asterisks shows in italic rose. Each word is wrapped
 // so it can slide up into place when the page opens (public/css/home.css, .ed-hero__w).
@@ -181,6 +184,27 @@ const heroWords = h.hero.headline
               {favs.map((t: any, i: number) => <FavouriteCard t={t} index={i} bookLabel={h.favourites.bookButton} detailsLabel={h.favourites.detailsButton} />)}
             </div>
             {!h.services.showList && <BookingSheet />}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- ============ FIRST-VISIT BAND (src/content/home.md → trial) ============
+         Words over the studio photo (1280 × 560) with a burgundy tint. Styles: "First-visit band"
+         in public/css/home.css. -->
+    {h.trial?.heading && (
+      <section class="trial" id="first-visit" style={h.trial.image ? `--trial-img:url("${h.trial.image}")` : undefined}>
+        <div class="h-container trial__inner" data-reveal>
+          <p class="trial__eyebrow">{h.trial.eyebrow}</p>
+          <h2 class="trial__title">{trialBefore}{trialEm && <em>{trialEm}</em>}{trialAfter}</h2>
+          <p class="trial__text">{h.trial.text}</p>
+          <p class="trial__note">
+            {h.trial.note}{" "}
+            {trialTerms ? <a href={trialTerms}>{h.trial.termsLabel}</a> : <span>{h.trial.termsLabel}</span>}
+          </p>
+          <div class="trial__actions">
+            <a class="btn trial__book" href={site.bookingUrl}>{h.trial.bookButton}</a>
+            <a class="btn trial__explore" href={h.trial.exploreLink}>{h.trial.exploreButton} <span aria-hidden="true">→</span></a>
           </div>
         </div>
       </section>

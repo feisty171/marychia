@@ -163,6 +163,23 @@ favourites:
     - "classic-coffee-drainage"
     - "five-element-body-wellness"
 
+# First-visit band, right under "Our clients' favourites": words over the studio photo
+# with a burgundy tint. The photo is 1280 x 560 and the band keeps that shape on wide screens.
+# "Book my trial" uses bookingUrl in src/data/site.json. "Explore trial offers" opens the
+# treatment list on First trial prices. termsLink: the trial terms page; until it's a real
+# link, "Terms apply" shows as plain text. No guaranteed results (see CLAUDE.md).
+trial:
+  image: "/images/site/trial-bg.webp"
+  eyebrow: "For first-time guests"
+  heading: "Begin your *story* with us"
+  text: "Enjoy an exclusive trial price on selected facials, body and wellness treatments. Every first visit begins with a personal consultation."
+  note: "One trial per new guest."
+  termsLabel: "Terms apply"
+  termsLink: "[[CONFIRM: trial terms page link]]"
+  bookButton: "Book my trial"
+  exploreButton: "Explore trial offers"
+  exploreLink: "/rituals/?trial=1"
+
 # Products ("Take the care home"). Hidden for now: set show to true to bring the Shop section back.
 products:
   show: false

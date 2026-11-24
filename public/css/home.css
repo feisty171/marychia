@@ -327,6 +327,56 @@ sup { font-size: .55em; vertical-align: super; line-height: 0; }
   .fav-btn { padding: 0 12px; }
 }
 
+/* ---------- First-visit band (src/content/home.md → trial) ----------
+   Studio photo (1280 × 560) under a burgundy tint, words centred. On wide screens the band
+   keeps the photo's shape (1280 : 560); on phones it grows to fit the words. */
+.trial {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  color: var(--white);
+  text-align: center;
+  background:
+    linear-gradient(rgba(var(--wine), .86), rgba(var(--wine), .86)),
+    var(--trial-img, none) center / cover no-repeat,
+    rgb(var(--wine));
+}
+.trial__inner { display: flex; flex-direction: column; align-items: center; padding-top: 72px; padding-bottom: 72px; }
+.trial__eyebrow {
+  margin: 0 0 18px;
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .85);
+}
+.trial__title {
+  margin: 0 0 18px;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: var(--fs-h2);
+  line-height: 1.08;
+}
+.trial__title em { font-style: italic; }
+.trial__text { max-width: 36em; margin: 0 0 18px; font-size: var(--fs-body); line-height: 1.65; color: rgba(255, 255, 255, .92); }
+.trial__note { margin: 0 0 32px; font-size: var(--fs-small); color: rgba(255, 255, 255, .8); }
+.trial__note a { color: var(--white); text-decoration: underline; text-underline-offset: 3px; }
+.trial__note a:hover { color: var(--rose-lt); }
+.trial__actions { display: flex; flex-direction: column; align-items: stretch; gap: 14px; width: 100%; max-width: 360px; }
+.trial .btn { padding: 18px 36px; border-radius: 999px; }
+.btn.trial__book { background: var(--blush); border-color: var(--blush); color: rgb(var(--wine)); }
+.btn.trial__book:hover, .btn.trial__book:focus-visible { background: var(--white); border-color: var(--white); color: rgb(var(--wine)); }
+.btn.trial__explore { gap: .6em; border-color: rgba(255, 255, 255, .85); color: var(--white); }
+.btn.trial__explore:hover, .btn.trial__explore:focus-visible { background: var(--white); color: rgb(var(--wine)); }
+@media (min-width: 641px) {
+  .trial__actions { flex-direction: row; justify-content: center; width: auto; max-width: none; gap: 20px; }
+}
+@media (min-width: 961px) {
+  .trial { aspect-ratio: 1280 / 560; max-height: 720px; }
+  .trial__inner { width: 100%; padding-top: 48px; padding-bottom: 48px; }
+}
+
 /* ---------- Products ("shelf") ----------
    src/components/ProductCard.astro. No card box: a tinted photo panel with the
    details underneath, left-aligned. Same columns as the signature cards. */

@@ -48,7 +48,7 @@ Static site built with [Astro](https://astro.build). No CMS, no database. The ma
 All fonts, colours and type sizes are **tokens** at the top of `public/css/style.css`. Every page stylesheet uses them. Never hard-code a new hex colour, font or pixel font size in page CSS; use a token, or add one to `style.css` if nothing fits.
 
 - **Fonts:** Cormorant Garamond (`--font-serif`) for headings, numbers and prices; Figtree (`--font-sans`) for body text, buttons and labels. No other fonts. Both load once in `src/layouts/Base.astro`.
-- **Colours:** `--ink` (headings, text, primary buttons), `--ink-soft` (secondary text), `--ink-faint` (hints, struck-through prices), `--rose` (accent: eyebrows, numbers, prices, icons), `--rose-deep`, `--rose-lt` (accent on dark backgrounds), `--rose-line`, `--line` (hairlines), `--blush` (page background), `--tint` (alternate sections), `--white`, `--dark`.
+- **Colours:** `--ink` (headings, text, primary buttons), `--ink-soft` (secondary text), `--ink-faint` (hints, struck-through prices), `--rose` (accent: eyebrows, numbers, prices, icons), `--rose-deep`, `--rose-lt` (accent on dark backgrounds), `--rose-line`, `--line` (hairlines), `--blush` (page background), `--tint` (alternate sections), `--white`, `--dark`, `--wine` (rgb, burgundy tint over photos).
 - **Type scale:**
   - Sans: `--fs-label` 11px · `--fs-caption` 12px · `--fs-ui` 13px · `--fs-small` 14px · `--fs-text` 15px · `--fs-body` 16–19px
   - Serif: `--fs-h5` 18px · `--fs-h4` 22px · `--fs-h3` 28px (card titles) · `--fs-h3-lg` 30–40px · `--fs-h2` 34–56px (section titles) · `--fs-display` 44–76px (page titles) · `--fs-hero` 48–112px (Home hero headline) · `--fs-stat` 36–56px (big numbers)
@@ -144,6 +144,9 @@ The Home page is an editorial layout. Words and photos are in `src/content/home.
 Below the ad banner (where the Shop section was): "Signature treatments / Our clients' *favourites*" with a "View all N treatments →" link to `/rituals/` (N is counted automatically), then four cards. Edit `favourites:` in `src/content/home.md`: `eyebrow`, `heading` (`*asterisks*` = italic rose), `allLink` (`{count}` = number of treatments), button labels, and `items:`, a list of treatment IDs from the menu workbook (see `src/data/treatment-menu.json`). Each card's photo, area, name, one line (Description, or "For you if…"), time and "from" price come from the treatment list, so they always match the Rituals page. **Book** opens the WhatsApp studio picker; **Details** opens `/rituals/?q=<name>`, the list already searched for that treatment. Cards: `src/components/FavouriteCard.astro`; styles: "Clients' favourites" in `public/css/home.css`.
 
 The Shop section ("Take the care home", `products:`) is hidden (`show: false`); set `show: true` to bring it back.
+
+### Home first-visit band ("Begin your story with us")
+Right under "Our clients' favourites": words over the studio photo (`public/images/site/trial-bg.webp`, 1280×560) with a burgundy tint (token `--wine` in `style.css`). On wide screens the band keeps the photo's 1280 : 560 shape; on phones it grows to fit. Edit `trial:` in `src/content/home.md`: `eyebrow`, `heading` (`*asterisks*` = italic), `text`, `note`, `termsLabel` + `termsLink` ("Terms apply" stays plain text until `termsLink` is a real link), `bookButton` (uses `bookingUrl` in `site.json`), `exploreButton` + `exploreLink` (`/rituals/?trial=1` opens the list on First trial prices). Styles: "First-visit band" in `public/css/home.css`.
 
 ### Testimonials
 In `src/content/home.md`, under `testimonials:` → `items:`. **Only real client reviews with the client's written permission.** Never write or paraphrase a review. Replace every `[[CONFIRM...]]` in a review together (quote, name, treatment).

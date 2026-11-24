@@ -483,6 +483,8 @@ const startArea = areaFromUrl();
 setArea(startArea, { silent: !location.hash });
 if (location.hash && startArea !== "All") writeUrl(); // turn an old #face link into ?area=face
 // ?q=… opens the list already searched (used by the Home "Details" buttons)
+// ?trial=1 opens the list on "First trial" prices (used by the Home first-visit section)
+if (new URLSearchParams(location.search).get("trial") === "1" && !state.trial) { state.trial = true; state.lo = 0; state.hi = null; update(true); }
 const startQ = new URLSearchParams(location.search).get("q");
 if (startQ) { search.value = startQ; $("#clearSearch").classList.add("show"); state.q = startQ.trim(); update(true); }
 

@@ -24,6 +24,7 @@
   --dark: #2f2427;            /* dark cards */
   --whatsapp: #25a35a;
   --shade: 46, 32, 30;        /* warm dark for scrims and shadows (rgb) */
+  --wine: 107, 52, 63;        /* deep burgundy tint over photos, e.g. Home first-visit band (rgb) */
 
   --soft-gradient: linear-gradient(120deg, #f7e6e1 0%, #f3ebe6 55%, #efe4dc 100%); /* banners */
   --ph-bg:                    /* image placeholders */
