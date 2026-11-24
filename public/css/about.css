@@ -38,16 +38,17 @@
   transform-origin: center top;
   will-change: opacity, transform;
 }
-/* Scrims that keep the white text readable. They fade out with the photo. */
+/* Even shade over the photo so the centred white words read clearly; deepest in the middle
+   and along the bottom. It fades out with the photo. */
 .heritage-opening::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
   opacity: calc(1 - var(--hp) * .9);
-  /* Phones: the text covers most of the photo, so the overlay is deeper (the 1994 photo is bright) */
   background:
-    linear-gradient(0deg, rgba(var(--shade), .88) 0%, rgba(var(--shade), .7) 45%, rgba(var(--shade), .62) 78%, rgba(var(--shade), .7) 100%);
+    radial-gradient(ellipse 70% 60% at 50% 48%, rgba(var(--shade), .72) 0%, rgba(var(--shade), .5) 60%, rgba(var(--shade), .38) 100%),
+    linear-gradient(180deg, rgba(var(--shade), .45) 0%, rgba(var(--shade), 0) 24%, rgba(var(--shade), 0) 62%, rgba(var(--shade), .75) 100%);
 }
 /* Soft bottom edge: as you scroll, the bottom of the opening melts into the page instead of ending in a hard line */
 .heritage-opening::after {
@@ -70,103 +71,119 @@
 }
 .heritage-opening > .a-container,
 .heritage-opening > .heritage-hero { width: 100%; }
-/* Hero copy fills the space above the "Explore" bar and sits centred in it */
+/* Hero copy fills the space above the "Explore" link, centred both ways */
 .heritage-hero {
   display: flex;
   flex: 1;
   align-items: center;
 }
-.heritage-hero__grid {
-  display: grid;
-  gap: 28px;
-  align-items: center;
-  width: 100%;
-}
-.heritage-hero__copy { animation: rise .9s ease both .15s; }
-.heritage-hero__title {
-  margin: 0 0 8px;
-  font-family: var(--font-serif);
-  font-weight: 500;
-  font-size: var(--fs-display);
-  line-height: 1;
-}
-.heritage-hero__tagline {
-  margin: 0 0 18px;
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: var(--fs-h4);
-  color: var(--rose-lt);
-}
-.heritage-hero__lede {
-  max-width: 62ch;
-  margin: 0;
-  font-size: var(--fs-body);
-  line-height: 1.7;
-  color: rgba(255, 255, 255, .9);
-}
-
-/* 40+ ring */
-.heritage-mark {
-  position: relative;
+.heritage-hero__inner {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  justify-self: end;
-  width: 120px;
-  aspect-ratio: 1;
+  width: 100%;
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, .35);
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(230, 174, 176, .18), transparent 68%);
+  animation: rise .9s ease both .15s;
 }
-.heritage-mark::before,
-.heritage-mark::after {
-  content: "";
-  position: absolute;
-  border: 1px solid rgba(255, 255, 255, .16);
-  border-radius: 50%;
-  inset: -14px;
+/* small label with a short line either side */
+.heritage-hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 18px;
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--rose-lt);
 }
-.heritage-mark::after { inset: 16px; border-style: dashed; animation: ringSpin 24s linear infinite; }
-.heritage-mark strong {
+.heritage-hero__eyebrow::before,
+.heritage-hero__eyebrow::after { content: ""; width: 36px; height: 1px; background: currentColor; opacity: .7; }
+.heritage-hero__title {
+  margin: 0 0 14px;
   font-family: var(--font-serif);
   font-weight: 500;
-  font-size: 2.5rem;
-  line-height: .9;
+  font-size: calc(var(--fs-display) * 1.15);
+  line-height: 1;
+  letter-spacing: -.01em;
+  color: var(--white);
+}
+.heritage-hero__title em { font-style: italic; color: var(--rose-lt); }
+.heritage-hero__tagline {
+  margin: 0 0 22px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--fs-h4);
+  color: rgba(255, 255, 255, .88);
+}
+.heritage-hero__lede {
+  max-width: 56ch;
+  margin: 0;
+  font-size: var(--fs-text);
+  line-height: 1.75;
+  color: rgba(255, 255, 255, .86);
+}
+
+/* Three facts in a row under the paragraph: big serif figure, small line under it,
+   thin rules between (replaces the old 40+ ring) */
+.heritage-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: min(100%, 620px);
+  margin: 32px 0 0;
+  padding: 22px 0 0;
+  list-style: none;
+  border-top: 1px solid rgba(255, 255, 255, .22);
+}
+.heritage-facts li { display: grid; gap: 6px; padding: 0 12px; }
+.heritage-facts li + li { border-left: 1px solid rgba(255, 255, 255, .22); }
+.heritage-facts strong {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: var(--fs-h3);
+  line-height: 1;
   color: var(--white);
   font-variant-numeric: lining-nums;
 }
-.heritage-mark span {
-  max-width: 12ch;
-  margin-top: 8px;
-  font-size: .5rem;
-  line-height: 1.5;
+.heritage-facts span {
+  font-size: var(--fs-label);
+  line-height: 1.45;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
-  color: rgba(255, 255, 255, .78);
+  color: rgba(255, 255, 255, .72);
 }
-@keyframes ringSpin { to { transform: rotate(360deg); } }
 
-/* "Explore our history" link */
+/* "Explore our history": one centred row (label, years, round arrow) over a soft line */
 .heritage-portal {
+  position: relative;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: 36px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, .25);
+  justify-content: center;
+  gap: 10px 22px;
+  width: fit-content;
+  margin: 36px auto 0;
+  padding: 0 0 22px;
   color: var(--white);
+  text-decoration: none;
 }
-.heritage-portal__copy { display: flex; flex-direction: column; gap: 4px; }
-.heritage-portal__copy strong {
-  font-size: var(--fs-ui);
+.heritage-portal::after {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .55), transparent);
+}
+.heritage-portal strong {
+  font-size: var(--fs-text);
   font-weight: 500;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
+  color: var(--rose-lt);
 }
-.heritage-portal__copy small {
+.heritage-portal small {
   font-size: var(--fs-label);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
@@ -175,16 +192,23 @@
 .heritage-portal__ring {
   display: grid;
   place-items: center;
-  flex: 0 0 44px;
-  width: 44px;
-  height: 44px;
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
   border: 1px solid rgba(255, 255, 255, .45);
   border-radius: 50%;
-  transition: background .3s ease;
+  font-size: var(--fs-h5);
+  transition: background .3s ease, border-color .3s ease;
 }
 .heritage-portal__ring b { font-weight: 400; transition: transform .4s cubic-bezier(.22, 1, .36, 1); }
-.heritage-portal:hover .heritage-portal__ring { background: rgba(255, 255, 255, .12); }
+.heritage-portal:hover .heritage-portal__ring { background: rgba(255, 255, 255, .12); border-color: rgba(255, 255, 255, .8); }
 .heritage-portal:hover .heritage-portal__ring b { transform: translateY(4px); }
+.heritage-portal:focus-visible { outline: 2px solid var(--rose-lt); outline-offset: 6px; }
+@media (max-width: 640px) {
+  .heritage-facts li { padding: 0 6px; }
+  .heritage-facts strong { font-size: var(--fs-h4); }
+  .heritage-portal { flex-direction: column; gap: 8px; }
+}
 
 /* ---------- 2. Storyline ---------- */
 .storyline { padding: 56px 0 24px; }
@@ -404,17 +428,6 @@
 
   /* Desktop: the photo fills the whole opening; a soft shade on the left keeps the text readable */
   .heritage-opening__photo { object-position: center 58%; }
-  .heritage-hero__copy { max-width: min(560px, 42vw); }
-  .heritage-opening::before {
-    background:
-      linear-gradient(90deg, rgba(var(--shade), .78) 0%, rgba(var(--shade), .6) 30%, rgba(var(--shade), .28) 55%, rgba(var(--shade), .1) 75%, rgba(var(--shade), .2) 100%),
-      linear-gradient(180deg, rgba(var(--shade), .5) 0%, rgba(var(--shade), 0) 22%, rgba(var(--shade), 0) 66%, rgba(var(--shade), .62) 100%);
-  }
-  .heritage-hero__grid { grid-template-columns: 1fr auto; gap: 48px; }
-  .heritage-hero__title { font-size: var(--fs-display); }
-  .heritage-mark { width: 180px; }
-  .heritage-mark strong { font-size: 3.5rem; }
-  .heritage-mark span { font-size: .5625rem; }
 
   .mvgrid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
   .mv { padding: 44px 40px; }

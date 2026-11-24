@@ -11,6 +11,8 @@ import site from "../data/site.json";
 import { frontmatter as c } from "../content/about.md";
 
 const first = c.milestones[0];
+// Hero heading: the *word* in asterisks shows in italic rose
+const [heroBefore, heroEm = "", heroAfter = ""] = c.hero.heading.split("*");
 
 // schema.org: the organisation (studios are described on the Contact page)
 const jsonLd = {
@@ -38,22 +40,24 @@ const jsonLd = {
     <div class="heritage-opening" id="story">
       {c.hero.image && <img class="heritage-opening__photo" src={c.hero.image} alt={c.hero.imageAlt || ""} fetchpriority="high" />}
       <section class="heritage-hero">
-        <div class="a-container heritage-hero__grid">
-          <div class="heritage-hero__copy">
-            <p class="eyebrow eyebrow--light">{c.hero.eyebrow}</p>
-            <h1 class="heritage-hero__title">{c.hero.heading}</h1>
-            <p class="heritage-hero__tagline">{c.hero.tagline}</p>
-            <p class="heritage-hero__lede">{c.hero.lede}</p>
-          </div>
-          <div class="heritage-mark" aria-hidden="true">
-            <strong>{c.hero.markNumber}</strong>
-            <span>{c.hero.markLabel}</span>
-          </div>
+        <div class="a-container heritage-hero__inner">
+          <p class="heritage-hero__eyebrow">{c.hero.eyebrow}</p>
+          <h1 class="heritage-hero__title">{heroBefore}{heroEm && <em>{heroEm}</em>}{heroAfter}</h1>
+          <p class="heritage-hero__tagline">{c.hero.tagline}</p>
+          <p class="heritage-hero__lede">{c.hero.lede}</p>
+          {c.hero.facts?.length > 0 && (
+            <ul class="heritage-facts">
+              {c.hero.facts.map((f: any) => (
+                <li><strong>{f.value}</strong><span>{f.label}</span></li>
+              ))}
+            </ul>
+          )}
         </div>
       </section>
       <div class="a-container">
-        <a class="heritage-portal" href="#heritage-timeline" aria-label={c.hero.explore}>
-          <span class="heritage-portal__copy"><strong>{c.hero.explore}</strong><small>{c.hero.range}</small></span>
+        <a class="heritage-portal" href="#heritage-timeline">
+          <strong>{c.hero.explore}</strong>
+          <small>{c.hero.range}</small>
           <span class="heritage-portal__ring" aria-hidden="true"><b>&#8595;</b></span>
         </a>
       </div>
