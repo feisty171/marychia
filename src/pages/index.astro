@@ -19,35 +19,72 @@ const siteWa = waHref(site.whatsappUrl);
 // "Book your escape": WhatsApp once the number is confirmed, otherwise the studio list
 const bookHref = siteWa ?? "#visit";
 const initials = (s: string) => (s.includes("[[") ? "?" : s.trim().charAt(0));
-// Hero headline: the *word* in asterisks shows in italic rose
-const [heroBefore, heroEm = "", heroAfter = ""] = h.hero.headline.split("*");
+// Hero headline: the *word* in asterisks shows in italic rose. Each word is wrapped
+// so it can slide up into place when the page opens (public/css/home.css, .ed-hero__w).
+const heroWords = h.hero.headline
+  .split("*")
+  .flatMap((part: string, i: number) => part.trim().split(/\s+/).filter(Boolean).map((w) => ({ w, em: i % 2 === 1 })));
+const ringText = `${site.tagline} · Since 1984 · `;
 ---
 <Base
   title="Mary Chia | Face • Body • Wellness"
   description="Mary Chia — the beauty and slimming specialist. Four decades of facial, spa and slimming expertise, personalised for your skin, your body and your goals."
   current="home"
+  solidHeader
   styles={["home.css", "treatments.css"]}
-  scripts={["treatment-cards.js"]}
+  scripts={["treatment-cards.js", "home.js"]}
 >
   <main>
-    <!-- ============ HERO ============ -->
-    <section class="hero" id="home">
-      <!-- Soft shade over the photo so the white text stays readable (decorative) -->
-      <div class="hero__shade" aria-hidden="true"></div>
-      <div class="hero__content">
-        <div class="hero__top">
-          <p class="hero__eyebrow">{h.hero.eyebrow}</p>
-          <h1 class="hero__title">{heroBefore}{heroEm && <em>{heroEm}</em>}{heroAfter}</h1>
+    <!-- ============ HERO (editorial) ============
+         Words and photos: src/content/home.md → hero. Styles: "Hero" in public/css/home.css.
+         public/js/home.js sets --hp (0 → 1) as the hero scrolls away, for the gentle parallax. -->
+    <section class="ed-hero" id="home">
+      <div class="h-container ed-hero__grid">
+        <div class="ed-hero__copy">
+          <p class="ed-hero__eyebrow">{h.hero.eyebrow}</p>
+          <h1 class="ed-hero__title">
+            {heroWords.map((x, i) => (
+              <span class="ed-hero__w" style={`--w:${i}`}><span>{x.em ? <em>{x.w}</em> : x.w}</span></span>
+            ))}
+          </h1>
         </div>
-        <div class="hero__bottom">
-          <p class="hero__lead">{h.hero.text}</p>
-          <div class="hero__actions">
-            <a class="btn hero__book" href={site.bookingUrl}>{h.hero.bookButton}</a>
-            <a class="hero__link" href={h.hero.exploreLink}>{h.hero.exploreButton} <span aria-hidden="true">→</span></a>
+
+        <div class="ed-hero__media">
+          <figure class="ed-hero__arch">
+            <img src={h.hero.image} alt={h.hero.imageAlt} width="900" height="1100" fetchpriority="high" />
+          </figure>
+          <div class="ed-hero__inset">
+            <img src={h.hero.inset} alt={h.hero.insetAlt} loading="eager" />
+            <svg class="ed-hero__ring" viewBox="0 0 200 200" aria-hidden="true">
+              <defs><path id="heroRing" d="M100,100 m-84,0 a84,84 0 1,1 168,0 a84,84 0 1,1 -168,0" /></defs>
+              <text><textPath href="#heroRing" textLength="520">{ringText}</textPath></text>
+            </svg>
           </div>
         </div>
+
+        <div class="ed-hero__foot">
+          <p class="ed-hero__lead">{h.hero.text}</p>
+          <div class="ed-hero__actions">
+            <a class="btn btn--rose" href={site.bookingUrl}>{h.hero.bookButton}</a>
+            <a class="h-textlink" href={h.hero.exploreLink}>{h.hero.exploreButton} <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+
+        <a class="ed-hero__scroll" href="#services" aria-label="Scroll to our signature treatments"><span></span></a>
       </div>
     </section>
+
+    <!-- ============ RIBBON (src/content/home.md → ribbon) ============ -->
+    {h.ribbon?.length > 0 && (
+      <div class="ribbon" aria-label={h.ribbon.join(", ")}>
+        {[0, 1].map((n) => (
+          <ul class="ribbon__track" aria-hidden="true">
+            {h.ribbon.map((r: string, i: number) => <li class:list={{ "is-em": i % 2 === 1 }}>{r}</li>)}
+            {h.ribbon.map((r: string, i: number) => <li class:list={{ "is-em": i % 2 === 1 }}>{r}</li>)}
+          </ul>
+        ))}
+      </div>
+    )}
 
     <!-- ============ KEY FIGURES (hidden while stats.show is false in home.md) ============ -->
     {h.stats.show && <section class="ledger" id="numbers" aria-labelledby="ledger-title">
@@ -64,28 +101,44 @@ const [heroBefore, heroEm = "", heroAfter = ""] = h.hero.headline.split("*");
       </div>
     </section>}
 
-    <!-- ============ 1. SIGNATURE SERVICES ============ -->
-    <section class="h-section" id="services">
-      <div class="h-container h-container--full">
-        <header class="h-head h-head--center h-head--wide">
-          <p class="eyebrow">{h.services.eyebrow}</p>
-          <h2 class="h-title">{h.services.heading}</h2>
+    <!-- ============ 1. SIGNATURE SERVICES (editorial index) ============
+         Rows: src/components/SignatureCard.astro. The big photo on the left (wide screens)
+         follows the row you're on (public/js/home.js). -->
+    <section class="h-section sig" id="services">
+      <div class="h-container">
+        <header class="h-split-head" data-reveal>
+          <div>
+            <p class="eyebrow">{h.services.eyebrow}</p>
+            <h2 class="h-title">{h.services.heading}</h2>
+          </div>
           <p class="h-intro">{h.services.intro}</p>
         </header>
-        <div class:list={["tp", "tp--embed", { "show-hints": treatmentsData.config.showPlaceholderHints }]}>
-          <div class="sig-grid">
+        <div class:list={["tp", "tp--embed", "sig-layout", { "show-hints": treatmentsData.config.showPlaceholderHints }]}>
+          <div class="sig-stage" aria-hidden="true">
+            <div class="sig-stage__frame">
+              {h.services.items.map((t, i) => (
+                <div class:list={["sig-stage__img", { "is-on": i === 0 }]} data-index={i}>
+                  {t.image
+                    ? <img src={t.image} alt="" loading="lazy" decoding="async" />
+                    : <div class="ph" data-cat={t.category}><div class="ph-inner"><span class="ph-hint">Photo · 900 × 900</span></div></div>}
+                </div>
+              ))}
+            </div>
+            <p class="sig-stage__count"><span class="sig-stage__now">01</span> / {String(h.services.items.length).padStart(2, "0")}</p>
+          </div>
+          <div class="sig-list">
             {h.services.items.map((t, i) => <SignatureCard t={t} index={i} />)}
+            <div class="sig-more">
+              <a class="h-textlink" href={h.services.menuLink}>{h.services.menuButton} <span aria-hidden="true">→</span></a>
+            </div>
           </div>
           <BookingSheet />
-        </div>
-        <div class="h-center">
-          <a class="h-textlink" href={h.services.menuLink}>{h.services.menuButton} <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
 
     <!-- ============ AD BANNER (src/content/home.md → banner) ============ -->
-    <section class="h-banner" aria-label="Promotion">
+    <section class="h-banner" aria-label="Promotion" data-reveal="wipe">
       <div class="h-container h-container--full">
         {h.banner?.image
           ? (h.banner.link
@@ -102,14 +155,16 @@ const [heroBefore, heroEm = "", heroAfter = ""] = h.hero.headline.split("*");
 
     <!-- ============ PRODUCTS (src/content/home.md → products; nav "Shop" links here) ============ -->
     <section class="h-section" id="shop">
-      <div class="h-container h-container--full">
-        <header class="h-head h-head--center h-head--wide">
-          <p class="eyebrow">{h.products.eyebrow}</p>
-          <h2 class="h-title">{h.products.heading}</h2>
+      <div class="h-container">
+        <header class="h-split-head" data-reveal>
+          <div>
+            <p class="eyebrow">{h.products.eyebrow}</p>
+            <h2 class="h-title">{h.products.heading}</h2>
+          </div>
           <p class="h-intro">{h.products.intro}</p>
         </header>
         <div class:list={["tp", "tp--embed", { "show-hints": treatmentsData.config.showPlaceholderHints }]}>
-          <div class="shop-grid">
+          <div class="shop-grid" data-reveal="stagger">
             {h.products.items.map((p) => <ProductCard p={p} linkLabel={h.products.linkLabel} />)}
           </div>
         </div>
@@ -121,16 +176,26 @@ const [heroBefore, heroEm = "", heroAfter = ""] = h.hero.headline.split("*");
       </div>
     </section>
 
-    <!-- ============ 2. EXPERIENCE & STORY ============ -->
-    <section class="h-section h-section--tint" id="experience">
-      <div class="h-container split">
-        <figure class="split__media">
-          <img src="/images/hero-reception.webp" alt={h.experience.imageAlt} width="1366" height="764" loading="lazy" />
-        </figure>
-        <div class="split__copy">
+    <!-- ============ 2. EXPERIENCE & STORY (editorial) ============
+         Words and photos: src/content/home.md → experience. The two photos drift at
+         different speeds as you scroll ([data-speed], public/js/home.js). -->
+    <section class="h-section h-section--tint story" id="experience">
+      <div class="h-container story__grid">
+        <div class="story__media">
+          <figure class="story__main" data-speed="-0.06">
+            <img src={h.experience.image} alt={h.experience.imageAlt} width="1366" height="764" loading="lazy" />
+          </figure>
+          {h.experience.image2 && (
+            <figure class="story__small" data-speed="0.1">
+              <img src={h.experience.image2} alt={h.experience.image2Alt} loading="lazy" />
+              {h.experience.image2Caption && <figcaption>{h.experience.image2Caption}</figcaption>}
+            </figure>
+          )}
+        </div>
+        <div class="story__copy" data-reveal>
           <p class="eyebrow">{h.experience.eyebrow}</p>
-          <h2 class="h-title">{h.experience.heading}</h2>
-          {h.experience.paragraphs.map((p) => <p class="h-body">{p}</p>)}
+          <h2 class="h-title story__title">{h.experience.heading}</h2>
+          {h.experience.paragraphs.map((p, i) => <p class:list={["h-body", { "story__lead": i === 0 }]}>{p}</p>)}
           <a class="link-arrow" href="/about/">{h.experience.link}</a>
         </div>
       </div>
@@ -139,12 +204,12 @@ const [heroBefore, heroEm = "", heroAfter = ""] = h.hero.headline.split("*");
     <!-- ============ 3. SOCIAL PROOF ============ -->
     <section class="h-section" id="reviews">
       <div class="h-container">
-        <header class="h-head h-head--center">
+        <header class="h-head h-head--center" data-reveal>
           <p class="eyebrow">{h.testimonials.eyebrow}</p>
           <h2 class="h-title">{h.testimonials.heading}</h2>
           {h.testimonials.note && <p class="h-note">{h.testimonials.note}</p>}
         </header>
-        <ul class="reviews">
+        <ul class="reviews" data-reveal="stagger">
           {h.testimonials.items.map((r) => (
             <li class="review">
               <svg class="review__mark" viewBox="0 0 32 24" aria-hidden="true"><path d="M0 24V14C0 6 4 1 12 0l1 4c-4 1-6 4-6 8h6v12H0zm19 0V14c0-8 4-13 12-14l1 4c-4 1-6 4-6 8h6v12H19z"/></svg>
@@ -165,14 +230,14 @@ const [heroBefore, heroEm = "", heroAfter = ""] = h.hero.headline.split("*");
     <!-- ============ 4. FIRST-VISIT OFFER ============ -->
     <section class="h-offer">
       <div class="h-container">
-        <div class="offer">
+        <div class="offer" data-reveal>
           <div class="offer__copy">
             <p class="eyebrow">{h.offer.eyebrow}</p>
             <h2 class="offer__title">{h.offer.heading}</h2>
             <p class="h-body">{h.offer.text}</p>
           </div>
           <div class="offer__action">
-            <a class="btn btn--solid" href="#book">{h.offer.button}</a>
+            <a class="btn btn--rose" href="#book">{h.offer.button}</a>
             <p class="offer__foot">{h.offer.footnote}</p>
           </div>
         </div>
@@ -182,11 +247,11 @@ const [heroBefore, heroEm = "", heroAfter = ""] = h.hero.headline.split("*");
     <!-- ============ 5. LOCATION, HOURS & INFO ============ -->
     <section class="h-section h-section--tint" id="visit">
       <div class="h-container">
-        <header class="h-head">
+        <header class="h-head" data-reveal>
           <p class="eyebrow">{h.visit.eyebrow}</p>
           <h2 class="h-title">{h.visit.heading}</h2>
         </header>
-        <div class="visit">
+        <div class="visit" data-reveal>
           <ul class="h-studios">
             {outlets.map((o) => {
               const wa = waHref(o.whatsapp);
@@ -223,7 +288,7 @@ const [heroBefore, heroEm = "", heroAfter = ""] = h.hero.headline.split("*");
 
     <!-- ============ 6. FINAL CTA ============ -->
     <section class="h-final" id="book">
-      <div class="h-container h-final__inner">
+      <div class="h-container h-final__inner" data-reveal>
         <h2 class="h-final__title">{h.finalCta.heading}</h2>
         <p class="h-final__text">{h.finalCta.text}</p>
         <div class="h-final__actions">

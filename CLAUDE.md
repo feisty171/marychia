@@ -16,7 +16,7 @@ Static site built with [Astro](https://astro.build). No CMS, no database. The ma
 
 | What | File |
 |---|---|
-| Home page words (hero eyebrow, headline, paragraph and buttons; numbers band; signature treatments; ad banner below them (`banner:`, placeholder until an image is set); products below the banner (`products:`, a "shelf" design via `src/components/ProductCard.astro`, styles `.shop-*`; the nav "Shop" link jumps here); experience, reviews, first-visit offer, visit info, final CTA) | `src/content/home.md` |
+| Home page words and photos (hero eyebrow, headline, paragraph, buttons and its two photos; the drifting word ribbon (`ribbon:`); numbers band; signature treatments; ad banner below them (`banner:`, placeholder until an image is set); products below the banner (`products:`, a "shelf" design via `src/components/ProductCard.astro`, styles `.shop-*`; the nav "Shop" link jumps here); experience, reviews, first-visit offer, visit info, final CTA) | `src/content/home.md` |
 | About Us page words (heritage opening, timeline milestones + photos, vision & mission, SEO title/description) | `src/content/about.md` |
 | Contact Us page words (Our Location, Feedback/Enquiry form topics) | `src/content/contact.md` |
 | Career page words (/careers/: intro, roles, how to apply) | `src/content/careers.md` |
@@ -37,6 +37,7 @@ Static site built with [Astro](https://astro.build). No CMS, no database. The ma
 | Gallery / Results filter buttons | `public/js/gallery.js` |
 | About page behaviour (scrolling timeline) | `public/js/about.js` |
 | Contact page behaviour (studio map highlights, count-up stats, enquiry form) | `public/js/contact.js` |
+| Home page motion (hero parallax, scroll reveal, signature list photo) | `public/js/home.js` |
 | Link helpers (phone, WhatsApp, placeholder checks) | `src/lib/links.ts` |
 | Images | `public/images/` |
 
@@ -49,7 +50,7 @@ All fonts, colours and type sizes are **tokens** at the top of `public/css/style
 - **Colours:** `--ink` (headings, text, primary buttons), `--ink-soft` (secondary text), `--ink-faint` (hints, struck-through prices), `--rose` (accent: eyebrows, numbers, prices, icons), `--rose-deep`, `--rose-lt` (accent on dark backgrounds), `--rose-line`, `--line` (hairlines), `--blush` (page background), `--tint` (alternate sections), `--white`, `--dark`.
 - **Type scale:**
   - Sans: `--fs-label` 11px · `--fs-caption` 12px · `--fs-ui` 13px · `--fs-small` 14px · `--fs-text` 15px · `--fs-body` 16–19px
-  - Serif: `--fs-h5` 18px · `--fs-h4` 22px · `--fs-h3` 28px (card titles) · `--fs-h3-lg` 30–40px · `--fs-h2` 34–56px (section titles) · `--fs-display` 44–76px (page titles) · `--fs-stat` 36–56px (big numbers)
+  - Serif: `--fs-h5` 18px · `--fs-h4` 22px · `--fs-h3` 28px (card titles) · `--fs-h3-lg` 30–40px · `--fs-h2` 34–56px (section titles) · `--fs-display` 44–76px (page titles) · `--fs-hero` 48–112px (Home hero headline) · `--fs-stat` 36–56px (big numbers)
 - **Page width (every page):** `--max` (1680px) in `public/css/style.css` sets the width of the header, every page container (`.a-container`, `.h-container`, `.ir-container`, the Treatments/Rituals `.tp .wrap`, `.mn-wrap`) and the footer, with `--gutter` as the side margin (16px on phones). They all share the same left and right edges. New page sections should use one of these containers, not a fixed `max-width`. Keep reading text narrow inside them (e.g. `.a-head` 640px, `62ch` paragraphs).
 - **Conventions:** headings are Cormorant 500 in sentence case (not all caps), with an optional italic rose `<em>`. Small uppercase labels use `--tracking-label`; buttons and nav use `--tracking-ui`. Primary buttons are ink; prices are rose Cormorant.
 - **Treatments page:** keeps its own layout from the zip design, but `public/css/treatments.css` now uses only these tokens. The few remaining raw sizes are decorative: the About 40+ ring and the report cover mock-up.
@@ -123,9 +124,16 @@ Edit `bookingUrl` or `whatsappUrl` in `src/data/site.json`. For WhatsApp, put th
 ### Home page signature treatments
 In `src/content/home.md`, under `services:` → `items:`. Keep it to 5. Each item has `category`, optional `tag`, `for`, `description`, `options`, `image`; the comments in that file show the format. Prices must match the Y27/28 menu PDF and the menu workbook.
 
-These are **simple cards** (`src/components/SignatureCard.astro`, styles `.sig-*` in `public/css/home.css`): square photo on top, then the name, the short `for` line as a description, the price and a slim "Book now →" row. Five across on wide screens, three across on small laptops, two across on tablets and phones. Below the cards, a "View All Treatments →" text link goes to the Treatments page (`menuButton` / `menuLink`). The cards show `name`, `for`, `options` (price) and `image`; the other fields are kept for reference. The price shows as "from S$xx" (the lowest option price) with that option's `compareAt` crossed out. They are deliberately different from the Rituals page cards (`cardHTML()` in `public/js/treatments.js`). "Book now" opens the WhatsApp studio picker (`src/components/BookingSheet.astro` + `public/js/treatment-cards.js`).
+These are an **editorial numbered list** (`src/components/SignatureCard.astro`, styles `.sig-*` in `public/css/home.css`): each row shows the number, category, name, the short `for` line, the price and a "Book now" link. On wide screens a large arched photo beside the list changes to the row you're on or hovering (`public/js/home.js`); on phones and tablets each row shows its own small photo. Below the list, a "View All Treatments →" link goes to the Treatments page (`menuButton` / `menuLink`). The rows show `name`, `category`, `tag`, `for`, `options` (price) and `image`. The price shows as "from S$xx" (the lowest option price) with that option's `compareAt` crossed out. "Book now" opens the WhatsApp studio picker (`src/components/BookingSheet.astro` + `public/js/treatment-cards.js`).
 
 To add a photo: put it in `public/images/treatments/` (square-ish works best for these cards, about 900×900) and set `image: "/images/treatments/your-file.webp"`. Only use photos marketing has the rights to; no before-and-after photos without written client consent.
+
+### Home page design and motion
+The Home page is an editorial layout. Words and photos are in `src/content/home.md`; styles in `public/css/home.css`; motion in `public/js/home.js`.
+- **Hero:** big serif headline (its words slide up as the page opens; `*asterisks*` = italic rose), a tall arched portrait (`hero: image`) and a small round photo (`hero: inset`) with the tagline from `src/data/site.json` turning around it. The photos drift at different speeds as you scroll.
+- **Ribbon:** the words drifting across under the hero are `ribbon:` in `home.md`.
+- **Story section:** a big photo (`experience: image`) with a small "polaroid" photo overlapping it (`image2`, `image2Caption`; leave `image2` empty to hide it).
+- **Scroll reveal:** add `data-reveal` to an element to fade it up as it reaches the screen (`data-reveal="stagger"` brings its children in one by one, `"wipe"` opens the banner like a curtain); `data-speed="0.1"` makes a photo drift. Visitors with "reduce motion" on see everything still.
 
 ### Testimonials
 In `src/content/home.md`, under `testimonials:` → `items:`. **Only real client reviews with the client's written permission.** Never write or paraphrase a review. Replace every `[[CONFIRM...]]` in a review together (quote, name, treatment).

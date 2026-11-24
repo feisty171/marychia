@@ -15,6 +15,20 @@ hero:
   exploreButton: "Explore treatments"
   exploreLink: "/treatments/"
   bookButton: "Book your first visit"
+  # Photos (editorial layout): a tall portrait shown as an arch, and a small round
+  # photo that overlaps it with the tagline (src/data/site.json) turning around it.
+  image: "/images/site/hero.webp"          # portrait, about 900 x 1100
+  imageAlt: "A woman with soft, glowing skin resting her chin on her hands"
+  inset: "/images/hero-home.webp"          # any shape; it is cropped to a circle
+  insetAlt: "The softly lit reception of a Mary Chia studio, with the Embracing Beauty neon sign"
+
+# Ribbon of words that drifts slowly across the page under the hero.
+ribbon:
+  - "Facials"
+  - "Body treatments"
+  - "Lymphatic drainage"
+  - "Wellness rituals"
+  - "Since 1984"
 
 # Key figures, just below the hero: a simple row of numbers (two by two on phones).
 # "count: true" makes that number count up when it scrolls into view.
@@ -41,8 +55,9 @@ services:
   intro: "Some treatments have become firm favourites with our clients over the years. Each one begins with a personal consultation, so it's shaped around your skin, your body and your goals, and your mind can rest while we take care of the rest."
   menuButton: "View All Treatments"
   menuLink: "/treatments/"
-  # Simple cards: square photo, name, the short "for" line, "from S$xx" price and Book now
-  # (5 across on wide screens, 3 across on small laptops, 2 across on tablets and phones). Keep it to 5.
+  # Editorial list: numbered rows (name, the short "for" line, "from S$xx" price, Book now).
+  # On wide screens a large photo beside the list changes to the treatment you're on;
+  # on phones and tablets each row shows its own small photo. Keep it to 5.
   # Price shows as "from S$xx" (lowest option price) with that option's compareAt crossed out.
   # Each treatment:
   #   category: "Face", "Body" or "Wellness"   tag: optional small label, e.g. "New" or "Signature"
@@ -180,7 +195,12 @@ experience:
     - "Four decades on, that hasn't changed. Your therapist listens first, then shapes each treatment around your skin, your body and how you want to feel."
     - "Our studios are calm, warm and private: a quiet pause in a busy day. Our specialists are trained in-house, so the care feels the same at every visit."
   link: "Read our story"
+  image: "/images/hero-reception.webp"
   imageAlt: "The warm, softly lit reception at a Mary Chia studio"
+  # Small photo that overlaps the big one (leave "" to hide it)
+  image2: "/images/about/hero-1994-team.webp"
+  image2Alt: "The Mary Chia team in 1994, outside Mary Chia Beauty House"
+  image2Caption: "Mary Chia Beauty House, 1994"
 
 testimonials:
   eyebrow: "Kind words"

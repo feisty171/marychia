@@ -1,10 +1,10 @@
-/* Mary Chia — signature cards on the Home page (src/components/SignatureCard.astro).
+/* Mary Chia — "Book now" on the Home signature rows (src/components/SignatureCard.astro) and Treatments cards.
    Handles the "Book on WhatsApp" sheet (cards show no sessions or prices).
    Markup: src/components/SignatureCard.astro + BookingSheet.astro. */
 (function () {
   "use strict";
   var sheet = document.getElementById("bookSheet");
-  var cards = document.querySelectorAll(".sig-card[data-name], .tp .card[data-name]");
+  var cards = document.querySelectorAll(".sig-row[data-name], .tp .card[data-name]");
   if (!cards.length) return;
 
   var esc = function (s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };

@@ -10,24 +10,6 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  /* ---- Home hero: photo fades into the page and drifts as you scroll ----
-     Sets --hero-p from 0 (top) to 1 (hero scrolled out); the look is in style.css (.hero::before). */
-  var hero = document.querySelector(".hero");
-  if (hero && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    var ticking = false;
-    var updateHero = function () {
-      ticking = false;
-      var h = hero.offsetHeight || 1;
-      var p = Math.min(Math.max(window.scrollY / h, 0), 1);
-      hero.style.setProperty("--hero-p", p.toFixed(3));
-    };
-    window.addEventListener("scroll", function () {
-      if (!ticking) { ticking = true; window.requestAnimationFrame(updateHero); }
-    }, { passive: true });
-    window.addEventListener("resize", updateHero);
-    updateHero();
-  }
-
   /* ---- Mobile menu toggle ---- */
   var toggle = document.getElementById("navToggle");
   var menu = document.getElementById("mobileMenu");
