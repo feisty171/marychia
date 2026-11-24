@@ -261,13 +261,6 @@ testimonials:
     - "[[CONFIRM: Google rating, e.g. 4.9★]]"
     - "[[CONFIRM: hygiene standards wording]]"
 
-offer:
-  eyebrow: "First visit"
-  heading: "A gentle welcome for first-time guests."
-  text: "Try a signature facial from $69* or a body ritual from $89*. Your first visit begins with a one-to-one consultation, so you'll know exactly what suits you."
-  button: "Plan my first visit"
-  footnote: "* First-trial prices from our treatment menu. [[CONFIRM: offer terms]]"
-
 visit:
   eyebrow: "Visit us"
   heading: "Find your nearest studio."

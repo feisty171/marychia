@@ -636,47 +636,6 @@ a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset
 }
 .trust li + li { border-left: 1px solid var(--line); }
 
-/* ---------- 4. First-visit offer ---------- */
-.h-offer { padding: 0 0 64px; }
-.offer {
-  position: relative;
-  display: grid;
-  gap: 24px;
-  padding: 40px 24px;
-  overflow: hidden;
-  color: var(--white);
-  background: var(--dark);
-  border-radius: 4px;
-}
-/* two thin rose rings in the corner (decorative) */
-.offer::before,
-.offer::after {
-  content: "";
-  position: absolute;
-  right: -90px;
-  top: -90px;
-  width: 280px;
-  aspect-ratio: 1;
-  border: 1px solid var(--rose);
-  border-radius: 50%;
-  opacity: .5;
-  pointer-events: none;
-}
-.offer::after { right: -40px; top: -140px; opacity: .3; }
-.offer > * { position: relative; }
-.offer .eyebrow { color: var(--rose-lt); }
-.offer__title {
-  margin: 0 0 12px;
-  font-family: var(--font-serif);
-  font-weight: 500;
-  font-size: var(--fs-h2);
-  line-height: 1.15;
-}
-.offer .h-body { margin: 0; color: rgba(255, 255, 255, .78); }
-.offer__action { display: grid; gap: 12px; justify-items: start; }
-.offer__action .btn { width: 100%; }
-.offer__foot { margin: 0; font-size: var(--fs-caption); color: rgba(255, 255, 255, .6); }
-
 /* ---------- 5. Visit ---------- */
 .visit { display: grid; gap: 32px; }
 .h-studios { display: grid; gap: 0; }
@@ -784,15 +743,6 @@ a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset
 
   .reviews { grid-template-columns: repeat(3, 1fr); gap: clamp(24px, 3vw, 56px); }
 
-  .h-offer { padding-bottom: clamp(80px, 9vw, 120px); }
-  .offer {
-    grid-template-columns: 1.6fr 1fr;
-    align-items: center;
-    gap: 40px;
-    padding: clamp(40px, 5vw, 64px);
-  }
-  .offer__action { justify-items: end; text-align: right; }
-  .offer__action .btn { width: auto; }
 
   .h-final { padding: clamp(100px, 12vw, 160px) 0; }
   .h-final__actions { flex-direction: row; justify-content: center; width: auto; }
@@ -951,7 +901,7 @@ a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset
 .ed-hero__lead { margin: 0; font-size: var(--fs-body); line-height: 1.7; color: var(--ink-soft); }
 .ed-hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 32px; }
 
-/* Rose filled button (hero, first-visit offer) */
+/* Rose filled button (hero, banner) */
 .btn--rose {
   padding: 17px 34px;
   border-radius: 999px;
