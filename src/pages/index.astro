@@ -52,6 +52,8 @@ const resultCards = ((gallery.results || []) as any[]).slice(0, h.results?.show 
 const googleFor = (studio?: string) => (outlets as any[]).find((o) => o.name === studio)?.mapsUrl || "";
 // Review avatar colour: a steady hue picked from the reviewer's name, like Google's initials
 const avatarHue = (n: string) => [...n].reduce((a, c) => a + c.charCodeAt(0), 0) % 360;
+// "Find a treatment" heading: *words* become the large italic red line
+const [findBefore, findEm = "", findAfter = ""] = (h.services?.heading || "").split("*");
 const stars = (n: any) => (typeof n === "number" && n >= 1 ? Math.min(5, Math.round(n)) : 0);
 // "Our story" heading: *words* in italic rose
 const [storyBefore, storyEm = "", storyAfter = ""] = (h.experience?.heading || "").split("*");
@@ -121,15 +123,20 @@ const heroWords = h.hero.headline
          services.showList is true. -->
     <section class="h-section sig" id="services">
       <div class="h-container">
-        <header class="h-split-head" data-reveal>
+        <!-- Heading in the style of a beauty magazine: bold uppercase words crossed by a large
+             italic line in the brand red; a short line and a button on the right -->
+        <header class="find-head" data-reveal>
           <div>
             <p class="eyebrow">{h.services.eyebrow}</p>
-            <h2 class="h-title">{h.services.heading}</h2>
+            <h2 class="find-title">{findBefore}{findEm && <em>{findEm}</em>}{findAfter}</h2>
           </div>
-          {h.services.intro && <p class="h-intro">{h.services.intro}</p>}
+          <div class="find-side">
+            {h.services.intro && <p class="find-side__text">{h.services.intro}</p>}
+            {h.services.button && <a class="btn find-side__btn" href={site.bookingUrl}>{h.services.button}</a>}
+          </div>
         </header>
         <div class:list={["tp", "tp--embed", { "show-hints": treatmentsData.config.showPlaceholderHints }]}>
-          <CategoryTiles />
+          <CategoryTiles compact />
         </div>
         {h.services.showList && (
           <div class:list={["tp", "tp--embed", "sig-layout", { "show-hints": treatmentsData.config.showPlaceholderHints }]}>

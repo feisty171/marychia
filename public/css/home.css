@@ -81,6 +81,97 @@ sup { font-size: .55em; vertical-align: super; line-height: 0; }
    The wrapper keeps the .tp class only so placeholders and the WhatsApp sheet get their styles. */
 .tp.tp--embed { background: transparent; --wrap-pad: 16px; }
 @media (min-width: 641px) { .tp.tp--embed { --wrap-pad: var(--gutter); } }
+/* ---------- Find a treatment (Home) ----------
+   Magazine-style heading: bold uppercase sans words crossed by a large italic serif line in
+   the brand red (the *asterisk* words in home.md → services.heading). A deliberate exception
+   to the "Cormorant sentence-case headings" rule, for this section only. On the right: a
+   short uppercase line and a square "Book now" button. */
+.find-head {
+  display: grid;
+  gap: 24px;
+  margin-bottom: clamp(32px, 4vw, 56px);
+}
+.find-title {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: clamp(2.125rem, 4.4vw, 4.5rem);
+  line-height: .95;
+  letter-spacing: -.025em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.find-title em {
+  display: block;
+  margin: -.28em 0 0 1.2em;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.3em;
+  line-height: 1;
+  letter-spacing: -.01em;
+  text-transform: none;
+  color: var(--rose);
+  position: relative;
+}
+.find-side { display: grid; gap: 20px; justify-items: start; max-width: 320px; }
+.find-side__text {
+  margin: 0;
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: var(--tracking-ui);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.btn.find-side__btn {
+  min-width: 200px;
+  padding: 16px 32px;
+  border-radius: 2px;
+  border-color: var(--rose);
+  background: var(--rose);
+  color: var(--white);
+}
+.btn.find-side__btn:hover,
+.btn.find-side__btn:focus-visible { background: var(--rose-deep); border-color: var(--rose-deep); color: var(--white); }
+@media (min-width: 961px) {
+  .find-head { grid-template-columns: minmax(0, 1fr) auto; align-items: end; column-gap: 64px; }
+}
+
+/* Compact tiles (Home): landscape 3:2, a small 01/02/03 tag top-left, italic title, a short
+   sentence and the count + price. Phones: stacked full width instead of a swipe row. */
+.tp .tiles.tiles--compact { gap: 16px; }
+.tp .tiles.tiles--compact .tile { aspect-ratio: 3 / 2; border-radius: 4px; }
+.tp .tile-num {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  padding: 4px 8px;
+  background: var(--white);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: .06em;
+  color: var(--ink);
+}
+.tp .tiles--compact .tile-label h3 { font-style: italic; font-size: var(--fs-h3-lg); }
+.tp .tile-desc {
+  max-width: 34ch;
+  margin: 8px 0 0;
+  font-size: var(--fs-small);
+  line-height: 1.45;
+  color: rgba(255, 255, 255, .92);
+}
+.tp .tiles--compact .tile-meta { margin-top: 8px; }
+.tp .tiles--compact .tile-arrow { width: 36px; height: 36px; }
+@media (max-width: 760px) {
+  .tp .tiles.tiles--compact { grid-template-columns: 1fr; overflow: visible; margin: 0; padding: 0; scroll-snap-type: none; }
+}
+@media (min-width: 761px) and (max-width: 1100px) {
+  .tp .tiles.tiles--compact .tile { aspect-ratio: 4 / 3; }
+  .tp .tile-desc { display: none; }
+}
+
 /* Find a treatment: the tiles sit right under the heading */
 .sig .tp--embed .tiles { margin-top: 0; scroll-padding-inline: var(--wrap-pad); } /* phones: first tile lines up with the page edge */
 .sig .h-center { margin-top: 32px; }

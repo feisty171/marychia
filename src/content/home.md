@@ -44,8 +44,10 @@ stats:
 # Treatments page: src/components/CategoryTiles.astro). intro is optional (leave "" for none).
 services:
   eyebrow: "Find a treatment"
-  heading: "What would you like to work on today?"
-  intro: ""
+  # Bold uppercase heading; the *words in asterisks* show as a large italic line in the brand red
+  heading: "What would you like to *work on today?*"
+  intro: "Face, body and wellness treatments, each one shaped around you."   # small line on the right
+  button: "Book now"            # button on the right; uses bookingUrl in src/data/site.json ("" to hide)
   menuButton: "View All Treatments"   # shown under the tiles only while showList is true
   menuLink: "/treatments/"
   # The signature treatments list below the tiles. Hidden for now: set to true to show it again.

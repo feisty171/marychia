@@ -8,6 +8,15 @@
  */
 import { treatmentData as data } from "../lib/treatmentData";
 
+interface Props { compact?: boolean }
+// compact (Home): shorter landscape tiles with a 01/02/03 number, italic title and a short sentence
+const { compact = false } = Astro.props;
+const DESC: Record<string, string> = {
+  Face: "Facials for glow, lift and clarity, shaped around your skin.",
+  Body: "Sculpting, toning and detox rituals for how you want to feel.",
+  Wellness: "Restoring treatments to ease tension and help you unwind.",
+};
+
 const COPY: Record<string, string> = { Face: "Glow, lift & clarity", Body: "Sculpt, tone & detox", Wellness: "Restore & unwind" };
 const money = (n: number) => "S$" + n.toLocaleString("en-SG");
 const images = data.siteImages as Record<string, string>;
@@ -17,8 +26,8 @@ const tiles = ["Face", "Body", "Wellness"].map((c) => {
   return { c, count: list.length, from: prices.length ? money(Math.min(...prices)) : "", img: images[c] || "" };
 });
 ---
-<div class="tiles" id="tiles" data-reveal="stagger">
-  {tiles.map((t) => (
+<div class:list={["tiles", { "tiles--compact": compact }]} id={compact ? undefined : "tiles"} data-reveal="stagger">
+  {tiles.map((t, i) => (
     <a class:list={["tile", { "is-ph": !t.img }]} href={`/rituals/?area=${t.c.toLowerCase()}`} data-cat={t.c}
        aria-label={`Show ${t.c} treatments: ${t.count} treatments${t.from ? `, from ${t.from}` : ""}`}>
       <div class="media">
@@ -26,9 +35,11 @@ const tiles = ["Face", "Body", "Wellness"].map((c) => {
           ? <img src={t.img} alt={`${t.c} treatments`} loading="lazy" decoding="async" />
           : <div class="ph" data-cat={t.c} aria-hidden="true"><div class="ph-inner"><span class="ph-hint">Tile · 700 × 840</span></div></div>}
       </div>
+      {compact && <span class="tile-num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>}
       <div class="tile-label">
         <div class="tile-text">
-          <h3>{t.c}</h3><small>{COPY[t.c]}</small>
+          <h3>{t.c}</h3>
+          {compact ? <p class="tile-desc">{DESC[t.c]}</p> : <small>{COPY[t.c]}</small>}
           {t.count > 0 && <p class="tile-meta">{t.count} treatments <span aria-hidden="true">·</span> from {t.from}</p>}
         </div>
         <span class="tile-arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span>
