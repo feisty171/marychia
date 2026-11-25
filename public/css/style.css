@@ -245,9 +245,21 @@ ul { list-style: none; margin: 0; padding: 0; }
   align-items: center;
   gap: clamp(20px, 2.6vw, 40px);
 }
-/* Each side spreads its links across its half, so the logo sits centred with an equal gap on both sides */
-.nav__group--left,
-.nav__group--right { justify-content: space-between; }
+/* Even spacing (wide screens): the six links and the logo share one row with the same gap between
+   each of them, from the left edge of the bar to the right. (The logo sits near the middle; the
+   right-hand words are a little wider, so it is slightly left of centre.) */
+@media (min-width: 961px) {
+  .nav {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 20px;   /* the smallest gap allowed; on wider screens the gaps grow evenly */
+    /* padding inside the rounded bar: the bar's own margin plus breathing room before Home / after Book Now */
+    padding-inline: calc(clamp(8px, 1vw, 16px) + clamp(20px, 3vw, 48px));
+  }
+  .nav__group { display: contents; }
+  /* once scrolled only the small M shows: size the logo slot to it, so the gaps around it match */
+  .logo { position: relative; }
+  .site-header.is-scrolled .logo__emblem { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+}
 
 .nav__link {
   position: relative;
@@ -303,7 +315,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   position: absolute;
   inset: 6px clamp(8px, 1vw, 16px) 6px;
   z-index: -1;
-  border-radius: 20px;
+  border-radius: 12px;
   background: rgba(var(--blush-rgb), .94);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -316,7 +328,7 @@ ul { list-style: none; margin: 0; padding: 0; }
 .site-header--solid::before,
 .site-header:has(.mobile-menu:not([hidden]))::before { opacity: 1; }
 .site-header.is-scrolled .nav,
-.site-header--solid .nav { height: 76px; }
+.site-header--solid .nav { height: 84px; }   /* the rounded bar inside it is 72px tall */
 .site-header.is-scrolled .nav__link,
 .site-header--solid .nav__link { color: var(--ink); text-shadow: none; }
 .site-header.is-scrolled .btn--nav,
@@ -682,20 +694,14 @@ ul { list-style: none; margin: 0; padding: 0; }
 /* Smaller laptops: tighten the links a little so the logo keeps generous space around it */
 @media (max-width: 1279px) {
   :root { --nav-pad: 40px; }
-  .nav { gap: 52px; }
-  .nav__group { gap: 16px; }
   .nav__link, .btn--nav { letter-spacing: var(--tracking-label); }
   .btn--nav { padding: 12px 19px; }
 }
 @media (max-width: 1100px) {
   :root { --nav-pad: 24px; }
-  .nav { gap: 40px; }
-  .nav__group { gap: 12px; }
   .nav__link, .btn--nav { letter-spacing: .06em; }
 }
 @media (min-width: 961px) and (max-width: 1040px) {
-  .nav { gap: 30px; }
-  .nav__group { gap: 8px; }
   .btn--nav { padding: 11px 17px; }
 }
 
@@ -706,7 +712,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   .nav__group { display: none; }
   .nav__toggle { display: block; }
   .site-header.is-scrolled .nav,
-  .site-header--solid .nav { height: 68px; }
+  .site-header--solid .nav { height: 76px; }   /* phones: a 64px rounded bar */
   .logo { justify-items: start; }
   .logo__mark { height: 48px; }
   .logo__emblem { height: 58px; transform: translateY(6px); }
