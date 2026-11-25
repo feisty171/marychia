@@ -126,7 +126,7 @@ sup { font-size: .55em; vertical-align: super; line-height: 0; }
 .btn.find-side__btn {
   min-width: 200px;
   padding: 16px 32px;
-  border-radius: 2px;
+  border-radius: 999px;   /* the site's standard rounded pill */
   border-color: var(--rose);
   background: var(--rose);
   color: var(--white);
