@@ -38,7 +38,7 @@ const [h1, em, h2] = c.heading.split("*");
   title={c.seo.title}
   description={c.seo.description}
   current="shop"
-  solidHeader
+  clearHeader
   bodyClass="page-shop"
   styles={["shop.css"]}
 >
@@ -46,7 +46,7 @@ const [h1, em, h2] = c.heading.split("*");
     {/* Opening banner: a wide photo with the words on it, then a button per brand
         (photo: hero.image in src/content/shop.md; brand thumbs: the brand's first product photo) */}
     <section class="shop-page">
-      <div class="a-container">
+      <div class="shop-hero__wrap">
         <header class="shop-hero">
           <div class="shop-hero__media">
             {c.hero?.image
