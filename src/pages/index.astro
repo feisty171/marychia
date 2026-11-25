@@ -394,7 +394,8 @@ const heroWords = h.hero.headline
       </div>
     </section>
 
-    <!-- ============ 6. FINAL CTA ============ -->
+    <!-- ============ 6. FINAL CTA (hidden while finalCta.show is false) ============ -->
+    {h.finalCta?.show !== false && (
     <section class="h-final" id="book">
       <div class="h-container h-final__inner" data-reveal>
         <h2 class="h-final__title">{h.finalCta.heading}</h2>
@@ -405,6 +406,7 @@ const heroWords = h.hero.headline
         </div>
       </div>
     </section>
+    )}
   </main>
 
   <Footer />

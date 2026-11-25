@@ -307,6 +307,7 @@ visit:
   heading: "Find your nearest studio."
 
 finalCta:
+  show: false   # the "Take a moment for yourself" band at the bottom of Home; true shows it again
   heading: "Take a moment for yourself."
   text: "Your skin. Your body. Your time to feel cared for. Book your visit and let us take care of the rest."
   button: "Book your escape"
