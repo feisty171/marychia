@@ -20,7 +20,7 @@ hero:
   brandButtons: false     # true shows a button for each brand (photo, name, count) on the banner
 eyebrow: "Shop skincare"
 heading: "professional skincare to take *home*."
-intro: "Your facial shouldn’t end when you leave the studio. The peptide serums, hyaluronic acid boosters and SPF60 mineral sunscreen our therapists use on you are now ready for your daily routine, so your skin keeps its glow between visits."
+intro: "Your facial shouldn’t end when you leave the studio. Take home the peptide serums, hyaluronic acid boosters and SPF60 sunscreen our therapists use on you."
 
 # Shop card: the button that replaces the title and price when a card is hovered ("- S$399" is added)
 buyLabel: "Buy now"
