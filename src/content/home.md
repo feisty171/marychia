@@ -302,8 +302,6 @@ testimonials:
 visit:
   eyebrow: "Visit us"
   heading: "Find your nearest studio."
-  directions: "Get directions"
-  mapLabel: "Show on map"
 
 finalCta:
   heading: "Take a moment for yourself."

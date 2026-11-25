@@ -366,11 +366,11 @@ const heroWords = h.hero.headline
         </header>
         <div class="visit" data-reveal>
           <ul class="h-studios">
-            {outlets.map((o) => {
+            {outlets.map((o, i) => {
               const wa = waHref(o.whatsapp);
               return (
-                <li class="h-studio">
-                  <h3 class="h-studio__name">{o.name}</h3>
+                <li class="h-studio" data-map={mapEmbed(o.mapsUrl)} data-name={o.name} aria-current={i === 0 ? "true" : undefined}>
+                  <h3 class="h-studio__name"><button type="button" class="h-studio__pick">{o.name}</button></h3>
                   <p class="h-studio__line">{o.address}, Singapore {o.postalCode}</p>
                   <p class="h-studio__line">{o.hours}</p>
                   <p class="h-studio__line">
@@ -378,19 +378,14 @@ const heroWords = h.hero.headline
                     <span aria-hidden="true"> · </span>
                     {wa ? <a href={wa}>WhatsApp {o.mobile}</a> : <span>{o.whatsapp}</span>}
                   </p>
-                  <a class="link-arrow" href={o.mapsUrl} target="_blank" rel="noopener">{h.visit.directions}</a>
                 </li>
               );
             })}
           </ul>
           <div class="visit__side">
-            {/* Live Google map. The buttons switch it between studios (public/js/home.js);
-                each map comes from the studio's mapsUrl in src/data/outlets.json. */}
-            <div class="visit-map__tabs" role="group" aria-label={h.visit.mapLabel}>
-              {outlets.map((o, i) => (
-                <button type="button" class="visit-map__tab" aria-pressed={i === 0 ? "true" : "false"} data-map={mapEmbed(o.mapsUrl)}>{o.name}</button>
-              ))}
-            </div>
+            {/* Live Google map of the selected studio: tap a studio in the list to switch it
+                (public/js/home.js). Each map comes from mapsUrl in src/data/outlets.json;
+                directions and "Open in Maps" are on the map itself. */}
             <div class="visit-map">
               <iframe src={mapEmbed(outlets[0].mapsUrl)} title={`Map: Mary Chia ${outlets[0].name}`} loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
             </div>

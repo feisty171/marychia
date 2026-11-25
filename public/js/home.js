@@ -128,13 +128,15 @@
     });
   }
 
-  /* ---- Visit us: switch the map between studios ---- */
+  /* ---- Visit us: tap a studio to show it on the map ---- */
   var mapFrame = document.querySelector(".visit-map iframe");
-  var mapTabs = Array.prototype.slice.call(document.querySelectorAll(".visit-map__tab"));
-  mapTabs.forEach(function (b) {
-    b.addEventListener("click", function () {
-      mapTabs.forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
-      if (mapFrame) { mapFrame.src = b.dataset.map; mapFrame.title = "Map: Mary Chia " + b.textContent; }
+  var studios = Array.prototype.slice.call(document.querySelectorAll(".h-studio[data-map]"));
+  studios.forEach(function (li) {
+    li.addEventListener("click", function (e) {
+      if (e.target.closest("a") || !mapFrame) return;   // phone / WhatsApp links work as usual
+      studios.forEach(function (x) { if (x === li) x.setAttribute("aria-current", "true"); else x.removeAttribute("aria-current"); });
+      if (mapFrame.src !== li.dataset.map) mapFrame.src = li.dataset.map;
+      mapFrame.title = "Map: Mary Chia " + li.dataset.name;
     });
   });
 

@@ -774,26 +774,19 @@ a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset
 }
 .h-studio__line a { color: var(--ink); }
 .h-studio__line a:hover { color: var(--rose); }
-.h-studio .link-arrow { margin-top: 8px; }
 
 .visit__side { display: grid; gap: 24px; align-content: start; }
-/* Live map with one button per studio (switching: public/js/home.js) */
-.visit-map__tabs { display: flex; flex-wrap: wrap; gap: 8px; }
-.visit-map__tab {
-  min-height: 44px;
-  padding: 0 18px;
-  font: inherit;
-  font-size: var(--fs-ui);
-  letter-spacing: var(--tracking-ui);
-  color: var(--ink);
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  cursor: pointer;
-  transition: background .2s, color .2s, border-color .2s;
+/* Tap a studio to show it on the map (public/js/home.js); the selected one gets a rose bar */
+.h-studio[data-map] { position: relative; padding-left: 20px; cursor: pointer; transition: background .2s; }
+.h-studio[data-map]::before {
+  content: ""; position: absolute; left: 0; top: 22px; bottom: 22px; width: 2px;
+  background: var(--rose); transform: scaleY(0); transition: transform .3s;
 }
-.visit-map__tab:hover { border-color: var(--rose); color: var(--rose); }
-.visit-map__tab[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--white); }
+.h-studio[aria-current="true"]::before { transform: scaleY(1); }
+.h-studio[data-map]:hover { background: rgba(var(--rose-rgb), .03); }
+.h-studio__pick { padding: 0; font: inherit; color: inherit; background: none; border: 0; cursor: pointer; text-align: left; }
+.h-studio[aria-current="true"] .h-studio__pick, .h-studio__pick:hover { color: var(--rose); }
+
 .visit-map {
   height: min(70vw, 360px);
   overflow: hidden;
