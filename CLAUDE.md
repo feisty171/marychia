@@ -6,6 +6,7 @@ Static site built with [Astro](https://astro.build). No CMS, no database. The ma
 
 - `npm install` — first time only
 - `npm run dev` — local preview at http://localhost:8091 (`[[CONFIRM: ...]]` placeholders show highlighted in yellow)
+- `npm run build:products -- "path/to/sheet.xlsx"` — rebuilds the Shop product list from the KrisShop product sheet (see "Shop page")
 - `npm run build:treatments` — rebuilds the treatment list from `data/treatment-menu.xlsx` (see "Rituals page (treatment list)")
 - `npm run build` — builds the finished site into `dist/`. Upload the contents of `dist/` to the web host.
 - **Preview site:** the repo is `feisty171/marychia`. Pushing to `main` publishes automatically to https://feisty171.github.io/marychia/ via GitHub Actions (`.github/workflows/deploy.yml`).
@@ -20,6 +21,7 @@ Static site built with [Astro](https://astro.build). No CMS, no database. The ma
 | About Us page words (heritage opening, timeline milestones + photos, vision & mission, SEO title/description) | `src/content/about.md` |
 | Contact Us page words (Our Location, Feedback/Enquiry form topics) | `src/content/contact.md` |
 | Career page words (/careers/: intro, roles, how to apply) | `src/content/careers.md` |
+| Shop page (/shop/, the nav "Shop" link): page words, button labels, brand order | `src/content/shop.md` (words); products: `src/data/products.json`, made from the product sheet (see "Shop page" below) |
 | Gallery / Results page (/gallery/: heading, filters, client results with before/after photos, disclaimer, closing button) | `src/content/gallery.md` (words); results: one file each in `src/data/results/`, photos in `src/assets/results/` (resized automatically); add them with Pages CMS, settings in `.pages.yml` |
 | Treatments and Rituals: the treatment list, prices, concerns and collections (`data/treatment-menu.xlsx` → `npm run build:treatments` → `src/data/treatment-menu.json`) | see "Rituals page (treatment list)" below |
 | Treatment list page (`/rituals/`, the "Treatments" menu item) settings: hero words (`ritualsHero`), photos, time pills, treatment photos, full-menu PDF settings. (`hero`, `services` and `trending` belonged to the removed /treatments/ page and are not shown.) | `src/data/treatments.json` |
@@ -249,6 +251,12 @@ Rules for both ways:
 - `note` must be factual: no kg or cm lost, no "permanent", no medical claims, no "guaranteed".
 - A treatment name that doesn't match, or a photo that isn't in the folder, **stops the build** with a message naming the problem (suggesting the right treatment names or listing the photos in the folder). On GitHub the live site simply stays as it was until it's fixed.
 - The six example results (empty photos, `[[CONFIRM: ...]]` notes, dated January 2026) are placeholders: replace or delete them.
+
+### Shop page (/shop/): add, edit or remove a product
+The nav's "Shop" link opens `/shop/` (`src/pages/shop.astro`, styles `public/css/shop.css`). Products are grouped by brand (order: `brands:` in `src/content/shop.md`), each as a card: photo, type · size, name, short description (4 lines), "How to use" and "Ingredients" (tap to open), price, and "Order on WhatsApp" (the studio picker, with a message like "Hi Mary Chia, I would like to order Lucent Eye Complex (30ml · S$269) at Goldhill, Novena.").
+- **Products come from the KrisShop product sheet** ("Material Creation Form (MCF)" tab). Run `npm run build:products -- "path/to/sheet.xlsx"`; it writes `src/data/products.json` and copies only the customer-facing columns (brand, full product name, size, Item Sub Category, KRISSHOP RSP as the price, Short Product Description, Usage, Ingredients). Cost, margin and vendor columns are never read. Keep the sheet itself out of git. The example row (SN 0) is skipped.
+- **Photos:** put them in `public/images/shop/` (square, 1000×1000) and set `"image"` for that product in `src/data/products.json`; rerunning the script keeps it. Until then a placeholder shows.
+- The product descriptions are the brand's own copy. Check them against the compliance rules (no guaranteed results, no medical claims) before launch.
 
 ### Contact Us page
 - **Our Location:** the label ("Our Location") and title ("Visit a studio") are in `src/content/contact.md` (`locations:` → `eyebrow`, `heading`, optional `lede`); the studio cards (map, address, phones, WhatsApp, hours, directions) come from `src/data/outlets.json`.

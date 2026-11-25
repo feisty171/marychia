@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "build:treatments": "node scripts/build-treatments.mjs"
+    "build:treatments": "node scripts/build-treatments.mjs",
+    "build:products": "node scripts/build-products.mjs"
   },
   "dependencies": {
     "astro": "^5.18.2"

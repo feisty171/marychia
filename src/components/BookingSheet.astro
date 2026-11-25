@@ -7,6 +7,13 @@
 import outlets from "../data/outlets.json";
 import { isPlaceholder } from "../lib/links";
 
+// The Shop page passes its own words (e.g. "Order on WhatsApp"); treatments use the defaults.
+interface Props { eyebrow?: string; note?: string }
+const {
+  eyebrow = "Book on WhatsApp",
+  note = "We'll open WhatsApp with your treatment details filled in. Our team will confirm your slot.",
+} = Astro.props;
+
 const studios = outlets
   .filter((o) => !isPlaceholder(o.whatsapp))
   .map((o) => ({
@@ -20,9 +27,9 @@ const studios = outlets
     <button class="sheet-close" type="button" aria-label="Close">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg>
     </button>
-    <p class="eyebrow">Book on WhatsApp</p>
+    <p class="eyebrow">{eyebrow}</p>
     <h3 id="bookSheetTitle"></h3>
     <div class="studios"></div>
-    <small>We'll open WhatsApp with your treatment details filled in. Our team will confirm your slot.</small>
+    <small>{note}</small>
   </div>
 </div>

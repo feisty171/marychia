@@ -1,0 +1,113 @@
+{
+  "_note": "Made by scripts/build-products.mjs from the product sheet. Edit the sheet and rerun; only 'image' is kept from this file.",
+  "products": [
+    {
+      "id": "lucent-supercharged-miracle-drop",
+      "brand": "Lucent",
+      "name": "Lucent Supercharged Miracle Drop",
+      "size": "30ml",
+      "type": "Serum",
+      "price": 229,
+      "description": "Lucent Supercharged Miracle Drop delivers deep hydration with multi-molecular sodium hyaluronate, locking in moisture and nourishing skin from within. Lightweight, fast-absorbing formula keeps skin plump, radiant, and hydrated at the cellular level.",
+      "usage": "Use twice a day. Apply on face, neck and décolleté before moisturiser.",
+      "ingredients": "Aqua, Sodium Hyaluronate, Phenoxyethanol, Aloe Barbadensis Leaf Extract.",
+      "image": ""
+    },
+    {
+      "id": "lucent-luminocrystal-daily-skin-protector-spf60-pa",
+      "brand": "Lucent",
+      "name": "Lucent Luminocrystal Daily Skin Protector SPF60 PA++++",
+      "size": "30ml",
+      "type": "Sunscreen",
+      "price": 128,
+      "description": "Lucent LuminoCrystal Glow Daily Protector, powered by B-Circadin®, Niacinamide, Zinc Oxide & Titanium Dioxide, defends against UVA/UVB & blue light while rejuvenating skin’s circadian rhythm, protecting cells from oxidative stress and restoring a healthy, radiant glow.",
+      "usage": "Pump an appropriate amount onto palm. Apply on face, neck & décolleté after moisturiser. Re-apply frequently to maintain protection, especially after sweating, swimming or toweling. Suitable for all skin types.",
+      "ingredients": "Aqua. Cyclopentasiloxane, Zinc Oxide. Hydrogenated Polydecene, Polymethylsilsequioxane, Hydroxystearic Acid. Titanium Dioxide, Peg-20 Dimethicone, Butylene Glycol, Cetyl Peg/Ppg-10/1 Dimethicone, Isododecane. Disteardimonium Hectorite, Propylene Carbonate, Sodium Chloride. Phenoxyethanol. Chlorphenesin, Saccharide Isomerate, Glycerin, Sodium Levulinate. P-Anisic Acid. Fragrance, Niacinamide, Acetyl Glucosamine, Centella Asiatica Extract. Morus Alba Bark Extract. Pyrus Malus (Apple) Fruit Extract, Ergosterol, Camellia Sinensis Leaf Extract, Broussonetia Kazinoki Root Extract, Galactoarabinan, Camellia Japonica Leaf Extract, Lespedeza Capitata Leaf Extract.",
+      "image": ""
+    },
+    {
+      "id": "lucent-illuminor-primer",
+      "brand": "Lucent",
+      "name": "Lucent Illuminor Primer",
+      "size": "30ml",
+      "type": "Primer",
+      "price": 229,
+      "description": "Lucent Illuminor provides the skin with instant glow and freshens dull complexion. Boosted with plant extract proven for pore refining, and moisturising factor to keep skin flawless for the day, reduces signs of skin tiredness. It is recommended to be use on its own for natural bare face look, or make-up base",
+      "usage": "Pump one full press and use as a primer base.",
+      "ingredients": "Water, Cetearyl Isononanoate, Cyclopentasiloxane, Betaine, Propanediol, Caprylic/Capric Triglyceride, Mica, Titanium Dioxide, Cetearyl Olivate, Sorbitan Olivate, Cetyl Palmitate, Cetyl Alcohol, Polyacrylate-13, Phenoxyethanol, Polyisobutene, Sorbitan Palmitate, Polysorbate 20, Ethylhexylglycerin, Parfum, Butylene Glycol, Lysine, Histidine, Arginine, Aspartic acid, Threonine, Serine, Glutamic acid, Proline, Glycine, Alanine, Valine, Isoleucine, Leucine, Tyrosine, Phenylalanine.",
+      "image": ""
+    },
+    {
+      "id": "lucent-radiance-restore",
+      "brand": "Lucent",
+      "name": "Lucent Radiance Restore",
+      "size": "30ml",
+      "type": "Serum",
+      "price": 269,
+      "description": "Lucent Radiance Restore combines Syn-Ake peptide technology with brightening actives to smooth fine lines, diminish dullness, and improve elasticity. This advanced formula deeply hydrates while restoring an even, luminous complexion.",
+      "usage": "Use twice a day. Apply on face, neck and décolleté before moisturiser.",
+      "ingredients": "C60 Fullerenes, SYN-AKE, Sodium Hyaluronate, Yeast Extract, MultiEx BSASMTM [Centella Asiatica Extract, Polygonum Cuspidatum Root Extract, Scutellaria Baicalensis Root Extract, Camellia Sinensis Leaf Extract, Glycyrrhiza Glabra (Licorice) Root Extract, Chamomilla Recutita (Matricaria) Flower Extract, Rosmarinus Officinalis (Rosemary) Extract], Panthenol.",
+      "image": ""
+    },
+    {
+      "id": "lucent-eye-complex",
+      "brand": "Lucent",
+      "name": "Lucent Eye Complex",
+      "size": "30ml",
+      "type": "Eye Gel",
+      "price": 269,
+      "description": "Revive tired eyes with Lucent Eye Complex, a concentrated formula designed to target dark circles, puffiness, and fine lines. Infused with brightening actives and advanced hydration technology, this lightweight yet powerful eye treatment helps restore clarity, firmness, and youthful radiance to the delicate under-eye area.",
+      "usage": "Use twice a day. Apply at eye bag/dark-eye circle area before moisturiser.",
+      "ingredients": "Aqua (Water), Glycerin, Ammonium Acryloyldimethyltaurate/ VP Copolymer, PEG-60, Hydrogenated Castor Oil, Propylene Glycol, Steareth-20, Hesperidin Methyl Chalcone, Sodium Citrate, N-Hydroxysuccinimide, Dipeptide-2, Reseda Luteola Extract, Arctostaphylos, Uva Ursi Leaf Extract, Carum Petroselinum (Parsley) Extract, Palmitoyl Tetrapeptide-7, Chrysin, Palmitoyl Tripeptide-1, Tetrasodium EDTA, Phenoxyethanol, Chlorphenesin, Chlorhexidine Digluconate, Potassium Sorbate, Citric Acid, Parfum (Fragrance).",
+      "image": ""
+    },
+    {
+      "id": "juve-biomimetic-stem-cell-activator",
+      "brand": "The Juve Series",
+      "name": "JUVE Biomimetic Stem Cell Activator",
+      "size": "50ml",
+      "type": "Serum",
+      "price": 399,
+      "description": "JUVE Biomimetic Stem Cell Activator is enhanced with BoNTLIF300, a powerful anti-aging formula that enables instant facelift. The advanced concentrate is curated with high levels of peptides that firm and repair damaged skin, promoting a youthful appearance. It also enhances collagen synthesis, reducing the appearance of fine lines and wrinkles by inhibiting the release of neurotransmitters. With its deeply hydrating properties, JUVE leaves the skin feeling soft and supple.",
+      "usage": "Apply JUVE Biomimetic Stem Cell Activator after cleansing. Begin by spraying both sides of your face, followed by your forehead, maintaining a distance of approximately 20cm from the skin. Spray under or over makeup for a brighter and lifted finish.",
+      "ingredients": "Aqua, Rosa Damascena (Rose) Flower Water, Polystyrene Sulfonate, Glycyrrhiza Glabra Root Extract, Sorghum Bicolor Stalk Juice, Adansonia Digitata Leaf Extract, Artemia Extract, Polysorbate 20, Bis-PEG-18 Methyl Ether Dimethyl Silane, Oligopeptide-24, Hexapeptide-9, Acetyl Hexapeptide-8, Palmitoyl Pentapeptide-4, Uncaria Tomentosa Extract, Soluble Collagen, Aloe Barbadensis Leaf Juice Extract, Panthenol, PEG-12 Dimethicone, Biosaccharide Gum-1, Propylene Glycol, Hyaluronic Acid, Phenoxyethanol, Olive Oil PEG-7 Esters, Paullinia Cupana Seed Extract, Glycerin, Disodium EDTA.",
+      "image": ""
+    },
+    {
+      "id": "probio-prepe-mousse-face-cleanser-and-make-up-remover",
+      "brand": "The Juve Series",
+      "name": "Probio Prepe Mousse Face Cleanser and Make-up Remover",
+      "size": "120ml",
+      "type": "Cleansers",
+      "price": 169,
+      "description": "ProBio Prepé is a probiotic mousse cleanser with six-in-one benefits—repairing, soothing, brightening, balancing, anti-aging, and pore-minimizing. Powered by Bacillus Coagulans and fermented botanicals, it restores the skin barrier, promotes microbiome balance, and reveals a smoother, radiant, healthier complexion.",
+      "usage": "Apply a full pump of foam to clean hands and gently massage the wet face in a circular motion. Wash your face thoroughly with water and pat dry with a clean towel. Use twice daily.",
+      "ingredients": "Aqua, Sodium Lauroyl Sarcosinate, Propylene Glycol, Cocomidopropyl Betaine, Cocamide DEA, Glycerin, Pentylene Glycol (and) Panicum Miliaceum (Millet) Seed Extract (and) Lactobacillus Ferment, PEG-7 Glyceryl Cocoate, Phenoxyethanol, Hyaluronic Acid, Sodium Lactate, Phaseolus Radiatus Seed Extract, Calendula Officinalis Extract, Hamamelis Virginiana (Witch Hazel) Bark/Leaf/Twig Extract, Aloe Barbadensis Leaf Extract, Chamomilla Recutita (Matricaria) Extract, Glycyrrhiza Glabra (Licorice) Root Extract, Fragrance, Beta-Glucan, Gluconolactone, Tocopherol.",
+      "image": ""
+    },
+    {
+      "id": "bright-illuminating-power-concentrate-fibre-silk-mask",
+      "brand": "The Prep Series",
+      "name": "Bright+ Illuminating Power Concentrate Fibre Silk Mask",
+      "size": "25gm × 5pcs",
+      "type": "Facial Mask",
+      "price": 256,
+      "description": "Bright+ Fibre Silk Mask, powered by C60 LumiFullerene Complex and advanced actives, delivers 125x stronger antioxidant defense than Vitamin C. It brightens, hydrates, and refines skin, reducing dark spots, wrinkles, and dullness—revealing radiant, youthful, and revitalized skin.",
+      "usage": "Gently remove the fibre silk mask from its packaging and unfold it. Carefully place the mask onto your face, aligning it with your eyes, nose, and mouth. Relax and leave the mask on for 15-20 minutes to allow the nutrient-rich serum to deeply penetrate your skin. After removal, gently pat any remaining essence into your skin until fully absorbed. No rinsing is required. Follow with your regular skincare routine for optimal results.",
+      "ingredients": "Water, Propylene Glycol, Glycerin, Nicotinamide, Triethanolamine, a-Arbutin, Betaine, Carbomer, Panthenol, Fullerene, Hydroxypropyl Tetrahydropyrantriol, Sodium Hyalur onate, Glycosy Glycerol, Carnosine, Gentiana Scabra Extract, Stephania Tetrandra Extract, Betaine Salicylate, Alcaligenes Polysaccharides, Allantoin, PEG-40 Hydrogenated Castor Oil, 1,2-Hexanediol",
+      "image": ""
+    },
+    {
+      "id": "repair-skin-rescue-concentrate",
+      "brand": "The Prep Series",
+      "name": "Repair+ Skin Rescue Concentrate",
+      "size": "20ml",
+      "type": "Serum",
+      "price": 299,
+      "description": "Repair+ Skin Rescue Concentrate combines Fullerene antioxidants with Bioreva™ Ferment Complex—five bio-fermented minerals transformed through advanced fermentation to deeply renew skin, restore clarity, boost resilience, and defend against environmental and age-related stress for lasting radiance.",
+      "usage": "Pump 2-3 drop on cleansed skin. Gently apply to face and neck. Use every morning and night.",
+      "ingredients": "Water, Butylene Glycol, Saccharomyces Ferment Lysate Filtrate, Glycerin, Inositol, Niacinamide, 1,2-Hexanediol, Tranexamic Acid, Hydroxyacetophenone, Fullerenes, Collagen, Tremella Fuciformis Polysaccharide, Propylene Glycol, Hydrolyzed Yeast Protein, Glycerophosphoinositol Choline, Saccharomyces Silicon Ferment, Saccharomyces Magnesium Ferment, Saccharomyces Iron Ferment, Saccharomyces Copper Ferment, Saccharomyces Zinc Ferment, Citrus Reticulata (Tangerine) Peel Extract, Radish Root Ferment Filtrate, Prunus Yedoensis Leaf Extract, Ethylhexylglycerin, Phenoxyethanol, Sorbic Acid, Caprylhydroxamic Acid, Xanthan Gum",
+      "image": ""
+    }
+  ]
+}

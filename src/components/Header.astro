@@ -38,7 +38,7 @@ const treatments: Dropdown = {
 const left: ({ key: string; label: string; href: string } | Dropdown)[] = [
   { key: "home", label: "Home", href: "/" },
   treatments,
-  { key: "shop", label: "Shop", href: "/#shop" },
+  { key: "shop", label: "Shop", href: "/shop/" },
 ];
 const isDrop = (x: any): x is Dropdown => Array.isArray(x.items);
 

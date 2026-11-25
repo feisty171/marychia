@@ -1,0 +1,85 @@
+/* =========================================================
+   Mary Chia — Shop page (/shop/)
+   Builds on style.css (tokens, header, buttons, .a-container, footer).
+   The "Order on WhatsApp" pop-up uses the .tp .sheet styles in treatments.css.
+   ========================================================= */
+
+/* Page start: sits right under the solid header */
+.shop-page { padding: calc(68px + clamp(40px, 5vw, 72px)) 0 clamp(64px, 8vw, 112px); }
+
+/* ---------- Heading ---------- */
+.shop-head { max-width: 640px; margin-bottom: clamp(40px, 5vw, 64px); }
+.shop-head .a-title { font-size: var(--fs-display); }
+.shop-head .a-title em { font-style: italic; color: var(--rose); }
+.shop-head__intro { margin: 0; max-width: 60ch; font-size: var(--fs-body); line-height: 1.6; color: var(--ink-soft); }
+
+/* Jump links to each brand */
+.shop-brands { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.shop-brands a {
+  display: inline-flex; align-items: center; gap: 8px;
+  min-height: 44px; padding: 0 18px;
+  font-size: var(--fs-ui); letter-spacing: var(--tracking-ui); text-transform: uppercase;
+  border: 1px solid var(--line); border-radius: 999px; background: var(--white);
+  transition: border-color .2s, color .2s;
+}
+.shop-brands a span { color: var(--ink-faint); }
+.shop-brands a:hover { border-color: var(--rose); color: var(--rose); }
+
+/* ---------- Brand group ---------- */
+.shop-group { scroll-margin-top: 100px; }
+.shop-group + .shop-group { margin-top: clamp(56px, 7vw, 96px); }
+.shop-group__head {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 20px;
+  padding-bottom: 16px; margin-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+}
+.shop-group__head h2 { margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: var(--fs-h3-lg); line-height: 1.1; }
+.shop-group__head p { margin: 0; font-size: var(--fs-text); color: var(--ink-soft); }
+
+/* ---------- Product grid and card ---------- */
+.shop-grid { display: grid; gap: 24px; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .shop-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1100px) { .shop-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1440px) { .shop-grid { grid-template-columns: repeat(4, 1fr); } }
+.shop-grid > li { display: flex; }
+
+.shop-card {
+  display: flex; flex-direction: column; width: 100%;
+  background: var(--white);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.shop-card__media { aspect-ratio: 1; background: var(--tint); }
+.shop-card__media img { width: 100%; height: 100%; object-fit: cover; }
+.shop-card__ph {
+  height: 100%; display: grid; place-content: center; gap: 6px; text-align: center;
+  background: repeating-linear-gradient(45deg, transparent 0 14px, rgba(var(--rose-rgb), .05) 14px 15px), var(--tint);
+}
+.shop-card__ph span { font-family: var(--font-serif); font-style: italic; font-size: var(--fs-h4); color: var(--rose); }
+.shop-card__ph small { font-size: var(--fs-caption); color: var(--ink-faint); letter-spacing: var(--tracking-label); text-transform: uppercase; }
+
+.shop-card__body { flex: 1; display: flex; flex-direction: column; padding: clamp(1.25rem, 2vw, 1.75rem); }
+.shop-card__meta { margin: 0 0 8px; font-size: var(--fs-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--rose); }
+.shop-card h3 { margin: 0 0 10px; font-family: var(--font-serif); font-weight: 500; font-size: var(--fs-h4); line-height: 1.2; }
+.shop-card__desc {
+  margin: 0 0 14px; font-size: var(--fs-small); line-height: 1.6; color: var(--ink-soft);
+  display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+/* How to use / Ingredients: tap to open */
+.shop-card__more { margin-bottom: 18px; border-top: 1px solid var(--line); }
+.shop-card__more details { border-bottom: 1px solid var(--line); }
+.shop-card__more summary {
+  display: flex; justify-content: space-between; align-items: center;
+  min-height: 44px; cursor: pointer; list-style: none;
+  font-size: var(--fs-caption); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--ink);
+}
+.shop-card__more summary::-webkit-details-marker { display: none; }
+.shop-card__more summary::after { content: "+"; font-size: var(--fs-h5); color: var(--rose); transition: transform .2s; }
+.shop-card__more details[open] summary::after { transform: rotate(45deg); }
+.shop-card__more details p { margin: 0 0 14px; font-size: var(--fs-small); line-height: 1.6; color: var(--ink-soft); }
+
+.shop-card__foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.shop-card__price { margin: 0; font-family: var(--font-serif); font-size: var(--fs-h3); line-height: 1; color: var(--rose); font-variant-numeric: lining-nums; }
+.shop-card__foot .btn { padding: 13px 20px; }

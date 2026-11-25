@@ -201,7 +201,7 @@ products:
   intro: "Studio favourites to keep your skin and body feeling cared for between visits."
   linkLabel: "Shop now"
   menuButton: "Shop All Products"
-  menuLink: "[[CONFIRM: shop page link]]"
+  menuLink: "/shop/"
   items:
     - brand: "Dr Scinn"
       name: "Eye Renewal Ampoule"
