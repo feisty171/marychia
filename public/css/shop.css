@@ -71,7 +71,7 @@
 }
 .shop-hero__eyebrow { margin: 0 0 14px; color: var(--white); }
 .shop-hero__title { margin: 0 0 16px; font-size: var(--text-display); color: var(--white); }
-.shop-hero__title em { color: var(--rose); }
+.shop-hero__title em { color: var(--white); }   /* on the photo: all white */
 .shop-hero__intro { margin: 0; max-width: 54ch; color: rgba(var(--blush-rgb), .9); }
 
 .shop-hero__brands { display: grid; gap: 10px; margin-top: 12px; }
@@ -112,6 +112,7 @@
   .shop-hero__media:has(img) { background: var(--tint); }
   .shop-hero__media:has(img) .shop-hero__eyebrow { color: var(--rose); }
   .shop-hero__media:has(img) .shop-hero__title { color: var(--ink); }
+  .shop-hero__media:has(img) .shop-hero__title em { color: var(--rose); }   /* white would vanish on the light grey */
   .shop-hero__media:has(img) .shop-hero__intro { color: var(--text-color); }
 }
 @media (max-width: 640px) {
