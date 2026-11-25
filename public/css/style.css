@@ -267,8 +267,8 @@ ul { list-style: none; margin: 0; padding: 0; }
   transform: scaleX(0);
   transition: transform .25s ease;
 }
-/* The underline marks the current page only. Hovering a link makes the word pop up instead. */
-.nav__link.is-active::after { transform: scaleX(1); }
+/* No underline on the current page (the owner asked for none). Hovering a link makes the word pop up. */
+.nav__link.is-active::after { transform: scaleX(0); }
 .nav__link { display: inline-block; transition: transform .35s cubic-bezier(.34, 1.56, .64, 1); }
 .nav__link:hover,
 .nav__link:focus-visible { transform: translateY(-3px) scale(1.08); }
