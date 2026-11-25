@@ -11,7 +11,7 @@ seo:
   title: "Shop Skincare | Mary Chia"
   description: "Skincare from Lucent, The Juve Series and The Prep Series, chosen by Mary Chia to care for your skin between visits. Order on WhatsApp."
 
-eyebrow: "Shop"
+eyebrow: "Shop skincare"
 heading: "Professional skincare to take *home*."
 intro: "Your facial shouldn’t end when you leave the studio. The peptide serums, hyaluronic acid boosters and SPF60 mineral sunscreen our therapists use on you are now ready for your daily routine, so your skin keeps its glow between visits."
 
