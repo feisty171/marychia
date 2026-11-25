@@ -47,6 +47,10 @@ const line = [p.size, p.price != null ? money(p.price) : ""].filter(Boolean).joi
   <main>
     <article class="shop-product" data-name={p.name} data-verb="order" data-line={line}>
       <div class="a-container shop-product__grid">
+        {/* Breadcrumb: full width, over both the photo and the details */}
+        <nav class="shop-crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a><span aria-hidden="true">/</span><a href="/shop/">{c.backLabel}</a><span aria-hidden="true">/</span><span aria-current="page">{p.name}</span>
+        </nav>
         <div class="shop-product__media">
           {img
             ? <img src={img} alt={`${p.name} ${p.size}`} decoding="async" />
@@ -54,9 +58,6 @@ const line = [p.size, p.price != null ? money(p.price) : ""].filter(Boolean).joi
         </div>
 
         <div class="shop-product__info">
-          <nav class="shop-crumbs" aria-label="Breadcrumb">
-            <a href="/">Home</a><span aria-hidden="true">/</span><a href="/shop/">{c.backLabel}</a><span aria-hidden="true">/</span><span aria-current="page">{p.name}</span>
-          </nav>
           <p class="shop-product__brand">{p.brand}</p>
           <h1 class="shop-product__name">{p.name}</h1>
           {p.price != null && <p class="shop-product__price">{money(p.price)}</p>}
