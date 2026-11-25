@@ -46,7 +46,9 @@ sheetNote: "We'll open WhatsApp with the product filled in. Our team will confir
 brands:
   - name: "The Juve Series"
     line: ""
-    layout: "left"
+    layout: "side"
+    kicker: "The"
+    heading: "*Juve Series*"
   - name: "Lucent"
     line: ""
     layout: "corner"
