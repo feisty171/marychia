@@ -128,6 +128,16 @@
     });
   }
 
+  /* ---- Visit us: switch the map between studios ---- */
+  var mapFrame = document.querySelector(".visit-map iframe");
+  var mapTabs = Array.prototype.slice.call(document.querySelectorAll(".visit-map__tab"));
+  mapTabs.forEach(function (b) {
+    b.addEventListener("click", function () {
+      mapTabs.forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      if (mapFrame) { mapFrame.src = b.dataset.map; mapFrame.title = "Map: Mary Chia " + b.textContent; }
+    });
+  });
+
   /* ---- Signature list: big photo follows the active row ---- */
   var rows = Array.prototype.slice.call(document.querySelectorAll(".sig-row"));
   var imgs = document.querySelectorAll(".sig-stage__img");

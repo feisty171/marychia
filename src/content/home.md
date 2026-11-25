@@ -303,12 +303,7 @@ visit:
   eyebrow: "Visit us"
   heading: "Find your nearest studio."
   directions: "Get directions"
-  mapPlaceholder: "[[CONFIRM: Google Maps embed for each studio]]"
-  beforeHeading: "Before you arrive"
-  notes:
-    - "Please arrive 10–15 minutes early so we can settle you in. [[CONFIRM]]"
-    - "Enjoy a cup of complimentary tea before your treatment. [[CONFIRM]]"
-    - "Need to reschedule? Let us know at least 24 hours ahead. [[CONFIRM: cancellation policy]]"
+  mapLabel: "Show on map"
 
 finalCta:
   heading: "Take a moment for yourself."

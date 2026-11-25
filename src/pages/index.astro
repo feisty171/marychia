@@ -45,6 +45,8 @@ const resultCards = (await resolveResults(loadResults().slice(0, h.results?.show
   after: r.afterSrc,
 }));
 // "Read on Google": the studio's Google Maps page (src/data/outlets.json)
+// Google Maps embed (no key needed) built from the studio's mapsUrl search words
+const mapEmbed = (u: string) => "https://maps.google.com/maps?q=" + encodeURIComponent(new URL(u).searchParams.get("query") || "") + "&z=16&output=embed";
 const googleFor = (studio?: string) => (outlets as any[]).find((o) => o.name === studio)?.mapsUrl || "";
 // Review avatar colour: a steady hue picked from the reviewer's name, like Google's initials
 const avatarHue = (n: string) => [...n].reduce((a, c) => a + c.charCodeAt(0), 0) % 360;
@@ -382,15 +384,15 @@ const heroWords = h.hero.headline
             })}
           </ul>
           <div class="visit__side">
-            <div class="map-placeholder" role="img" aria-label="Map of Mary Chia studios">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
-              <p>{h.visit.mapPlaceholder}</p>
+            {/* Live Google map. The buttons switch it between studios (public/js/home.js);
+                each map comes from the studio's mapsUrl in src/data/outlets.json. */}
+            <div class="visit-map__tabs" role="group" aria-label={h.visit.mapLabel}>
+              {outlets.map((o, i) => (
+                <button type="button" class="visit-map__tab" aria-pressed={i === 0 ? "true" : "false"} data-map={mapEmbed(o.mapsUrl)}>{o.name}</button>
+              ))}
             </div>
-            <div class="before">
-              <h3 class="before__title">{h.visit.beforeHeading}</h3>
-              <ul class="before__list">
-                {h.visit.notes.map((n) => <li>{n}</li>)}
-              </ul>
+            <div class="visit-map">
+              <iframe src={mapEmbed(outlets[0].mapsUrl)} title={`Map: Mary Chia ${outlets[0].name}`} loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
             </div>
           </div>
         </div>
