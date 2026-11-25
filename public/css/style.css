@@ -249,11 +249,13 @@ ul { list-style: none; margin: 0; padding: 0; }
    each of them, from the left edge of the bar to the right. (The logo sits near the middle; the
    right-hand words are a little wider, so it is slightly left of centre.) */
 @media (min-width: 961px) {
+  /* One shared edge for the menu and every page: the rounded bar's margin plus the room inside it
+     before Home / after Book Now. Page containers (--gutter) and the footer line up with it. */
+  :root { --gutter: calc(clamp(8px, 1vw, 16px) + clamp(20px, 3vw, 48px)); --nav-pad: var(--gutter); }
   .nav {
     display: flex; justify-content: space-between; align-items: center;
     gap: 20px;   /* the smallest gap allowed; on wider screens the gaps grow evenly */
-    /* padding inside the rounded bar: the bar's own margin plus breathing room before Home / after Book Now */
-    padding-inline: calc(clamp(8px, 1vw, 16px) + clamp(20px, 3vw, 48px));
+    padding-inline: var(--gutter);
   }
   .nav__group { display: contents; }
   /* once scrolled only the small M shows: size the logo slot to it, so the gaps around it match */
@@ -693,12 +695,10 @@ ul { list-style: none; margin: 0; padding: 0; }
 /* ---------- Responsive ---------- */
 /* Smaller laptops: tighten the links a little so the logo keeps generous space around it */
 @media (max-width: 1279px) {
-  :root { --nav-pad: 40px; }
   .nav__link, .btn--nav { letter-spacing: var(--tracking-label); }
   .btn--nav { padding: 12px 19px; }
 }
 @media (max-width: 1100px) {
-  :root { --nav-pad: 24px; }
   .nav__link, .btn--nav { letter-spacing: .06em; }
 }
 @media (min-width: 961px) and (max-width: 1040px) {
