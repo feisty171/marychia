@@ -13,12 +13,16 @@ seo:
 
 eyebrow: "Shop"
 heading: "Take the care *home*."
-intro: "Skincare we trust in our studios, so your skin feels cared for between visits. Tap Order on WhatsApp and our team will take it from there."
+intro: "Skincare we trust in our studios, so your skin feels cared for between visits. Tap a product to see the details and order on WhatsApp."
 
-# Buttons and labels on each product
+# Product page (/shop/<product>/): buttons and section titles
+backLabel: "Shop"
 orderButton: "Order on WhatsApp"
+storyLabel: "About this product"
 usageLabel: "How to use"
 ingredientsLabel: "Ingredients"
+infoLabel: "Product information"
+moreLabel: "More from"
 
 # The WhatsApp pop-up (pick a studio)
 sheetEyebrow: "Order on WhatsApp"

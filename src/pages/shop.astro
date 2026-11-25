@@ -3,16 +3,15 @@
  * Shop page (/shop/). The nav's "Shop" link opens it.
  * Words: src/content/shop.md. Products: src/data/products.json (made from the product sheet with
  * npm run build:products). Products are grouped by brand, in the order of `brands` in shop.md.
- * "Order on WhatsApp" opens the studio picker (BookingSheet.astro + public/js/treatment-cards.js).
- * Styles: public/css/shop.css (the pop-up's styles come from treatments.css).
+ * Each card (src/components/ShopCard.astro) shows photo, name and price, and opens the product
+ * page /shop/<id>/ (src/pages/shop/[id].astro). Styles: public/css/shop.css.
  */
 import Base from "../layouts/Base.astro";
 import Footer from "../components/Footer.astro";
-import BookingSheet from "../components/BookingSheet.astro";
+import ShopCard from "../components/ShopCard.astro";
 import { frontmatter as c } from "../content/shop.md";
 import data from "../data/products.json";
 
-const money = (n: number) => "S$" + n.toLocaleString("en-SG");
 const products = data.products as any[];
 const order = [...c.brands.map((b: any) => b.name), ...products.map((p) => p.brand)].filter((b, i, a) => a.indexOf(b) === i);
 const groups = order
@@ -27,8 +26,7 @@ const [h1, em, h2] = c.heading.split("*");
   current="shop"
   solidHeader
   bodyClass="page-shop"
-  styles={["treatments.css", "shop.css"]}
-  scripts={["treatment-cards.js"]}
+  styles={["shop.css"]}
 >
   <main>
     <section class="shop-page">
@@ -51,39 +49,12 @@ const [h1, em, h2] = c.heading.split("*");
               {g.line && <p>{g.line}</p>}
             </header>
             <ul class="shop-grid">
-              {g.items.map((p) => (
-                <li>
-                  <article class="shop-card" data-name={p.name} data-verb="order" data-line={[p.size, p.price != null ? money(p.price) : ""].filter(Boolean).join(" · ")}>
-                    <div class="shop-card__media">
-                      {p.image
-                        ? <img src={p.image.startsWith("/") ? p.image : "/images/shop/" + p.image} alt={`${p.name} ${p.size}`} loading="lazy" decoding="async" />
-                        : <div class="shop-card__ph" aria-hidden="true"><span>{p.brand}</span><small>Photo · 1000 × 1000</small></div>}
-                    </div>
-                    <div class="shop-card__body">
-                      <p class="shop-card__meta">{[p.type, p.size].filter(Boolean).join(" · ")}</p>
-                      <h3>{p.name}</h3>
-                      <p class="shop-card__desc">{p.description}</p>
-                      {(p.usage || p.ingredients) && (
-                        <div class="shop-card__more">
-                          {p.usage && <details><summary>{c.usageLabel}</summary><p>{p.usage}</p></details>}
-                          {p.ingredients && <details><summary>{c.ingredientsLabel}</summary><p>{p.ingredients}</p></details>}
-                        </div>
-                      )}
-                      <div class="shop-card__foot">
-                        {p.price != null && <p class="shop-card__price">{money(p.price)}</p>}
-                        <button type="button" class="btn btn--solid js-book">{c.orderButton}</button>
-                      </div>
-                    </div>
-                  </article>
-                </li>
-              ))}
+              {g.items.map((p) => <li><ShopCard p={p} /></li>)}
             </ul>
           </section>
         ))}
       </div>
     </section>
-
-    <div class="tp"><BookingSheet eyebrow={c.sheetEyebrow} note={c.sheetNote} /></div>
   </main>
 
   <Footer />

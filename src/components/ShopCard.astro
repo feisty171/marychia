@@ -1,0 +1,19 @@
+---
+/**
+ * Shop product card: photo, name and price only. The whole card opens the product page
+ * (/shop/<id>/, src/pages/shop/[id].astro). Used on /shop/ and under "More from <brand>".
+ * Data: src/data/products.json. Styles: .shop-card in public/css/shop.css.
+ */
+interface Props { p: any }
+const { p } = Astro.props;
+const money = (n: number) => "S$" + n.toLocaleString("en-SG");
+---
+<a class="shop-card" href={`/shop/${p.id}/`}>
+  <div class="shop-card__media">
+    {p.image
+      ? <img src={p.image.startsWith("/") ? p.image : "/images/shop/" + p.image} alt={`${p.name} ${p.size}`} loading="lazy" decoding="async" />
+      : <div class="shop-ph" aria-hidden="true"><span>{p.brand}</span><small>Photo · 1000 × 1000</small></div>}
+  </div>
+  <h3 class="shop-card__name">{p.name}</h3>
+  {p.price != null && <p class="shop-card__price">{money(p.price)}</p>}
+</a>

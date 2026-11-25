@@ -1,0 +1,118 @@
+---
+/**
+ * Shop product page (/shop/<id>/), one per product in src/data/products.json (made from the
+ * product sheet with npm run build:products). Opened from the cards on /shop/.
+ * Layout: photo on the left; on the right the brand, name, price, size, short description,
+ * "Order on WhatsApp" (studio picker: BookingSheet.astro + public/js/treatment-cards.js), then
+ * tap-to-open sections: About this product (the sheet's long description), How to use,
+ * Ingredients, Product information. Below: "More from <brand>".
+ * Words and labels: src/content/shop.md. Styles: public/css/shop.css (pop-up: treatments.css).
+ */
+import Base from "../../layouts/Base.astro";
+import Footer from "../../components/Footer.astro";
+import BookingSheet from "../../components/BookingSheet.astro";
+import ShopCard from "../../components/ShopCard.astro";
+import { frontmatter as c } from "../../content/shop.md";
+import data from "../../data/products.json";
+
+export function getStaticPaths() {
+  return (data.products as any[]).map((p) => ({ params: { id: p.id }, props: { p } }));
+}
+const { p } = Astro.props as { p: any };
+const money = (n: number) => "S$" + n.toLocaleString("en-SG");
+const img = p.image ? (p.image.startsWith("/") ? p.image : "/images/shop/" + p.image) : "";
+const more = (data.products as any[]).filter((x) => x.brand === p.brand && x.id !== p.id).slice(0, 4);
+const info = [
+  ["Brand", p.brand],
+  ["Type", p.type],
+  ["Size", p.size],
+  ["Skin type", p.skinType],
+  ["Made in", p.madeIn],
+  ["Product dimensions", p.dimensions],
+  ["Weight", p.weight],
+  ["Barcode", p.barcode],
+].filter(([, v]) => v);
+const line = [p.size, p.price != null ? money(p.price) : ""].filter(Boolean).join(" · ");
+---
+<Base
+  title={`${p.name} | Shop | Mary Chia`}
+  description={p.description.slice(0, 155)}
+  current="shop"
+  solidHeader
+  bodyClass="page-shop"
+  ogImage={img || undefined}
+  styles={["treatments.css", "shop.css"]}
+  scripts={["treatment-cards.js"]}
+>
+  <main>
+    <article class="shop-product" data-name={p.name} data-verb="order" data-line={line}>
+      <div class="a-container shop-product__grid">
+        <div class="shop-product__media">
+          {img
+            ? <img src={img} alt={`${p.name} ${p.size}`} decoding="async" />
+            : <div class="shop-ph" aria-hidden="true"><span>{p.brand}</span><small>Photo · 1000 × 1000</small></div>}
+        </div>
+
+        <div class="shop-product__info">
+          <nav class="shop-crumbs" aria-label="Breadcrumb">
+            <a href="/">Home</a><span aria-hidden="true">/</span><a href="/shop/">{c.backLabel}</a><span aria-hidden="true">/</span><span aria-current="page">{p.name}</span>
+          </nav>
+          <p class="shop-product__brand">{p.brand}</p>
+          <h1 class="shop-product__name">{p.name}</h1>
+          {p.price != null && <p class="shop-product__price">{money(p.price)}</p>}
+          <p class="shop-product__size">{[p.type, p.size].filter(Boolean).join(" · ")}</p>
+          <p class="shop-product__desc">{p.description}</p>
+
+          <button type="button" class="btn btn--solid shop-product__order js-book">{c.orderButton}</button>
+
+          <div class="shop-acc">
+            {p.story?.length > 0 && (
+              <details open>
+                <summary>{c.storyLabel}</summary>
+                <div class="shop-acc__body shop-story">
+                  {p.story.map((b: any) =>
+                    b.h ? <h3>{b.h}</h3> : b.ul ? <ul>{b.ul.map((li: string) => <li>{li}</li>)}</ul> : <p>{b.p}</p>)}
+                </div>
+              </details>
+            )}
+            {p.usage && (
+              <details>
+                <summary>{c.usageLabel}</summary>
+                <div class="shop-acc__body"><p>{p.usage}</p></div>
+              </details>
+            )}
+            {p.ingredients && (
+              <details>
+                <summary>{c.ingredientsLabel}</summary>
+                <div class="shop-acc__body"><p>{p.ingredients}</p></div>
+              </details>
+            )}
+            <details>
+              <summary>{c.infoLabel}</summary>
+              <div class="shop-acc__body">
+                <dl class="shop-info">
+                  {info.map(([k, v]) => <><dt>{k}</dt><dd>{v}</dd></>)}
+                </dl>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    {more.length > 0 && (
+      <section class="shop-more">
+        <div class="a-container">
+          <h2 class="shop-more__title">{c.moreLabel} <em>{p.brand}</em></h2>
+          <ul class="shop-grid">
+            {more.map((x) => <li><ShopCard p={x} /></li>)}
+          </ul>
+        </div>
+      </section>
+    )}
+
+    <div class="tp"><BookingSheet eyebrow={c.sheetEyebrow} note={c.sheetNote} /></div>
+  </main>
+
+  <Footer />
+</Base>
