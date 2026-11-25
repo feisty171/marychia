@@ -423,3 +423,36 @@
   .shop-card__media { border-radius: 14px; margin-bottom: 12px; }
   .shop-ph small { display: none; }
 }
+
+/* =========================================================
+   Scroll motion (public/js/shop.js adds .shop-motion to <html>; none with "reduce motion")
+   ========================================================= */
+/* 1. Banner: photo drifts down and zooms in, words fade up and away (--sp: 0 → 1) */
+@media (min-width: 961px) {
+  .shop-motion .shop-hero__media img {
+    transform: translateY(calc(var(--sp, 0) * 60px)) scale(calc(1 + var(--sp, 0) * .08));
+    will-change: transform;
+  }
+  .shop-motion .shop-hero__words {
+    opacity: calc(1 - var(--sp, 0) * 1.4);
+    transform: translateY(calc(var(--sp, 0) * -40px));
+  }
+}
+/* 2. Brand sections: title words rise in one by one; each card fades up as it arrives */
+.shop-motion .sr .shop-corner__w,
+.shop-motion .sr .shop-corner__kicker:not(.shop-corner__kicker--inline) {
+  display: block; opacity: 0; transform: translateY(.35em);
+  transition: opacity .7s ease, transform .9s cubic-bezier(.2, .7, .2, 1);
+  transition-delay: calc(var(--i, 0) * .1s);
+}
+.shop-motion .sr .shop-corner__kicker--inline { display: inline; }
+.shop-motion .shop-card.sr {
+  opacity: 0; transform: translateY(32px);
+  transition: opacity .7s ease, transform .9s cubic-bezier(.2, .7, .2, 1), box-shadow .3s;
+  transition-delay: var(--d, 0s);
+}
+.shop-motion .sr.is-in .shop-corner__w,
+.shop-motion .sr.is-in .shop-corner__kicker,
+.shop-motion .shop-card.sr.is-in { opacity: 1; transform: none; }
+.shop-motion .shop-card.sr.is-done,
+.shop-motion .sr.is-done .shop-corner__w { transition-delay: 0s; }
