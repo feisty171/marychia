@@ -10,7 +10,7 @@
 # shows in italic rose. The booking button uses bookingUrl in src/data/site.json.
 hero:
   eyebrow: "Since 1984 · Singapore's Beauty & Slimming Pioneer"
-  headline: "Every transformation is a *story* worth telling."
+  headline: "every transformation is a *story* worth telling."
   text: "Tailored facials, body treatments and wellness rituals. Your therapist starts with a consultation, then builds a plan around your skin, body and goals."
   exploreButton: "Explore treatments"
   exploreLink: "/rituals/"
