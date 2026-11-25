@@ -730,6 +730,7 @@ a.shop-item__link:focus-visible,
   font-size: var(--fs-text);
   color: var(--ink-soft);
 }
+.story__title { font-variant-caps: all-small-caps; letter-spacing: 0; }   /* "It began with one beauty kit." in small capitals */
 .story__title em { font-style: normal; color: var(--rose); }
 .story__copy .h-body { margin-bottom: 28px; }
 .story__miles + .h-textlink, .story__copy .h-body + .h-textlink { margin-top: 0; }
