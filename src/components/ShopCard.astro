@@ -7,7 +7,7 @@
 import { frontmatter as c } from "../content/shop.md";
 interface Props { p: any }
 const { p } = Astro.props;
-const money = (n: number) => "S$" + n.toLocaleString("en-SG");
+const money = (n: number) => "$" + n.toLocaleString("en-SG");   // shop prices show as $399 (no "S")
 const img = p.image ? (p.image.startsWith("/") ? p.image : "/images/shop/" + p.image) : "";
 // New "panel" design (trial: only products with a cardTitle): one 1080 × 1280 panel, the photo
 // filling it, with the short title + price and a short line sitting on the bottom of the photo.

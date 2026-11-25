@@ -19,7 +19,7 @@ export function getStaticPaths() {
   return (data.products as any[]).map((p) => ({ params: { id: p.id }, props: { p } }));
 }
 const { p } = Astro.props as { p: any };
-const money = (n: number) => "S$" + n.toLocaleString("en-SG");
+const money = (n: number) => "$" + n.toLocaleString("en-SG");   // shop prices show as $399 (no "S")
 const img = p.image ? (p.image.startsWith("/") ? p.image : "/images/shop/" + p.image) : "";
 const more = (data.products as any[]).filter((x) => x.brand === p.brand && x.id !== p.id).slice(0, 4);
 const info = [
@@ -32,7 +32,8 @@ const info = [
   ["Weight", p.weight],
   ["Barcode", p.barcode],
 ].filter(([, v]) => v);
-const line = [p.size, p.price != null ? money(p.price) : ""].filter(Boolean).join(" · ");
+// the WhatsApp message keeps "S$" so the studio team knows the currency
+const line = [p.size, p.price != null ? "S" + money(p.price) : ""].filter(Boolean).join(" · ");
 ---
 <Base
   title={`${p.name} | Shop | Mary Chia`}
