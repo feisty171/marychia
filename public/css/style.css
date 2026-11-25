@@ -23,8 +23,9 @@
   --rose-lt-rgb: 227, 179, 184; /* --rose-lt as r, g, b */
   --line: rgba(var(--rose-rgb), .18); /* hairline borders and dividers */
   --white: #ffffff;
-  --blush: #fbf5f2;           /* page background */
-  --tint: #f5ece8;            /* alternate section / panel background */
+  --blush: #ffffff;           /* page background (white) */
+  --blush-rgb: 255, 255, 255; /* same, as rgb for see-through versions */
+  --tint: #f6f5f3;            /* alternate section / panel background (soft neutral, no pink) */
   --dark: #2f2427;            /* dark cards */
   --whatsapp: #25a35a;
   --google-star: #fbbc04;     /* star colour on the Google-style review cards */
@@ -250,7 +251,7 @@ ul { list-style: none; margin: 0; padding: 0; }
 /* Scrolled (or a light page): solid, light header so the black logo stays crisp */
 .site-header.is-scrolled,
 .site-header--solid {
-  background: rgba(251, 245, 242, .94);
+  background: rgba(var(--blush-rgb), .94);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 1px 0 rgba(var(--shade), .08);
@@ -323,7 +324,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   align-items: center;
   gap: 22px;
   padding: 16px 16px 32px;
-  background: rgba(251, 245, 242, .97);
+  background: rgba(var(--blush-rgb), .97);
 }
 .mobile-menu[hidden] { display: none; }
 .mobile-menu a:not(.btn) {
@@ -651,7 +652,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   .logo__mark { height: 48px; }
   .logo__emblem { height: 58px; transform: translateY(6px); }
   .site-header--solid:not(.is-scrolled) .logo__emblem { height: 50px; transform: translateY(3px); }
-  .site-header:has(.mobile-menu:not([hidden])) { background: rgba(251, 245, 242, .97); }
+  .site-header:has(.mobile-menu:not([hidden])) { background: rgba(var(--blush-rgb), .97); }
   .site-header:has(.mobile-menu:not([hidden])) .nav__toggle span { background: var(--ink); }
 
 }

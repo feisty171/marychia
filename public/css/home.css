@@ -858,7 +858,7 @@ a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset
   margin: 0;
   padding: 0 20px;
   list-style: none;
-  background: rgba(251, 245, 242, .9);   /* --blush, slightly see-through */
+  background: rgba(var(--blush-rgb), .9);   /* --blush, slightly see-through */
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   border: 1px solid var(--line);
@@ -907,7 +907,7 @@ a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset
     inset: auto 0 0 0;
     z-index: 1;
     height: 30%;
-    background: linear-gradient(180deg, rgba(251, 245, 242, 0) 0%, rgba(251, 245, 242, .55) 55%, var(--blush) 100%);
+    background: linear-gradient(180deg, rgba(var(--blush-rgb), 0) 0%, rgba(var(--blush-rgb), .55) 55%, var(--blush) 100%);
     pointer-events: none;
   }
 }
