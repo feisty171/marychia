@@ -58,7 +58,7 @@ const [h1, em, h2] = c.heading.split("*");
               <p class="shop-hero__intro">{c.intro}</p>
             </div>
           </div>
-          {groups.length > 1 && (
+          {c.hero?.brandButtons && groups.length > 1 && (
             <nav class="shop-hero__brands" aria-label="Brands">
               {groups.map((g) => (
                 <a href={`#${slug(g.name)}`}>

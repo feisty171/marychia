@@ -39,7 +39,7 @@
 }
 .shop-hero__media img,
 .shop-hero__ph { position: absolute; inset: 0; }
-.shop-hero__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.shop-hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: 80% center; display: block; }   /* narrow screens crop from the left, keeping the faces */
 .shop-hero__media::after {   /* shade behind the words */
   content: ""; position: absolute; inset: 0; pointer-events: none;
   background:
@@ -91,6 +91,17 @@
 @media (max-width: 960px) {
   .shop-hero__brands { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+@media (max-width: 960px) {
+  /* phones and tablets: the photo on top (faces in view), the words under it on the maroon */
+  .shop-hero__media { display: block; min-height: 0; }
+  .shop-hero__media img { position: static; height: auto; aspect-ratio: 16 / 9; }
+  .shop-hero__media::after { display: none; }
+  .shop-hero__media:has(img) .shop-hero__ph { display: none; }
+  .shop-hero__words { padding: clamp(24px, 4vw, 40px); max-width: none; }
+}
+@media (max-width: 640px) {
+  .shop-hero__media img { aspect-ratio: 4 / 3.4; }
+}
 @media (max-width: 640px) {
   /* phones: three small tiles side by side, photo on top, name under it */
   .shop-hero__brands { gap: 8px; }
@@ -107,7 +118,7 @@
   }
   .shop-hero__brands a { border-color: transparent; box-shadow: var(--shadow-card); }
   .shop-hero__brands a:hover { transform: translateY(-2px); }
-  .shop-hero__words { max-width: min(620px, 60%); }
+  .shop-hero__words { max-width: min(600px, 54%); }   /* clear of the faces on the right of the photo */
 }
 @media (prefers-reduced-motion: reduce) {
   .shop-hero__brands a, .shop-hero__arrow { transition: none; }

@@ -11,12 +11,13 @@ seo:
   title: "Shop Skincare | Mary Chia"
   description: "Skincare from Lucent, The Juve Series and The Prep Series, chosen by Mary Chia to care for your skin between visits. Order on WhatsApp."
 
-# The opening banner: one wide photo with the words on it, and a button for each brand below.
+# The opening banner: one wide photo with the words on it (and, if brandButtons is true, a button per brand).
 # image: a wide lifestyle photo in public/images/shop/ (landscape, about 2400 × 1100; the words sit
 # on its bottom-left, so keep that area calm and not too bright). "" shows a placeholder.
 hero:
-  image: ""
-  imageAlt: "A Mary Chia client applying a serum at home"
+  image: "/images/shop/hero.webp"
+  imageAlt: "Two women with natural, glowing skin, cheek to cheek in soft warm light"
+  brandButtons: false     # true shows a button for each brand (photo, name, count) on the banner
 eyebrow: "Shop skincare"
 heading: "professional skincare to take *home*."
 intro: "Your facial shouldn’t end when you leave the studio. The peptide serums, hyaluronic acid boosters and SPF60 mineral sunscreen our therapists use on you are now ready for your daily routine, so your skin keeps its glow between visits."
