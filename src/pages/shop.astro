@@ -24,9 +24,10 @@ const groups = order
       return (ix < 0 ? 999 : ix) - (iy < 0 ? 999 : iy);
     });
     // "corner" title: "*Lucent* Collection" → [{ text: "Lucent", rose: true }, { text: "Collection" }]
+    // one word per line; words inside *asterisks* in rose
     const words = (b.heading || name).split(/(\*[^*]+\*)/).map((t: string) => t.trim()).filter(Boolean)
-      .map((t: string) => ({ text: t.replace(/\*/g, ""), rose: t.startsWith("*") }));
-    return { name, line: b.line || "", layout: b.layout || "center", items, words };
+      .flatMap((t: string) => t.replace(/\*/g, "").split(/\s+/).map((w) => ({ text: w, rose: t.startsWith("*") })));
+    return { name, line: b.line || "", layout: b.layout || "center", items, words, kicker: b.kicker || "" };
   })
   .filter((g) => g.items.length);
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -59,7 +60,23 @@ const [h1, em, h2] = c.heading.split("*");
 
     {/* Brand spreads, magazine style: a big bold brand title beside or above its products.
         layout (src/content/shop.md → brands): left | right (grey band) | center */}
-    {groups.map((g, gi) => g.layout === "corner" ? (
+    {groups.map((g, gi) => g.layout === "side" ? (
+      /* "side": the big title on the left (at the bottom), the cards on the right */
+      <section class="shop-spread shop-spread--side" id={slug(g.name)} aria-labelledby={`${slug(g.name)}-h`}>
+        <div class="a-container shop-side">
+          <div class="shop-side__title">
+            <h2 class="shop-corner__h" id={`${slug(g.name)}-h`}>
+              {g.kicker && <span class="shop-corner__kicker">{g.kicker}</span>}
+              {g.words.map((w: any) => <span class:list={["shop-corner__w", { "is-rose": w.rose }]}>{w.text}</span>)}
+            </h2>
+            {g.line && <p class="shop-spread__line">{g.line}</p>}
+          </div>
+          <ul class="shop-side__grid">
+            {g.items.map((p) => <li><ShopCard p={p} /></li>)}
+          </ul>
+        </div>
+      </section>
+    ) : g.layout === "corner" ? (
       /* "corner": cards in a 4-column grid (3 then 2) with the big title in the bottom-right corner */
       <section class="shop-spread shop-spread--corner" id={slug(g.name)} aria-labelledby={`${slug(g.name)}-h`}>
         <div class="a-container">
@@ -67,6 +84,7 @@ const [h1, em, h2] = c.heading.split("*");
             {g.items.map((p) => <li><ShopCard p={p} /></li>)}
             <li class="shop-corner__title">
               <h2 class="shop-corner__h" id={`${slug(g.name)}-h`}>
+                {g.kicker && <span class="shop-corner__kicker">{g.kicker}</span>}
                 {g.words.map((w: any) => <span class:list={["shop-corner__w", { "is-rose": w.rose }]}>{w.text}</span>)}
               </h2>
               {g.line && <p class="shop-spread__line">{g.line}</p>}

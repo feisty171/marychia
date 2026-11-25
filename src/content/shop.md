@@ -38,7 +38,9 @@ sheetNote: "We'll open WhatsApp with the product filled in. Our team will confir
 #             "right" (products left, title right, on a grey band), "center" (title above, centred)
 #             or "corner" (a 4-column grid: three cards, then two, with the big two-line title
 #             filling the bottom-right corner; made for 5 products)
-#   heading – optional, for "corner": the title words; *asterisk* words show in rose on their own line
+#             or "side" (the big title on the left, sitting at the bottom, the cards on the right)
+#   kicker  – optional, for "corner" / "side": a small word above the big title (e.g. "The")
+#   heading – optional, for "corner" / "side": the title words, one word per line; *asterisk* words show in rose
 #   order   – optional: the product IDs (from src/data/products.json) in the order to show them
 # A brand in the product list but not here is added at the end (layout "center").
 brands:
@@ -57,5 +59,10 @@ brands:
       - "lucent-illuminor-primer"
   - name: "The Prep Series"
     line: ""
-    layout: "center"
+    layout: "side"
+    kicker: "The"
+    heading: "*Prep Series*"
+    order:
+      - "repair-skin-rescue-concentrate"
+      - "bright-illuminating-power-concentrate-fibre-silk-mask"
 ---

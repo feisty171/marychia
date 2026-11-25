@@ -386,7 +386,9 @@
       "dimensions": "12 × 2 × 18.5 cm",
       "weight": "100 g",
       "barcode": "8881300837037",
-      "image": ""
+      "image": "",
+      "cardTitle": "Bright+",
+      "cardLine": "brightening fibre silk mask"
     },
     {
       "id": "repair-skin-rescue-concentrate",
@@ -432,7 +434,9 @@
       "dimensions": "5 × 5 × 16 cm",
       "weight": "100 g",
       "barcode": "8881300837006",
-      "image": ""
+      "image": "",
+      "cardTitle": "Repair+",
+      "cardLine": "skin firming & brightening concentrate"
     }
   ]
 }
