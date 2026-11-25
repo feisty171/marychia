@@ -28,13 +28,20 @@ moreLabel: "More from"
 sheetEyebrow: "Order on WhatsApp"
 sheetNote: "We'll open WhatsApp with the product filled in. Our team will confirm your order."
 
-# Order of the brand sections, with an optional line under each brand name.
-# A brand in the product list but not here is added at the end.
+# The brand sections, magazine style, in this order. Each has:
+#   name    – must match the Brand column in the product sheet
+#   line    – optional short line under the big brand title
+#   layout  – where the big title sits: "left" (title left, products right),
+#             "right" (products left, title right, on a grey band) or "center" (title above, centred)
+# A brand in the product list but not here is added at the end (layout "center").
 brands:
-  - name: "Lucent"
-    line: ""
   - name: "The Juve Series"
     line: ""
+    layout: "left"
+  - name: "Lucent"
+    line: ""
+    layout: "right"
   - name: "The Prep Series"
     line: ""
+    layout: "center"
 ---

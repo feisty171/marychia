@@ -15,7 +15,10 @@ import data from "../data/products.json";
 const products = data.products as any[];
 const order = [...c.brands.map((b: any) => b.name), ...products.map((p) => p.brand)].filter((b, i, a) => a.indexOf(b) === i);
 const groups = order
-  .map((name) => ({ name, line: c.brands.find((b: any) => b.name === name)?.line || "", items: products.filter((p) => p.brand === name) }))
+  .map((name) => {
+    const b = c.brands.find((x: any) => x.name === name) || {};
+    return { name, line: b.line || "", layout: b.layout || "center", items: products.filter((p) => p.brand === name) };
+  })
   .filter((g) => g.items.length);
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const [h1, em, h2] = c.heading.split("*");
@@ -42,19 +45,26 @@ const [h1, em, h2] = c.heading.split("*");
           )}
         </header>
 
-        {groups.map((g) => (
-          <section class="shop-group" id={slug(g.name)} aria-labelledby={`${slug(g.name)}-h`}>
-            <header class="shop-group__head">
-              <h2 id={`${slug(g.name)}-h`}>{g.name}</h2>
-              {g.line && <p>{g.line}</p>}
-            </header>
-            <ul class="shop-grid">
-              {g.items.map((p) => <li><ShopCard p={p} /></li>)}
-            </ul>
-          </section>
-        ))}
       </div>
     </section>
+
+    {/* Brand spreads, magazine style: a big bold brand title beside or above its products.
+        layout (src/content/shop.md → brands): left | right (grey band) | center */}
+    {groups.map((g, gi) => (
+      <section class={`shop-spread shop-spread--${g.layout}`} id={slug(g.name)} aria-labelledby={`${slug(g.name)}-h`}>
+        <div class="a-container shop-spread__inner">
+          <header class="shop-spread__head">
+            <p class="shop-spread__index">{String(gi + 1).padStart(2, "0")} / {String(groups.length).padStart(2, "0")}</p>
+            <h2 class="shop-spread__title" id={`${slug(g.name)}-h`}>{g.name}</h2>
+            {g.line && <p class="shop-spread__line">{g.line}</p>}
+            <p class="shop-spread__count">{g.items.length} {g.items.length === 1 ? "product" : "products"}</p>
+          </header>
+          <ul class={`shop-spread__grid shop-spread__grid--${Math.min(g.items.length, 5)}`}>
+            {g.items.map((p) => <li><ShopCard p={p} /></li>)}
+          </ul>
+        </div>
+      </section>
+    ))}
   </main>
 
   <Footer />
