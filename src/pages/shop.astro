@@ -27,7 +27,7 @@ const groups = order
     // one word per line; words inside *asterisks* in rose
     const words = (b.heading || name).split(/(\*[^*]+\*)/).map((t: string) => t.trim()).filter(Boolean)
       .flatMap((t: string) => t.replace(/\*/g, "").split(/\s+/).map((w) => ({ text: w, rose: t.startsWith("*") })));
-    return { name, line: b.line || "", layout: b.layout || "center", items, words, kicker: b.kicker || "" };
+    return { name, line: b.line || "", layout: b.layout || "center", items, words, kicker: b.kicker || "", kickerInline: !!b.kickerInline };
   })
   .filter((g) => g.items.length);
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -66,8 +66,12 @@ const [h1, em, h2] = c.heading.split("*");
         <div class="a-container shop-side">
           <div class="shop-side__title">
             <h2 class="shop-corner__h" id={`${slug(g.name)}-h`}>
-              {g.kicker && <span class="shop-corner__kicker">{g.kicker}</span>}
-              {g.words.map((w: any) => <span class:list={["shop-corner__w", { "is-rose": w.rose }]}>{w.text}</span>)}
+              {g.kicker && !g.kickerInline && <span class="shop-corner__kicker">{g.kicker}</span>}
+              {g.words.map((w: any, wi: number) => (
+                <span class:list={["shop-corner__w", { "is-rose": w.rose }]}>
+                  {wi === 0 && g.kicker && g.kickerInline && <span class="shop-corner__kicker shop-corner__kicker--inline">{g.kicker} </span>}{w.text}
+                </span>
+              ))}
             </h2>
             {g.line && <p class="shop-spread__line">{g.line}</p>}
           </div>

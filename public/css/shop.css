@@ -206,6 +206,7 @@
 }
 
 .shop-corner__kicker { display: block; margin-bottom: .1em; font-size: .42em; color: var(--ink); }
+.shop-corner__kicker--inline { display: inline; margin: 0 .1em 0 0; }   /* kickerInline: "THE" beside "JUVE" */
 
 /* ---------- "side" brand layout (layout: side in shop.md, e.g. The Prep Series) ----------
    Wide screens: the big title on the left, sitting level with the bottom of the cards; the cards

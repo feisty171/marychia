@@ -39,7 +39,8 @@ sheetNote: "We'll open WhatsApp with the product filled in. Our team will confir
 #             or "corner" (a 4-column grid: three cards, then two, with the big two-line title
 #             filling the bottom-right corner; made for 5 products)
 #             or "side" (the big title on the left, sitting at the bottom, the cards on the right)
-#   kicker  – optional, for "corner" / "side": a small word above the big title (e.g. "The")
+#   kicker  – optional, for "corner" / "side": a small word above the big title (e.g. "The");
+#             add kickerInline: true to put it on the same line as the first big word
 #   heading – optional, for "corner" / "side": the title words, one word per line; *asterisk* words show in rose
 #   order   – optional: the product IDs (from src/data/products.json) in the order to show them
 # A brand in the product list but not here is added at the end (layout "center").
@@ -48,6 +49,7 @@ brands:
     line: ""
     layout: "side"
     kicker: "The"
+    kickerInline: true      # "THE" sits on the same line as "JUVE"
     heading: "*Juve Series*"
   - name: "Lucent"
     line: ""
