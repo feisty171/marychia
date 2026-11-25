@@ -989,7 +989,6 @@ a.shop-item__link:focus-visible,
   color: var(--rose);
   animation: rise .9s ease both .2s;
 }
-.ed-hero__eyebrow::before { content: ""; flex: 0 0 40px; height: 1px; background: var(--rose-line); }
 .ed-hero__title {
   margin: 0;
   font-family: var(--font-sans);
