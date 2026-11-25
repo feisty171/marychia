@@ -46,6 +46,7 @@
 
   /* type scale */
   --text-xs: .75rem;                                          /* 12px  labels, eyebrows, buttons, nav */
+  --text-nav: calc(var(--text-xs) * 1.2);                     /* 14.4px  top menu words and its Book Now (20% over --text-xs) */
   --text-sm: .875rem;                                         /* 14px  small text, card text */
   --text-base: 1rem;                                          /* 16px  body text */
   --text-lg: 1.125rem;                                        /* 18px  small headings, lead text */
@@ -156,8 +157,9 @@ ul { list-style: none; margin: 0; padding: 0; }
 .btn:focus-visible { background: var(--white); color: var(--ink); border-color: var(--white); }
 
 .btn--nav {
-  padding: 11px 20px;
+  padding: 13px 24px;
   border-radius: 999px;
+  font-size: var(--text-nav);
   font-weight: var(--fw-heading);   /* bold, like the menu words */
 }
 
@@ -250,7 +252,7 @@ ul { list-style: none; margin: 0; padding: 0; }
 .nav__link {
   position: relative;
   color: var(--white);
-  font-size: var(--fs-ui);
+  font-size: var(--text-nav);
   font-weight: var(--fw-heading);   /* bold menu words */
   letter-spacing: var(--tracking-ui);
   text-transform: uppercase;
@@ -670,7 +672,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   .nav { gap: 52px; }
   .nav__group { gap: 16px; }
   .nav__link, .btn--nav { letter-spacing: var(--tracking-label); }
-  .btn--nav { padding: 10px 16px; }
+  .btn--nav { padding: 12px 19px; }
 }
 @media (max-width: 1100px) {
   :root { --nav-pad: 24px; }
@@ -681,7 +683,7 @@ ul { list-style: none; margin: 0; padding: 0; }
 @media (min-width: 961px) and (max-width: 1040px) {
   .nav { gap: 30px; }
   .nav__group { gap: 8px; }
-  .btn--nav { padding: 9px 14px; }
+  .btn--nav { padding: 11px 17px; }
 }
 
 @media (max-width: 960px) {
