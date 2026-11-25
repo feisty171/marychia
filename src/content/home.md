@@ -26,7 +26,7 @@ hero:
 # The SGX line is an owner-approved exception with fixed wording: "2009 – Listed on SGX Catalist"
 # (see CLAUDE.md, "Brand and compliance rules"). Don't add share price or financial figures here.
 stats:
-  show: true   # set to false to hide the band
+  show: false  # set to false to hide the band
   eyebrow: "Key figures"   # read out to screen readers only
   items:
     - value: "Since 1984"
