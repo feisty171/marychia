@@ -123,7 +123,9 @@
   }
   .shop-hero__brands a { border-color: transparent; box-shadow: var(--shadow-card); }
   .shop-hero__brands a:hover { transform: translateY(-2px); }
-  .shop-hero__words { max-width: min(600px, 54%); }   /* clear of the faces on the right of the photo */
+  .shop-hero__words { max-width: min(760px, 64%); }   /* clear of the faces on the right of the photo */
+  .shop-hero__title { max-width: 10.6em; }            /* two lines: "professional skincare / to take home." */
+  .shop-hero__intro { max-width: 46ch; }
 }
 @media (prefers-reduced-motion: reduce) {
   .shop-hero__brands a, .shop-hero__arrow { transition: none; }
