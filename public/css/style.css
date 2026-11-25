@@ -295,13 +295,26 @@ ul { list-style: none; margin: 0; padding: 0; }
 .site-header--solid:not(.is-scrolled) .logo__emblem { height: 60px; transform: translateY(4px); }
 
 /* Scrolled (or a light page): solid, light header so the black logo stays crisp */
-.site-header.is-scrolled,
-.site-header--solid {
+/* The solid bar is a rounded panel inset from the screen edges (same margin and corners as the
+   Shop and Treatments banners), drawn by ::before so the menu itself keeps its full width.
+   When the phone menu is open, the same panel stretches down to hold it. */
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 6px clamp(8px, 1vw, 16px) 6px;
+  z-index: -1;
+  border-radius: 20px;
   background: rgba(var(--blush-rgb), .94);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 1px 0 rgba(var(--shade), .08);
+  box-shadow: 0 6px 24px -12px rgba(var(--shade), .25), 0 0 0 1px rgba(var(--shade), .06);
+  opacity: 0;
+  transition: opacity .3s ease;
+  pointer-events: none;
 }
+.site-header.is-scrolled::before,
+.site-header--solid::before,
+.site-header:has(.mobile-menu:not([hidden]))::before { opacity: 1; }
 .site-header.is-scrolled .nav,
 .site-header--solid .nav { height: 76px; }
 .site-header.is-scrolled .nav__link,
@@ -370,7 +383,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   align-items: center;
   gap: 22px;
   padding: 16px 16px 32px;
-  background: rgba(var(--blush-rgb), .97);
+  background: transparent;   /* sits on the header's rounded panel (.site-header::before) */
 }
 .mobile-menu[hidden] { display: none; }
 .mobile-menu a:not(.btn) {

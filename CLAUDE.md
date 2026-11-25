@@ -33,7 +33,7 @@ Static site built with [Astro](https://astro.build). No CMS, no database. The ma
 | Annual report PDFs (and optional cover images in `covers/`) | `public/reports/` |
 | Outlets (used by Home "Visit us", the Contact page studio cards, WhatsApp booking, the footer on every page, and schema.org data) | `src/data/outlets.json` |
 | Site-wide settings: brand name, tagline, booking link, WhatsApp link, enquiry email (Contact page form), share image, footer quick links, social media links | `src/data/site.json` |
-| Header / nav, including the Treatments, About Us and Contact Us dropdowns: edit `treatments` and `dropdowns`; the dropdown markup is `src/components/NavDropdown.astro` (each link should appear in only one dropdown) | `src/components/Header.astro` |
+| Header / nav (the solid bar is a rounded panel inset 8–16px from the screen edges, drawn by `.site-header::before` in `style.css`; it also holds the open phone menu), including the Treatments, About Us and Contact Us dropdowns: edit `treatments` and `dropdowns`; the dropdown markup is `src/components/NavDropdown.astro` (each link should appear in only one dropdown) | `src/components/Header.astro` |
 | Footer | `src/components/Footer.astro` |
 | Shared `<head>`, SEO + Open Graph tags | `src/layouts/Base.astro` |
 | Page templates | `src/pages/index.astro` (Home), `src/pages/about.astro`, `src/pages/treatments.astro`, `src/pages/rituals.astro` (treatment list), `src/pages/gallery.astro` (Gallery / Results), `src/pages/menu.astro` (Full menu fallback page), `src/pages/investors.astro`, `src/pages/contact.astro`, `src/pages/careers.astro` |
