@@ -130,6 +130,7 @@ services:
 # No before-and-after images or guaranteed results (see CLAUDE.md).
 banner:
   label: "Our skincare"
+  button: "Shop now"     # fades in on the bottom right of a banner when hovered (only on slides with a link)
   slides:
     - image: "/images/banners/lucent-banner.webp"
       alt: "Lucent skincare: advanced formulation made for all. Five Lucent products on white pedestals."

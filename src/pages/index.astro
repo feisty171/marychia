@@ -174,7 +174,10 @@ const heroWords = h.hero.headline
               {slides.map((s: any, i: number) => (
                 <li class="h-carousel__slide" role="group" aria-roledescription="slide" aria-label={`${i + 1} of ${slides.length}`}>
                   {s.link
-                    ? <a href={s.link}><img src={s.image} alt={s.alt} loading={i === 0 ? "eager" : "lazy"} decoding="async" /></a>
+                    ? <a href={s.link}>
+                        <img src={s.image} alt={s.alt} loading={i === 0 ? "eager" : "lazy"} decoding="async" />
+                        {h.banner.button && <span class="h-carousel__cta" aria-hidden="true">{h.banner.button} <span>→</span></span>}
+                      </a>
                     : <img src={s.image} alt={s.alt} loading={i === 0 ? "eager" : "lazy"} decoding="async" />}
                 </li>
               ))}

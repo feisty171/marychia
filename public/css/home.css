@@ -601,6 +601,40 @@ a.shop-item__link:focus-visible,
 .h-carousel__slide a { display: block; }
 .h-carousel__slide a:focus-visible { outline: 2px solid var(--rose); outline-offset: -4px; }
 .h-carousel__slide img { display: block; width: 100%; height: auto; }
+/* "Shop now": fades in on the bottom right while the banner is hovered (always shown on touch screens) */
+.h-carousel__slide a { position: relative; }
+.h-carousel__cta {
+  position: absolute;
+  right: clamp(10px, 1.6vw, 24px);
+  bottom: clamp(8px, 1.4vw, 20px);
+  display: inline-flex;
+  align-items: center;
+  gap: .6em;
+  padding: .85em 1.5em;
+  border-radius: 99px;
+  background: var(--white);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-ui);
+  text-transform: uppercase;
+  box-shadow: 0 6px 20px rgba(var(--shade), .18);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .35s ease, transform .35s ease, background .2s, color .2s;
+  pointer-events: none;
+}
+.h-carousel:hover .h-carousel__cta,
+.h-carousel__slide a:focus-visible .h-carousel__cta { opacity: 1; transform: none; }
+.h-carousel__slide a:hover .h-carousel__cta { background: var(--rose); color: var(--white); }
+@media (hover: none) {
+  .h-carousel__cta { opacity: 1; transform: none; }
+}
+@media (max-width: 640px) {
+  .h-carousel__cta { padding: .5em 1em; gap: .4em; }
+}
+
 /* Dots: small and soft, on the bottom of the picture */
 .h-carousel__dots {
   position: absolute;
