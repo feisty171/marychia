@@ -93,8 +93,8 @@
   align-items: center;
   gap: 14px;
   margin: 0 0 18px;
-  font-size: var(--fs-caption);
-  font-weight: 500;
+  font-size: var(--text-xs);
+  font-weight: var(--fw-label);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--blush);
@@ -103,18 +103,18 @@
 .heritage-hero__eyebrow::after { content: ""; width: 36px; height: 1px; background: currentColor; opacity: .7; }
 .heritage-hero__title {
   margin: 0 0 14px;
-  font-family: var(--font-serif);
-  font-weight: 500;
+  font-family: var(--font-sans);
+  font-weight: var(--fw-heading);
   font-size: calc(var(--fs-display) * 1.15);
-  line-height: 1;
+  line-height: var(--lh-heading);
   letter-spacing: -.01em;
   color: var(--white);
 }
-.heritage-hero__title em { font-style: italic; color: var(--blush); }
+.heritage-hero__title em { font-style: normal; color: var(--blush); }
 .heritage-hero__tagline {
   margin: 0 0 22px;
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-family: var(--font-sans); letter-spacing: var(--tracking-heading); font-weight: var(--fw-heading);
+  font-style: normal;
   font-size: var(--fs-h4);
   color: rgba(255, 255, 255, .88);
 }
@@ -140,17 +140,17 @@
 .heritage-facts li { display: grid; gap: 6px; padding: 0 12px; }
 .heritage-facts li + li { border-left: 1px solid rgba(255, 255, 255, .22); }
 .heritage-facts strong {
-  font-family: var(--font-serif);
-  font-weight: 500;
+  font-family: var(--font-sans); letter-spacing: var(--tracking-heading);
+  font-weight: var(--fw-heading);
   font-size: var(--fs-h3);
-  line-height: 1;
+  line-height: var(--lh-heading);
   color: var(--white);
   font-variant-numeric: lining-nums;
 }
 .heritage-facts span {
-  font-size: var(--fs-label);
+  font-size: var(--text-xs);
   line-height: 1.45;
-  letter-spacing: var(--tracking-label);
+  font-weight: var(--fw-label); letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: rgba(255, 255, 255, .72);
 }
@@ -179,15 +179,15 @@
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .55), transparent);
 }
 .heritage-portal strong {
-  font-size: var(--fs-text);
-  font-weight: 500;
+  font-size: var(--text-xs);
+  font-weight: var(--fw-label);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--white);
 }
 .heritage-portal small {
-  font-size: var(--fs-label);
-  letter-spacing: var(--tracking-label);
+  font-size: var(--text-xs);
+  font-weight: var(--fw-label); letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: rgba(255, 255, 255, .7);
 }
@@ -222,10 +222,10 @@
 .sl-item { max-width: 62ch; }
 .sl-item h3 {
   margin: 0 0 12px;
-  font-family: var(--font-serif);
-  font-weight: 500;
+  font-family: var(--font-sans); letter-spacing: var(--tracking-heading);
+  font-weight: var(--fw-heading);
   font-size: var(--fs-h3);
-  line-height: 1.15;
+  line-height: var(--lh-heading);
 }
 .sl-item p {
   margin: 0;
@@ -235,7 +235,7 @@
 }
 .sl-item .sl-y-mobile {
   margin-bottom: 8px;
-  font-family: var(--font-serif);
+  font-family: var(--font-sans); font-weight: var(--fw-heading);
   font-size: var(--fs-h5);
   letter-spacing: var(--tracking-label);
   color: var(--rose);
@@ -282,24 +282,24 @@
   stroke-linejoin: round;
 }
 .heritage-ph__year {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans); letter-spacing: var(--tracking-heading); font-weight: var(--fw-heading);
   font-size: var(--fs-h3-lg);
-  line-height: 1;
+  line-height: var(--lh-heading);
   color: var(--rose);
   font-variant-numeric: lining-nums;
 }
 .heritage-ph__label {
-  font-size: var(--fs-label);
-  font-weight: 500;
+  font-size: var(--text-xs);
+  font-weight: var(--fw-label);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--rose);
 }
 .heritage-ph__hint {
   max-width: 22ch;
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 1rem;
+  font-family: var(--font-sans); letter-spacing: var(--tracking-heading); font-weight: var(--fw-heading);
+  font-style: normal;
+  font-size: var(--text-base);
   line-height: 1.35;
   color: var(--ink-soft);
 }
@@ -339,9 +339,9 @@
 }
 .story-close__text {
   margin: 0;
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 500;
+  font-family: var(--font-sans); letter-spacing: var(--tracking-heading);
+  font-style: normal;
+  font-weight: var(--fw-heading);
   font-size: var(--fs-h3);
   color: var(--rose);
   text-wrap: balance; /* even line breaks on phones (no lone last word) */
@@ -372,16 +372,16 @@
 .mv__index {
   display: block;
   margin-bottom: 22px;
-  font-family: var(--font-serif);
+  font-family: var(--font-sans); font-weight: var(--fw-heading);
   font-size: var(--fs-small);
-  letter-spacing: .22em;
+  letter-spacing: var(--tracking-label);
   color: var(--rose);
   font-variant-numeric: lining-nums;
 }
 .mv h3 {
   margin: 0 0 14px;
-  font-family: var(--font-serif);
-  font-weight: 500;
+  font-family: var(--font-sans); letter-spacing: var(--tracking-heading);
+  font-weight: var(--fw-heading);
   font-size: var(--fs-h3);
 }
 .mv p {
@@ -397,8 +397,8 @@
   gap: 16px;
   width: max-content;
   margin: 44px auto 0;
-  font-size: var(--fs-caption);
-  font-weight: 500;
+  font-size: var(--text-xs);
+  font-weight: var(--fw-label);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--ink);
@@ -457,10 +457,10 @@
 
   .sl-year {
     margin: 0;
-    font-family: var(--font-serif);
-    font-weight: 500;
+    font-family: var(--font-sans); letter-spacing: var(--tracking-heading);
+    font-weight: var(--fw-heading);
     font-size: var(--fs-stat);
-    line-height: 1;
+    line-height: var(--lh-heading);
     color: var(--rose);
     font-variant-numeric: lining-nums;
   }
@@ -477,8 +477,8 @@
   .sl-label {
     max-width: 16ch;
     margin: 0;
-    font-size: var(--fs-label);
-    letter-spacing: var(--tracking-label);
+    font-size: var(--text-xs);
+    font-weight: var(--fw-label); letter-spacing: var(--tracking-label);
     text-transform: uppercase;
     color: var(--ink-soft);
   }

@@ -48,7 +48,7 @@ const line = [p.size, p.price != null ? money(p.price) : ""].filter(Boolean).joi
     <article class="shop-product" data-name={p.name} data-verb="order" data-line={line}>
       <div class="a-container shop-product__grid">
         {/* Breadcrumb: full width, over both the photo and the details */}
-        <nav class="shop-crumbs" aria-label="Breadcrumb">
+        <nav class="label shop-crumbs" aria-label="Breadcrumb">
           <a href="/">Home</a><span aria-hidden="true">/</span><a href="/shop/">{c.backLabel}</a><span aria-hidden="true">/</span><span aria-current="page">{p.name}</span>
         </nav>
         <div class="shop-product__media">
@@ -58,10 +58,10 @@ const line = [p.size, p.price != null ? money(p.price) : ""].filter(Boolean).joi
         </div>
 
         <div class="shop-product__info">
-          <p class="shop-product__brand">{p.brand}</p>
+          <p class="label shop-product__brand">{p.brand}</p>
           <h1 class="shop-product__name">{p.name}</h1>
           {p.price != null && <p class="shop-product__price">{money(p.price)}</p>}
-          <p class="shop-product__size">{[p.type, p.size].filter(Boolean).join(" · ")}</p>
+          <p class="label shop-product__size">{[p.type, p.size].filter(Boolean).join(" · ")}</p>
           <p class="shop-product__desc">{p.description}</p>
 
           <button type="button" class="btn btn--solid shop-product__order js-book">{c.orderButton}</button>
@@ -69,7 +69,7 @@ const line = [p.size, p.price != null ? money(p.price) : ""].filter(Boolean).joi
           <div class="shop-acc">
             {p.story?.length > 0 && (
               <details open>
-                <summary>{c.storyLabel}</summary>
+                <summary class="label">{c.storyLabel}</summary>
                 <div class="shop-acc__body shop-story">
                   {p.story.map((b: any) =>
                     b.h ? <h3>{b.h}</h3> : b.ul ? <ul>{b.ul.map((li: string) => <li>{li}</li>)}</ul> : <p>{b.p}</p>)}
@@ -78,18 +78,18 @@ const line = [p.size, p.price != null ? money(p.price) : ""].filter(Boolean).joi
             )}
             {p.usage && (
               <details>
-                <summary>{c.usageLabel}</summary>
+                <summary class="label">{c.usageLabel}</summary>
                 <div class="shop-acc__body"><p>{p.usage}</p></div>
               </details>
             )}
             {p.ingredients && (
               <details>
-                <summary>{c.ingredientsLabel}</summary>
+                <summary class="label">{c.ingredientsLabel}</summary>
                 <div class="shop-acc__body"><p>{p.ingredients}</p></div>
               </details>
             )}
             <details>
-              <summary>{c.infoLabel}</summary>
+              <summary class="label">{c.infoLabel}</summary>
               <div class="shop-acc__body">
                 <dl class="shop-info">
                   {info.map(([k, v]) => <><dt>{k}</dt><dd>{v}</dd></>)}

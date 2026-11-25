@@ -35,8 +35,8 @@ html.mv-open { overflow: hidden; }
 }
 .mv-title {
   margin: 0;
-  font-family: var(--font-serif);
-  font-weight: 500;
+  font-family: var(--font-sans); letter-spacing: var(--tracking-heading);
+  font-weight: var(--fw-heading);
   font-size: var(--fs-h4);
   color: var(--ink);
   white-space: nowrap;

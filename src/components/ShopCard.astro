@@ -1,6 +1,6 @@
 ---
 /**
- * Shop product card: photo, name and price only. The whole card opens the product page
+ * Shop product card: photo, series label, name (bold uppercase), a one-line description and the price. The whole card opens the product page
  * (/shop/<id>/, src/pages/shop/[id].astro). Used on /shop/ and under "More from <brand>".
  * Data: src/data/products.json. Styles: .shop-card in public/css/shop.css.
  */
@@ -14,6 +14,8 @@ const money = (n: number) => "S$" + n.toLocaleString("en-SG");
       ? <img src={p.image.startsWith("/") ? p.image : "/images/shop/" + p.image} alt={`${p.name} ${p.size}`} loading="lazy" decoding="async" />
       : <div class="shop-ph" aria-hidden="true"><span>{p.brand}</span><small>Photo · 1000 × 1000</small></div>}
   </div>
+  <p class="label shop-card__brand">{p.brand}</p>
   <h3 class="shop-card__name">{p.name}</h3>
+  {p.description && <p class="shop-card__sub">{p.description}</p>}
   {p.price != null && <p class="shop-card__price">{money(p.price)}</p>}
 </a>

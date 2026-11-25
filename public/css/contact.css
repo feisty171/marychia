@@ -29,8 +29,8 @@
 .office__body { display: flex; flex: 1; flex-direction: column; padding: 24px 24px 28px; }
 .office h3 {
   margin: 0 0 4px;
-  font-family: var(--font-serif);
-  font-weight: 500;
+  font-family: var(--font-sans); letter-spacing: var(--tracking-heading);
+  font-weight: var(--fw-heading);
   font-size: var(--fs-h3);
 }
 .office__reg {
@@ -52,8 +52,8 @@
   color: var(--ink-soft);
 }
 .office__rows .k {
-  font-size: var(--fs-label);
-  font-weight: 500;
+  font-size: var(--text-xs);
+  font-weight: var(--fw-label);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--rose);
@@ -65,8 +65,8 @@
   align-items: center;
   gap: 10px;
   margin-top: auto;
-  font-size: var(--fs-caption);
-  font-weight: 500;
+  font-size: var(--text-xs);
+  font-weight: var(--fw-label);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--ink);
@@ -77,9 +77,9 @@
 .ct-divider { display: flex; align-items: center; gap: 22px; margin: 56px 0 28px; }
 .ct-divider .ln { flex: 1; height: 1px; background: var(--line); }
 .ct-divider .word {
-  font-family: var(--font-serif);
-  font-size: 1rem;
-  letter-spacing: .28em;
+  font-family: var(--font-sans); font-weight: var(--fw-label);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--rose);
 }

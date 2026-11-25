@@ -16,8 +16,8 @@
 }
 .careers__card h2 {
   margin: 0 0 14px;
-  font-family: var(--font-serif);
-  font-weight: 500;
+  font-family: var(--font-sans); letter-spacing: var(--tracking-heading);
+  font-weight: var(--fw-heading);
   font-size: var(--fs-h3);
 }
 .careers__list { margin: 0 0 20px; }

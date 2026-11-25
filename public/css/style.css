@@ -1,6 +1,6 @@
 /* =========================================================
    Mary Chia — Landing page
-   Type: Cormorant Garamond (display / numbers) + Figtree (UI / body)
+   Type: Inter only (bold headings, regular body, small uppercase labels)
    ========================================================= */
 
 /* =========================================================
@@ -10,9 +10,9 @@
    ========================================================= */
 :root {
   /* ---- colour ---- */
-  --ink: #2b2326;             /* headings, body text, primary buttons */
-  --ink-soft: #6b5b5d;        /* secondary text */
-  --ink-faint: #9b8c8e;       /* hints, struck-through prices */
+  --ink: #1d1d1b;             /* headings, prices, primary buttons (near-black) */
+  --ink-soft: #5f5f5a;        /* body and secondary text (soft dark grey) */
+  --ink-faint: #9a9a94;       /* hints, struck-through prices */
   /* Brand red: one premium maroon family. Use these tokens (or --rose-rgb / --rose-lt-rgb
      inside rgba()) for every red on the site; never type a red/pink value in page CSS. */
   --rose: #a43e4b;            /* accent: eyebrows, numbers, prices, icons, filled buttons */
@@ -39,30 +39,52 @@
     linear-gradient(150deg, #f3e2dc 0%, #ead7d0 50%, #e2cfc6 100%);
   --shadow-card: 0 24px 48px -28px rgba(var(--shade), .3);
 
-  /* ---- type ---- */
-  --font-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif; /* headings, numbers, prices */
-  --font-sans: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif; /* body, UI */
+  /* ---- type ----
+     One typeface, Inter (clean Swiss / Helvetica look), loaded once in src/layouts/Base.astro.
+     Headings, prices and numbers use it too: bold headings with tight spacing, regular body. */
+  --font-sans: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-  /* sans scale */
-  --fs-label: .6875rem;       /* 11px  tiny uppercase labels */
-  --fs-caption: .75rem;       /* 12px  eyebrows, captions */
-  --fs-ui: .8125rem;          /* 13px  nav, buttons */
-  --fs-small: .875rem;        /* 14px  small text */
-  --fs-text: .9375rem;        /* 15px  card and list text */
-  --fs-body: clamp(1rem, .35vw + .9rem, 1.1875rem);          /* 16–19px  paragraphs */
+  /* type scale */
+  --text-xs: .75rem;                                          /* 12px  labels, eyebrows, buttons, nav */
+  --text-sm: .875rem;                                         /* 14px  small text, card text */
+  --text-base: 1rem;                                          /* 16px  body text */
+  --text-lg: 1.125rem;                                        /* 18px  small headings, lead text */
+  --text-xl: 1.375rem;                                        /* 22px  card titles */
+  --text-2xl: clamp(1.5rem, .9vw + 1.15rem, 2rem);            /* 24–32px featured titles, product prices */
+  --text-3xl: clamp(1.75rem, 1.6vw + 1.1rem, 2.75rem);        /* 28–44px section titles */
+  --text-display: clamp(2.25rem, 2.6vw + 1.2rem, 3.75rem);    /* 36–60px page titles */
+  --text-hero: clamp(2.5rem, 2.8vw + 1rem, 4.5rem);           /* 40–72px Home hero headline */
+  --text-hero-phone: clamp(2.25rem, 9vw, 2.75rem);           /* Home hero headline on phones */
+  --text-hero-mid: 3.4vw;                                     /* Home hero headline, 961–1199px (stays clear of the model) */
+  --text-poster: clamp(2rem, 4.2vw, 4.25rem);                 /* big uppercase titles: Home "Find a treatment" */
+  --text-poster-lg: clamp(2.25rem, 5vw, 5.5rem);              /* big uppercase titles: Shop brand names */
+  --text-stat: clamp(1.75rem, 1.2vw + 1.3rem, 2.75rem);       /* 28–44px big numbers */
 
-  /* serif scale */
-  --fs-h5: 1.125rem;          /* 18px  index numbers */
-  --fs-h4: 1.375rem;          /* 22px  small serif headings, italic sublines */
-  --fs-h3: 1.75rem;           /* 28px  card titles */
-  --fs-h3-lg: clamp(1.875rem, 1.6vw + 1.2rem, 2.5rem);       /* 30–40px  featured titles */
-  --fs-h2: clamp(2.125rem, 2.4vw + 1.4rem, 3.5rem);          /* 34–56px  section titles */
-  --fs-display: clamp(2.75rem, 3.4vw + 1.4rem, 4.75rem);     /* 44–76px  page titles */
-  --fs-hero: clamp(3rem, 4.6vw + 1.2rem, 7rem);              /* 48–112px Home hero headline */
-  --fs-stat: clamp(2.25rem, 1.6vw + 1.6rem, 3.5rem);         /* 36–56px  big numbers */
+  /* the older size names, kept so every stylesheet keeps working; they now point at the scale above */
+  --fs-label: var(--text-xs);
+  --fs-caption: var(--text-xs);
+  --fs-ui: var(--text-xs);
+  --fs-small: var(--text-sm);
+  --fs-text: var(--text-sm);
+  --fs-body: var(--text-base);
+  --fs-h5: var(--text-lg);
+  --fs-h4: var(--text-xl);
+  --fs-h3: var(--text-xl);
+  --fs-h3-lg: var(--text-2xl);
+  --fs-h2: var(--text-3xl);
+  --fs-display: var(--text-display);
+  --fs-hero: var(--text-hero);
+  --fs-stat: var(--text-stat);
 
-  --tracking-ui: .14em;       /* buttons, nav */
-  --tracking-label: .18em;    /* eyebrows, labels */
+  --fw-heading: 700;          /* headings and big numbers */
+  --fw-price: 500;            /* prices */
+  --tracking-heading: -.02em; /* headings */
+  --lh-heading: 1.1;          /* headings */
+  --lh-body: 1.5;             /* body text */
+  --text-color: #5f5f5a;      /* body text: soft dark grey, not black */
+  --fw-label: 600;            /* small uppercase labels */
+  --tracking-ui: .08em;       /* buttons, nav (uppercase) */
+  --tracking-label: .08em;    /* every small uppercase label: eyebrows, series names, sizes, section headers */
 
   /* layout */
   --gutter: clamp(16px, 6vw, 96px);
@@ -80,12 +102,29 @@ html { scroll-behavior: smooth; }
 body {
   margin: 0;
   font-family: var(--font-sans);
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--ink);
+  font-size: var(--text-base);
+  line-height: var(--lh-body);
+  color: var(--ink);           /* headings inherit this; paragraphs use --text-color / --ink-soft */
   background: var(--blush);
+  font-variant-numeric: lining-nums;  /* "SPF60", "30ML": numbers always line up with capitals */
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* Headings: bold Inter, tight spacing. Accent words (*asterisks* in content files) stay upright, in rose. */
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-sans); font-weight: var(--fw-heading); letter-spacing: var(--tracking-heading); line-height: var(--lh-heading); }
+em { font-style: normal; }
+p { color: var(--text-color); }   /* body text: soft dark grey (white/ivory on photos is set where needed) */
+
+/* Small uppercase label: one style everywhere (series names, sizes, section headers, eyebrows).
+   Colour is set where it's used (rose for series and eyebrows, grey for details, ink for section headers). */
+.label {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: var(--fw-label);
+  line-height: 1.4;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
 }
 
 img { max-width: 100%; display: block; }
@@ -121,7 +160,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   padding: 18px 44px;
   border-radius: 999px;
   font-size: var(--fs-small);
-  letter-spacing: .24em;
+  letter-spacing: var(--tracking-label);
   background: rgba(255, 255, 255, .08);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
@@ -157,8 +196,8 @@ ul { list-style: none; margin: 0; padding: 0; }
 
 .eyebrow {
   margin: 0 0 14px;
-  font-size: var(--fs-caption);
-  font-weight: 500;
+  font-size: var(--text-xs);
+  font-weight: var(--fw-label);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--rose);
@@ -348,10 +387,10 @@ ul { list-style: none; margin: 0; padding: 0; }
 .a-head--center { margin-left: auto; margin-right: auto; text-align: center; }
 .a-title {
   margin: 0 0 14px;
-  font-family: var(--font-serif);
-  font-weight: 500;
+  font-family: var(--font-sans); letter-spacing: var(--tracking-heading);
+  font-weight: var(--fw-heading);
   font-size: var(--fs-h2);
-  line-height: 1.1;
+  line-height: var(--lh-heading);
   font-variant-numeric: lining-nums;
 }
 .a-lede {
@@ -462,8 +501,8 @@ ul { list-style: none; margin: 0; padding: 0; }
   padding-top: 14px;
   border-top: 1px solid var(--line);
   border-radius: 0 0 2px 2px;
-  font-size: var(--fs-caption);
-  letter-spacing: var(--tracking-label);
+  font-size: var(--text-xs);
+  font-weight: var(--fw-label); letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--ink-soft);
 }
@@ -516,8 +555,8 @@ ul { list-style: none; margin: 0; padding: 0; }
 .mobile-menu .mobile-menu__sub a.mobile-menu__footer {
   padding-top: 12px;
   border-top: 1px solid var(--line);
-  font-size: var(--fs-caption);
-  letter-spacing: var(--tracking-label);
+  font-size: var(--text-xs);
+  font-weight: var(--fw-label); letter-spacing: var(--tracking-label);
   text-transform: uppercase;
 }
 
@@ -561,8 +600,8 @@ ul { list-style: none; margin: 0; padding: 0; }
 }
 .outlet__name {
   margin: 0 0 10px;
-  font-size: var(--fs-caption);
-  font-weight: 600;
+  font-size: var(--text-xs);
+  font-weight: var(--fw-label);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
 }
@@ -625,7 +664,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   :root { --nav-pad: 40px; }
   .nav { gap: 52px; }
   .nav__group { gap: 16px; }
-  .nav__link, .btn--nav { letter-spacing: .1em; }
+  .nav__link, .btn--nav { letter-spacing: var(--tracking-label); }
   .btn--nav { padding: 10px 16px; }
 }
 @media (max-width: 1100px) {
