@@ -164,7 +164,7 @@ const heroWords = h.hero.headline
     </section>
 
     <!-- ============ AD BANNER CAROUSEL (src/content/home.md → banner → slides) ============
-         Pictures shown whole (never cropped), one at a time, with arrows and dots.
+         Pictures shown whole (never cropped), one at a time; small dots on the bottom of the picture pick one.
          Styles: "Ad banner carousel" in public/css/home.css; behaviour in public/js/home.js. -->
     {slides.length > 0 && (
       <section class="h-banner" aria-roledescription="carousel" aria-label={h.banner.label || "Promotions"} data-reveal="wipe">
@@ -180,19 +180,11 @@ const heroWords = h.hero.headline
               ))}
             </ul>
             {slides.length > 1 && (
-              <>
-                <button type="button" class="h-carousel__arrow h-carousel__arrow--prev" data-prev aria-label="Previous banner">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
-                </button>
-                <button type="button" class="h-carousel__arrow h-carousel__arrow--next" data-next aria-label="Next banner">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
-                </button>
                 <div class="h-carousel__dots">
                   {slides.map((_: any, i: number) => (
                     <button type="button" data-dot={i} aria-label={`Show banner ${i + 1}`} aria-current={i === 0 ? "true" : undefined}></button>
                   ))}
                 </div>
-              </>
             )}
           </div>
         </div>

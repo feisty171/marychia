@@ -579,8 +579,8 @@ a.shop-item__link:focus-visible,
 
 /* ---------- Ad banner carousel (below the Face / Body / Wellness tiles) ----------
    Slides: src/content/home.md → banner → slides. Each picture keeps its own shape (never
-   cropped); the track slides sideways (scroll-snap, so phones can swipe). Arrows sit on the
-   picture's edges, dots under it. Behaviour: public/js/home.js. */
+   cropped); the track slides sideways (scroll-snap, so phones can swipe). Small dots sit
+   on the bottom of the picture. Behaviour: public/js/home.js. */
 .h-banner { padding: 0; }
 #services { padding-bottom: clamp(28px, 3vw, 40px); } /* keep the banner close to the tiles */
 .h-carousel { position: relative; }
@@ -601,52 +601,49 @@ a.shop-item__link:focus-visible,
 .h-carousel__slide a { display: block; }
 .h-carousel__slide a:focus-visible { outline: 2px solid var(--rose); outline-offset: -4px; }
 .h-carousel__slide img { display: block; width: 100%; height: auto; }
-.h-carousel__arrow {
+/* Dots: small and soft, on the bottom of the picture */
+.h-carousel__dots {
   position: absolute;
-  top: calc(50% - 22px - 14px);
-  width: 44px;
-  height: 44px;
-  display: grid;
-  place-items: center;
-  border: 0;
-  border-radius: 50%;
-  background: rgba(var(--blush-rgb), .82);
-  color: var(--ink);
-  cursor: pointer;
-  box-shadow: 0 4px 18px rgba(var(--shade), .14);
-  transition: background .2s, transform .2s;
+  left: 50%;
+  bottom: clamp(6px, 1.2vw, 16px);
+  transform: translateX(-50%);
+  display: flex;
+  gap: 2px;
+  padding: 0 6px;
+  border-radius: 99px;
+  background: rgba(var(--shade), .14);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
-.h-carousel__arrow:hover { background: var(--white); transform: scale(1.06); }
-.h-carousel__arrow:focus-visible { outline: 2px solid var(--rose); outline-offset: 2px; }
-.h-carousel__arrow svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.h-carousel__arrow--prev { left: clamp(10px, 1.5vw, 24px); }
-.h-carousel__arrow--next { right: clamp(10px, 1.5vw, 24px); }
-.h-carousel__dots { display: flex; justify-content: center; gap: 4px; margin-top: 14px; }
 .h-carousel__dots button {
-  width: 28px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   padding: 0;
   border: 0;
   background: none;
   cursor: pointer;
   position: relative;
 }
+.h-carousel__dots button:focus-visible { outline: 2px solid var(--white); outline-offset: -3px; border-radius: 99px; }
 .h-carousel__dots button::before {
   content: "";
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 99px;
-  background: rgba(var(--shade), .2);
+  background: rgba(255, 255, 255, .55);
   transform: translate(-50%, -50%);
   transition: width .3s, background .3s;
 }
-.h-carousel__dots button[aria-current="true"]::before { width: 24px; background: var(--rose); }
+.h-carousel__dots button:hover::before { background: rgba(255, 255, 255, .85); }
+.h-carousel__dots button[aria-current="true"]::before { width: 18px; background: var(--white); }
 @media (max-width: 640px) {
-  /* phones: swipe; the small arrows stay out of the way of the picture's words */
-  .h-carousel__arrow { display: none; }
+  /* phones: swipe; smaller dots on the short banner */
+  .h-carousel__dots button { width: 16px; height: 16px; }
+  .h-carousel__dots button::before { width: 5px; height: 5px; }
+  .h-carousel__dots button[aria-current="true"]::before { width: 12px; }
   .h-carousel__track { border-radius: 10px; }
 }
 

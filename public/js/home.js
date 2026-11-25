@@ -178,7 +178,7 @@
   }
 
   /* ---- Ad banner carousel (src/content/home.md → banner → slides) ----
-     Arrows, dots and swipe; turns every 6 s, pausing while hovered, focused or touched.
+     Dots (on the bottom of the picture) and swipe; turns every 6 s, pausing while hovered, focused or touched.
      "Reduce motion" keeps it still. */
   document.querySelectorAll("[data-carousel]").forEach(function (box) {
     var track = box.querySelector(".h-carousel__track");
@@ -200,8 +200,6 @@
     track.addEventListener("scroll", function () {
       if (!st) { st = true; requestAnimationFrame(function () { st = false; mark(); }); }
     }, { passive: true });
-    box.querySelector("[data-prev]").addEventListener("click", function () { go(cur - 1); restart(); });
-    box.querySelector("[data-next]").addEventListener("click", function () { go(cur + 1); restart(); });
     dots.forEach(function (d) { d.addEventListener("click", function () { go(+d.dataset.dot); restart(); }); });
     function restart() {
       clearInterval(timer);
