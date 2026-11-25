@@ -296,6 +296,7 @@ testimonials:
       name: "Stephen L."
       studio: "Jurong Gateway"
       rating: 5
+  showTrust: false   # the line of facts under the reviews (40+ years …); true shows it again
   trust:
     - "40+ years in Singapore"
     - "Specialists trained in-house"

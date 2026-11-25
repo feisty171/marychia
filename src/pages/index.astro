@@ -290,7 +290,7 @@ const heroWords = h.hero.headline
               </ul>
             ))}
           </div>
-          {h.testimonials.trust?.length > 0 && (
+          {h.testimonials.showTrust !== false && h.testimonials.trust?.length > 0 && (
             <ul class="trust" data-reveal>
               {h.testimonials.trust.map((t: string) => <li>{t}</li>)}
             </ul>
