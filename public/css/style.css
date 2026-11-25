@@ -59,6 +59,7 @@
   --text-poster: clamp(2rem, 4.2vw, 4.25rem);                 /* big uppercase titles: Home "Find a treatment" */
   --text-poster-lg: clamp(2.25rem, 5vw, 5.5rem);              /* big uppercase titles: Shop brand names */
   --text-card-title: clamp(.6875rem, 5cqi, 1.75rem);         /* Shop panel card: title and price (follows the card width) */
+  --text-card-button: clamp(.6875rem, 4.2cqi, 1.375rem);      /* Shop panel card: "Buy now - S$399" on hover */
   --text-card-line: clamp(.625rem, 3.4cqi, 1.125rem);          /* Shop panel card: the short line */
   --text-stat: clamp(1.75rem, 1.2vw + 1.3rem, 2.75rem);       /* 28–44px big numbers */
 

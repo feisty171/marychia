@@ -15,6 +15,9 @@ eyebrow: "Shop"
 heading: "Take the care *home*."
 intro: "Skincare we trust in our studios, so your skin feels cared for between visits. Tap a product to see the details and order on WhatsApp."
 
+# Shop card: the button that replaces the title and price when a card is hovered ("- S$399" is added)
+buyLabel: "Buy now"
+
 # Product page (/shop/<product>/): buttons and section titles
 backLabel: "Shop"
 orderButton: "Order on WhatsApp"

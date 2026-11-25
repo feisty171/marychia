@@ -4,6 +4,7 @@
  * (/shop/<id>/, src/pages/shop/[id].astro). Used on /shop/ and under "More from <brand>".
  * Data: src/data/products.json. Styles: .shop-card in public/css/shop.css.
  */
+import { frontmatter as c } from "../content/shop.md";
 interface Props { p: any }
 const { p } = Astro.props;
 const money = (n: number) => "S$" + n.toLocaleString("en-SG");
@@ -23,6 +24,8 @@ const panel = !!(p.cardTitle && img);
       </div>
       {p.cardLine && <p class="shop-card__line">{p.cardLine}</p>}
     </div>
+    {/* On hover the words above fade out and this button fades in */}
+    <span class="shop-card__buy" aria-hidden="true">{c.buyLabel || "Buy now"}{p.price != null && <> - <b>{money(p.price)}</b></>}</span>
   </div>
 </a>
 ) : (

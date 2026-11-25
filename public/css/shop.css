@@ -150,7 +150,30 @@
 }
 .shop-card__amount { margin: 0; font-size: var(--text-card-title); font-weight: 400; line-height: 1.1; color: var(--ink); white-space: nowrap; }
 .shop-card__line { margin: 1.2cqi 0 0; font-size: var(--text-card-line); line-height: 1.3; color: var(--ink); }
-.shop-card--panel:hover .shop-card__title { color: var(--rose); }
+/* Hover (mouse) or keyboard focus: the words fade out and a white "Buy now - S$399" pill fades in.
+   Touch screens keep the words. */
+.shop-card__cap { transition: opacity .3s ease, transform .3s ease; }
+.shop-card__buy {
+  position: absolute; left: 6cqi; right: 6cqi; bottom: 6cqi;
+  display: flex; align-items: center; justify-content: center; gap: .35em;
+  min-height: 2.9em; padding: .4em 1em;
+  border-radius: 999px; background: var(--white);
+  box-shadow: 0 6px 22px -10px rgba(var(--shade), .35);
+  font-size: var(--text-card-button); font-weight: 400; letter-spacing: 0; text-transform: uppercase;
+  color: var(--ink-soft); white-space: nowrap;
+  opacity: 0; transform: translateY(8px);
+  transition: opacity .3s ease, transform .3s ease;
+  pointer-events: none;
+}
+.shop-card__buy b { font-weight: 700; }
+@media (hover: hover) {
+  .shop-card--panel:hover .shop-card__cap { opacity: 0; transform: translateY(-6px); }
+  .shop-card--panel:hover .shop-card__buy { opacity: 1; transform: none; }
+}
+.shop-card--panel:focus-visible { outline: none; }
+.shop-card--panel:focus-visible .shop-card__media { outline: 2px solid var(--ink); outline-offset: 3px; }
+.shop-card--panel:focus-visible .shop-card__cap { opacity: 0; }
+.shop-card--panel:focus-visible .shop-card__buy { opacity: 1; transform: none; }
 /* Small cards (phones, two across): price drops under the title so nothing covers the photo */
 @container (max-width: 260px) {
   .shop-card__cap { padding: 0 7cqi 6cqi; }
