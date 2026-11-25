@@ -27,9 +27,8 @@ const favs = (h.favourites?.items || [])
   .map((id: string) => treatmentData.treatments.find((t: any) => t.id === id))
   .filter(Boolean);
 const [favBefore, favEm = "", favAfter = ""] = (h.favourites?.heading || "").split("*");
-// Ad banner words (optional)
-const bannerHasCopy = !!h.banner?.heading;
-const [bannerBefore, bannerEm = "", bannerAfter = ""] = (h.banner?.heading || "").split("*");
+// Ad banner carousel slides (with an image)
+const slides = (h.banner?.slides || []).filter((s: any) => s.image);
 // First-visit band
 const [trialBefore, trialEm = "", trialAfter = ""] = (h.trial?.heading || "").split("*");
 const trialTerms = realUrl(h.trial?.termsLink);
@@ -130,7 +129,7 @@ const heroWords = h.hero.headline
           </div>
           <div class="find-side">
             {h.services.intro && <p class="find-side__text">{h.services.intro}</p>}
-            {h.services.button && <a class="btn find-side__btn" href={site.bookingUrl}>{h.services.button}</a>}
+            {h.services.button && <a class="btn find-side__btn" href={h.services.buttonLink || "/rituals/"}>{h.services.button}</a>}
           </div>
         </header>
         <div class:list={["tp", "tp--embed", { "show-hints": treatmentsData.config.showPlaceholderHints }]}>
@@ -164,35 +163,41 @@ const heroWords = h.hero.headline
       </div>
     </section>
 
-    <!-- ============ AD BANNER (src/content/home.md → banner) ============
-         Picture with words and a button on its plain left side (wide screens); on phones the
-         words sit under the picture. Styles: "Ad banner" in public/css/home.css. -->
-    <section class:list={["h-banner", { "h-banner--copy": bannerHasCopy }]} aria-label="Promotion" data-reveal="wipe">
-      <div class="h-container h-container--full">
-        {h.banner?.image
-          ? (h.banner.link && !bannerHasCopy
-              ? <a class="h-banner__frame" href={h.banner.link}><img src={h.banner.image} alt={h.banner.alt} loading="lazy" style={`object-position:${h.banner.phoneFocus || "center"} center`} /></a>
-              : (
-                <div class="h-banner__frame">
-                  <img src={h.banner.image} alt={h.banner.alt} loading="lazy" style={`object-position:${h.banner.phoneFocus || "center"} center`} />
-                  {bannerHasCopy && (
-                    <div class="h-banner__copy">
-                      {h.banner.eyebrow && <p class="eyebrow">{h.banner.eyebrow}</p>}
-                      <h2 class="h-banner__title">{bannerBefore}{bannerEm && <em>{bannerEm}</em>}{bannerAfter}</h2>
-                      {h.banner.text && <p class="h-banner__text">{h.banner.text.replace("{count}", String(treatmentData.treatments.length))}</p>}
-                      {h.banner.button && <a class="btn btn--rose" href={h.banner.buttonLink}>{h.banner.button}</a>}
-                    </div>
-                  )}
+    <!-- ============ AD BANNER CAROUSEL (src/content/home.md → banner → slides) ============
+         Pictures shown whole (never cropped), one at a time, with arrows and dots.
+         Styles: "Ad banner carousel" in public/css/home.css; behaviour in public/js/home.js. -->
+    {slides.length > 0 && (
+      <section class="h-banner" aria-roledescription="carousel" aria-label={h.banner.label || "Promotions"} data-reveal="wipe">
+        <div class="h-container h-container--full">
+          <div class="h-carousel" data-carousel>
+            <ul class="h-carousel__track" aria-live="off">
+              {slides.map((s: any, i: number) => (
+                <li class="h-carousel__slide" role="group" aria-roledescription="slide" aria-label={`${i + 1} of ${slides.length}`}>
+                  {s.link
+                    ? <a href={s.link}><img src={s.image} alt={s.alt} loading={i === 0 ? "eager" : "lazy"} decoding="async" /></a>
+                    : <img src={s.image} alt={s.alt} loading={i === 0 ? "eager" : "lazy"} decoding="async" />}
+                </li>
+              ))}
+            </ul>
+            {slides.length > 1 && (
+              <>
+                <button type="button" class="h-carousel__arrow h-carousel__arrow--prev" data-prev aria-label="Previous banner">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+                </button>
+                <button type="button" class="h-carousel__arrow h-carousel__arrow--next" data-next aria-label="Next banner">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+                </button>
+                <div class="h-carousel__dots">
+                  {slides.map((_: any, i: number) => (
+                    <button type="button" data-dot={i} aria-label={`Show banner ${i + 1}`} aria-current={i === 0 ? "true" : undefined}></button>
+                  ))}
                 </div>
-              ))
-          : (
-            <div class="h-banner__frame h-banner__frame--ph" role="img" aria-label="Ad banner placeholder">
-              <span class="h-banner__label">Ad banner</span>
-              <span class="h-banner__size">1920 × 480</span>
-            </div>
-          )}
-      </div>
-    </section>
+              </>
+            )}
+          </div>
+        </div>
+      </section>
+    )}
 
     <!-- ============ OUR CLIENTS' FAVOURITES (src/content/home.md → favourites) ============
          Cards: src/components/FavouriteCard.astro, the same card as the treatment list (styles ".tp .card" in treatments.css). -->

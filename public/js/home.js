@@ -176,4 +176,43 @@
     }, { passive: true });
     setActive(0);
   }
+
+  /* ---- Ad banner carousel (src/content/home.md → banner → slides) ----
+     Arrows, dots and swipe; turns every 6 s, pausing while hovered, focused or touched.
+     "Reduce motion" keeps it still. */
+  document.querySelectorAll("[data-carousel]").forEach(function (box) {
+    var track = box.querySelector(".h-carousel__track");
+    var slides = track.children;
+    var dots = box.querySelectorAll("[data-dot]");
+    var n = slides.length;
+    if (n < 2) return;
+    var cur = 0, timer = null, paused = false;
+    function go(i) {
+      cur = (i + n) % n;
+      track.scrollTo({ left: slides[cur].offsetLeft, behavior: still ? "auto" : "smooth" });
+    }
+    function mark() {
+      var i = Math.round(track.scrollLeft / (track.clientWidth || 1));
+      cur = Math.max(0, Math.min(n - 1, i));
+      dots.forEach(function (d, k) { if (k === cur) d.setAttribute("aria-current", "true"); else d.removeAttribute("aria-current"); });
+    }
+    var st = false;
+    track.addEventListener("scroll", function () {
+      if (!st) { st = true; requestAnimationFrame(function () { st = false; mark(); }); }
+    }, { passive: true });
+    box.querySelector("[data-prev]").addEventListener("click", function () { go(cur - 1); restart(); });
+    box.querySelector("[data-next]").addEventListener("click", function () { go(cur + 1); restart(); });
+    dots.forEach(function (d) { d.addEventListener("click", function () { go(+d.dataset.dot); restart(); }); });
+    function restart() {
+      clearInterval(timer);
+      if (still) return;
+      timer = setInterval(function () { if (!paused && !document.hidden) go(cur + 1); }, 6000);
+    }
+    box.addEventListener("mouseenter", function () { paused = true; });
+    box.addEventListener("mouseleave", function () { paused = false; });
+    box.addEventListener("focusin", function () { paused = true; });
+    box.addEventListener("focusout", function () { paused = false; });
+    track.addEventListener("touchstart", function () { paused = true; }, { passive: true });
+    restart();
+  });
 })();

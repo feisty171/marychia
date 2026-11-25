@@ -47,7 +47,8 @@ services:
   # Bold uppercase heading; the *words in asterisks* show as a large italic line in the brand red
   heading: "What would you like to *work on today?*"
   intro: "Face, body and wellness treatments, each one shaped around you."   # small line on the right
-  button: "Book now"            # button on the right; uses bookingUrl in src/data/site.json ("" to hide)
+  button: "All Treatments"      # button on the right ("" to hide)
+  buttonLink: "/rituals/"       # where it goes (the full treatment list)
   menuButton: "View All Treatments"   # shown under the tiles only while showList is true
   menuLink: "/rituals/"
   # The signature treatments list below the tiles. Hidden for now: set to true to show it again.
@@ -117,27 +118,28 @@ services:
         - { label: "First Trial", minutes: 60, price: 99, compareAt: 380 }
         - { label: "Usual", minutes: 60, price: 380 }
 
-# Ad banner, just below Signature treatments (full width, same edges as the cards).
-# While "image" is empty, a placeholder shows the recommended size.
-#   image:   e.g. "/images/banners/your-banner.webp" (wide, about 1920 x 480; phones crop the sides)
-#   alt:     what the banner says or shows, for screen readers
-#   link:    where it goes when clicked, e.g. "/rituals/" (leave "" for no link)
-#   phoneFocus: which side to keep when phones crop the sides: "left", "center" or "right"
-#            (use the side the person or main message is on)
+# Ad banner carousel, just below the Face / Body / Wellness tiles (full width, same edges as the cards).
+# The slides turn every 6 seconds (they stop while hovered or tapped; "reduce motion" turns that off);
+# arrows and dots let visitors pick one. Each picture always shows whole, never cropped.
+# Each slide:
+#   image:  e.g. "/images/banners/your-banner.webp" (wide, 1600 x 450 or larger at the same shape;
+#           put any words into the picture itself, on phones it shows small)
+#   alt:    what the banner says and shows, for screen readers
+#   link:   where it goes when clicked, e.g. "/shop/#lucent" (leave "" for no link)
+# Add or remove slides by copying or deleting a "- image:" block. Slides show in this order.
 # No before-and-after images or guaranteed results (see CLAUDE.md).
 banner:
-  image: "/images/banners/hydration-banner.webp"
-  alt: "A woman resting her face on rippling water, her skin dewy with water droplets"
-  link: ""            # only used when there is no button: makes the whole banner a link
-  phoneFocus: "right"
-  # Words on the banner (left side on wide screens, under the picture on phones).
-  # Leave heading "" for a picture-only banner. *asterisks* = italic rose.
-  # {count} = how many treatments are on the site. No guaranteed results (see CLAUDE.md).
-  eyebrow: "Face · Body · Wellness"
-  heading: "A little time, *just for you*."
-  text: "Every treatment is shaped around your skin, your body and how you want to feel."
-  button: "View all treatments"
-  buttonLink: "/rituals/"
+  label: "Our skincare"
+  slides:
+    - image: "/images/banners/lucent-banner.webp"
+      alt: "Lucent skincare: advanced formulation made for all. Five Lucent products on white pedestals."
+      link: "/shop/#lucent"
+    - image: "/images/banners/juve-series-banner.webp"
+      alt: "The Juve Series anti-ageing skincare: Probio Prepe mousse, Juve serum and a perfume-style bottle on white pedestals."
+      link: "/shop/#the-juve-series"
+    - image: "/images/banners/skin-prep-banner.webp"
+      alt: "The Skin Prep Series: The Reset Ritual. Bright+ silk mask and Repair+, beside a smiling woman."
+      link: "/shop/#the-prep-series"
 
 # Products, below the ad banner. "Shelf" design: tinted photo panels with the
 # details underneath (deliberately different from the Signature treatment cards).

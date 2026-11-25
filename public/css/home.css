@@ -577,79 +577,77 @@ a.shop-item__link:focus-visible,
   .shop-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 24px; }
 }
 
-/* ---------- Ad banner (below Signature treatments) ----------
-   Words/image: src/content/home.md → banner. Wide (4:1) on desktop,
-   taller crop on phones. Placeholder shows until an image is set. */
+/* ---------- Ad banner carousel (below the Face / Body / Wellness tiles) ----------
+   Slides: src/content/home.md → banner → slides. Each picture keeps its own shape (never
+   cropped); the track slides sideways (scroll-snap, so phones can swipe). Arrows sit on the
+   picture's edges, dots under it. Behaviour: public/js/home.js. */
 .h-banner { padding: 0; }
 #services { padding-bottom: clamp(28px, 3vw, 40px); } /* keep the banner close to the tiles */
-.h-banner__frame {
-  position: relative;
-  display: block;
-  overflow: hidden;
-  aspect-ratio: 16 / 9;
+.h-carousel { position: relative; }
+.h-carousel__track {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
   border-radius: 16px;
   background: var(--tint);
 }
-.h-banner__frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
-a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset: 4px; }
-.h-banner__frame--ph {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  background: var(--ph-bg);
-  border: 1px dashed var(--rose-line);
-}
-.h-banner__label {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: var(--fs-h4);
-  color: var(--rose);
-}
-.h-banner__size {
-  font-size: var(--fs-label);
-  font-weight: 500;
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--ink-faint);
-}
-@media (min-width: 641px) {
-  .h-banner__frame { aspect-ratio: 4 / 1; }
-}
-
-/* Banner with words: phones show the picture with the words in a panel underneath;
-   wide screens lay the words over the plain left side of the picture. */
-.h-banner--copy .h-banner__frame { display: flex; flex-direction: column; aspect-ratio: auto; background: var(--tint); }
-.h-banner--copy .h-banner__frame img { width: 100%; height: auto; aspect-ratio: auto; object-fit: initial; } /* the picture at its own shape, never cropped or zoomed */
-.h-banner__copy { display: grid; gap: 14px; justify-items: start; padding: 28px 22px 30px; }
-.h-banner__copy .eyebrow { margin: 0; }
-.h-banner__title {
-  margin: 0;
-  font-family: var(--font-serif);
-  font-weight: 500;
-  font-size: var(--fs-h2);
-  line-height: 1.08;
+.h-carousel__track::-webkit-scrollbar { display: none; }
+.h-carousel__slide { flex: 0 0 100%; scroll-snap-align: start; }
+.h-carousel__slide a { display: block; }
+.h-carousel__slide a:focus-visible { outline: 2px solid var(--rose); outline-offset: -4px; }
+.h-carousel__slide img { display: block; width: 100%; height: auto; }
+.h-carousel__arrow {
+  position: absolute;
+  top: calc(50% - 22px - 14px);
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(var(--blush-rgb), .82);
   color: var(--ink);
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(var(--shade), .14);
+  transition: background .2s, transform .2s;
 }
-.h-banner__title em { font-style: italic; color: var(--rose); }
-.h-banner__text { margin: 0 0 6px; max-width: 36ch; font-size: var(--fs-text); line-height: 1.65; color: var(--ink-soft); }
-@media (min-width: 1280px) {
-  /* Wide screens: the banner keeps the picture's own shape (no crop, no zoom); the words sit on
-     its plain left side. Narrower screens show the words in a panel under the picture. */
-  .h-banner--copy .h-banner__frame { display: block; aspect-ratio: 2000 / 496; }
-  .h-banner--copy .h-banner__frame img { position: absolute; inset: 0; height: 100%; }
-  .h-banner__copy {
-    position: relative;
-    z-index: 1;
-    height: 100%;
-    max-width: min(46%, 560px);
-    align-content: center;
-    gap: 10px;
-    padding: clamp(20px, 2vw, 32px) clamp(32px, 5vw, 88px);
-  }
-  .h-banner__title { font-size: clamp(1.75rem, 2.3vw, 2.75rem); }
-  .h-banner__text { font-size: var(--fs-text); }
+.h-carousel__arrow:hover { background: var(--white); transform: scale(1.06); }
+.h-carousel__arrow:focus-visible { outline: 2px solid var(--rose); outline-offset: 2px; }
+.h-carousel__arrow svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.h-carousel__arrow--prev { left: clamp(10px, 1.5vw, 24px); }
+.h-carousel__arrow--next { right: clamp(10px, 1.5vw, 24px); }
+.h-carousel__dots { display: flex; justify-content: center; gap: 4px; margin-top: 14px; }
+.h-carousel__dots button {
+  width: 28px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  position: relative;
+}
+.h-carousel__dots button::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 99px;
+  background: rgba(var(--shade), .2);
+  transform: translate(-50%, -50%);
+  transition: width .3s, background .3s;
+}
+.h-carousel__dots button[aria-current="true"]::before { width: 24px; background: var(--rose); }
+@media (max-width: 640px) {
+  /* phones: swipe; the small arrows stay out of the way of the picture's words */
+  .h-carousel__arrow { display: none; }
+  .h-carousel__track { border-radius: 10px; }
 }
 
 
@@ -1089,11 +1087,11 @@ a.h-banner__frame:focus-visible { outline: 2px solid var(--rose); outline-offset
 .motion [data-reveal="stagger"] > :nth-child(6) { transition-delay: .45s; }
 /* "wipe": opens from the middle like a curtain, the picture settling as it does */
 .motion [data-reveal="wipe"] { opacity: 1; transform: none; }
-.motion [data-reveal="wipe"] .h-banner__frame {
+.motion [data-reveal="wipe"] .h-carousel__track {
   clip-path: inset(0 50% 0 50% round 16px);
   transition: clip-path 1.4s cubic-bezier(.7, 0, .2, 1);
 }
-.motion [data-reveal="wipe"].is-in .h-banner__frame { clip-path: inset(0 0 0 0 round 16px); }
+.motion [data-reveal="wipe"].is-in .h-carousel__track { clip-path: inset(0 0 0 0 round 16px); }
 
 /* Guided scroll (public/js/home.js): a cream veil that fades in, then out on the new spot.
    Sits under the menu so the menu stays put. */
