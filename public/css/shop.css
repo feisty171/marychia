@@ -25,6 +25,94 @@
 .shop-brands a span { color: var(--ink-faint); }
 .shop-brands a:hover { border-color: var(--rose); color: var(--rose); }
 
+/* ---------- Opening banner (photo with words, brand buttons) ----------
+   A wide rounded photo (hero.image in shop.md) with a soft shade on the bottom-left so the white
+   words read clearly. Wide screens: the brand buttons sit on the bottom-right of the photo.
+   Phones and tablets: the buttons sit under the photo. */
+.shop-page { padding-top: calc(68px + clamp(16px, 2vw, 32px)); }
+.shop-hero { position: relative; max-width: none; }
+.shop-hero__media {
+  position: relative; overflow: hidden; border-radius: 20px;
+  display: flex; align-items: flex-end;           /* words at the bottom; the box grows if they need room */
+  min-height: clamp(480px, 46vw, 720px);
+  background: rgb(var(--wine));
+}
+.shop-hero__media img,
+.shop-hero__ph { position: absolute; inset: 0; }
+.shop-hero__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.shop-hero__media::after {   /* shade behind the words */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(to top, rgba(var(--shade), .7) 0%, rgba(var(--shade), .25) 45%, transparent 70%),
+    linear-gradient(to right, rgba(var(--shade), .35) 0%, transparent 60%);
+}
+.shop-hero__ph {
+  display: grid; justify-items: end; align-content: start; padding: 24px;
+  background: repeating-linear-gradient(45deg, transparent 0 14px, rgba(var(--rose-lt-rgb), .12) 14px 15px), rgb(var(--wine));
+}
+.shop-hero__ph small {
+  font-size: var(--text-xs); font-weight: var(--fw-label); letter-spacing: var(--tracking-label);
+  text-transform: uppercase; color: rgba(var(--blush-rgb), .75);
+}
+.shop-hero__words {
+  position: relative; z-index: 1;
+  max-width: 620px; padding: clamp(24px, 4vw, 56px);
+  color: var(--white);
+}
+.shop-hero__eyebrow { margin: 0 0 14px; color: var(--rose-lt); }
+.shop-hero__title { margin: 0 0 16px; font-size: var(--text-display); color: var(--white); }
+.shop-hero__title em { color: var(--rose-lt); }
+.shop-hero__intro { margin: 0; max-width: 54ch; color: rgba(var(--blush-rgb), .9); }
+
+.shop-hero__brands { display: grid; gap: 10px; margin-top: 12px; }
+.shop-hero__brands a {
+  display: flex; align-items: center; gap: 14px;
+  padding: 10px 16px 10px 10px; border-radius: 14px;
+  background: var(--white); color: var(--ink);
+  border: 1px solid var(--line);
+  transition: transform .25s, box-shadow .25s;
+}
+.shop-hero__thumb {
+  flex: none; width: 56px; height: 66px; border-radius: 10px; overflow: hidden; background: var(--tint);
+}
+.shop-hero__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.shop-hero__bname {
+  flex: 1; display: grid; gap: 2px;
+  font-size: var(--text-sm); font-weight: var(--fw-heading); text-transform: uppercase; letter-spacing: var(--tracking-ui);
+}
+.shop-hero__bname small { font-size: var(--text-xs); font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--ink-soft); }
+.shop-hero__arrow { color: var(--rose); transition: transform .25s; }
+.shop-hero__brands a:hover .shop-hero__arrow,
+.shop-hero__brands a:focus-visible .shop-hero__arrow { transform: translateX(4px); }
+
+@media (max-width: 960px) {
+  .shop-hero__media { min-height: clamp(460px, 120vw, 600px); }
+}
+@media (max-width: 960px) {
+  .shop-hero__brands { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  /* phones: three small tiles side by side, photo on top, name under it */
+  .shop-hero__brands { gap: 8px; }
+  .shop-hero__brands a { flex-direction: column; align-items: stretch; gap: 8px; padding: 8px 8px 12px; text-align: center; }
+  .shop-hero__thumb { width: 100%; height: auto; aspect-ratio: 1080 / 1280; }
+  .shop-hero__bname { font-size: var(--text-xs); }
+  .shop-hero__arrow { display: none; }
+}
+@media (min-width: 961px) {
+  /* buttons on the bottom-right of the photo */
+  .shop-hero__brands {
+    position: absolute; right: clamp(24px, 3vw, 40px); bottom: clamp(24px, 3vw, 40px); z-index: 1;
+    width: min(320px, 30%); margin: 0;
+  }
+  .shop-hero__brands a { border-color: transparent; box-shadow: var(--shadow-card); }
+  .shop-hero__brands a:hover { transform: translateY(-2px); }
+  .shop-hero__words { max-width: min(620px, 60%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shop-hero__brands a, .shop-hero__arrow { transition: none; }
+}
+
 /* ---------- Brand spreads (magazine style) ----------
    One full-width section per brand: a big bold uppercase brand title (the same poster
    type as the Home "Find a treatment" heading) beside or above its products. Layout per brand: `layout` in shop.md.

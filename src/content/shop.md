@@ -11,6 +11,12 @@ seo:
   title: "Shop Skincare | Mary Chia"
   description: "Skincare from Lucent, The Juve Series and The Prep Series, chosen by Mary Chia to care for your skin between visits. Order on WhatsApp."
 
+# The opening banner: one wide photo with the words on it, and a button for each brand below.
+# image: a wide lifestyle photo in public/images/shop/ (landscape, about 2400 × 1100; the words sit
+# on its bottom-left, so keep that area calm and not too bright). "" shows a placeholder.
+hero:
+  image: ""
+  imageAlt: "A Mary Chia client applying a serum at home"
 eyebrow: "Shop skincare"
 heading: "professional skincare to take *home*."
 intro: "Your facial shouldn’t end when you leave the studio. The peptide serums, hyaluronic acid boosters and SPF60 mineral sunscreen our therapists use on you are now ready for your daily routine, so your skin keeps its glow between visits."
@@ -42,6 +48,8 @@ sheetNote: "We'll open WhatsApp with the product filled in. Our team will confir
 #   kicker  – optional, for "corner" / "side": a small word above the big title (e.g. "The");
 #             add kickerInline: true to put it on the same line as the first big word
 #   heading – optional, for "corner" / "side": the title words, one word per line; *asterisk* words show in rose
+#   thumb   – optional: the small photo on this brand's button in the opening banner
+#             (blank = the first product's photo)
 #   order   – optional: the product IDs (from src/data/products.json) in the order to show them
 # A brand in the product list but not here is added at the end (layout "center").
 brands:

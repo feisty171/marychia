@@ -27,7 +27,8 @@ const groups = order
     // one word per line; words inside *asterisks* in rose
     const words = (b.heading || name).split(/(\*[^*]+\*)/).map((t: string) => t.trim()).filter(Boolean)
       .flatMap((t: string) => t.replace(/\*/g, "").split(/\s+/).map((w) => ({ text: w, rose: t.startsWith("*") })));
-    return { name, line: b.line || "", layout: b.layout || "center", items, words, kicker: b.kicker || "", kickerInline: !!b.kickerInline };
+    const thumb = b.thumb || items.find((p) => p.image)?.image || "";
+    return { name, thumb: thumb && !thumb.startsWith("/") ? "/images/shop/" + thumb : thumb, line: b.line || "", layout: b.layout || "center", items, words, kicker: b.kicker || "", kickerInline: !!b.kickerInline };
   })
   .filter((g) => g.items.length);
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -42,19 +43,33 @@ const [h1, em, h2] = c.heading.split("*");
   styles={["shop.css"]}
 >
   <main>
+    {/* Opening banner: a wide photo with the words on it, then a button per brand
+        (photo: hero.image in src/content/shop.md; brand thumbs: the brand's first product photo) */}
     <section class="shop-page">
       <div class="a-container">
-        <header class="shop-head">
-          <p class="eyebrow">{c.eyebrow}</p>
-          <h1 class="a-title">{h1}{em && <em>{em}</em>}{h2}</h1>
-          <p class="shop-head__intro">{c.intro}</p>
+        <header class="shop-hero">
+          <div class="shop-hero__media">
+            {c.hero?.image
+              ? <img src={c.hero.image} alt={c.hero.imageAlt || ""} decoding="async" fetchpriority="high" />
+              : <div class="shop-hero__ph" aria-hidden="true"><small>Lifestyle photo · 2400 × 1100</small></div>}
+            <div class="shop-hero__words">
+              <p class="label shop-hero__eyebrow">{c.eyebrow}</p>
+              <h1 class="shop-hero__title">{h1}{em && <em>{em}</em>}{h2}</h1>
+              <p class="shop-hero__intro">{c.intro}</p>
+            </div>
+          </div>
           {groups.length > 1 && (
-            <nav class="shop-brands" aria-label="Brands">
-              {groups.map((g) => <a href={`#${slug(g.name)}`}>{g.name} <span>{g.items.length}</span></a>)}
+            <nav class="shop-hero__brands" aria-label="Brands">
+              {groups.map((g) => (
+                <a href={`#${slug(g.name)}`}>
+                  <span class="shop-hero__thumb">{g.thumb ? <img src={g.thumb} alt="" loading="lazy" decoding="async" /> : null}</span>
+                  <span class="shop-hero__bname">{g.name}<small>{g.items.length} {g.items.length === 1 ? "product" : "products"}</small></span>
+                  <span class="shop-hero__arrow" aria-hidden="true">→</span>
+                </a>
+              ))}
             </nav>
           )}
         </header>
-
       </div>
     </section>
 
