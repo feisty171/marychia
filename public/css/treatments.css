@@ -50,6 +50,9 @@
 .tp .tp-hero--short h1,.tp .tp-hero--short .hero-lede{text-shadow:0 1px 14px rgba(var(--shade),.45)}
 .tp .tp-hero--short{aspect-ratio:auto;min-height:0;padding:calc(var(--header-h) + 36px) 0 clamp(44px,5vw,72px);background-position:center,center,center 60%,center}
 @media (max-width:960px){.tp .tp-hero--short{padding-top:calc(68px + 40px)}}
+/* Framed like the Shop banner: a narrow margin to the screen edges and rounded corners,
+   the see-through menu still sitting on the photo. Same photo and height as before. */
+.tp .tp-hero--short{width:auto;margin:clamp(8px,1vw,16px) clamp(8px,1vw,16px) 0;border-radius:20px}
 .tp .tp-hero .btn-primary{background:var(--white);border-color:var(--white);color:var(--ink)}
 .tp .tp-hero .btn-primary:hover{background:transparent;border-color:var(--white);color:var(--white)}
 .tp .tp-hero .btn-ghost{border-color:rgba(255,255,255,.7);color:var(--white);background:rgba(255,255,255,.08);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
