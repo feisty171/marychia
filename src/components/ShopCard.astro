@@ -7,7 +7,25 @@
 interface Props { p: any }
 const { p } = Astro.props;
 const money = (n: number) => "S$" + n.toLocaleString("en-SG");
+const img = p.image ? (p.image.startsWith("/") ? p.image : "/images/shop/" + p.image) : "";
+// New "panel" design (trial: only products with a cardTitle): one 1080 × 1280 panel, the photo
+// filling it, with the short title + price and a short line sitting on the bottom of the photo.
+const panel = !!(p.cardTitle && img);
 ---
+{panel ? (
+<a class="shop-card shop-card--panel" href={`/shop/${p.id}/`} aria-label={`${p.name}, ${p.price != null ? money(p.price) : ""}`}>
+  <div class="shop-card__media">
+    <img src={img} alt={`${p.name} ${p.size}`} loading="lazy" decoding="async" />
+    <div class="shop-card__cap">
+      <div class="shop-card__row">
+        <h3 class="shop-card__title">{p.cardTitle}</h3>
+        {p.price != null && <p class="shop-card__amount">{money(p.price)}</p>}
+      </div>
+      {p.cardLine && <p class="shop-card__line">{p.cardLine}</p>}
+    </div>
+  </div>
+</a>
+) : (
 <a class="shop-card" href={`/shop/${p.id}/`}>
   <div class="shop-card__media">
     {p.image
@@ -19,3 +37,4 @@ const money = (n: number) => "S$" + n.toLocaleString("en-SG");
   {p.description && <p class="shop-card__sub">{p.description}</p>}
   {p.price != null && <p class="shop-card__price">{money(p.price)}</p>}
 </a>
+)}

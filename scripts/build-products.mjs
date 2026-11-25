@@ -4,7 +4,8 @@
 // (brand, name, size, type, price, short and long description, how to use, ingredients, country
 // of manufacture, product size and weight, barcode). Cost, margin, vendor, order and shipping
 // columns are never read, so the sheet itself stays out of git.
-// Photos: set "image" in src/data/products.json by hand; rerunning keeps it (matched by id).
+// Photos and the card's short title / line: set "image", "cardTitle" and "cardLine" in
+// src/data/products.json by hand; rerunning keeps them (matched by id).
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { readXlsx } from "./read-xlsx.mjs";
 
@@ -111,9 +112,12 @@ for (const r of rows.slice(hi + 1)) {
     weight: num(r[C.weight]) ? Math.round(num(r[C.weight]) * 1000) + " g" : "",
     barcode: clean(r[C.barcode]),
     image: oldById[id]?.image || "",
+    // the Shop card's short title and line under it (set by hand; kept when rerunning)
+    ...(oldById[id]?.cardTitle ? { cardTitle: oldById[id].cardTitle } : {}),
+    ...(oldById[id]?.cardLine ? { cardLine: oldById[id].cardLine } : {}),
   });
 }
 if (!products.length) { console.error("No products found under the header row."); process.exit(1); }
 
-writeFileSync(OUT, JSON.stringify({ _note: "Made by scripts/build-products.mjs from the product sheet. Edit the sheet and rerun; only 'image' is kept from this file.", products }, null, 2) + "\n");
+writeFileSync(OUT, JSON.stringify({ _note: "Made by scripts/build-products.mjs from the product sheet. Edit the sheet and rerun; only 'image', 'cardTitle' and 'cardLine' are kept from this file.", products }, null, 2) + "\n");
 console.log(`Wrote ${products.length} products to src/data/products.json`);

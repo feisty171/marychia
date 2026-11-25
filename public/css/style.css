@@ -58,6 +58,8 @@
   --text-hero-mid: 3.4vw;                                     /* Home hero headline, 961–1199px (stays clear of the model) */
   --text-poster: clamp(2rem, 4.2vw, 4.25rem);                 /* big uppercase titles: Home "Find a treatment" */
   --text-poster-lg: clamp(2.25rem, 5vw, 5.5rem);              /* big uppercase titles: Shop brand names */
+  --text-card-title: clamp(.6875rem, 5cqi, 1.75rem);         /* Shop panel card: title and price (follows the card width) */
+  --text-card-line: clamp(.625rem, 3.4cqi, 1.125rem);          /* Shop panel card: the short line */
   --text-stat: clamp(1.75rem, 1.2vw + 1.3rem, 2.75rem);       /* 28–44px big numbers */
 
   /* the older size names, kept so every stylesheet keeps working; they now point at the scale above */

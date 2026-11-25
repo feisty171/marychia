@@ -1,5 +1,5 @@
 {
-  "_note": "Made by scripts/build-products.mjs from the product sheet. Edit the sheet and rerun; only 'image' is kept from this file.",
+  "_note": "Made by scripts/build-products.mjs from the product sheet. Edit the sheet and rerun; only 'image', 'cardTitle' and 'cardLine' are kept from this file.",
   "products": [
     {
       "id": "lucent-supercharged-miracle-drop",
@@ -275,7 +275,9 @@
       "dimensions": "10 × 5.5 × 20 cm",
       "weight": "100 g",
       "barcode": "8883000010710",
-      "image": "juve-biomimetic-stem-cell-activator.webp"
+      "image": "juve-biomimetic-stem-cell-activator.webp",
+      "cardTitle": "Stem Cell Activator",
+      "cardLine": "instant-lift peptide serum"
     },
     {
       "id": "probio-prepe-mousse-face-cleanser-and-make-up-remover",

@@ -128,6 +128,36 @@
 }
 .shop-card__price { margin: 0; font-weight: var(--fw-price); font-size: var(--text-sm); color: var(--ink); }
 
+/* "Panel" card (trial design, products with a cardTitle in products.json): the whole card is the
+   1080 × 1280 photo panel with rounded corners and a soft shadow; the short title + price and a
+   short line sit on the plain bottom of the photo. Sizes follow the card's width (cqi). */
+.shop-card--panel { container-type: inline-size; }
+.shop-card--panel .shop-card__media {
+  position: relative; margin: 0;
+  box-shadow: 0 10px 30px -18px rgba(var(--shade), .35);
+}
+.shop-card--panel .shop-card__media img { object-fit: cover; object-position: top center; }
+.shop-card--panel:hover .shop-card__media img { transform: scale(1.02); }
+.shop-card__cap {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 0 8.5cqi 6.5cqi;
+  color: var(--ink);
+}
+.shop-card__row { display: flex; align-items: baseline; justify-content: space-between; gap: 4cqi; }
+.shop-card__title {
+  margin: 0; font-size: var(--text-card-title); font-weight: var(--fw-heading);
+  line-height: 1.1; letter-spacing: 0; text-transform: uppercase; color: var(--ink);
+}
+.shop-card__amount { margin: 0; font-size: var(--text-card-title); font-weight: 400; line-height: 1.1; color: var(--ink); white-space: nowrap; }
+.shop-card__line { margin: 1.2cqi 0 0; font-size: var(--text-card-line); line-height: 1.3; color: var(--ink); }
+.shop-card--panel:hover .shop-card__title { color: var(--rose); }
+/* Small cards (phones, two across): price drops under the title so nothing covers the photo */
+@container (max-width: 260px) {
+  .shop-card__cap { padding: 0 7cqi 6cqi; }
+  .shop-card__row { flex-direction: column; align-items: flex-start; gap: 1cqi; }
+  .shop-card--panel .shop-card__media img { height: 80%; object-fit: contain; }   /* smaller photo, room for the words */
+}
+
 /* Photo placeholder (card and product page) */
 .shop-ph {
   height: 100%; min-height: 240px; display: grid; place-content: center; gap: 6px; text-align: center;
