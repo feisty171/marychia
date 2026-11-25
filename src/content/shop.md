@@ -35,7 +35,11 @@ sheetNote: "We'll open WhatsApp with the product filled in. Our team will confir
 #   name    – must match the Brand column in the product sheet
 #   line    – optional short line under the big brand title
 #   layout  – where the big title sits: "left" (title left, products right),
-#             "right" (products left, title right, on a grey band) or "center" (title above, centred)
+#             "right" (products left, title right, on a grey band), "center" (title above, centred)
+#             or "corner" (a 4-column grid: three cards, then two, with the big two-line title
+#             filling the bottom-right corner; made for 5 products)
+#   heading – optional, for "corner": the title words; *asterisk* words show in rose on their own line
+#   order   – optional: the product IDs (from src/data/products.json) in the order to show them
 # A brand in the product list but not here is added at the end (layout "center").
 brands:
   - name: "The Juve Series"
@@ -43,7 +47,14 @@ brands:
     layout: "left"
   - name: "Lucent"
     line: ""
-    layout: "right"
+    layout: "corner"
+    heading: "*Lucent* Collection"
+    order:
+      - "lucent-supercharged-miracle-drop"
+      - "lucent-radiance-restore"
+      - "lucent-eye-complex"
+      - "lucent-luminocrystal-daily-skin-protector-spf60-pa"
+      - "lucent-illuminor-primer"
   - name: "The Prep Series"
     line: ""
     layout: "center"

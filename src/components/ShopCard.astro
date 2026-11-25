@@ -11,12 +11,14 @@ const money = (n: number) => "$" + n.toLocaleString("en-SG");   // shop prices s
 const img = p.image ? (p.image.startsWith("/") ? p.image : "/images/shop/" + p.image) : "";
 // New "panel" design (trial: only products with a cardTitle): one 1080 × 1280 panel, the photo
 // filling it, with the short title + price and a short line sitting on the bottom of the photo.
-const panel = !!(p.cardTitle && img);
+const panel = !!p.cardTitle;   // until the photo arrives, a placeholder fills the panel
 ---
 {panel ? (
 <a class="shop-card shop-card--panel" href={`/shop/${p.id}/`} aria-label={`${p.name}, ${p.price != null ? money(p.price) : ""}`}>
   <div class="shop-card__media">
-    <img src={img} alt={`${p.name} ${p.size}`} loading="lazy" decoding="async" />
+    {img
+      ? <img src={img} alt={`${p.name} ${p.size}`} loading="lazy" decoding="async" />
+      : <div class="shop-ph shop-ph--panel" aria-hidden="true"><small>Photo · 1080 × 1280</small></div>}
     <div class="shop-card__cap">
       <div class="shop-card__row">
         <h3 class="shop-card__title">{p.cardTitle}</h3>

@@ -181,12 +181,37 @@
   .shop-card--panel .shop-card__media img { height: 80%; object-fit: contain; }   /* smaller photo, room for the words */
 }
 
+/* ---------- "corner" brand layout (layout: corner in shop.md, e.g. Lucent) ----------
+   Wide screens: a 4-column grid; three cards, then two, and the big two-line title fills the
+   last two columns of the second row, sitting at the bottom. Phones and tablets: title on top. */
+.shop-spread--corner { background: var(--white); }
+.shop-corner { display: grid; gap: clamp(16px, 2vw, 28px); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.shop-corner > li { display: flex; min-width: 0; }
+.shop-corner__title { grid-column: 1 / -1; order: -1; flex-direction: column; justify-content: flex-end; }
+.shop-corner__h {
+  margin: 0;
+  font-size: var(--text-poster-lg); font-weight: var(--fw-heading);
+  line-height: .9; letter-spacing: -.03em; text-transform: uppercase; color: var(--ink);
+}
+.shop-corner__w { display: block; }
+.shop-corner__w.is-rose { color: var(--rose); }
+@media (min-width: 640px) and (max-width: 960px) {
+  .shop-corner { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (min-width: 961px) {
+  .shop-corner { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .shop-corner > li:nth-child(4) { grid-column: 1; }              /* second row starts on the left */
+  .shop-corner__title { order: 0; grid-column: 3 / 5; align-self: end; padding: 0 0 clamp(8px, 1.5vw, 24px) clamp(4px, .6vw, 12px); }
+  .shop-corner__h { font-size: var(--text-poster-xl); }
+}
+
 /* Photo placeholder (card and product page) */
 .shop-ph {
   height: 100%; min-height: 240px; display: grid; place-content: center; gap: 6px; text-align: center;
   background: repeating-linear-gradient(45deg, transparent 0 14px, rgba(var(--rose-rgb), .05) 14px 15px), var(--tint);
 }
 .shop-ph span { font-family: var(--font-sans); letter-spacing: var(--tracking-heading); font-weight: var(--fw-heading); font-style: normal; font-size: var(--fs-h4); color: var(--rose); }
+.shop-ph--panel { align-content: start; padding-top: 30%; }   /* panel card: hint in the upper part, clear of the words */
 .shop-ph small { font-size: var(--text-xs); color: var(--ink-faint); font-weight: var(--fw-label); letter-spacing: var(--tracking-label); text-transform: uppercase; }
 
 /* =========================================================

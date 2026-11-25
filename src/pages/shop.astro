@@ -17,7 +17,16 @@ const order = [...c.brands.map((b: any) => b.name), ...products.map((p) => p.bra
 const groups = order
   .map((name) => {
     const b = c.brands.find((x: any) => x.name === name) || {};
-    return { name, line: b.line || "", layout: b.layout || "center", items: products.filter((p) => p.brand === name) };
+    let items = products.filter((p) => p.brand === name);
+    // optional order: product IDs listed first, in that order; any others follow
+    if (b.order?.length) items = [...items].sort((x, y) => {
+      const ix = b.order.indexOf(x.id), iy = b.order.indexOf(y.id);
+      return (ix < 0 ? 999 : ix) - (iy < 0 ? 999 : iy);
+    });
+    // "corner" title: "*Lucent* Collection" → [{ text: "Lucent", rose: true }, { text: "Collection" }]
+    const words = (b.heading || name).split(/(\*[^*]+\*)/).map((t: string) => t.trim()).filter(Boolean)
+      .map((t: string) => ({ text: t.replace(/\*/g, ""), rose: t.startsWith("*") }));
+    return { name, line: b.line || "", layout: b.layout || "center", items, words };
   })
   .filter((g) => g.items.length);
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -50,7 +59,22 @@ const [h1, em, h2] = c.heading.split("*");
 
     {/* Brand spreads, magazine style: a big bold brand title beside or above its products.
         layout (src/content/shop.md → brands): left | right (grey band) | center */}
-    {groups.map((g, gi) => (
+    {groups.map((g, gi) => g.layout === "corner" ? (
+      /* "corner": cards in a 4-column grid (3 then 2) with the big title in the bottom-right corner */
+      <section class="shop-spread shop-spread--corner" id={slug(g.name)} aria-labelledby={`${slug(g.name)}-h`}>
+        <div class="a-container">
+          <ul class="shop-corner">
+            {g.items.map((p) => <li><ShopCard p={p} /></li>)}
+            <li class="shop-corner__title">
+              <h2 class="shop-corner__h" id={`${slug(g.name)}-h`}>
+                {g.words.map((w: any) => <span class:list={["shop-corner__w", { "is-rose": w.rose }]}>{w.text}</span>)}
+              </h2>
+              {g.line && <p class="shop-spread__line">{g.line}</p>}
+            </li>
+          </ul>
+        </div>
+      </section>
+    ) : (
       <section class={`shop-spread shop-spread--${g.layout}`} id={slug(g.name)} aria-labelledby={`${slug(g.name)}-h`}>
         <div class="a-container shop-spread__inner">
           <header class="shop-spread__head">
