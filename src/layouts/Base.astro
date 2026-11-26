@@ -58,7 +58,10 @@ const isDev = import.meta.env.DEV;
   {styles.map((s) => <link rel="stylesheet" href={`/css/${s}`} />)}
   <slot name="head" />
 </head>
-<body class={bodyClass}>
+<body class:list={[bodyClass, { "has-promo": !!site.promo }]}>
+  {/* Red strip at the top of every page ("promo" in src/data/site.json; "" hides it).
+      It scrolls away with the page; the menu sits under it and moves up as it goes (public/js/main.js). */}
+  {site.promo && <p class="site-promo">{site.promo}</p>}
   <Header current={current} solid={solidHeader} clear={clearHeader} />
   <slot />
   <script is:inline src="/js/main.js"></script>

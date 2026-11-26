@@ -4,9 +4,16 @@
 
   /* ---- Header: solid background once the page scrolls ---- */
   var header = document.getElementById("siteHeader");
+  // First-trial strip (Base.astro): the menu sits under it and moves up as it scrolls away
+  var promo = document.querySelector(".site-promo");
   function onScroll() {
     header.classList.toggle("is-scrolled", window.scrollY > 40);
+    if (promo) {
+      var bottom = promo.getBoundingClientRect().bottom;
+      header.style.setProperty("--promo-top", Math.max(0, Math.round(bottom)) + "px");
+    }
   }
+  window.addEventListener("resize", onScroll);
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 

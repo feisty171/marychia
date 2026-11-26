@@ -11,9 +11,6 @@ seo:
   title: "Treatments | Facials, Advanced Skin, Body & Wellness | Mary Chia"
   description: "Facials, advanced skin treatments and traditional body therapies at Mary Chia, with first-trial pricing for new guests."
 
-# The rounded strip at the very top of the page ("" hides it)
-promo: "First trial pricing for new guests"
-
 # The photo banner. image: a wide photo in public/images/ (landscape, about 2400 × 1100)
 hero:
   heading: "every treatment built around your needs."

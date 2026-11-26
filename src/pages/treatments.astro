@@ -30,13 +30,11 @@ const defaultTab = tabIds.includes(c.defaultTab) ? c.defaultTab : tabIds[0];
   description={c.seo.description}
   current="treatments"
   clearHeader
-  bodyClass={`page-treatments${c.promo ? " has-promo" : ""}`}
+  bodyClass="page-treatments"
   styles={["treatments-page.css"]}
   scripts={["treatments-page.js"]}
 >
   <main class="tx" data-default-tab={defaultTab}>
-    {c.promo && <p class="tx-promo">{c.promo}</p>}
-
     {/* Photo banner (hero.image in treatments.md) with the menu sitting on it */}
     <section class="tx-hero">
       <div class="tx-hero__media">
