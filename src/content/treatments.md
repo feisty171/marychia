@@ -180,7 +180,7 @@ treatments:
     price: "$280"
     description: "Intense, deep hydration that refreshes tired-looking skin. Ideal for skin that looks less firm or has facial contour concerns."
     duration: "60 mins"
-    image: "/images/treatments/juve-face-lift.webp"
+    image: "/images/treatments/juve-face-lift-v2.webp"
     category: "Facial – Intense Face Therapy"
     about: ""
     benefits: []
