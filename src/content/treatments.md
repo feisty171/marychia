@@ -73,7 +73,7 @@ sections:
 #   name, price – price as it should show, e.g. "$148" or "By consult"
 #   badge       – optional pill on the photo, e.g. "new" or "add-on"
 #   description – the short text on the card ("" hides it and its Read more)
-#   duration    – the small grey line at the bottom: only the time (e.g. "60 mins"), or "session/s" when there is none
+#   duration    – the small grey line at the bottom: only the time (e.g. "60 mins"), or "session(s)" when there is none
 #   image       – a photo in public/images/treatments/ (portrait 4:5 shows best; "" = placeholder)
 #   imageFit    – optional: "whole" shows the photo whole on the card and its page (no cropping, no zoom on hover)
 #   imagePosition – optional: which part of the photo to keep when it is cropped, e.g. "center bottom" (default: the middle)
@@ -100,7 +100,7 @@ treatments:
     name: "XO-Skin Exosomes"
     price: "$4,000"
     description: "Next-generation cellular messaging for your skin. 8 billion exosomes designed to support collagen renewal, help calm the look of irritation and strengthen the skin barrier."
-    duration: "session/s"
+    duration: "session(s)"
     image: "/images/treatments/xo-skin-v2.webp"
     category: "New Collection – Prestige Series"
     about: |
@@ -122,7 +122,7 @@ treatments:
     name: "PDRN Skin Therapy"
     price: "$980"
     description: "A regenerative serum of purified salmon DNA with hyaluronic acid. Helps support the skin's natural renewal and soften the look of fine lines, for skin that looks firmer and more radiant."
-    duration: "session/s"
+    duration: "session(s)"
     image: "/images/treatments/pdrn-v2.webp"
     category: "New Collection – Prestige Series"
     about: |
@@ -238,7 +238,7 @@ treatments:
     name: "CLARIO Pigment Spot Removal"
     price: "By consult"
     description: "Designed to target pigmentation spots, with a plan personalised at your consultation. For freckles, melasma, age spots, hormonal and dermal pigmentation, and acne marks."
-    duration: "session/s"
+    duration: "session(s)"
     image: "/images/treatments/clario-pigment-v2.webp"   # includes a before-and-after; client written consent confirmed by marketing (Nov 2026)
     category: "Facial – Intense Face Therapy"
     about: |
