@@ -30,7 +30,7 @@ cta:
   heading: "Find the ritual for *you*"
   text: "Not sure where to start? Browse our treatments, or book a first visit and our therapists will build a plan around your skin and goals."
   button: "Explore treatments"
-  link: "/rituals/"
+  link: "/treatments/"
 
 # ---------------------------------------------------------------------
 #  RESULTS (the before/after cards) are no longer in this file.

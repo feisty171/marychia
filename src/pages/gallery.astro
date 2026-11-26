@@ -19,7 +19,7 @@ const withEm = (s: string) => esc(s).replace(/\*(.+?)\*/g, "<em>$1</em>");
 // Treatment name, category and photos for each result: src/lib/results.ts
 const results = (await resolveResults(loadResults())).map((r) => ({
   ...r,
-  link: `/rituals/?area=${r.category.toLowerCase()}`,
+  link: `/treatments/?area=${r.category.toLowerCase()}`,   // opens the matching tab (Face → Facials, Body / Wellness → Body & Wellness)
 }));
 const filters: string[] = (g.filters as string[]).filter((f) => results.some((r) => r.category === f));
 ---

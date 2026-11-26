@@ -24,12 +24,14 @@ const { current = "", solid = false, clear = false } = Astro.props;
 const treatments: Dropdown = {
   id: "treatments",
   label: "Treatments",
-  href: "/rituals/",
+  href: "/treatments/",
   keys: ["treatments", "gallery"],
+  // each opens a tab on the Treatments page (tab ids: src/content/treatments.md)
   items: [
-    { label: "Face", href: "/rituals/?area=face" },
-    { label: "Body", href: "/rituals/?area=body" },
-    { label: "Wellness", href: "/rituals/?area=wellness" },
+    { label: "Featured", href: "/treatments/?tab=featured" },
+    { label: "Facials", href: "/treatments/?tab=facials" },
+    { label: "Advanced Skin", href: "/treatments/?tab=advanced" },
+    { label: "Body & Wellness", href: "/treatments/?tab=body" },
   ],
   footer: { key: "gallery", label: "Gallery / Results", href: "/gallery/" },
 };

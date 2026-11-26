@@ -13,7 +13,7 @@ hero:
   headline: "every transformation is a *story* worth telling."
   text: "Tailored facials, body treatments and wellness rituals. Your therapist starts with a consultation, then builds a plan around your skin, body and goals."
   exploreButton: "Explore treatments"
-  exploreLink: "/rituals/"
+  exploreLink: "/treatments/"
   bookButton: "Book your first visit"
   # Photo behind the hero. It is always shown whole, never cropped: behind the words on
   # wide screens (the transparent menu sits on top of it), above the words on phones.
@@ -48,9 +48,9 @@ services:
   heading: "What would you like to *work on today?*"
   intro: "Face, body and wellness treatments, each one shaped around you."   # small line on the right
   button: "All Treatments"      # button on the right ("" to hide)
-  buttonLink: "/rituals/"       # where it goes (the full treatment list)
+  buttonLink: "/treatments/"       # where it goes (the full treatment list)
   menuButton: "View All Treatments"   # shown under the tiles only while showList is true
-  menuLink: "/rituals/"
+  menuLink: "/treatments/"
   # The signature treatments list below the tiles. Hidden for now: set to true to show it again.
   showList: false
   # Editorial list: numbered rows (name, the short "for" line, "from S$xx" price, Book now).
@@ -152,7 +152,7 @@ banner:
 #   link: the product page. Until it's a real URL, the card says "Coming soon".
 # Only real products and prices from marketing. No medical claims or guaranteed results (see CLAUDE.md).
 # "Our clients' favourites": treatment cards below the ad banner, identical to the cards on the
-# treatment list (/rituals/). Name, photo, description, duration and prices come from the menu
+# old treatment list (data/treatment-menu.xlsx; the Treatments page itself now uses src/content/treatments.md). Name, photo, description, duration and prices come from the menu
 # workbook, so they always match. List the treatments by their ID from the workbook
 # (see src/data/treatment-menu.json). Four works best (four across on wide screens).
 # The *word in asterisks* in the heading shows in italic rose.
@@ -182,7 +182,7 @@ trial:
   termsLink: "[[CONFIRM: trial terms page link]]"
   bookButton: "Book my trial"
   exploreButton: "Explore trial offers"
-  exploreLink: "/rituals/?trial=1"
+  exploreLink: "/treatments/"
 
 # "Real results / Stories from our clients": right under the first-visit band.
 # Top row: the newest results from the Gallery page (src/content/gallery.md). Photos show

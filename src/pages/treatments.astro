@@ -1,27 +1,93 @@
 ---
 /**
- * /treatments/ — the old Treatments page was removed. This tiny page only forwards old links
- * and bookmarks to the treatment list at /rituals/, keeping any filter (e.g. ?area=face).
- * Visitors without JavaScript are forwarded by the meta refresh, or can tap the link.
+ * Treatments page (/treatments/, the menu's "Treatments" item).
+ * Every word and treatment: src/content/treatments.md. Styles: public/css/treatments-page.css.
+ * Tabs (Featured / All / Facials / Advanced Skin / Body & Wellness) and "Read more":
+ * public/js/treatments-page.js. Links can open a tab: /treatments/?tab=facials (older
+ * /rituals/?area=face links are forwarded here and open the matching tab).
+ * Without JavaScript every section shows, one after another.
  */
-import site from "../data/site.json";
-const target = new URL("/rituals/", site.url).href;
+import Base from "../layouts/Base.astro";
+import Footer from "../components/Footer.astro";
+import { frontmatter as c } from "../content/treatments.md";
+
+const byId = Object.fromEntries((c.treatments as any[]).map((t) => [t.id, t]));
+const sections = (c.sections as any[]).map((s) => ({
+  ...s,
+  list: (s.items as string[]).map((id) => {
+    const t = byId[id];
+    if (!t) throw new Error(`src/content/treatments.md: section "${s.id}" lists "${id}", which isn't in treatments`);
+    return t;
+  }),
+}));
+const tabIds = (c.tabs as any[]).map((t) => t.id);
+const defaultTab = tabIds.includes(c.defaultTab) ? c.defaultTab : tabIds[0];
 ---
-<!doctype html>
-<html lang="en-SG">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Treatments | Mary Chia</title>
-  <meta name="robots" content="noindex" />
-  <link rel="canonical" href={target} />
-  <noscript><meta http-equiv="refresh" content="0; url=/rituals/" /></noscript>
-</head>
-<body>
-  <p>The treatments list has moved. <a id="go" href="/rituals/">Go to our treatments</a>.</p>
-  <script is:inline>
-    // Keep the filter from old links, e.g. /treatments/?area=body → /rituals/?area=body
-    location.replace(document.getElementById("go").getAttribute("href") + location.search + location.hash);
-  </script>
-</body>
-</html>
+<Base
+  title={c.seo.title}
+  description={c.seo.description}
+  current="treatments"
+  clearHeader
+  bodyClass={`page-treatments${c.promo ? " has-promo" : ""}`}
+  styles={["treatments-page.css"]}
+  scripts={["treatments-page.js"]}
+>
+  <main class="tx" data-default-tab={defaultTab}>
+    {c.promo && <p class="tx-promo">{c.promo}</p>}
+
+    {/* Photo banner (hero.image in treatments.md) with the menu sitting on it */}
+    <section class="tx-hero">
+      <div class="tx-hero__media">
+        {c.hero.image
+          ? <img src={c.hero.image} alt={c.hero.imageAlt || ""} decoding="async" fetchpriority="high" />
+          : <div class="tx-hero__ph" aria-hidden="true"><small>Photo or video · 2400 × 1100</small></div>}
+        <h1 class="tx-hero__title">{c.hero.heading}</h1>
+      </div>
+    </section>
+
+    <div class="a-container">
+      <nav class="tx-tabs" aria-label="Treatment categories">
+        {(c.tabs as any[]).map((t) => (
+          <a class="tx-tab" href={`?tab=${t.id}`} data-tab={t.id} aria-pressed={t.id === defaultTab ? "true" : "false"}>{t.label}</a>
+        ))}
+      </nav>
+
+      {sections.map((s) => (
+        <section class="tx-sec" id={s.id} data-sec={s.id} aria-labelledby={`${s.id}-h`}>
+          <header class="tx-sec__head">
+            <h2 class="tx-sec__title" id={`${s.id}-h`}>{s.heading}</h2>
+            {s.text && <p class="tx-sec__text">{s.text}</p>}
+          </header>
+          <ul class="tx-grid">
+            {s.list.map((t: any) => (
+              <li>
+                <article class="tx-card">
+                  <div class="tx-card__media">
+                    {t.image
+                      ? <img src={t.image} alt={t.name} loading="lazy" decoding="async" />
+                      : <span class="tx-card__ph" aria-hidden="true">Photo · 4:5</span>}
+                    {t.badge && <span class="tx-card__badge">{t.badge}</span>}
+                  </div>
+                  {t.label && <p class="label tx-card__label">{t.label}</p>}
+                  <div class="tx-card__head">
+                    <h3 class="tx-card__name">{t.name}</h3>
+                    {t.price && <span class="tx-card__price">{t.price}</span>}
+                  </div>
+                  {t.description && (
+                    <div class="tx-card__desc">
+                      <p class="tx-card__text" id={`${s.id}-${t.id}-d`}>{t.description}</p>
+                      <button type="button" class="tx-card__more" aria-expanded="false" aria-controls={`${s.id}-${t.id}-d`} data-more={c.readMore} data-less={c.readLess} hidden>{c.readMore}</button>
+                    </div>
+                  )}
+                  {t.duration && <p class="tx-card__dur">{t.duration}</p>}
+                </article>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+  </main>
+
+  <Footer />
+</Base>

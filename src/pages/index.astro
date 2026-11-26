@@ -13,6 +13,7 @@ import FavouriteCard from "../components/FavouriteCard.astro";
 import { treatmentData } from "../lib/treatmentData";
 import BookingSheet from "../components/BookingSheet.astro";
 import treatmentsData from "../data/treatments.json";
+import { frontmatter as treatmentsPage } from "../content/treatments.md";   // the Treatments page list (for the "View all N treatments" count)
 import site from "../data/site.json";
 import outlets from "../data/outlets.json";
 import { frontmatter as h } from "../content/home.md";
@@ -38,7 +39,7 @@ const resultCards = (await resolveResults(loadResults().slice(0, h.results?.show
   name: r.name,
   note: r.note,
   alt: r.alt,
-  link: `/rituals/?q=${encodeURIComponent(r.name)}`,
+  link: `/treatments/?area=${r.category.toLowerCase()}`,
   single: r.imageSrc,
   before: r.beforeSrc,
   after: r.afterSrc,
@@ -129,7 +130,7 @@ const heroWords = h.hero.headline
           </div>
           <div class="find-side">
             {h.services.intro && <p class="find-side__text">{h.services.intro}</p>}
-            {h.services.button && <a class="btn find-side__btn" href={h.services.buttonLink || "/rituals/"}>{h.services.button}</a>}
+            {h.services.button && <a class="btn find-side__btn" href={h.services.buttonLink || "/treatments/"}>{h.services.button}</a>}
           </div>
         </header>
         <div class:list={["tp", "tp--embed", { "show-hints": treatmentsData.config.showPlaceholderHints }]}>
@@ -204,7 +205,7 @@ const heroWords = h.hero.headline
               <p class="eyebrow">{h.favourites.eyebrow}</p>
               <h2 class="h-title">{favBefore}{favEm && <em>{favEm}</em>}{favAfter}</h2>
             </div>
-            <a class="h-textlink" href="/rituals/">{h.favourites.allLink.replace("{count}", String(treatmentData.treatments.length))} <span aria-hidden="true">→</span></a>
+            <a class="h-textlink" href="/treatments/">{h.favourites.allLink.replace("{count}", String(treatmentsPage.treatments.length))} <span aria-hidden="true">→</span></a>
           </header>
           <div class:list={["tp", "tp--embed", { "show-hints": treatmentsData.config.showPlaceholderHints }]}>
             <div class="fav-grid" data-reveal="stagger">

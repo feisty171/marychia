@@ -1,7 +1,7 @@
 ---
 /**
  * Face / Body / Wellness tiles: a photo card for each area that opens the treatment list
- * (/rituals/?area=…). Used on the Treatments page and the Home page ("Find a treatment").
+ * (/treatments/?area=…, which opens the matching tab). Used on the Home page ("Find a treatment").
  * Compact (Home) tiles show only the title and a short sentence. The full tiles also show the
  * count and "from S$xx", worked out from the treatment list (src/data/treatment-menu.json).
  * Photos: "siteImages" in src/data/treatments.json. Styles: .tp .tile* in public/css/treatments.css,
@@ -29,7 +29,7 @@ const tiles = ["Face", "Body", "Wellness"].map((c) => {
 ---
 <div class:list={["tiles", { "tiles--compact": compact }]} id={compact ? undefined : "tiles"} data-reveal="stagger">
   {tiles.map((t) => (
-    <a class:list={["tile", { "is-ph": !t.img }]} href={`/rituals/?area=${t.c.toLowerCase()}`} data-cat={t.c}
+    <a class:list={["tile", { "is-ph": !t.img }]} href={`/treatments/?area=${t.c.toLowerCase()}`} data-cat={t.c}
        aria-label={`Show ${t.c} treatments: ${t.count} treatments${t.from ? `, from ${t.from}` : ""}`}>
       <div class="media">
         {t.img
