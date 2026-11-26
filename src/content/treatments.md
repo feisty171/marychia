@@ -68,7 +68,7 @@ sections:
   - id: "body"
     heading: "Body & Wellness"
     text: "Traditional therapies to ease everyday aches and help you unwind."
-    items: ["fe-back", "fe-lower", "fe-upper", "fe-tummy", "mud"]
+    items: ["fe-back", "fe-lower", "fe-upper", "fe-tummy"]
 
 # The treatments. Each one:
 #   id          – a short name the sections above use; also the page address (/treatments/<id>/)
@@ -304,15 +304,4 @@ treatments:
       - "Keeps you warm and dispels cold"
       - "Helps balance qi and blood flow"
       - "Helps you relax for better sleep"
-  - id: "mud"
-    label: "Body add-on"
-    name: "Mud Therapy with Thermal Blanket"
-    price: "$128"
-    badge: "add-on"
-    description: ""
-    duration: "15 mins"
-    image: ""
-    category: "Wellness – Five Elements Wellness Therapy"
-    about: ""
-    benefits: []
 ---
