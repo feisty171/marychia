@@ -366,10 +366,24 @@ sup { font-size: .55em; vertical-align: super; line-height: 0; }
   padding: clamp(28px, 4vw, 56px);
 }
 .trial__title { margin: 0; font-size: var(--text-3xl); color: var(--white); }
-.trial__text { margin: 0; max-width: 34em; font-size: var(--text-base); line-height: var(--lh-body); color: rgba(var(--blush-rgb), .92); }
+@media (min-width: 961px) {
+  /* keep the title on one line (it sets the text's width): shrink it a little in narrow panels */
+  .trial__panel { container-type: inline-size; }
+  .trial__title { font-size: min(var(--text-3xl), calc((100cqi - 2 * clamp(28px, 4vw, 56px)) / 12.6)); white-space: nowrap; }
+}
+/* the title sets the width; the text fills exactly that width, justified, so both start and end together */
+.trial__copy { display: grid; gap: 14px; width: fit-content; max-width: 100%; }
+.trial__text {
+  width: 0; min-width: 100%;
+  margin: 0;
+  font-size: var(--text-base); line-height: var(--lh-body);
+  text-align: justify; hyphens: auto;
+  color: rgba(var(--blush-rgb), .92);
+}
 .btn.trial__btn {
   margin-top: 8px;
   min-width: min(300px, 100%);
+  justify-content: flex-start;   /* the label sits at the left of the pill, in line with the words above */
   padding: 14px 28px;
   border: 1.5px solid var(--white);
   border-radius: 999px;
@@ -386,6 +400,9 @@ sup { font-size: .55em; vertical-align: super; line-height: 0; }
   border-radius: 20px;
   display: block;
 }
+/* two banners in a row (first visit, then Our story): one gap between them, not two */
+.trial + .trial { padding-top: 0; }
+.trial--story { padding-bottom: 0; }   /* Real results follows with its own top space */
 /* "Our story" (trial--story): the same banner mirrored; the archive photo is shown from its middle */
 .trial--story .trial__photo img { object-position: center; }
 @media (max-width: 960px) {

@@ -213,13 +213,35 @@ const heroWords = h.hero.headline
       <section class="trial" id="first-visit">
         <div class="trial__frame" data-reveal>
           <div class="trial__panel">
-            <h2 class="trial__title">{h.trial.heading}</h2>
-            {h.trial.text && <p class="trial__text">{h.trial.text}</p>}
+            <div class="trial__copy">
+              <h2 class="trial__title">{h.trial.heading}</h2>
+              {h.trial.text && <p class="trial__text">{h.trial.text}</p>}
+            </div>
             {h.trial.exploreButton && <a class="btn trial__btn" href={h.trial.exploreLink || "/treatments/"}>{h.trial.exploreButton}</a>}
           </div>
           {h.trial.image && (
             <div class="trial__photo"><img src={h.trial.image} alt={h.trial.imageAlt || ""} loading="lazy" decoding="async" /></div>
           )}
+        </div>
+      </section>
+    )}
+
+    <!-- ============ 2. OUR STORY (src/content/home.md → experience) ============
+         The same banner as the first-visit banner (styles "First-visit banner" in home.css), mirrored:
+         the archive photo on the left, the brand-red panel with the words on the right. -->
+    {h.experience?.heading && (
+      <section class="trial trial--story" id="experience">
+        <div class="trial__frame" data-reveal>
+          {h.experience.image && (
+            <div class="trial__photo"><img src={h.experience.image} alt={h.experience.imageAlt || ""} loading="lazy" decoding="async" /></div>
+          )}
+          <div class="trial__panel">
+            <div class="trial__copy">
+              <h2 class="trial__title">{h.experience.heading}</h2>
+              {(h.experience.paragraphs || []).map((p: string) => <p class="trial__text">{p}</p>)}
+            </div>
+            {h.experience.link && <a class="btn trial__btn" href={h.experience.linkHref || "/about/"}>{h.experience.link}</a>}
+          </div>
         </div>
       </section>
     )}
@@ -308,24 +330,6 @@ const heroWords = h.hero.headline
         )}
       </div>
     </section>}
-
-    <!-- ============ 2. OUR STORY (src/content/home.md → experience) ============
-         The same banner as the first-visit banner (styles "First-visit banner" in home.css), mirrored:
-         the archive photo on the left, the brand-red panel with the words on the right. -->
-    {h.experience?.heading && (
-      <section class="trial trial--story" id="experience">
-        <div class="trial__frame" data-reveal>
-          {h.experience.image && (
-            <div class="trial__photo"><img src={h.experience.image} alt={h.experience.imageAlt || ""} loading="lazy" decoding="async" /></div>
-          )}
-          <div class="trial__panel">
-            <h2 class="trial__title">{h.experience.heading}</h2>
-            {(h.experience.paragraphs || []).map((p: string) => <p class="trial__text">{p}</p>)}
-            {h.experience.link && <a class="btn trial__btn" href={h.experience.linkHref || "/about/"}>{h.experience.link}</a>}
-          </div>
-        </div>
-      </section>
-    )}
 
     <!-- ============ 5. LOCATION, HOURS & INFO ============ -->
     <section class="h-section h-section--tint" id="visit">
