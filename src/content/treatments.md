@@ -123,7 +123,7 @@ treatments:
     price: "$980"
     description: "A regenerative serum of purified salmon DNA with hyaluronic acid. Helps support the skin's natural renewal and soften the look of fine lines, for skin that looks firmer and more radiant."
     duration: "session/s"
-    image: "/images/treatments/pdrn-skin-therapy.webp"
+    image: "/images/treatments/pdrn-v2.webp"
     category: "New Collection – Prestige Series"
     about: |
       PDRN is a skin-renewing ingredient that supports the skin's natural renewal and overall vitality. This serum helps smooth the look of fine lines, boost radiance and restore a firmer feel, while strengthening the skin's resilience against daily stress.
