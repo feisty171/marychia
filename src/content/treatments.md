@@ -76,7 +76,7 @@ sections:
 #   name, price – price as it should show, e.g. "$148" or "By consult"
 #   badge       – optional pill on the photo, e.g. "new" or "add-on"
 #   description – the short text on the card ("" hides it and its Read more)
-#   duration    – the small grey line at the bottom ("" hides it)
+#   duration    – the small grey line at the bottom: only the time (e.g. "60 mins"), or "Session/s" when there is none
 #   image       – a photo in public/images/treatments/ (portrait 4:5 shows best; "" = placeholder)
 #   category    – shown under Treatment information on its page
 #   about       – the longer text on its page (a blank line starts a new paragraph; "" = uses description)
@@ -103,7 +103,7 @@ treatments:
     price: "$4,000"
     badge: "new"
     description: "Next-generation cellular messaging for your skin. 8 billion exosomes designed to support collagen renewal, help calm the look of irritation and strengthen the skin barrier."
-    duration: ""
+    duration: "Session/s"
     image: "/images/treatments/xo-skin-exosomes.webp"
     category: "New Collection – Prestige Series"
     about: |
@@ -126,7 +126,7 @@ treatments:
     price: "$980"
     badge: "new"
     description: "A regenerative serum of purified salmon DNA with hyaluronic acid. Helps support the skin's natural renewal and soften the look of fine lines, for skin that looks firmer and more radiant."
-    duration: ""
+    duration: "Session/s"
     image: "/images/treatments/pdrn-skin-therapy.webp"
     category: "New Collection – Prestige Series"
     about: |
@@ -193,7 +193,7 @@ treatments:
     name: "CLARIO Porcelain Micro Infusion Therapy"
     price: "$980"
     description: "An advanced microneedling facial for sensitive, redness-prone and acne-prone skin. Helps soothe the look of redness, refine texture and pores, and strengthen the skin barrier for a calmer, smoother complexion."
-    duration: "60 mins · No downtime"
+    duration: "60 mins"
     image: "/images/treatments/clario-porcelain-full.webp"
     category: "Facial – Intense Face Therapy"
     about: |
@@ -215,10 +215,13 @@ treatments:
     name: "CLARIO Pigment Spot Removal"
     price: "By consult"
     description: "Designed to target pigmentation spots, with a plan personalised at your consultation. For freckles, melasma, age spots, hormonal and dermal pigmentation, and acne marks."
-    duration: "Trial: 2–3 spots + one skin booster"
+    duration: "Session/s"
     image: "/images/treatments/clario-pigment-clear.webp"
     category: "Facial – Intense Face Therapy"
-    about: ""
+    about: |
+      Designed to target pigmentation spots, with a plan personalised at your consultation. For freckles, melasma, age spots, hormonal and dermal pigmentation, and acne marks.
+
+      First trial: 2–3 spots plus one skin booster.
     benefitsLabel: "Suitable for"
     benefits:
       - "Freckles"
