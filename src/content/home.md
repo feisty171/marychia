@@ -237,17 +237,16 @@ products:
 # *asterisks* in the heading = italic rose. An optional row of milestones can be added as
 # milestones: (year, label); never add finances, share price or listing status (CLAUDE.md).
 experience:
-  eyebrow: "Our story"
-  heading: "It began with *one beauty kit*."
+  # "Our story" banner: the same size and frame as the first-visit banner, mirrored: the archive
+  # photo on the left, the brand-red panel with the words on the right (phones: photo on top).
+  # The heading is lowercase on purpose. Never add finances, share price or listing status.
+  heading: "it began with one beauty kit."
   paragraphs:
-    - "Long before there was a Mary Chia shop, there was Mary. She sewed wedding gowns until brides began asking her to do their make-up too. She had no shop and no savings, so she carried her kit from home to home, one facial at a time. In 1984 she opened a 300 sq ft shop in Tanjong Katong, and soon women were queuing from 7am. More than 300,000 clients later, everyone who walks through our doors is still treated as a friend."
+    - "Long before there was a Mary Chia shop, there was Mary. She sewed wedding gowns until brides began asking her to do their make-up too. She had no shop and no savings, so she carried her kit from home to home, one facial at a time. In 1984 she opened a 300 sq ft shop in Tanjong Katong, and soon women were queuing from 7am."
   link: "Read our story"
   linkHref: "/about/"
   image: "/images/heritage/tanjong-katong-1984.webp"
   imageAlt: "Six Mary Chia beauticians in white uniforms outside the Tanjong Katong shop on its opening day, with flowers and an Opening Now banner"
-  caption: "Tanjong Katong shop, 1984"
-  # Optional small photo overlapping the big one, bottom right: add image2 (path),
-  # image2Alt and image2Caption to show it.
 
 # Client reviews, shown in the "Real results" section above as a row that scrolls by on its
 # own (it pauses when a visitor hovers or taps). The trust line sits under it.

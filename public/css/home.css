@@ -386,6 +386,8 @@ sup { font-size: .55em; vertical-align: super; line-height: 0; }
   border-radius: 20px;
   display: block;
 }
+/* "Our story" (trial--story): the same banner mirrored; the archive photo is shown from its middle */
+.trial--story .trial__photo img { object-position: center; }
 @media (max-width: 960px) {
   .trial__frame {
     grid-template-columns: 1fr;

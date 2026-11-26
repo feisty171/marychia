@@ -52,7 +52,6 @@ const avatarHue = (n: string) => [...n].reduce((a, c) => a + c.charCodeAt(0), 0)
 const [findBefore, findEm = "", findAfter = ""] = (h.services?.heading || "").split("*");
 const stars = (n: any) => (typeof n === "number" && n >= 1 ? Math.min(5, Math.round(n)) : 0);
 // "Our story" heading: *words* in italic rose
-const [storyBefore, storyEm = "", storyAfter = ""] = (h.experience?.heading || "").split("*");
 // Hero headline: the *word* in asterisks shows in italic rose. Each word is wrapped
 // so it can slide up into place when the page opens (public/css/home.css, .ed-hero__w).
 // On wide screens the italic word starts the second line (.ed-hero__br).
@@ -311,39 +310,22 @@ const heroWords = h.hero.headline
     </section>}
 
     <!-- ============ 2. OUR STORY (src/content/home.md → experience) ============
-         Archive photo left; story, milestones and "Read our story" right.
-         Styles: "Our story" in public/css/home.css. -->
-    <section class="h-section story" id="experience">
-      <div class="h-container story__grid">
-        <div class="story__media" data-reveal>
-          <figure class="story__photo">
-            <img src={h.experience.image} alt={h.experience.imageAlt} loading="lazy" />
-            {h.experience.caption && <figcaption>{h.experience.caption}</figcaption>}
-          </figure>
-          {(h.experience.image2 || (h.experience.image2Caption && treatmentsData.config.showPlaceholderHints)) && (
-            <figure class="story__inset">
-              {h.experience.image2
-                ? <img src={h.experience.image2} alt={h.experience.image2Alt} loading="lazy" />
-                : <div class="story__inset-ph" role="img" aria-label="Photo to come">Photo to come</div>}
-              {h.experience.image2Caption && <figcaption>{h.experience.image2Caption}</figcaption>}
-            </figure>
+         The same banner as the first-visit banner (styles "First-visit banner" in home.css), mirrored:
+         the archive photo on the left, the brand-red panel with the words on the right. -->
+    {h.experience?.heading && (
+      <section class="trial trial--story" id="experience">
+        <div class="trial__frame" data-reveal>
+          {h.experience.image && (
+            <div class="trial__photo"><img src={h.experience.image} alt={h.experience.imageAlt || ""} loading="lazy" decoding="async" /></div>
           )}
+          <div class="trial__panel">
+            <h2 class="trial__title">{h.experience.heading}</h2>
+            {(h.experience.paragraphs || []).map((p: string) => <p class="trial__text">{p}</p>)}
+            {h.experience.link && <a class="btn trial__btn" href={h.experience.linkHref || "/about/"}>{h.experience.link}</a>}
+          </div>
         </div>
-        <div class="story__copy" data-reveal>
-          <p class="eyebrow">{h.experience.eyebrow}</p>
-          <h2 class="h-title story__title">{storyBefore}{storyEm && <em>{storyEm}</em>}{storyAfter}</h2>
-          {h.experience.paragraphs.map((p: string) => <p class="h-body">{p}</p>)}
-          {h.experience.milestones?.length > 0 && (
-            <ul class="story__miles">
-              {h.experience.milestones.map((m: any) => (
-                <li><span class="story__year">{m.year}</span><span class="story__label">{m.label}</span></li>
-              ))}
-            </ul>
-          )}
-          <a class="h-textlink" href={h.experience.linkHref || "/about/"}>{h.experience.link} <span aria-hidden="true">→</span></a>
-        </div>
-      </div>
-    </section>
+      </section>
+    )}
 
     <!-- ============ 5. LOCATION, HOURS & INFO ============ -->
     <section class="h-section h-section--tint" id="visit">
