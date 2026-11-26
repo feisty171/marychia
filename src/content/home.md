@@ -151,6 +151,7 @@ banner:
 # (see src/data/treatment-menu.json). Four works best (four across on wide screens).
 # The *word in asterisks* in the heading shows in italic rose.
 favourites:
+  show: false   # the "Our clients' favourites" cards on Home; true shows them again
   eyebrow: "Signature treatments"
   heading: "Our clients' *favourites*"
   allLink: "View all {count} treatments"   # {count} = how many treatments are on the site

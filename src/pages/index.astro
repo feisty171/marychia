@@ -186,7 +186,7 @@ const heroWords = h.hero.headline
 
     <!-- ============ OUR CLIENTS' FAVOURITES (src/content/home.md → favourites) ============
          Cards: src/components/FavouriteCard.astro, the same card as the treatment list (styles ".tp .card" in treatments.css). -->
-    {favs.length > 0 && (
+    {h.favourites?.show !== false && favs.length > 0 && (
       <section class="h-section h-section--tint fav" id="favourites">
         <div class="h-container">
           <header class="fav-head" data-reveal>
