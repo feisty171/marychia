@@ -159,12 +159,21 @@ treatments:
     label: "Brightening"
     name: "Customised Fairness Radiance Facial"
     price: "$148"
-    description: ""
+    description: "A gentle exfoliating and deep-cleansing facial that helps smooth texture and boost hydration, for skin with a natural, healthy glow."
     duration: "45 mins"
-    image: "/images/treatments/fairness-radiance-facial.webp"
+    image: "/images/treatments/fairness-radiance-facial-v2.webp"
     category: "Facial – Basic Face Therapy"
-    about: ""
-    benefits: []
+    about: |
+      A nourishing facial tailored to bring out your skin's natural radiance. Gentle exfoliation and deep cleansing help lift away impurities, smooth texture and boost hydration, for skin that looks brighter and feels refreshed.
+
+      Ideal for anyone with more than one skin concern, such as dullness, uneven-looking tone, dehydration or tired-looking skin.
+    benefits:
+      - "Gentle exfoliation and deep cleansing"
+      - "Helps lift away impurities"
+      - "Smooths the look of skin texture"
+      - "Helps boost hydration"
+      - "Brightens dull, tired-looking skin"
+      - "Helps even out the look of skin tone"
   - id: "juve"
     label: "Firming & hydration"
     name: "JUVE Face Lift"
