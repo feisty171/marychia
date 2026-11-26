@@ -21,8 +21,8 @@ hero:
   imageAlt: "A calm Mary Chia treatment room"
 
 # Labels on cards and buttons
-readMore: "Read more"
-readLess: "Show less"
+readMore: "read more"
+readLess: "show less"
 
 # Treatment pages (/treatments/<id>/, opened by tapping a card): buttons and section titles
 backLabel: "Treatments"

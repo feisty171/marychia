@@ -148,7 +148,7 @@ html:not(.tx-js) .tx-tab[aria-pressed="true"] { background: var(--white); color:
   display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden;
 }
 .tx-card__more {
-  font: inherit; font-size: var(--text-sm); font-weight: var(--fw-price);
+  font: inherit; font-size: var(--text-sm); font-weight: 400;   /* regular, all lowercase (words in treatments.md) */
   color: var(--ink); background: none; border: 0; padding: 6px 0; cursor: pointer;
   text-decoration: underline; text-underline-offset: 3px;
 }
