@@ -180,11 +180,9 @@ trial:
 # ONLY when that result has consent: true; otherwise a "Before / After" placeholder shows.
 # Bottom row: the client reviews from testimonials: below (only real reviews, with permission).
 results:
-  eyebrow: "Real results"
-  heading: "Stories from *our clients*"   # *asterisks* = italic rose
-  allLink: "See all results"
-  allHref: "/gallery/"
-  show: 3                                  # how many Gallery results to show
+  heading: "results from you."             # lowercase on purpose
+  prevLabel: "Previous results"            # read out by screen readers for the arrow buttons
+  nextLabel: "More results"
   reviewSource: "Read more"                # opens that studio's Google reviews page
 
 # Products ("Take the care home"). Hidden for now: set show to true to bring the Shop section back.

@@ -14,7 +14,6 @@
 /* Under "What we offer" (tiles, banner carousel, first-visit and Our story banners, then Real
    results) every block is the same distance apart: one --home-gap. */
 :root { --home-gap: clamp(28px, 3vw, 40px); }   /* home.css only loads on Home */
-.trial + #results { padding-top: 0; }
 .h-section--tint { background: var(--tint); }
 
 .h-head { max-width: 640px; margin-bottom: 32px; }
@@ -419,26 +418,74 @@ sup { font-size: .55em; vertical-align: super; line-height: 0; }
   .btn.trial__btn { width: 100%; }
 }
 
-/* ---------- Real results (src/content/home.md → results) ----------
-   Top row: before/after pairs from the Gallery (photos only with consent), each with a
-   "Treatment · note →" link. Bottom row: review cards (stars once a rating is filled in). */
-.res-grid { display: grid; gap: 32px; margin: 0 0 clamp(40px, 4vw, 56px); }
-.res-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 14px; }
-.res-pair--one { display: block; }
-.res-pair--one img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 2px; }
-.res-shot { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--tint); border-radius: 2px; }
-.res-shot img { width: 100%; height: 100%; object-fit: cover; }
-.res-shot span {
-  position: absolute;
-  left: 14px;
-  bottom: 12px;
-  font-size: var(--fs-small);
-  color: var(--ink-soft);
+/* ---------- Results from you (src/content/home.md → results) ----------
+   A brand-red panel as wide as the banners (8–16px margin, 20px corners): the white title,
+   a row of before/after cards that scrolls sideways (arrows: public/js/home.js; swipe on touch),
+   then the moving reviews on a white band. */
+.res { padding: 0 0 var(--home-gap); }
+.res__panel {
+  margin: 0 clamp(8px, 1vw, 16px);
+  padding: clamp(28px, 4vw, 56px);
+  border-radius: 20px;
+  background: var(--rose);
+  color: var(--white);
 }
-.res-shot:has(img) span { color: var(--white); text-shadow: 0 1px 6px rgba(var(--shade), .5); }
-.res-caption { display: inline; font-size: var(--fs-text); color: var(--ink-soft); text-decoration: none; transition: color .25s ease; }
-.res-caption:hover { color: var(--rose); }
-.res-caption:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
+.res__title { margin: 0 0 clamp(20px, 2.5vw, 32px); font-size: var(--text-3xl); color: var(--white); }
+
+.res-row { position: relative; margin: 0 0 clamp(20px, 2.5vw, 32px); }
+.res-track {
+  display: flex; gap: 16px;
+  margin: 0; padding: 0; list-style: none;
+  overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+.res-track::-webkit-scrollbar { display: none; }
+.res-card { flex: 0 0 clamp(260px, 24vw, 360px); scroll-snap-align: start; }
+.res-card__link {
+  display: block; height: 100%;
+  overflow: hidden; border-radius: 12px;
+  background: var(--white); color: var(--ink); text-decoration: none;
+}
+.res-card__link:focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
+.res-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.res-pair--one { display: block; }
+.res-pair--one img { width: 100%; aspect-ratio: 8 / 5; object-fit: cover; display: block; }
+.res-shot { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--tint); }
+.res-shot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease; }
+.res-shot span {   /* "BEFORE" / "AFTER" pill */
+  position: absolute; left: 10px; bottom: 10px;
+  padding: 3px 9px; border-radius: 999px;
+  background: rgba(var(--blush-rgb), .92); color: var(--ink);
+  font-size: var(--text-xs); font-weight: var(--fw-label); letter-spacing: var(--tracking-label); text-transform: uppercase;
+  line-height: 1.4;
+}
+@media (hover: hover) { .res-card__link:hover .res-shot img { transform: scale(1.03); } }
+.res-card__body { display: grid; gap: 4px; padding: 14px 16px 16px; }
+.res-card__cat { color: var(--rose); }
+.res-card__name { font-size: var(--text-base); font-weight: var(--fw-label); line-height: 1.3; }
+.res-card__note { font-size: var(--text-sm); color: var(--text-color); }
+/* the round arrows on each side of the row (shown only when there's more to see that way) */
+.res-arrow {
+  position: absolute; top: 38%; z-index: 1;
+  display: grid; place-items: center;
+  width: 44px; height: 44px; padding: 0;
+  border: 0; border-radius: 50%;
+  background: var(--white); color: var(--rose);
+  box-shadow: 0 6px 18px -6px rgba(var(--shade), .45);
+  font-size: var(--text-2xl); line-height: 1; cursor: pointer;
+  transition: transform .2s ease;
+}
+.res-arrow[hidden] { display: none; }
+.res-arrow--next { right: -10px; }
+.res-arrow--prev { left: -10px; }
+.res-arrow:hover { transform: scale(1.06); }
+.res-arrow:focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
+.res-arrow span { transform: translateY(-2px); }
+
+/* the moving reviews sit on a white band inside the panel */
+.res-band { border-radius: 14px; background: var(--white); overflow: hidden; }
+.res-band .res-marquee { margin: 0; --bleed: 16px; }
+
 /* Reviews: a row of cards that drifts slowly to the left, forever (two copies of the list
    side by side; the track moves by one copy's width). Hover or keyboard focus pauses it;
    with "reduce motion" it becomes a row you can swipe. */
@@ -518,10 +565,6 @@ sup { font-size: .55em; vertical-align: super; line-height: 0; }
   .res-marquee { overflow-x: auto; scroll-snap-type: x mandatory; mask-image: none; }
   .res-reviews[aria-hidden="true"] { display: none; }
   .res-review { scroll-snap-align: start; }
-}
-@media (min-width: 961px) {
-  .res-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 2.4vw, 36px); }
-
 }
 
 /* ---------- Products ("shelf") ----------
