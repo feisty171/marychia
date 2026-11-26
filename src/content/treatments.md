@@ -140,12 +140,21 @@ treatments:
     label: "Everyday care"
     name: "Essential Face Therapy"
     price: "$148"
-    description: ""
+    description: "A deep yet gentle cleansing facial that helps clear congested pores and bring back moisture, leaving skin fresh, smooth and balanced."
     duration: "45 mins"
     image: ""
     category: "Facial – Basic Face Therapy"
-    about: ""
-    benefits: []
+    about: |
+      A deep yet gentle cleansing facial that helps clear congested pores, calm the look of blemishes and bring back moisture. It helps balance oily skin and refine texture, leaving your skin feeling fresh, smooth and comfortable.
+
+      Ideal for oily or acne-prone skin, and for anyone with congested pores, blemishes or dullness. A simple way to bring back clarity, hydration and balance.
+    benefits:
+      - "Deep yet gentle cleansing"
+      - "Helps clear congested pores"
+      - "Helps calm the look of blemishes"
+      - "Helps balance oily skin"
+      - "Refines the look of skin texture"
+      - "Restores moisture for fresh, balanced skin"
   - id: "fairness"
     label: "Brightening"
     name: "Customised Fairness Radiance Facial"
