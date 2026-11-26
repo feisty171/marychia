@@ -1,0 +1,40 @@
+---
+/**
+ * Client result card (before/after photos, or one combined photo), shared by the Gallery page
+ * (/gallery/) and the Home "Real results" row, so both always look the same.
+ * Data: a result from resolveResults() in src/lib/results.ts (photos only when consent is true;
+ * otherwise "Awaiting consent" / a size hint). Styles: .g-* in public/css/gallery.css.
+ *   r      – the result (name, note, alt, category, link, single, imageSrc, beforeSrc, afterSrc, awaiting)
+ *   level  – heading level for the treatment name (Gallery: 2, Home: 3)
+ */
+interface Props { r: any; level?: 2 | 3 }
+const { r, level = 2 } = Astro.props;
+const Name = level === 3 ? "h3" : "h2";
+---
+<li class="g-card" data-cat={r.category.toLowerCase()}>
+  <figure class="g-figure">
+    {r.single ? (
+      <div class="g-shot g-shot--wide">
+        {r.imageSrc
+          ? <img src={r.imageSrc} alt={r.alt} loading="lazy" decoding="async" />
+          : <div class="g-ph"><span class="g-ph__icon" aria-hidden="true">+</span><span class="g-ph__hint">{r.awaiting ? "Awaiting client consent" : "Photo · 1600 × 1200"}</span></div>}
+      </div>
+    ) : (
+      <div class="g-pair">
+        {[["Before", r.beforeSrc], ["After", r.afterSrc]].map(([label, src]) => (
+          <div class="g-shot">
+            {src
+              ? <img src={src} alt={`${label}: ${r.alt}`} loading="lazy" decoding="async" />
+              : <div class="g-ph"><span class="g-ph__icon" aria-hidden="true">+</span><span class="g-ph__hint">{r.awaiting ? "Awaiting consent" : "800 × 1000"}</span></div>}
+            <span class="g-tag">{label}</span>
+          </div>
+        ))}
+      </div>
+    )}
+    <figcaption class="g-cap">
+      <p class="g-cat">{r.category}</p>
+      <Name class="g-name"><a href={r.link}>{r.name}</a></Name>
+      {r.note && <p class="g-note">{r.note}</p>}
+    </figcaption>
+  </figure>
+</li>

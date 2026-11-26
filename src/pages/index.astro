@@ -9,6 +9,7 @@ import Footer from "../components/Footer.astro";
 import SignatureCard from "../components/SignatureCard.astro";
 import CategoryTiles from "../components/CategoryTiles.astro";
 import ProductCard from "../components/ProductCard.astro";
+import ResultCard from "../components/ResultCard.astro";
 import FavouriteCard from "../components/FavouriteCard.astro";
 import { treatmentData } from "../lib/treatmentData";
 import BookingSheet from "../components/BookingSheet.astro";
@@ -33,15 +34,12 @@ const slides = (h.banner?.slides || []).filter((s: any) => s.image);
 // First-visit band
 // "Real results": newest Gallery results (photos only with consent) + client reviews
 const [resBefore, resEm = "", resAfter = ""] = (h.results?.heading || "").split("*");
-const resultCards = (await resolveResults(loadResults().slice(0, h.results?.show ?? 3))).map((r) => ({
-  name: r.name,
-  note: r.note,
-  alt: r.alt,
-  link: `/treatments/?area=${r.category.toLowerCase()}`,
-  single: r.imageSrc,
-  before: r.beforeSrc,
-  after: r.afterSrc,
-}));
+// "Real results": the same cards as the Gallery page (src/components/ResultCard.astro).
+// Results with approved photos come first, then the newest; `show` sets how many.
+const resultCards = (await resolveResults(loadResults()))
+  .map((r) => ({ ...r, link: `/treatments/?area=${r.category.toLowerCase()}`, hasPhoto: !!(r.beforeSrc || r.afterSrc || r.imageSrc) }))
+  .sort((a, b) => Number(b.hasPhoto) - Number(a.hasPhoto))
+  .slice(0, h.results?.show ?? 3);
 // "Read on Google": the studio's Google Maps page (src/data/outlets.json)
 // Google Maps embed (no key needed) built from the studio's mapsUrl search words
 const mapEmbed = (u: string) => "https://maps.google.com/maps?q=" + encodeURIComponent(new URL(u).searchParams.get("query") || "") + "&z=16&output=embed";
@@ -64,7 +62,7 @@ const heroWords = h.hero.headline
   description="Mary Chia — the beauty and slimming specialist. Four decades of facial, spa and slimming expertise, personalised for your skin, your body and your goals."
   current="home"
   clearHeader
-  styles={["home.css", "treatments.css"]}
+  styles={["home.css", "treatments.css", "gallery.css"]}
   scripts={["treatment-cards.js", "home.js"]}
 >
   <main>
@@ -260,20 +258,8 @@ const heroWords = h.hero.headline
             <a class="h-textlink" href={h.results.allHref}>{h.results.allLink} <span aria-hidden="true">→</span></a>
           </header>
           {resultCards.length > 0 && (
-            <ul class="res-grid" data-reveal="stagger">
-              {resultCards.map((r) => (
-                <li class="res-card">
-                  {r.single
-                    ? <div class="res-pair res-pair--one"><img src={r.single} alt={r.alt} loading="lazy" /></div>
-                    : (
-                      <div class="res-pair" role={r.before || r.after ? "group" : undefined} aria-label={r.before || r.after ? r.alt : undefined}>
-                        <div class="res-shot">{r.before && <img src={r.before} alt="" loading="lazy" />}<span>Before</span></div>
-                        <div class="res-shot">{r.after && <img src={r.after} alt="" loading="lazy" />}<span>After</span></div>
-                      </div>
-                    )}
-                  <a class="res-caption" href={r.link}>{r.name}{r.note && <> · {r.note}</>} <span aria-hidden="true">→</span></a>
-                </li>
-              ))}
+            <ul class="g-grid res-grid" data-reveal="stagger">
+              {resultCards.map((r) => <ResultCard r={r} level={3} />)}
             </ul>
           )}
           <!-- Reviews: one list, shown twice in a row so it can scroll by endlessly (the copy is
