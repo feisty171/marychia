@@ -75,6 +75,7 @@ sections:
 #   description – the short text on the card ("" hides it and its Read more)
 #   duration    – the small grey line at the bottom: only the time (e.g. "60 mins"), or "session/s" when there is none
 #   image       – a photo in public/images/treatments/ (portrait 4:5 shows best; "" = placeholder)
+#   imagePosition – optional: which part of the photo to keep when it is cropped, e.g. "center bottom" (default: the middle)
 #   category    – shown under Treatment information on its page
 #   about       – the longer text on its page (a blank line starts a new paragraph; "" = uses description)
 #   benefits    – the list on its page; benefitsLabel overrides the list's title (e.g. "Suitable for")
@@ -215,7 +216,8 @@ treatments:
     price: "$980"
     description: "An advanced microneedling facial for sensitive, redness-prone and acne-prone skin. Helps soothe the look of redness, refine texture and pores, and strengthen the skin barrier for a calmer, smoother complexion."
     duration: "60 mins"
-    image: "/images/treatments/clario-porcelain-full.webp"
+    image: "/images/treatments/clario-porcelain-v2.webp"
+    imagePosition: "center bottom"   # a poster: crop from the top, keeping its words at the bottom
     category: "Facial – Intense Face Therapy"
     about: |
       Porcelain Skin Therapy is an advanced microneedling facial designed for sensitive, redness-prone and acne-prone skin. This gentle skin-renewal treatment helps soothe visible redness, improve uneven texture and minimise the appearance of enlarged pores, while supporting the skin's natural renewal. It also promotes hydration and helps strengthen the skin's natural barrier, for a calmer, smoother, healthier-looking complexion.
