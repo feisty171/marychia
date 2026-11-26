@@ -1,8 +1,8 @@
 ---
 /**
- * Face / Body / Wellness tiles: a photo card for each area that opens the treatment list
- * (/treatments/?area=…, which opens the matching tab). Used on the Home page ("Find a treatment").
- * Compact (Home) tiles show only the title and a short sentence. The full tiles also show the
+ * Face / Body / Wellness tiles: a photo card for each area that opens the Treatments page on its tab
+ * (Face → Facials; Body and Wellness → Body & Wellness; see TAB below). Used on the Home page.
+ * Compact (Home) tiles show only the title. The full tiles also show the
  * count and "from S$xx", worked out from the treatment list (src/data/treatment-menu.json).
  * Photos: "siteImages" in src/data/treatments.json. Styles: .tp .tile* in public/css/treatments.css,
  * so it must sit inside an element with class "tp".
@@ -10,14 +10,8 @@
 import { treatmentData as data } from "../lib/treatmentData";
 
 interface Props { compact?: boolean }
-// compact (Home): shorter landscape tiles with an italic title and a short sentence
+// compact (Home): landscape 4:3 tiles with only the title
 const { compact = false } = Astro.props;
-const DESC: Record<string, string> = {
-  Face: "Facials for glow, lift and clarity, shaped around your skin.",
-  Body: "Sculpting, toning and detox rituals for how you want to feel.",
-  Wellness: "Restoring treatments to ease tension and help you unwind.",
-};
-
 const COPY: Record<string, string> = { Face: "Glow, lift & clarity", Body: "Sculpt, tone & detox", Wellness: "Restore & unwind" };
 const money = (n: number) => "S$" + n.toLocaleString("en-SG");
 const images = data.siteImages as Record<string, string>;
@@ -26,10 +20,12 @@ const tiles = ["Face", "Body", "Wellness"].map((c) => {
   const prices = list.map((t: any) => t.from).filter((n: any) => n != null) as number[];
   return { c, count: list.length, from: prices.length ? money(Math.min(...prices)) : "", img: images[c] || "" };
 });
+// which Treatments page tab each tile opens (tab ids: src/content/treatments.md)
+const TAB: Record<string, string> = { Face: "facials", Body: "body", Wellness: "body" };
 ---
 <div class:list={["tiles", { "tiles--compact": compact }]} id={compact ? undefined : "tiles"} data-reveal="stagger">
   {tiles.map((t) => (
-    <a class:list={["tile", { "is-ph": !t.img }]} href={`/treatments/?area=${t.c.toLowerCase()}`} data-cat={t.c}
+    <a class:list={["tile", { "is-ph": !t.img }]} href={`/treatments/?tab=${TAB[t.c] || "all"}`} data-cat={t.c}
        aria-label={`Show ${t.c} treatments: ${t.count} treatments${t.from ? `, from ${t.from}` : ""}`}>
       <div class="media">
         {t.img
@@ -39,7 +35,7 @@ const tiles = ["Face", "Body", "Wellness"].map((c) => {
       <div class="tile-label">
         <div class="tile-text">
           <h3>{t.c}</h3>
-          {compact ? <p class="tile-desc">{DESC[t.c]}</p> : <small>{COPY[t.c]}</small>}
+          {!compact && <small>{COPY[t.c]}</small>}
           {!compact && t.count > 0 && <p class="tile-meta">{t.count} treatments <span aria-hidden="true">·</span> from {t.from}</p>}
         </div>
         {!compact && <span class="tile-arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span>}
