@@ -585,6 +585,8 @@ a.shop-item__link:focus-visible,
    cropped); the track slides sideways (scroll-snap, so phones can swipe). Small dots sit
    on the bottom of the picture. Behaviour: public/js/home.js. */
 .h-banner { padding: 0 0 clamp(28px, 3vw, 40px); }   /* a gap before the next section, matching the gap above */
+/* the same width as the hero banner: the narrow 8–16px margin to the screen edges, no page container */
+.h-banner > .h-container { max-width: none; padding-inline: clamp(8px, 1vw, 16px); }
 #services { padding-bottom: clamp(28px, 3vw, 40px); } /* keep the banner close to the tiles */
 .h-carousel { position: relative; }
 .h-carousel__track {
