@@ -239,7 +239,7 @@ treatments:
     price: "By consult"
     description: "Designed to target pigmentation spots, with a plan personalised at your consultation. For freckles, melasma, age spots, hormonal and dermal pigmentation, and acne marks."
     duration: "session/s"
-    image: "/images/treatments/clario-pigment-clear.webp"
+    image: "/images/treatments/clario-pigment-v2.webp"   # includes a before-and-after; client written consent confirmed by marketing (Nov 2026)
     category: "Facial – Intense Face Therapy"
     about: |
       Designed to target pigmentation spots, with a plan personalised at your consultation. For freckles, melasma, age spots, hormonal and dermal pigmentation, and acne marks.
