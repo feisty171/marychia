@@ -178,12 +178,21 @@ treatments:
     label: "Firming & hydration"
     name: "JUVE Face Lift"
     price: "$280"
-    description: "Intense, deep hydration that refreshes tired-looking skin. Ideal for skin that looks less firm or has facial contour concerns."
+    description: "An advanced facial with our JUVE Biomimetic Stem Cell Activator and BoNTLIF300, designed to help skin look firmer, smoother and more lifted."
     duration: "60 mins"
     image: "/images/treatments/juve-face-lift-v2.webp"
     category: "Facial – Intense Face Therapy"
-    about: ""
-    benefits: []
+    about: |
+      An advanced facial featuring our JUVE Biomimetic Stem Cell Activator, enhanced with BoNTLIF300. This peptide-rich concentrate is designed to support the skin's collagen and help it look firmer, smoother and more lifted.
+
+      Ideal for anyone looking for a non-invasive way to care for the signs of ageing, such as fine lines, wrinkles, sagging and loss of firmness.
+    benefits:
+      - "Helps skin look firmer and more lifted"
+      - "Helps soften the look of fine lines and wrinkles"
+      - "Peptide-rich concentrate that supports the skin's collagen"
+      - "Featuring JUVE Biomimetic Stem Cell Activator with BoNTLIF300"
+      - "Leaves skin feeling smooth and supple"
+      - "Non-invasive"
   - id: "lumiglow"
     label: "Glow & hydration"
     name: "CLARIO Lumiglow Booster Therapy"
