@@ -6,14 +6,14 @@
 #  Brand rules (no guaranteed results, no invented reviews) are in CLAUDE.md.
 # =====================================================================
 
-# Hero: one line of words on the photo (written all in lowercase on purpose).
+# Hero: one line of words, centred in white on the photo (all lowercase on purpose).
 hero:
-  headline: "the slimming and beauty specialist"
+  headline: "the slimming and beauty specialist."
   # Photo in the framed banner (rounded corners, like the Shop and Treatments banners).
-  # It fills the frame and is cropped to fit each screen, keeping its right side (the model);
-  # keep a plain, light area on the left for the words. Wide, about 2400 x 1100 or 1366 x 768.
-  image: "/images/hero-home-portrait.webp"
-  imageAlt: "A woman with soft, glowing skin resting her chin on her hands"
+  # It fills the frame and is cropped to fit each screen from the centre; the white words sit
+  # centred on it over a soft shade. Wide, about 2400 x 1100.
+  image: "/images/hero-home-reception.webp"
+  imageAlt: "The Mary Chia reception, with a glowing Embracing Beauty sign, a marble counter and a curved sofa"
 
 # Key figures: a band of four facts right under the hero (two by two on phones).
 # "count: true" makes that number count up when it comes into view.

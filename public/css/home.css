@@ -1096,8 +1096,9 @@ a.shop-item__link:focus-visible,
 
 /* ---------- Framed banner (overrides the hero rules above) ----------
    Like the Shop and Treatments banners: a narrow margin to the screen edges, rounded corners,
-   the photo filling the frame (cropped to fit, keeping its right side where the model is) and
-   one line of words on its plain left side. Wide screens: the see-through menu sits on it. */
+   the photo filling the frame (cropped from the centre) under a soft shade, and one line of
+   white words centred on it. Wide screens: the see-through menu sits on it; the line stays
+   on one line. Phones and tablets: the banner sits under the menu and the line may wrap. */
 .ed-hero {
   --hero-inset: clamp(8px, 1vw, 16px);
   display: flex;
@@ -1114,40 +1115,37 @@ a.shop-item__link:focus-visible,
   width: 100%; height: 100%;
   margin: 0;
   object-fit: cover;
-  object-position: 80% center;
-  z-index: -1;
+  object-position: center;
+  z-index: -2;
 }
-.ed-hero::after { content: none; }                 /* no fade into the page: the frame has its own edge */
-.ed-hero__grid { width: 100%; z-index: 2; }
+.ed-hero::after {   /* soft shade so the white words read */
+  content: "";
+  position: absolute; inset: 0; z-index: -1;
+  height: auto;
+  background: rgba(var(--shade), .28);
+  pointer-events: none;
+}
+.ed-hero__grid { width: 100%; z-index: 2; text-align: center; }
 .ed-hero__title {
+  max-width: none;
+  margin: 0 auto;
   font-size: var(--text-display);
-  max-width: min(11em, 52%);
+  color: var(--white);
+  text-shadow: 0 1px 14px rgba(var(--shade), .35);
   transform: translateY(calc(var(--hp) * -30px));
   opacity: calc(1 - var(--hp) * 1.2);
 }
 @media (min-width: 961px) {
-  .ed-hero__title { font-size: var(--text-hero-mid); }
+  .ed-hero__title { font-size: min(var(--fs-hero), 4.2vw); white-space: nowrap; }   /* one line */
 }
-@media (min-width: 1200px) {
-  .ed-hero__title { font-size: min(var(--fs-hero), 4.2vw); }
-}
-/* Phones and tablets: the banner sits just under the menu, like the Shop banner there:
-   the photo on top (cropped to keep the model), the words under it on the light grey */
 @media (max-width: 960px) {
   .ed-hero {
-    display: block;
-    height: auto;
+    height: clamp(280px, 70vw, 480px);
     margin-top: calc(var(--header-h) + var(--hero-inset));
-    padding: 0;
-    background: var(--tint);
+    padding: 24px 0;
   }
   .ed-hero::before { content: none; }
-  .ed-hero__bg { position: static; height: auto; aspect-ratio: 16 / 10; z-index: auto; transform: none; opacity: 1; }
-  .ed-hero__grid { padding-block: clamp(22px, 5vw, 32px); }
-  .ed-hero__title { font-size: var(--text-hero-phone); max-width: none; transform: none; opacity: 1; }
-}
-@media (max-width: 640px) {
-  .ed-hero__bg { aspect-ratio: 4 / 3.4; }
+  .ed-hero__title { font-size: var(--text-hero-phone); text-wrap: balance; }
 }
 
 /* =========================================================
