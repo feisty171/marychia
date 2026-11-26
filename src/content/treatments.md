@@ -218,7 +218,6 @@ treatments:
     description: "An advanced microneedling facial for sensitive, redness-prone and acne-prone skin. Helps soothe the look of redness, refine texture and pores, and strengthen the skin barrier for a calmer, smoother complexion."
     duration: "60 mins"
     image: "/images/treatments/clario-porcelain-v2.webp"
-    imageFit: "whole"   # a poster: show it whole, never cropped or zoomed
     category: "Facial – Intense Face Therapy"
     about: |
       Porcelain Skin Therapy is an advanced microneedling facial designed for sensitive, redness-prone and acne-prone skin. This gentle skin-renewal treatment helps soothe visible redness, improve uneven texture and minimise the appearance of enlarged pores, while supporting the skin's natural renewal. It also promotes hydration and helps strengthen the skin's natural barrier, for a calmer, smoother, healthier-looking complexion.
