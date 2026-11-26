@@ -56,7 +56,7 @@ const tab = home?.id === "featured" ? "featured" : home?.id || "all";
         <nav class="label shop-crumbs" aria-label="Breadcrumb">
           <a href="/">Home</a><span aria-hidden="true">/</span><a href={`/treatments/?tab=${tab}`}>{c.backLabel}</a><span aria-hidden="true">/</span><span aria-current="page">{t.name}</span>
         </nav>
-        <div class="shop-product__media">
+        <div class:list={["shop-product__media", { "is-whole": t.imageFit === "whole" }]}>
           {t.image
             ? <img src={t.image} alt={t.name} decoding="async" style={t.imagePosition ? `object-position:${t.imagePosition}` : undefined} />
             : <div class="shop-ph" aria-hidden="true"><span>{t.label || "Mary Chia"}</span><small>Photo · 4:5</small></div>}

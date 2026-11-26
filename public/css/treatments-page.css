@@ -101,6 +101,9 @@ html:not(.tx-js) .tx-tab[aria-pressed="true"] { background: var(--white); color:
 .tx-card__link:focus-visible::after { outline: 2px solid var(--rose); outline-offset: 4px; }
 .tx-card__more { position: relative; z-index: 1; }
 .tx-card__media img { transition: transform .6s ease; }
+/* imageFit: "whole" (treatments.md): the photo shows whole, never cropped or zoomed */
+.tx-card__media.is-whole img,
+.page-treatment .shop-product__media.is-whole img { object-fit: contain; transform: none !important; }
 @media (hover: hover) {
   .tx-card:hover .tx-card__media img { transform: scale(1.03); }
   .tx-card:hover .tx-card__name { color: var(--rose); }

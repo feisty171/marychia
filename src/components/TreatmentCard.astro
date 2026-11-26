@@ -12,7 +12,7 @@ const did = `${prefix}${t.id}-d`;
 const href = `/treatments/${t.id}/`;
 ---
 <article class="tx-card">
-  <a class="tx-card__media" href={href} tabindex="-1" aria-hidden="true">
+  <a class:list={["tx-card__media", { "is-whole": t.imageFit === "whole" }]} href={href} tabindex="-1" aria-hidden="true">
     {t.image
       ? <img src={t.image} alt="" loading="lazy" decoding="async" style={t.imagePosition ? `object-position:${t.imagePosition}` : undefined} />
       : <span class="tx-card__ph">Photo · 4:5</span>}
