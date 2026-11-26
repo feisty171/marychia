@@ -32,19 +32,16 @@ const [favBefore, favEm = "", favAfter = ""] = (h.favourites?.heading || "").spl
 const slides = (h.banner?.slides || []).filter((s: any) => s.image);
 // First-visit band
 // "Real results": newest Gallery results (photos only with consent) + client reviews
-// "results from you.": every result with consent and photos (newest first), scrolled with arrows
-const resultCards = (await resolveResults(loadResults()))
-  .filter((r) => r.beforeSrc || r.afterSrc || r.imageSrc)
-  .map((r) => ({
-    name: r.name,
-    note: r.note,
-    alt: r.alt,
-    category: r.category,
-    link: `/treatments/?area=${r.category.toLowerCase()}`,
-    single: r.imageSrc,
-    before: r.beforeSrc,
-    after: r.afterSrc,
-  }));
+const [resBefore, resEm = "", resAfter = ""] = (h.results?.heading || "").split("*");
+const resultCards = (await resolveResults(loadResults().slice(0, h.results?.show ?? 3))).map((r) => ({
+  name: r.name,
+  note: r.note,
+  alt: r.alt,
+  link: `/treatments/?area=${r.category.toLowerCase()}`,
+  single: r.imageSrc,
+  before: r.beforeSrc,
+  after: r.afterSrc,
+}));
 // "Read on Google": the studio's Google Maps page (src/data/outlets.json)
 // Google Maps embed (no key needed) built from the studio's mapsUrl search words
 const mapEmbed = (u: string) => "https://maps.google.com/maps?q=" + encodeURIComponent(new URL(u).searchParams.get("query") || "") + "&z=16&output=embed";
@@ -249,45 +246,39 @@ const heroWords = h.hero.headline
       </section>
     )}
 
-    <!-- ============ RESULTS FROM YOU (src/content/home.md → results; results from src/data/results/) ============
-         A brand-red panel as wide as the banners: the title, a row of before/after cards (only results
-         with consent and photos) scrolled with arrows, and the moving reviews on a white band.
-         Styles: "Results from you" in public/css/home.css; arrows: public/js/home.js. -->
+    <!-- ============ REAL RESULTS (src/content/home.md → results; results from src/data/results/) ============
+         Before/after photos only show for results with consent: true. Reviews: testimonials in home.md.
+         Styles: "Real results" in public/css/home.css. -->
     {h.results && (
-      <section class="res" id="results">
-        <div class="res__panel" data-reveal>
-          <h2 class="res__title">{h.results.heading}</h2>
-          {resultCards.length > 0 && (
-            <div class="res-row" data-res-row>
-              <ul class="res-track" data-res-track>
-                {resultCards.map((r) => (
-                  <li class="res-card">
-                    <a class="res-card__link" href={r.link}>
-                      {r.single
-                        ? <div class="res-pair res-pair--one"><img src={r.single} alt={r.alt} loading="lazy" /></div>
-                        : (
-                          <div class="res-pair" role="group" aria-label={r.alt}>
-                            <div class="res-shot">{r.before && <img src={r.before} alt="" loading="lazy" />}<span>Before</span></div>
-                            <div class="res-shot">{r.after && <img src={r.after} alt="" loading="lazy" />}<span>After</span></div>
-                          </div>
-                        )}
-                      <span class="res-card__body">
-                        <span class="label res-card__cat">{r.category}</span>
-                        <span class="res-card__name">{r.name}</span>
-                        {r.note && <span class="res-card__note">{r.note}</span>}
-                      </span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-              <button type="button" class="res-arrow res-arrow--prev" data-res-prev aria-label={h.results.prevLabel || "Previous results"} hidden><span aria-hidden="true">‹</span></button>
-              <button type="button" class="res-arrow res-arrow--next" data-res-next aria-label={h.results.nextLabel || "More results"} hidden><span aria-hidden="true">›</span></button>
+      <section class="h-section res" id="results">
+        <div class="h-container">
+          <header class="fav-head" data-reveal>
+            <div>
+              <p class="eyebrow">{h.results.eyebrow}</p>
+              <h2 class="h-title">{resBefore}{resEm && <em>{resEm}</em>}{resAfter}</h2>
             </div>
+            <a class="h-textlink" href={h.results.allHref}>{h.results.allLink} <span aria-hidden="true">→</span></a>
+          </header>
+          {resultCards.length > 0 && (
+            <ul class="res-grid" data-reveal="stagger">
+              {resultCards.map((r) => (
+                <li class="res-card">
+                  {r.single
+                    ? <div class="res-pair res-pair--one"><img src={r.single} alt={r.alt} loading="lazy" /></div>
+                    : (
+                      <div class="res-pair" role={r.before || r.after ? "group" : undefined} aria-label={r.before || r.after ? r.alt : undefined}>
+                        <div class="res-shot">{r.before && <img src={r.before} alt="" loading="lazy" />}<span>Before</span></div>
+                        <div class="res-shot">{r.after && <img src={r.after} alt="" loading="lazy" />}<span>After</span></div>
+                      </div>
+                    )}
+                  <a class="res-caption" href={r.link}>{r.name}{r.note && <> · {r.note}</>} <span aria-hidden="true">→</span></a>
+                </li>
+              ))}
+            </ul>
           )}
-          <div class="res-band">
           <!-- Reviews: one list, shown twice in a row so it can scroll by endlessly (the copy is
                hidden from screen readers). Styles: .res-marquee in home.css. -->
-          <div class="res-marquee">
+          <div class="res-marquee" data-reveal>
             {[0, 1].map((copy) => (
               <ul class="res-reviews" aria-hidden={copy === 1 ? "true" : undefined}>
                 {h.testimonials.items.map((r: any) => (
@@ -308,9 +299,8 @@ const heroWords = h.hero.headline
               </ul>
             ))}
           </div>
-          </div>
           {h.testimonials.showTrust !== false && h.testimonials.trust?.length > 0 && (
-            <ul class="trust">
+            <ul class="trust" data-reveal>
               {h.testimonials.trust.map((t: string) => <li>{t}</li>)}
             </ul>
           )}

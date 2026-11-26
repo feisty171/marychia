@@ -213,26 +213,4 @@
     track.addEventListener("touchstart", function () { paused = true; }, { passive: true });
     restart();
   });
-
-  /* ---- "results from you.": arrows scroll the before/after row (index.astro, styles in home.css).
-     Each arrow shows only when there's more to see that way; touch screens can also swipe. ---- */
-  document.querySelectorAll("[data-res-row]").forEach(function (row) {
-    var track = row.querySelector("[data-res-track]");
-    var prev = row.querySelector("[data-res-prev]");
-    var next = row.querySelector("[data-res-next]");
-    if (!track || !prev || !next) return;
-    function update() {
-      var max = track.scrollWidth - track.clientWidth;
-      prev.hidden = track.scrollLeft <= 2;
-      next.hidden = track.scrollLeft >= max - 2;
-    }
-    function step(dir) {
-      track.scrollBy({ left: dir * Math.max(track.clientWidth * 0.8, 260), behavior: "smooth" });
-    }
-    prev.addEventListener("click", function () { step(-1); });
-    next.addEventListener("click", function () { step(1); });
-    track.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    update();
-  });
 })();
