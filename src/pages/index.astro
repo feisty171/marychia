@@ -110,6 +110,7 @@ const heroWords = h.hero.headline
       <div class="h-container">
         <!-- Heading in the style of a beauty magazine: bold uppercase words crossed by a large
              italic line in the brand red; a short line and a button on the right -->
+        {h.services.showHeading !== false && (
         <header class="find-head" data-reveal>
           <div>
             <p class="eyebrow">{h.services.eyebrow}</p>
@@ -120,6 +121,7 @@ const heroWords = h.hero.headline
             {h.services.button && <a class="btn find-side__btn" href={h.services.buttonLink || "/treatments/"}>{h.services.button}</a>}
           </div>
         </header>
+        )}
         <div class:list={["tp", "tp--embed", { "show-hints": treatmentsData.config.showPlaceholderHints }]}>
           <CategoryTiles compact />
         </div>
