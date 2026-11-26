@@ -1,7 +1,8 @@
 ---
 /**
  * Treatments page (/treatments/, the menu's "Treatments" item).
- * Every word and treatment: src/content/treatments.md. Styles: public/css/treatments-page.css.
+ * Every word and treatment: src/content/treatments.md. Cards: src/components/TreatmentCard.astro;
+ * each opens its own page, /treatments/<id>/ (src/pages/treatments/[id].astro). Styles: public/css/treatments-page.css.
  * Tabs (Featured / All / Facials / Advanced Skin / Body & Wellness) and "Read more":
  * public/js/treatments-page.js. Links can open a tab: /treatments/?tab=facials (older
  * /rituals/?area=face links are forwarded here and open the matching tab).
@@ -9,6 +10,7 @@
  */
 import Base from "../layouts/Base.astro";
 import Footer from "../components/Footer.astro";
+import TreatmentCard from "../components/TreatmentCard.astro";
 import { frontmatter as c } from "../content/treatments.md";
 
 const byId = Object.fromEntries((c.treatments as any[]).map((t) => [t.id, t]));
@@ -59,30 +61,7 @@ const defaultTab = tabIds.includes(c.defaultTab) ? c.defaultTab : tabIds[0];
             {s.text && <p class="tx-sec__text">{s.text}</p>}
           </header>
           <ul class="tx-grid">
-            {s.list.map((t: any) => (
-              <li>
-                <article class="tx-card">
-                  <div class="tx-card__media">
-                    {t.image
-                      ? <img src={t.image} alt={t.name} loading="lazy" decoding="async" />
-                      : <span class="tx-card__ph" aria-hidden="true">Photo · 4:5</span>}
-                    {t.badge && <span class="tx-card__badge">{t.badge}</span>}
-                  </div>
-                  {t.label && <p class="label tx-card__label">{t.label}</p>}
-                  <div class="tx-card__head">
-                    <h3 class="tx-card__name">{t.name}</h3>
-                    {t.price && <span class="tx-card__price">{t.price}</span>}
-                  </div>
-                  {t.description && (
-                    <div class="tx-card__desc">
-                      <p class="tx-card__text" id={`${s.id}-${t.id}-d`}>{t.description}</p>
-                      <button type="button" class="tx-card__more" aria-expanded="false" aria-controls={`${s.id}-${t.id}-d`} data-more={c.readMore} data-less={c.readLess} hidden>{c.readMore}</button>
-                    </div>
-                  )}
-                  {t.duration && <p class="tx-card__dur">{t.duration}</p>}
-                </article>
-              </li>
-            ))}
+            {s.list.map((t: any) => <li><TreatmentCard t={t} prefix={`${s.id}-`} /></li>)}
           </ul>
         </section>
       ))}

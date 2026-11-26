@@ -111,7 +111,19 @@ html:not(.tx-js) .tx-tab[aria-pressed="true"] { background: var(--white); color:
   display: grid; grid-template-columns: repeat(auto-fill, minmax(max(min(280px, 100%), calc((100% - 3 * 28px) / 4)), 1fr));
   gap: 40px 28px;
 }
-.tx-card { display: flex; flex-direction: column; gap: 10px; height: 100%; }
+.tx-card { position: relative; display: flex; flex-direction: column; gap: 10px; height: 100%; }
+/* The whole card opens the treatment's page: the name's link stretches over the card.
+   "Read more" sits above it, so it still only opens the text. */
+.tx-card__link { color: inherit; }
+.tx-card__link::after { content: ""; position: absolute; inset: 0; border-radius: 12px; }
+.tx-card__link:focus-visible { outline: none; }
+.tx-card__link:focus-visible::after { outline: 2px solid var(--rose); outline-offset: 4px; }
+.tx-card__more { position: relative; z-index: 1; }
+.tx-card__media img { transition: transform .6s ease; }
+@media (hover: hover) {
+  .tx-card:hover .tx-card__media img { transform: scale(1.03); }
+  .tx-card:hover .tx-card__name { color: var(--rose); }
+}
 .tx-card__media {
   position: relative; overflow: hidden;
   aspect-ratio: 4 / 5; border-radius: 12px;
@@ -144,4 +156,9 @@ html:not(.tx-js) .tx-tab[aria-pressed="true"] { background: var(--white); color:
 .tx-card__dur { margin: 0; font-size: var(--text-sm); color: var(--text-color); }
 
 /* space before the footer */
-.tx { padding-bottom: clamp(72px, 8vw, 112px); }
+main.tx { padding-bottom: clamp(72px, 8vw, 112px); }
+
+/* ---------- Treatment page (/treatments/<id>/): "You may also like" row ----------
+   The rest of the page uses the Shop product page styles (.shop-product* in shop.css). */
+.page-treatment .shop-more .tx-grid { margin-top: 8px; }
+.page-treatment .shop-story strong { color: var(--ink); font-weight: var(--fw-label); }

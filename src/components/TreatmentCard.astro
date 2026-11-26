@@ -1,0 +1,33 @@
+---
+/**
+ * Treatment card (Treatments page /treatments/ and "You may also like" on each treatment page).
+ * Tapping the card opens the treatment's own page, /treatments/<id>/ (src/pages/treatments/[id].astro);
+ * "Read more" only opens the text. Data: src/content/treatments.md. Styles: .tx-card* in
+ * public/css/treatments-page.css; Read more: public/js/treatments-page.js.
+ */
+import { frontmatter as c } from "../content/treatments.md";
+interface Props { t: any; prefix?: string }   // prefix keeps ids unique when a treatment shows twice
+const { t, prefix = "" } = Astro.props;
+const did = `${prefix}${t.id}-d`;
+const href = `/treatments/${t.id}/`;
+---
+<article class="tx-card">
+  <a class="tx-card__media" href={href} tabindex="-1" aria-hidden="true">
+    {t.image
+      ? <img src={t.image} alt="" loading="lazy" decoding="async" />
+      : <span class="tx-card__ph">Photo · 4:5</span>}
+    {t.badge && <span class="tx-card__badge">{t.badge}</span>}
+  </a>
+  {t.label && <p class="label tx-card__label">{t.label}</p>}
+  <div class="tx-card__head">
+    <h3 class="tx-card__name"><a class="tx-card__link" href={href}>{t.name}</a></h3>
+    {t.price && <span class="tx-card__price">{t.price}</span>}
+  </div>
+  {t.description && (
+    <div class="tx-card__desc">
+      <p class="tx-card__text" id={did}>{t.description}</p>
+      <button type="button" class="tx-card__more" aria-expanded="false" aria-controls={did} data-more={c.readMore} data-less={c.readLess} hidden>{c.readMore}</button>
+    </div>
+  )}
+  {t.duration && <p class="tx-card__dur">{t.duration}</p>}
+</article>

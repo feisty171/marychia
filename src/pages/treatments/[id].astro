@@ -1,0 +1,121 @@
+---
+/**
+ * Treatment page (/treatments/<id>/), one per treatment in src/content/treatments.md, opened by
+ * tapping a card on /treatments/. Same layout as the Shop product pages (and the same styles,
+ * .shop-product* in public/css/shop.css): photo on the left; breadcrumb, label, name, price,
+ * duration, short description and "Book on WhatsApp" (studio picker: BookingSheet.astro +
+ * public/js/treatment-cards.js) on the right; then tap-to-open sections: About this treatment,
+ * Key benefits, Treatment information. Below: "You may also like" (the rest of its section).
+ * Words and labels: src/content/treatments.md.
+ */
+import Base from "../../layouts/Base.astro";
+import Footer from "../../components/Footer.astro";
+import BookingSheet from "../../components/BookingSheet.astro";
+import TreatmentCard from "../../components/TreatmentCard.astro";
+import { frontmatter as c } from "../../content/treatments.md";
+
+export function getStaticPaths() {
+  return (c.treatments as any[]).map((t) => ({ params: { id: t.id }, props: { t } }));
+}
+const { t } = Astro.props as { t: any };
+const all = c.treatments as any[];
+const byId = Object.fromEntries(all.map((x) => [x.id, x]));
+// its section (not "featured", which repeats others) and the rest of that section for "You may also like"
+const home = (c.sections as any[]).find((s) => s.id !== "featured" && s.items.includes(t.id))
+  || (c.sections as any[]).find((s) => s.items.includes(t.id));
+const more = (home?.items || []).filter((id: string) => id !== t.id).map((id: string) => byId[id]).filter(Boolean).slice(0, 4);
+
+// "About": a blank line starts a new paragraph; a line starting "Label: …" shows the label in bold
+const aboutText = (t.about || t.description || "").trim();
+const paras = aboutText ? aboutText.split(/\n\s*\n/).map((p: string) => p.split("\n").map((l: string) => {
+  const m = l.match(/^([^:]{2,48}):\s+(.+)$/);
+  return m ? { label: m[1], text: m[2] } : { label: "", text: l };
+})) : [];
+const info = [
+  ["Category", t.category],
+  ["Duration", t.duration],
+  ["Price", t.price],
+].filter(([, v]) => v);
+// the WhatsApp message, e.g. "… book JUVE Face Lift (60 mins · $280) at Goldhill, Novena."
+const line = [t.duration, t.price].filter(Boolean).join(" · ");
+const tab = home?.id === "featured" ? "featured" : home?.id || "all";
+---
+<Base
+  title={`${t.name} | Treatments | Mary Chia`}
+  description={(t.description || aboutText).slice(0, 155)}
+  current="treatments"
+  solidHeader
+  bodyClass="page-shop page-treatment"
+  ogImage={t.image || undefined}
+  styles={["treatments.css", "shop.css", "treatments-page.css"]}
+  scripts={["treatment-cards.js", "treatments-page.js"]}
+>
+  <main>
+    <article class="shop-product" data-name={t.name} data-verb="book" data-line={line}>
+      <div class="a-container shop-product__grid">
+        <nav class="label shop-crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a><span aria-hidden="true">/</span><a href={`/treatments/?tab=${tab}`}>{c.backLabel}</a><span aria-hidden="true">/</span><span aria-current="page">{t.name}</span>
+        </nav>
+        <div class="shop-product__media">
+          {t.image
+            ? <img src={t.image} alt={t.name} decoding="async" />
+            : <div class="shop-ph" aria-hidden="true"><span>{t.label || "Mary Chia"}</span><small>Photo · 4:5</small></div>}
+        </div>
+
+        <div class="shop-product__info">
+          {t.label && <p class="label shop-product__brand">{t.label}</p>}
+          <h1 class="shop-product__name">{t.name}</h1>
+          {t.price && <p class="shop-product__price">{t.price}</p>}
+          {t.duration && <p class="label shop-product__size">{t.duration}</p>}
+          {t.description && <p class="shop-product__desc">{t.description}</p>}
+
+          <button type="button" class="btn btn--solid shop-product__order js-book">{c.bookButton}</button>
+
+          <div class="shop-acc">
+            {paras.length > 0 && (
+              <details open>
+                <summary class="label">{c.aboutLabel}</summary>
+                <div class="shop-acc__body shop-story">
+                  {paras.map((p: any[]) => (
+                    <p>{p.map((l: any, i: number) => <>{i > 0 && <br />}{l.label && <strong>{l.label}: </strong>}{l.text}</>)}</p>
+                  ))}
+                </div>
+              </details>
+            )}
+            {t.benefits?.length > 0 && (
+              <details open={paras.length === 0}>
+                <summary class="label">{t.benefitsLabel || c.benefitsLabel}</summary>
+                <div class="shop-acc__body shop-story"><ul>{t.benefits.map((b: string) => <li>{b}</li>)}</ul></div>
+              </details>
+            )}
+            {info.length > 0 && (
+              <details>
+                <summary class="label">{c.infoLabel}</summary>
+                <div class="shop-acc__body">
+                  <dl class="shop-info">
+                    {info.map(([k, v]) => <><dt>{k}</dt><dd>{v}</dd></>)}
+                  </dl>
+                </div>
+              </details>
+            )}
+          </div>
+        </div>
+      </div>
+    </article>
+
+    {more.length > 0 && (
+      <section class="shop-more tx">
+        <div class="a-container">
+          <h2 class="shop-more__title">{c.moreLabel}</h2>
+          <ul class="tx-grid">
+            {more.map((x: any) => <li><TreatmentCard t={x} prefix="more-" /></li>)}
+          </ul>
+        </div>
+      </section>
+    )}
+
+    <div class="tp"><BookingSheet eyebrow={c.sheetEyebrow} note={c.sheetNote} /></div>
+  </main>
+
+  <Footer />
+</Base>
