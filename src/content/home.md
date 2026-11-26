@@ -162,21 +162,15 @@ favourites:
     - "classic-coffee-drainage"
     - "five-element-body-wellness"
 
-# First-visit band, right under "Our clients' favourites": words over the studio photo
-# (shown as it is, no tint). The photo is 1280 x 560 and the band keeps that shape on wide screens.
-# "Book my trial" uses bookingUrl in src/data/site.json. "Explore trial offers" opens the
-# treatment list on First trial prices. termsLink: the trial terms page; until it's a real
-# link, "Terms apply" shows as plain text. No guaranteed results (see CLAUDE.md).
+# First-visit banner, under the banner carousel. No guaranteed results (see CLAUDE.md).
 trial:
-  image: "/images/site/trial-bg.webp"
-  eyebrow: "For first-time guests"
-  heading: "Begin your *story* with us"
-  text: "Enjoy an exclusive trial price on selected facials, body and wellness treatments. Every first visit begins with a personal consultation."
-  note: "One trial per new guest."
-  termsLabel: "Terms apply"
-  termsLink: "[[CONFIRM: trial terms page link]]"
-  bookButton: "Book my trial"
-  exploreButton: "Explore trial offers"
+  # A framed banner the same size as the hero: brand-red panel with the words on the left,
+  # the photo on the right (phones: photo on top, words below). Words are lowercase on purpose.
+  image: "/images/hero-home-reception.webp"
+  imageAlt: "The Mary Chia reception, with a glowing Embracing Beauty sign and a marble counter"
+  heading: "begin your story with us."
+  text: "Enjoy an exclusive trial price on selected facials, body and wellness treatments."
+  exploreButton: "Browse treatments"
   exploreLink: "/treatments/"
 
 # "Real results / Stories from our clients": right under the first-visit band.

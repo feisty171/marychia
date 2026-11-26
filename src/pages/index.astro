@@ -31,8 +31,6 @@ const [favBefore, favEm = "", favAfter = ""] = (h.favourites?.heading || "").spl
 // Ad banner carousel slides (with an image)
 const slides = (h.banner?.slides || []).filter((s: any) => s.image);
 // First-visit band
-const [trialBefore, trialEm = "", trialAfter = ""] = (h.trial?.heading || "").split("*");
-const trialTerms = realUrl(h.trial?.termsLink);
 // "Real results": newest Gallery results (photos only with consent) + client reviews
 const [resBefore, resEm = "", resAfter = ""] = (h.results?.heading || "").split("*");
 const resultCards = (await resolveResults(loadResults().slice(0, h.results?.show ?? 3))).map((r) => ({
@@ -206,23 +204,20 @@ const heroWords = h.hero.headline
       </section>
     )}
 
-    <!-- ============ FIRST-VISIT BAND (src/content/home.md → trial) ============
-         Words over the studio photo (1280 × 560) with a burgundy tint. Styles: "First-visit band"
-         in public/css/home.css. -->
+    <!-- ============ FIRST-VISIT BANNER (src/content/home.md → trial) ============
+         Same size and frame as the hero banner: a brand-red panel with the words (left) and the
+         photo (right); phones: photo on top, words below. Styles: "First-visit banner" in home.css. -->
     {h.trial?.heading && (
-      <section class="trial" id="first-visit" style={h.trial.image ? `--trial-img:url("${h.trial.image}")` : undefined}>
-        <div class="h-container trial__inner" data-reveal>
-          <p class="trial__eyebrow">{h.trial.eyebrow}</p>
-          <h2 class="trial__title">{trialBefore}{trialEm && <em>{trialEm}</em>}{trialAfter}</h2>
-          <p class="trial__text">{h.trial.text}</p>
-          <p class="trial__note">
-            {h.trial.note}{" "}
-            {trialTerms ? <a href={trialTerms}>{h.trial.termsLabel}</a> : <span>{h.trial.termsLabel}</span>}
-          </p>
-          <div class="trial__actions">
-            <a class="btn trial__book" href={site.bookingUrl}>{h.trial.bookButton}</a>
-            <a class="btn trial__explore" href={h.trial.exploreLink}>{h.trial.exploreButton} <span aria-hidden="true">→</span></a>
+      <section class="trial" id="first-visit">
+        <div class="trial__frame" data-reveal>
+          <div class="trial__panel">
+            <h2 class="trial__title">{h.trial.heading}</h2>
+            {h.trial.text && <p class="trial__text">{h.trial.text}</p>}
+            {h.trial.exploreButton && <a class="btn trial__btn" href={h.trial.exploreLink || "/treatments/"}>{h.trial.exploreButton}</a>}
           </div>
+          {h.trial.image && (
+            <div class="trial__photo"><img src={h.trial.image} alt={h.trial.imageAlt || ""} loading="lazy" decoding="async" /></div>
+          )}
         </div>
       </section>
     )}
