@@ -199,7 +199,7 @@ treatments:
     price: "$980"
     description: "A customised treatment for your skin. Choose from three boosters — deep cleansing, anti-ageing or intensive hydration — delivered needle-free to help refine texture and bring back radiance."
     duration: "60 mins"
-    image: "/images/treatments/clario-lumiglow.webp"
+    image: "/images/treatments/clario-lumiglow-v2.webp"
     category: "Facial – Intense Face Therapy"
     about: |
       A customised treatment designed around your skin. Based on your skin's condition, one of three boosters — deep cleansing, anti-ageing or intensive hydration — is chosen for you, helping restore balance, refine texture and bring back radiance.
