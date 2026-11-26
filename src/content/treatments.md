@@ -86,7 +86,7 @@ treatments:
     price: "$980"
     description: "Your fresh, dewy, glass-skin reset. Precision Dermapen microchannels infuse soluble ECM, non-crosslinked hyaluronic acid and skin-conditioning actives for a fresh, dewy glow."
     duration: "60 mins"
-    image: "/images/treatments/clario-super-glow-360.webp"
+    image: "/images/treatments/clario-super-glow-360-v2.webp"
     category: "Facial – Intense Face Therapy"
     about: |
       SUPERGLOW 360 is an advanced microchannel infusion treatment that combines precision Dermapen technology with highly active soluble ECM, non-crosslinked hyaluronic acid and skin-conditioning actives.
