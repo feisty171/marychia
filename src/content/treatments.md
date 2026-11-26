@@ -142,7 +142,7 @@ treatments:
     price: "$148"
     description: "A deep yet gentle cleansing facial that helps clear congested pores and bring back moisture, leaving skin fresh, smooth and balanced."
     duration: "45 mins"
-    image: ""
+    image: "/images/treatments/essential-face-therapy.webp"
     category: "Facial – Basic Face Therapy"
     about: |
       A deep yet gentle cleansing facial that helps clear congested pores, calm the look of blemishes and bring back moisture. It helps balance oily skin and refine texture, leaving your skin feeling fresh, smooth and comfortable.
