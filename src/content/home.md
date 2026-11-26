@@ -6,18 +6,12 @@
 #  Brand rules (no guaranteed results, no invented reviews) are in CLAUDE.md.
 # =====================================================================
 
-# Hero (over the reception photo). The *word in asterisks* in the headline
-# shows in italic rose. The booking button uses bookingUrl in src/data/site.json.
+# Hero: one line of words on the photo (written all in lowercase on purpose).
 hero:
-  eyebrow: "Since 1984 · Singapore's Beauty & Slimming Pioneer"
-  headline: "every transformation is a *story* worth telling."
-  text: "Tailored facials, body treatments and wellness rituals. Your therapist starts with a consultation, then builds a plan around your skin, body and goals."
-  exploreButton: "Explore treatments"
-  exploreLink: "/treatments/"
-  bookButton: "Book your first visit"
-  # Photo behind the hero. It is always shown whole, never cropped: behind the words on
-  # wide screens (the transparent menu sits on top of it), above the words on phones.
-  # Use a wide 1366 x 768 (16:9) image with a plain, light area on the left for the words.
+  headline: "the slimming and beauty specialist"
+  # Photo in the framed banner (rounded corners, like the Shop and Treatments banners).
+  # It fills the frame and is cropped to fit each screen, keeping its right side (the model);
+  # keep a plain, light area on the left for the words. Wide, about 2400 x 1100 or 1366 x 768.
   image: "/images/hero-home-portrait.webp"
   imageAlt: "A woman with soft, glowing skin resting her chin on her hands"
 

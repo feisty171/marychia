@@ -75,26 +75,15 @@ const heroWords = h.hero.headline
          Words and photo: src/content/home.md → hero. Styles: "Hero" in public/css/home.css.
          public/js/home.js sets --hp (0 → 1) as the hero scrolls away; the photo fades and drifts. -->
     <section class="ed-hero" id="home">
-      <!-- The photo is shown whole (never cropped): behind the words on wide screens, above them on phones -->
+      <!-- Framed banner like the Shop and Treatments banners: the photo fills it (cropped to fit,
+           keeping its right side), one line of words on its plain left side. -->
       <img class="ed-hero__bg" src={h.hero.image} alt={h.hero.imageAlt} width="1366" height="768" fetchpriority="high" />
       <div class="h-container ed-hero__grid">
-        <div class="ed-hero__copy">
-          <p class="ed-hero__eyebrow">{h.hero.eyebrow}</p>
-          <h1 class="ed-hero__title">
-            {heroWords.map((x, i) => (
-              <>{x.em && (i === 0 || !heroWords[i - 1].em) && <br class="ed-hero__br" />}<span class="ed-hero__w" style={`--w:${i}`}><span>{x.em ? <em>{x.w}</em> : x.w}</span></span></>
-            ))}
-          </h1>
-        </div>
-
-        <div class="ed-hero__foot">
-          <p class="ed-hero__lead">{h.hero.text}</p>
-          <div class="ed-hero__actions">
-            <a class="btn btn--rose" href={site.bookingUrl}>{h.hero.bookButton}</a>
-            <a class="h-textlink" href={h.hero.exploreLink}>{h.hero.exploreButton} <span aria-hidden="true">→</span></a>
-          </div>
-        </div>
-
+        <h1 class="ed-hero__title">
+          {heroWords.map((x, i) => (
+            <span class="ed-hero__w" style={`--w:${i}`}><span>{x.em ? <em>{x.w}</em> : x.w}</span></span>
+          ))}
+        </h1>
       </div>
     </section>
 
