@@ -37,6 +37,7 @@ stats:
 # "Find a treatment": heading over the Face / Body / Wellness tiles (the same tiles as the
 # Treatments page: src/components/CategoryTiles.astro). intro is optional (leave "" for none).
 services:
+  title: "what we offer"   # the title above the Face / Body / Wellness cards (lowercase on purpose; "" hides it)
   showHeading: false   # the "Find a treatment / What would you like to work on today?" heading, line and button; true shows them again
   eyebrow: "Find a treatment"
   # Bold uppercase heading; the *words in asterisks* show as a large italic line in the brand red

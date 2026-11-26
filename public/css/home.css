@@ -143,6 +143,8 @@ sup { font-size: .55em; vertical-align: super; line-height: 0; }
 .tp .tiles.tiles--compact .tile { aspect-ratio: 4 / 3; border-radius: 18px; }
 /* Home: the tiles span the same width as the hero banner (8–16px margin to the screen edges) */
 #services > .h-container { max-width: none; padding-inline: clamp(8px, 1vw, 16px); }
+/* "what we offer" above the tiles: lined up with the tiles, a little in from their edge */
+.offer-title { margin: 0 0 clamp(20px, 2.5vw, 32px); padding-inline: clamp(8px, 1.5vw, 24px); }
 /* show the photos as they are: no zoom on hover, framed on the person (the photos are portrait) */
 .tp .tiles--compact .tile .media img { object-position: center 30%; transform: none; transition: none; }
 .tp .tiles--compact .tile:hover .media img { transform: none; }
