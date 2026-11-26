@@ -16,9 +16,9 @@ promo: "First trial pricing for new guests"
 
 # The photo banner. image: a wide photo in public/images/ (landscape, about 2400 × 1100)
 hero:
-  heading: "Treatments, done really well."
-  image: "/images/site/hero-treatments.webp"
-  imageAlt: "A calm Mary Chia treatment room"
+  heading: "every treatment built around your needs."
+  image: "/images/treatments/treatments-hero.webp"
+  imageAlt: "A treatment bed with skincare bottles, a rolled towel and a soft blanket in warm afternoon light"
 
 # Labels on cards and buttons
 readMore: "read more"
