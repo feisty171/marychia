@@ -11,6 +11,10 @@
 }
 
 .h-section { padding: 64px 0; scroll-margin-top: 60px; }
+/* Under "What we offer" (tiles, banner carousel, first-visit and Our story banners, then Real
+   results) every block is the same distance apart: one --home-gap. */
+:root { --home-gap: clamp(28px, 3vw, 40px); }   /* home.css only loads on Home */
+.trial + #results { padding-top: 0; }
 .h-section--tint { background: var(--tint); }
 
 .h-head { max-width: 640px; margin-bottom: 32px; }
@@ -349,7 +353,7 @@ sup { font-size: .55em; vertical-align: super; line-height: 0; }
    8–16px side margin, 20px corners): a brand-red panel with the words at its bottom left,
    and the photo filling the right half with its own rounded corners over the red.
    Phones and tablets: the photo on top, the words below. */
-.trial { padding: clamp(56px, 7vw, 96px) 0; }
+.trial { padding: 0 0 var(--home-gap); }   /* the block above already leaves the gap */
 .trial__frame {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -401,8 +405,6 @@ sup { font-size: .55em; vertical-align: super; line-height: 0; }
   display: block;
 }
 /* two banners in a row (first visit, then Our story): one gap between them, not two */
-.trial + .trial { padding-top: 0; }
-.trial--story { padding-bottom: 0; }   /* Real results follows with its own top space */
 /* "Our story" (trial--story): the same banner mirrored; the archive photo is shown from its middle */
 .trial--story .trial__photo img { object-position: center; }
 @media (max-width: 960px) {
@@ -608,10 +610,10 @@ a.shop-item__link:focus-visible,
    Slides: src/content/home.md → banner → slides. Each picture keeps its own shape (never
    cropped); the track slides sideways (scroll-snap, so phones can swipe). Small dots sit
    on the bottom of the picture. Behaviour: public/js/home.js. */
-.h-banner { padding: 0 0 clamp(28px, 3vw, 40px); }   /* a gap before the next section, matching the gap above */
+.h-banner { padding: 0 0 var(--home-gap); }   /* a gap before the next section, matching the gap above */
 /* the same width as the hero banner: the narrow 8–16px margin to the screen edges, no page container */
 .h-banner > .h-container { max-width: none; padding-inline: clamp(8px, 1vw, 16px); }
-#services { padding-bottom: clamp(28px, 3vw, 40px); } /* keep the banner close to the tiles */
+#services { padding-bottom: var(--home-gap); } /* one even gap between everything under "What we offer" */
 .h-carousel { position: relative; }
 .h-carousel__track {
   display: flex;
