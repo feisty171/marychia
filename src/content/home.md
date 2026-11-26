@@ -182,9 +182,7 @@ trial:
 results:
   eyebrow: "Real results"
   heading: "Stories from *our clients*"   # *asterisks* = italic rose
-  allLink: "See all results"
-  allHref: "/gallery/"
-  show: 3                                  # how many Gallery results to show
+  show: 4                                  # how many result cards (one row as wide as the hero banner)
   reviewSource: "Read more"                # opens that studio's Google reviews page
 
 # Products ("Take the care home"). Hidden for now: set show to true to bring the Shop section back.

@@ -39,7 +39,7 @@ const [resBefore, resEm = "", resAfter = ""] = (h.results?.heading || "").split(
 const resultCards = (await resolveResults(loadResults()))
   .map((r) => ({ ...r, link: `/treatments/?area=${r.category.toLowerCase()}`, hasPhoto: !!(r.beforeSrc || r.afterSrc || r.imageSrc) }))
   .sort((a, b) => Number(b.hasPhoto) - Number(a.hasPhoto))
-  .slice(0, h.results?.show ?? 3);
+  .slice(0, h.results?.show ?? 4);
 // "Read on Google": the studio's Google Maps page (src/data/outlets.json)
 // Google Maps embed (no key needed) built from the studio's mapsUrl search words
 const mapEmbed = (u: string) => "https://maps.google.com/maps?q=" + encodeURIComponent(new URL(u).searchParams.get("query") || "") + "&z=16&output=embed";
@@ -255,7 +255,6 @@ const heroWords = h.hero.headline
               <p class="eyebrow">{h.results.eyebrow}</p>
               <h2 class="h-title">{resBefore}{resEm && <em>{resEm}</em>}{resAfter}</h2>
             </div>
-            <a class="h-textlink" href={h.results.allHref}>{h.results.allLink} <span aria-hidden="true">→</span></a>
           </header>
           {resultCards.length > 0 && (
             <ul class="g-grid res-grid" data-reveal="stagger">

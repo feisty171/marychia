@@ -147,6 +147,13 @@ sup { font-size: .55em; vertical-align: super; line-height: 0; }
 .tp .tiles.tiles--compact .tile { aspect-ratio: 4 / 3; border-radius: 18px; }
 /* Home: the tiles span the same width as the hero banner (8–16px margin to the screen edges) */
 #services > .h-container { max-width: none; padding-inline: clamp(8px, 1vw, 16px); }
+/* Real results: the cards span the same width as the hero banner, 4 in a row on wide screens;
+   the heading lines up with the words inside the cards */
+#results > .h-container { max-width: none; padding-inline: clamp(8px, 1vw, 16px); }
+#results .fav-head { padding-inline: clamp(8px, 1.5vw, 24px); }
+#results .res-marquee { --bleed: clamp(8px, 1vw, 16px); }   /* the reviews bleed only as far as the narrow margin */
+@media (min-width: 641px) { #results .res-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; } }
+@media (min-width: 1025px) { #results .res-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; } }
 /* "what we offer" above the tiles: the small red label style (.eyebrow, like "Real results"),
    lined up with the tile titles */
 .offer-title { margin: 0 0 clamp(14px, 1.6vw, 20px); padding-inline: clamp(8px, 1.5vw, 24px); line-height: var(--lh-body); }
