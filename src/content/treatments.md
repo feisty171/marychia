@@ -56,7 +56,7 @@ sections:
   - id: "featured"
     heading: "New Treatments"
     text: "The latest additions to our menu."
-    items: ["superglow", "xoskin", "pdrn"]
+    items: ["superglow", "xoskin", "pdrn", "fe-back"]
   - id: "facials"
     heading: "Facials"
     text: "Gentle, needle-free treatments to cleanse, hydrate and brighten."
