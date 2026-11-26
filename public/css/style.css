@@ -95,6 +95,11 @@
   --gutter: clamp(16px, 6vw, 96px);
   --nav-pad: var(--gutter);   /* nav side padding; the Home hero text lines up with it (changes at the nav breakpoints) */
   --header-h: 112px;
+  /* Photo banners at the top of Home, Shop and Treatments share one size: this height on wide
+     screens; on phones and tablets the photo keeps these shapes */
+  --banner-h: clamp(520px, 48vw, 780px);
+  --banner-ratio-tablet: 16 / 9;
+  --banner-ratio-phone: 4 / 3.4;
   --max: 1680px;              /* page width for every page: header, content and footer share these edges */
 }
 

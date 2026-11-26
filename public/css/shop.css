@@ -29,7 +29,7 @@
    A wide rounded photo (hero.image in shop.md) with a soft shade on the bottom-left so the white
    words read clearly. Wide screens: the brand buttons sit on the bottom-right of the photo.
    Phones and tablets: the buttons sit under the photo. */
-.shop-page { padding-top: calc(76px + 8px); }   /* phones and tablets: just under the menu */
+.shop-page { padding-top: calc(var(--header-h) + clamp(8px, 1vw, 16px)); }   /* phones and tablets: just under the menu, level with the Home and Treatments banners */
 /* a narrow margin to the screen edges, so the banner reads as a framed photo, not a full-bleed hero */
 .shop-hero__wrap { padding-inline: clamp(8px, 1vw, 16px); }
 @media (min-width: 961px) {
@@ -44,7 +44,7 @@
 .shop-hero__media {
   position: relative; overflow: hidden; border-radius: 20px;
   display: flex; align-items: flex-end;           /* words at the bottom; the box grows if they need room */
-  min-height: clamp(520px, 48vw, 780px);
+  min-height: var(--banner-h);   /* shared banner size (style.css) */
   background: rgb(var(--wine));
 }
 .shop-hero__media img,
@@ -104,7 +104,7 @@
 @media (max-width: 960px) {
   /* phones and tablets: the photo on top (faces in view), the words under it on the maroon */
   .shop-hero__media { display: block; min-height: 0; }
-  .shop-hero__media img { position: static; height: auto; aspect-ratio: 16 / 9; }
+  .shop-hero__media img { position: static; height: auto; aspect-ratio: var(--banner-ratio-tablet); }
   .shop-hero__media::after { display: none; }
   .shop-hero__media:has(img) .shop-hero__ph { display: none; }
   .shop-hero__words { padding: clamp(24px, 4vw, 40px); max-width: none; }
@@ -116,7 +116,7 @@
   .shop-hero__media:has(img) .shop-hero__intro { color: var(--text-color); }
 }
 @media (max-width: 640px) {
-  .shop-hero__media img { aspect-ratio: 4 / 3.4; }
+  .shop-hero__media img { aspect-ratio: var(--banner-ratio-phone); }
 }
 @media (max-width: 640px) {
   /* phones: three small tiles side by side, photo on top, name under it */

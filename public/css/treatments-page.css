@@ -13,7 +13,7 @@
 .tx-hero__media {
   position: relative; overflow: hidden; border-radius: 20px;
   display: grid; place-items: center;
-  height: clamp(460px, 44vw, 680px);
+  height: var(--banner-h);   /* same size as the Home and Shop banners (style.css) */
   padding: calc(var(--header-h) - 16px) var(--gutter) 40px;
   background: rgb(var(--wine));
   text-align: center;
@@ -44,7 +44,10 @@
 }
 @media (max-width: 960px) {
   .tx-hero { padding-top: calc(var(--header-h) + var(--tx-inset)); }
-  .tx-hero__media { height: clamp(260px, 62vw, 460px); padding-top: 32px; }
+  .tx-hero__media { height: auto; aspect-ratio: var(--banner-ratio-tablet); padding-top: 32px; }
+}
+@media (max-width: 640px) {
+  .tx-hero__media { aspect-ratio: var(--banner-ratio-phone); }
 }
 
 /* ---------- Tabs ---------- */

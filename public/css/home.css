@@ -1104,7 +1104,7 @@ a.shop-item__link:focus-visible,
   display: flex;
   align-items: center;
   aspect-ratio: auto;
-  height: clamp(460px, 44vw, 680px);
+  height: var(--banner-h);   /* same size as the Shop and Treatments banners (style.css) */
   margin: var(--hero-inset) var(--hero-inset) 0;
   padding: calc(var(--header-h) - 16px) 0 40px;
   border-radius: 20px;
@@ -1140,12 +1140,15 @@ a.shop-item__link:focus-visible,
 }
 @media (max-width: 960px) {
   .ed-hero {
-    height: clamp(280px, 70vw, 480px);
+    height: auto; aspect-ratio: var(--banner-ratio-tablet);
     margin-top: calc(var(--header-h) + var(--hero-inset));
     padding: 24px 0;
   }
   .ed-hero::before { content: none; }
   .ed-hero__title { font-size: var(--text-hero-phone); text-wrap: balance; }
+}
+@media (max-width: 640px) {
+  .ed-hero { aspect-ratio: var(--banner-ratio-phone); }
 }
 
 /* =========================================================
