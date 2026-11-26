@@ -83,7 +83,7 @@ const tab = home?.id === "featured" ? "featured" : home?.id || "all";
               </details>
             )}
             {t.benefits?.length > 0 && (
-              <details open={paras.length === 0}>
+              <details open>
                 <summary class="label">{t.benefitsLabel || c.benefitsLabel}</summary>
                 <div class="shop-acc__body shop-story"><ul>{t.benefits.map((b: string) => <li>{b}</li>)}</ul></div>
               </details>
