@@ -101,7 +101,7 @@ treatments:
     price: "$4,000"
     description: "Next-generation cellular messaging for your skin. 8 billion exosomes designed to support collagen renewal, help calm the look of irritation and strengthen the skin barrier."
     duration: "session/s"
-    image: "/images/treatments/xo-skin-exosomes.webp"
+    image: "/images/treatments/xo-skin-v2.webp"
     category: "New Collection – Prestige Series"
     about: |
       XO-SKIN is an advanced dual-vial exosome rejuvenation concentrate formulated with 8 billion lyophilised exosomes derived from adipose-derived mesenchymal stem cells (AD-MSCs). Made through pharmaceutical-grade lyophilisation and ISO-certified manufacturing, it delivers concentrated cellular signals designed to support the skin's natural renewal.
