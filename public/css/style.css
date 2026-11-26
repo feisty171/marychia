@@ -98,8 +98,7 @@
   /* Photo banners at the top of Home, Shop and Treatments share one size: this height on wide
      screens; on phones and tablets the photo keeps these shapes */
   --banner-h: clamp(520px, 48vw, 780px);
-  --banner-ratio-tablet: 16 / 9;
-  --banner-ratio-phone: 4 / 3.4;
+  --banner-h-mobile: clamp(600px, 160vw, 680px);   /* phones and tablets: the whole banner card */
   --max: 1680px;              /* page width for every page: header, content and footer share these edges */
 }
 

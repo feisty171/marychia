@@ -1140,15 +1140,12 @@ a.shop-item__link:focus-visible,
 }
 @media (max-width: 960px) {
   .ed-hero {
-    height: auto; aspect-ratio: var(--banner-ratio-tablet);
+    height: var(--banner-h-mobile);   /* as tall as the Shop banner card (style.css) */
     margin-top: calc(var(--header-h) + var(--hero-inset));
     padding: 24px 0;
   }
   .ed-hero::before { content: none; }
   .ed-hero__title { font-size: var(--text-hero-phone); text-wrap: balance; }
-}
-@media (max-width: 640px) {
-  .ed-hero { aspect-ratio: var(--banner-ratio-phone); }
 }
 
 /* =========================================================

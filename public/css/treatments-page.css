@@ -44,10 +44,7 @@
 }
 @media (max-width: 960px) {
   .tx-hero { padding-top: calc(var(--header-h) + var(--tx-inset)); }
-  .tx-hero__media { height: auto; aspect-ratio: var(--banner-ratio-tablet); padding-top: 32px; }
-}
-@media (max-width: 640px) {
-  .tx-hero__media { aspect-ratio: var(--banner-ratio-phone); }
+  .tx-hero__media { height: var(--banner-h-mobile); padding-top: 32px; }   /* as tall as the Shop banner card (style.css) */
 }
 
 /* ---------- Tabs ---------- */
