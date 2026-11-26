@@ -114,7 +114,7 @@ html:not(.tx-js) .tx-tab[aria-pressed="true"] { background: var(--white); color:
   background: var(--tint);
   display: grid; place-items: center;
 }
-.tx-card__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tx-card__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }   /* pinned to every edge, so it always fills the card */
 .tx-card__ph { font-size: var(--text-xs); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--text-color); }
 .tx-card__badge {
   position: absolute; top: 14px; right: 14px;
