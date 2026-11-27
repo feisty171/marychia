@@ -121,7 +121,8 @@ const jsonLd = {
       </div>
     )}
 
-    <!-- ============ 3. VISION & MISSION ============ -->
+    <!-- ============ 3. VISION & MISSION (hidden while visionMission.show is false) ============ -->
+    {c.visionMission?.show !== false && (
     <section class="a-section vm-section" id="vision-mission">
       <div class="a-container">
         <header class="a-head a-head--center">
@@ -148,6 +149,7 @@ const jsonLd = {
         )}
       </div>
     </section>
+    )}
 
   </main>
 

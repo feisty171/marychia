@@ -89,10 +89,11 @@ milestones:
 
 imagePlaceholder: "[[CONFIRM: heritage photo]]"
 # The closing line under the timeline, just before "What drives us".
-storyClose: "Today, the story continues with you."
+storyClose: ""   # the closing line after the timeline, e.g. "Today, the story continues with you." ("" hides it)
 
 # ---------- 3. Vision & Mission ----------
 visionMission:
+  show: false   # the whole "What drives us / Our Vision & Mission" section (and its Investor Relations line); true shows it again
   eyebrow: "What drives us"
   heading: "Our Vision & Mission"
   subtitle: "The principles behind every treatment, every studio and every person who walks through our doors."
