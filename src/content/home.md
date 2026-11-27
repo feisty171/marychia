@@ -164,7 +164,18 @@ favourites:
     - "classic-coffee-drainage"
     - "five-element-body-wellness"
 
-# First-visit banner, under the banner carousel. No guaranteed results (see CLAUDE.md).
+# "beauty begins with wellness": a banner between the banner carousel and the first-visit banner,
+# the same size and frame as the hero. Words centred on the photo's plain middle, in dark text.
+# The heading is lowercase on purpose. No guaranteed results (see CLAUDE.md).
+wellness:
+  image: "/images/site/wellness-banner.webp"
+  imageAlt: "Skincare bottles, a rose quartz gua sha and sage leaves on a soft blush background"
+  heading: "beauty begins with wellness"
+  text: "At Mary Chia, we believe real beauty starts with good health. For over 30 years we've brought face, body and wellness together, pairing advanced skin science with time-honoured therapies, to create care that's made for you. Results you can see. Care you can feel."
+  button: "Explore treatments"
+  buttonLink: "/treatments/"
+
+# First-visit banner, under the "beauty begins with wellness" banner. No guaranteed results (see CLAUDE.md).
 trial:
   # A framed banner the same size as the hero: brand-red panel with the words on the left,
   # the photo on the right (phones: photo on top, words below). Words are lowercase on purpose.

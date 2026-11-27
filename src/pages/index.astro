@@ -204,6 +204,22 @@ const heroWords = h.hero.headline
       </section>
     )}
 
+    <!-- ============ WELLNESS BANNER (src/content/home.md → wellness) ============
+         The same size and frame as the hero: the photo fills it, the words sit centred in dark text
+         on its plain middle. Styles: "Wellness banner" in public/css/home.css. -->
+    {h.wellness?.heading && (
+      <section class="wellbanner" id="wellness">
+        <div class="wellbanner__frame" data-reveal>
+          {h.wellness.image && <img class="wellbanner__img" src={h.wellness.image} alt={h.wellness.imageAlt || ""} loading="lazy" decoding="async" />}
+          <div class="wellbanner__words">
+            <h2 class="wellbanner__title">{h.wellness.heading}</h2>
+            {h.wellness.text && <p class="wellbanner__text">{h.wellness.text}</p>}
+            {h.wellness.button && <a class="btn btn--solid wellbanner__btn" href={h.wellness.buttonLink || "/treatments/"}>{h.wellness.button}</a>}
+          </div>
+        </div>
+      </section>
+    )}
+
     <!-- ============ FIRST-VISIT BANNER (src/content/home.md → trial) ============
          Same size and frame as the hero banner: a brand-red panel with the words (left) and the
          photo (right); phones: photo on top, words below. Styles: "First-visit banner" in home.css. -->
