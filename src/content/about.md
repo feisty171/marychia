@@ -75,17 +75,11 @@ milestones:
     image: "/images/heritage/2018-2019.webp"
     imageAlt: "The Singapore Prestige Brand Award 2019 emblem"
 
-  - year: "2020–2022"
+  - year: "2020–Today"
     title: "Evolving for a New Generation"
     text: "A new chapter began with a refreshed Mary Chia identity and a renewed focus on contemporary, customer-centred experiences. Spa Menu Academy attained its Approved Training Organisation licence, strengthening how our therapists are trained, while new retail and online partners made our products easier to find beyond the studios."
     image: "/images/heritage/2020-2022.webp"
     imageAlt: "The refreshed Mary Chia logo"
-
-  - year: "2024–2026"
-    title: "Organica International Rises Strong"
-    text: "Drawing on Mary Chia's decades of beauty and wellness expertise, the Group reactivated Organica International in Singapore as its home for innovative skincare, before growing into key Asian markets. [[CONFIRM: keep this chapter on the Mary Chia site?]]"
-    image: "/images/heritage/2024-2026.webp"
-    imageAlt: "The Mary Chia and Organica International team at a company celebration in 2025"
 
 imagePlaceholder: "[[CONFIRM: heritage photo]]"
 # The closing line under the timeline, just before "What drives us".
