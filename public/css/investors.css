@@ -62,12 +62,14 @@
 
 .ir-section { padding: 32px 0; }
 .ir-section--more { padding-bottom: 72px; }
-/* "ANNUAL REPORTS" / "SUSTAINABILITY REPORTS": the site's small red capital label style */
+/* "ANNUAL REPORTS" / "SUSTAINABILITY REPORTS": the same as the Treatments page section titles
+   (.tx-sec__title): bold, --text-2xl, red, capitals */
 .ir-heading {
-  margin: 0 0 16px;
-  font-size: var(--text-xs);
-  font-weight: var(--fw-label);
-  letter-spacing: var(--tracking-label);
+  margin: 0 0 20px;
+  font-size: var(--text-2xl);
+  font-weight: var(--fw-heading);
+  line-height: var(--lh-heading);
+  letter-spacing: 0;
   text-transform: uppercase;
   color: var(--rose);
 }
