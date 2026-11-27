@@ -27,7 +27,7 @@ locations:
   heading: "Visit a studio"
   lede: ""   # optional line under the heading
   studioLabel: "Mary Chia Studio"
-  directions: "Get directions"
+  directions: "Directions"   # the button on each studio card (opens Google Maps)
 
 # ---------- 2. Feedback / Enquiry ----------
 enquiry:

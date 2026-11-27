@@ -69,8 +69,8 @@ const jsonLd = {
               <article class="office" id={`studio-${slug(o.name)}`}>
                 <iframe class="office__map" src={mapEmbed(o)} loading="lazy" referrerpolicy="no-referrer-when-downgrade" title={`Map of Mary Chia ${o.name}`}></iframe>
                 <div class="office__body">
-                  <h3>{o.name}</h3>
-                  <p class="office__reg">{c.locations.studioLabel}</p>
+                  <p class="label office__reg">{c.locations.studioLabel}</p>
+                  <h3 class="office__name">{o.name}</h3>
                   <p class="office__addr">{o.address}<br />Singapore {o.postalCode}</p>
                   <div class="office__rows">
                     <div><span class="k">Tel</span><a href={tel(o.phone)}>{o.phone}</a></div>
@@ -78,7 +78,7 @@ const jsonLd = {
                     <div><span class="k">WhatsApp</span>{wa ? <a href={wa}>{o.whatsapp}</a> : <span>{o.whatsapp}</span>}</div>
                     <div><span class="k">Hours</span><span>{o.hours}</span></div>
                   </div>
-                  <a class="office__dir" href={o.mapsUrl} target="_blank" rel="noopener"><span class="dl"></span>{c.locations.directions}</a>
+                  <a class="btn btn--solid office__dir" href={o.mapsUrl} target="_blank" rel="noopener">{c.locations.directions} <span aria-hidden="true">↗</span></a>
                 </div>
               </article>
             );
