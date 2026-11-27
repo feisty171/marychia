@@ -10,6 +10,13 @@
 .page-contact .page-banner + .a-section { margin-top: clamp(8px, 1vw, 16px); }
 
 
+/* ---------- Section titles: the same as the Treatments page section titles
+   (bold, --text-2xl, red, capitals, with a grey line under them) ---------- */
+.ct-head { display: flex; flex-direction: column; gap: 6px; margin: 0 0 24px; }
+.ct-head--center { align-items: center; text-align: center; }
+.ct-title { margin: 0; font-size: var(--text-2xl); color: var(--rose); letter-spacing: 0; text-transform: uppercase; }
+.ct-text { margin: 0; max-width: 60ch; font-size: var(--text-base); color: var(--text-color); }
+
 /* ---------- Studio cards ----------
    The same card look as the rest of the site (Treatments and Gallery cards): white, rounded,
    soft shadow; the small red label above the name; body text and labels from the site's tokens. */

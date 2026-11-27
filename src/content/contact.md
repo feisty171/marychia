@@ -23,7 +23,7 @@ banner:
 
 # ---------- 1. Our Location ----------
 locations:
-  eyebrow: "Our Location"
+  eyebrow: "Our Location"     # not shown (the titles follow the Treatments page style)
   heading: "Visit a studio"
   lede: ""   # optional line under the heading
   studioLabel: "Mary Chia Studio"
@@ -31,7 +31,7 @@ locations:
 
 # ---------- 2. Feedback / Enquiry ----------
 enquiry:
-  eyebrow: "Feedback / Enquiry"
+  eyebrow: "Feedback / Enquiry"   # not shown
   heading: "Write to us."
   lede: "Questions about a treatment, feedback on your visit, or anything else: we'd love to hear it."
   formNote: "[[CONFIRM: enquiry email address for this form]]"

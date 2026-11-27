@@ -57,10 +57,9 @@ const jsonLd = {
     <!-- ============ 1. OUR LOCATION ============ -->
     <section class="a-section a-section--tint where-section" id="locations">
       <div class="a-container">
-        <header class="a-head">
-          <p class="eyebrow">{c.locations.eyebrow}</p>
-          <h2 class="a-title">{c.locations.heading}</h2>
-          {c.locations.lede && <p class="a-lede">{c.locations.lede}</p>}
+        <header class="ct-head">
+          <h2 class="ct-title">{c.locations.heading}</h2>
+          {c.locations.lede && <p class="ct-text">{c.locations.lede}</p>}
         </header>
         <div class="office-grid">
           {outlets.map((o) => {
@@ -92,10 +91,9 @@ const jsonLd = {
     <!-- ============ 2. FEEDBACK / ENQUIRY ============ -->
     <section class="a-section" id="enquiry">
       <div class="a-container">
-        <header class="a-head a-head--center">
-          <p class="eyebrow">{c.enquiry.eyebrow}</p>
-          <h2 class="a-title">{c.enquiry.heading}</h2>
-          <p class="a-lede">{c.enquiry.lede}</p>
+        <header class="ct-head ct-head--center">
+          <h2 class="ct-title">{c.enquiry.heading}</h2>
+          {c.enquiry.lede && <p class="ct-text">{c.enquiry.lede}</p>}
         </header>
         <form class="cform" id="contactForm" data-email={mailTo}>
           <label class="visually-hidden" for="topic">{c.enquiry.topicLabel}</label>
