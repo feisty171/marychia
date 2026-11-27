@@ -41,7 +41,10 @@ const defaultTab = tabIds.includes(c.defaultTab) ? c.defaultTab : tabIds[0];
         {c.hero.image
           ? <img src={c.hero.image} alt={c.hero.imageAlt || ""} decoding="async" fetchpriority="high" />
           : <div class="tx-hero__ph" aria-hidden="true"><small>Photo or video · 2400 × 1100</small></div>}
-        <h1 class="tx-hero__title">{c.hero.heading}</h1>
+        <div class="tx-hero__words">
+          {c.hero.eyebrow && <p class="label tx-hero__eyebrow">{c.hero.eyebrow}</p>}
+          <h1 class="tx-hero__title">{c.hero.heading}</h1>
+        </div>
       </div>
     </section>
 

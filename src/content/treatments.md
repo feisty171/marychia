@@ -13,6 +13,7 @@ seo:
 
 # The photo banner. image: a wide photo in public/images/ (landscape, about 2400 × 1100)
 hero:
+  eyebrow: "Browse treatments"   # the small label above the heading (shows in capitals; "" hides it)
   heading: "every treatment built around your needs."
   image: "/images/treatments/treatments-hero.webp"
   imageAlt: "A treatment bed with skincare bottles, a rolled towel and a soft blanket in warm afternoon light"
