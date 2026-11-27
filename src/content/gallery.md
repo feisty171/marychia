@@ -16,6 +16,10 @@ seo:
   title: "Gallery & Results | Mary Chia"
   description: "See results our clients have shared after their Mary Chia face, body and wellness treatments, shown with their written permission."
 
+# The photo banner at the top (the same size and frame as the Treatments banner).
+# image: a wide photo in public/images/ (landscape, about 2400 × 1100); "" shows a placeholder.
+image: ""
+imageAlt: ""
 eyebrow: "Gallery / Results"
 heading: "Results our clients *love*"   # *asterisks* = italic rose
 lede: "A look at what some of our clients have experienced, shared with their permission. Every skin and body is different, so your therapist will tailor your plan to you."

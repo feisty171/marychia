@@ -28,29 +28,34 @@ const filters: string[] = (g.filters as string[]).filter((f) => results.some((r)
   title={g.seo.title}
   description={g.seo.description}
   current="gallery"
-  solidHeader
+  clearHeader
   bodyClass="page-gallery"
   styles={["gallery.css"]}
   scripts={["gallery.js"]}
 >
   <main>
-    <section class="a-section gallery-page" id="results">
-      <div class="a-container">
-        <header class="g-head">
-          <div>
-            <p class="eyebrow">{g.eyebrow}</p>
-            <h1 class="g-title" set:html={withEm(g.heading)} />
-          </div>
-          <p class="a-lede g-lede">{g.lede}</p>
-        </header>
+    {/* Same layout as the Treatments page: a photo banner (image in gallery.md, framed like the other
+        banners, with the see-through menu on it), the filter buttons centred under it, then the results. */}
+    <section class="g-banner">
+      <div class="g-banner__media">
+        {g.image
+          ? <img src={g.image} alt={g.imageAlt || ""} decoding="async" fetchpriority="high" />
+          : <div class="g-banner__ph" aria-hidden="true"><small>Photo · 2400 × 1100</small></div>}
+        <div class="g-banner__words">
+          <p class="label g-banner__eyebrow">{g.eyebrow}</p>
+          <h1 class="g-banner__title" set:html={withEm(g.heading)} />
+          {g.lede && <p class="g-banner__lede">{g.lede}</p>}
+        </div>
+      </div>
+    </section>
 
+    <section class="gallery-page" id="results">
+      <div class="a-container">
         {filters.length > 1 && (
           <div class="g-filters" role="group" aria-label="Show results for">
-            <button type="button" class="g-chip" data-filter="all" aria-pressed="true">All <span>{results.length}</span></button>
+            <button type="button" class="g-chip" data-filter="all" aria-pressed="true">All</button>
             {filters.map((f) => (
-              <button type="button" class="g-chip" data-filter={f.toLowerCase()} aria-pressed="false">
-                {f} <span>{results.filter((r) => r.category === f).length}</span>
-              </button>
+              <button type="button" class="g-chip" data-filter={f.toLowerCase()} aria-pressed="false">{f}</button>
             ))}
           </div>
         )}
