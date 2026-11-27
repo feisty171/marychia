@@ -8,6 +8,7 @@ import fs from "node:fs";
 import path from "node:path";
 import Base from "../layouts/Base.astro";
 import Footer from "../components/Footer.astro";
+import PageBanner from "../components/PageBanner.astro";
 import { frontmatter as c } from "../content/investors.md";
 import { isPlaceholder, realUrl } from "../lib/links";
 
@@ -46,19 +47,7 @@ const email = isPlaceholder(c.enquiryEmail) ? null : c.enquiryEmail;
   styles={["investors.css"]}
 >
   <main>
-    {/* Photo banner (hero.image in investors.md), framed like the Home, Shop and Treatments banners,
-        with the see-through menu on it. Until a photo is added, a placeholder shows its size. */}
-    <section class="ir-banner">
-      <div class="ir-banner__media">
-        {c.hero.image
-          ? <img src={c.hero.image} alt={c.hero.imageAlt || ""} decoding="async" fetchpriority="high" />
-          : <div class="ir-banner__ph" aria-hidden="true"><small>Photo · 2400 × 1100</small></div>}
-        <div class="ir-banner__words">
-          <p class="label ir-banner__eyebrow">{c.hero.eyebrow}</p>
-          <h1 class="ir-banner__title">{c.hero.heading}</h1>
-        </div>
-      </div>
-    </section>
+    <PageBanner image={c.hero.image} imageAlt={c.hero.imageAlt} eyebrow={c.hero.eyebrow} heading={c.hero.heading} />
 
     <section class="ir-hero">
       <div class="ir-container">

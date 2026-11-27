@@ -11,6 +11,16 @@ seo:
   title: "Contact Us | Mary Chia Studios & Enquiries"
   description: "Find a Mary Chia studio in Novena, Simei or Jurong East, or send us your feedback and enquiries."
 
+# ---------- Banner at the top ----------
+# The same size and frame as the other page banners. image: a wide photo in public/images/
+# (landscape, about 2400 × 1100); "" shows a placeholder. The heading is lowercase on purpose.
+banner:
+  image: ""
+  imageAlt: ""
+  eyebrow: "Contact us"
+  heading: "we'd love to hear from you."
+  lede: ""
+
 # ---------- 1. Our Location ----------
 locations:
   eyebrow: "Our Location"

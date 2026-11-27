@@ -6,7 +6,8 @@
    ========================================================= */
 
 /* ---------- Page start: Our Location sits right under the light header ---------- */
-.page-contact main > .a-section:first-child { padding-top: calc(68px + 48px); }
+/* the page opens with the shared photo banner (PageBanner); the first section follows with a normal gap */
+.page-contact .page-banner + .a-section { margin-top: clamp(8px, 1vw, 16px); }
 
 
 /* ---------- Studio cards + enquiry form ---------- */
@@ -131,7 +132,6 @@
 
 /* ---------- Tablet and up ---------- */
 @media (min-width: 641px) {
-  .page-contact main > .a-section:first-child { padding-top: calc(76px + clamp(56px, 7vw, 96px)); }
   .office-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
 }
 

@@ -1,0 +1,29 @@
+---
+/**
+ * Photo banner at the top of a page (Gallery, Investor Relations, Contact Us): the same size and
+ * frame as the Home, Shop and Treatments banners (--banner-h / --banner-h-mobile in style.css,
+ * 8–16px margin, 20px corners), with the label, heading and an optional line centred in white.
+ * Use with clearHeader on <Base> so the see-through menu sits on it.
+ * Until `image` is set, a maroon placeholder shows the recommended size.
+ * Styles: "Page banner" in public/css/style.css.
+ *   image, imageAlt – the photo (landscape, about 2400 × 1100); "" = placeholder
+ *   eyebrow         – small label above the heading (shows in capitals)
+ *   heading         – the page title (h1); *asterisks* are dropped (the banner is all white)
+ *   lede            – optional line under the heading
+ */
+interface Props { image?: string; imageAlt?: string; eyebrow?: string; heading: string; lede?: string }
+const { image = "", imageAlt = "", eyebrow = "", heading, lede = "" } = Astro.props;
+const title = heading.replace(/\*/g, "");
+---
+<section class="page-banner">
+  <div class="page-banner__media">
+    {image
+      ? <img src={image} alt={imageAlt} decoding="async" fetchpriority="high" />
+      : <div class="page-banner__ph" aria-hidden="true"><small>Photo · 2400 × 1100</small></div>}
+    <div class="page-banner__words">
+      {eyebrow && <p class="label page-banner__eyebrow">{eyebrow}</p>}
+      <h1 class="page-banner__title">{title}</h1>
+      {lede && <p class="page-banner__lede">{lede}</p>}
+    </div>
+  </div>
+</section>

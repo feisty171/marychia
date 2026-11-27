@@ -9,6 +9,7 @@
  * A result's photos only show when its `consent` is true; otherwise a placeholder shows.
  */
 import ResultCard from "../components/ResultCard.astro";
+import PageBanner from "../components/PageBanner.astro";
 import Base from "../layouts/Base.astro";
 import Footer from "../components/Footer.astro";
 import { frontmatter as g } from "../content/gallery.md";
@@ -36,18 +37,7 @@ const filters: string[] = (g.filters as string[]).filter((f) => results.some((r)
   <main>
     {/* Same layout as the Treatments page: a photo banner (image in gallery.md, framed like the other
         banners, with the see-through menu on it), the filter buttons centred under it, then the results. */}
-    <section class="g-banner">
-      <div class="g-banner__media">
-        {g.image
-          ? <img src={g.image} alt={g.imageAlt || ""} decoding="async" fetchpriority="high" />
-          : <div class="g-banner__ph" aria-hidden="true"><small>Photo · 2400 × 1100</small></div>}
-        <div class="g-banner__words">
-          <p class="label g-banner__eyebrow">{g.eyebrow}</p>
-          <h1 class="g-banner__title" set:html={withEm(g.heading)} />
-          {g.lede && <p class="g-banner__lede">{g.lede}</p>}
-        </div>
-      </div>
-    </section>
+    <PageBanner image={g.image} imageAlt={g.imageAlt} eyebrow={g.eyebrow} heading={g.heading} lede={g.lede} />
 
     <section class="gallery-page" id="results">
       <div class="a-container">
