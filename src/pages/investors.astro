@@ -35,15 +35,27 @@ const email = isPlaceholder(c.enquiryEmail) ? null : c.enquiryEmail;
   title={c.seo.title}
   description={c.seo.description}
   current="investors"
-  solidHeader
+  clearHeader
   bodyClass="page-investors"
   styles={["investors.css"]}
 >
   <main>
+    {/* Photo banner (hero.image in investors.md), framed like the Home, Shop and Treatments banners,
+        with the see-through menu on it. Until a photo is added, a placeholder shows its size. */}
+    <section class="ir-banner">
+      <div class="ir-banner__media">
+        {c.hero.image
+          ? <img src={c.hero.image} alt={c.hero.imageAlt || ""} decoding="async" fetchpriority="high" />
+          : <div class="ir-banner__ph" aria-hidden="true"><small>Photo · 2400 × 1100</small></div>}
+        <div class="ir-banner__words">
+          <p class="label ir-banner__eyebrow">{c.hero.eyebrow}</p>
+          <h1 class="ir-banner__title">{c.hero.heading}</h1>
+        </div>
+      </div>
+    </section>
+
     <section class="ir-hero">
       <div class="ir-container">
-        <p class="eyebrow">{c.hero.eyebrow}</p>
-        <h1 class="ir-hero__title">{c.hero.heading}</h1>
         <p class="ir-hero__lede">{c.hero.lede}</p>
       </div>
     </section>
