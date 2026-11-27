@@ -356,27 +356,50 @@ sup { font-size: .55em; vertical-align: super; line-height: 0; }
 @media (min-width: 1100px) { .fav-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; } }
 
 /* ---------- Wellness banner (src/content/home.md → wellness) ----------
-   The same size and frame as the hero banner (--banner-h / --banner-h-mobile, 8–16px margin,
-   20px corners). The light photo fills it; the words sit centred on its plain middle in the
-   site's usual dark text, with the black pill button. */
+   Styled like the Home hero: the same size and frame (--banner-h / --banner-h-mobile, 8–16px margin,
+   20px corners), the same soft shade over the photo, the title in white on one line (from 961px) at
+   the hero's size, the paragraph in white (about 3 lines), and the outlined white pill button used
+   on the first-visit and Our story banners. */
 .wellbanner { padding: 0 0 var(--home-gap); }
 .wellbanner__frame {
-  position: relative; overflow: hidden;
+  position: relative; overflow: hidden; isolation: isolate;
   display: grid; place-items: center; text-align: center;
   height: var(--banner-h);
   margin: 0 clamp(8px, 1vw, 16px);
   padding: 40px var(--gutter);
   border-radius: 20px;
-  background: var(--tint);
+  background: rgb(var(--wine));
 }
-.wellbanner__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
-.wellbanner__words { position: relative; z-index: 1; display: grid; justify-items: center; gap: 16px; max-width: 640px; }
-.wellbanner__title { margin: 0; font-size: var(--text-display); color: var(--ink); }
-.wellbanner__text { margin: 0; font-size: var(--text-base); line-height: var(--lh-body); color: var(--text-color); text-wrap: balance; }
-.wellbanner__btn { margin-top: 8px; }
+.wellbanner__img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; display: block; }
+.wellbanner__frame::after {   /* the same soft shade as the hero, so the white words read */
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: rgba(var(--shade), .28);
+}
+.wellbanner__words { display: grid; justify-items: center; gap: 16px; }
+.wellbanner__title {
+  margin: 0;
+  font-size: var(--text-display);
+  color: var(--white);
+  text-shadow: 0 1px 14px rgba(var(--shade), .35);
+}
+.wellbanner__text {
+  margin: 0;
+  max-width: min(860px, 100%);   /* about 3 lines on desktop */
+  font-size: var(--text-base); line-height: var(--lh-body);
+  color: rgba(var(--blush-rgb), .92);
+  text-shadow: 0 1px 10px rgba(var(--shade), .35);
+  text-wrap: balance;
+}
+.wellbanner .btn.wellbanner__btn { margin-top: 8px; justify-content: center; }   /* label centred (beats the shared pill's left label) */
+@media (min-width: 961px) {
+  .wellbanner__words { width: fit-content; max-width: 100%; }
+  .wellbanner__title { font-size: min(var(--fs-hero), 4.2vw); white-space: nowrap; }   /* one line, like the hero */
+  /* the paragraph is exactly as wide as the title: even, justified lines, the last one centred */
+  .wellbanner__text { width: 0; min-width: 100%; max-width: none; text-align: justify; text-align-last: center; text-wrap: wrap; }
+}
 @media (max-width: 960px) {
   .wellbanner__frame { height: var(--banner-h-mobile); padding: 32px 24px; }
-  .wellbanner__words { max-width: 520px; }
+  .wellbanner__title { text-wrap: balance; }
 }
 
 /* ---------- First-visit banner (src/content/home.md → trial) ----------

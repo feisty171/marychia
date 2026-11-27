@@ -210,11 +210,11 @@ const heroWords = h.hero.headline
     {h.wellness?.heading && (
       <section class="wellbanner" id="wellness">
         <div class="wellbanner__frame" data-reveal>
-          {h.wellness.image && <img class="wellbanner__img" src={h.wellness.image} alt={h.wellness.imageAlt || ""} loading="lazy" decoding="async" />}
+          {h.wellness.image && <img class="wellbanner__img" src={h.wellness.image} alt={h.wellness.imageAlt || ""} decoding="async" />}
           <div class="wellbanner__words">
             <h2 class="wellbanner__title">{h.wellness.heading}</h2>
             {h.wellness.text && <p class="wellbanner__text">{h.wellness.text}</p>}
-            {h.wellness.button && <a class="btn btn--solid wellbanner__btn" href={h.wellness.buttonLink || "/treatments/"}>{h.wellness.button}</a>}
+            {h.wellness.button && <a class="btn trial__btn wellbanner__btn" href={h.wellness.buttonLink || "/treatments/"}>{h.wellness.button}</a>}
           </div>
         </div>
       </section>

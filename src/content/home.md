@@ -170,7 +170,7 @@ favourites:
 wellness:
   image: "/images/site/wellness-banner.webp"
   imageAlt: "Skincare bottles, a rose quartz gua sha and sage leaves on a soft blush background"
-  heading: "beauty begins with wellness"
+  heading: "beauty begins with wellness."
   text: "At Mary Chia, we believe real beauty starts with good health. For over 30 years we've brought face, body and wellness together, pairing advanced skin science with time-honoured therapies, to create care that's made for you. Results you can see. Care you can feel."
   button: "Explore treatments"
   buttonLink: "/treatments/"
