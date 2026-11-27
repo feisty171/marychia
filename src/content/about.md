@@ -13,19 +13,11 @@ seo:
 # ---------- 1. Opening ----------
 hero:
   eyebrow: "About Us"
-  heading: "Our *Heritage*"   # *asterisks* = italic rose
+  heading: "our heritage."   # lowercase on purpose (shown as written, not in capitals)
   tagline: "Embrace beauty and be truly you."
   lede: "Mary Chia is a homegrown Singapore beauty and wellness brand, shaped by more than four decades of personal care. From doorstep facials to studios across the island, each chapter has deepened our understanding of skin, body and wellbeing. Scroll on to explore the milestones and people behind Mary Chia."
-  # Three short facts in a row under the paragraph (a big figure with a small line under it)
-  facts:
-    - value: "1982"
-      label: "Where it began"
-    - value: "40+"
-      label: "Years of beauty & wellness"
-    - value: "Singapore"
-      label: "Homegrown, island-wide"
-  explore: "Explore our history"
-  range: "1982 — Today"
+  # Optional: a row of short facts under the paragraph (facts: - value / label) and an
+  # "Explore our history" link (explore, range) can be added back here; both are off for now.
   # Background photo behind the hero (landscape, at least 1920 wide). Faces are kept in view on the right/centre.
   image: "/images/about/hero-1994-team.webp"
   imageAlt: "The Mary Chia team in 1994, outside Mary Chia Beauty House"

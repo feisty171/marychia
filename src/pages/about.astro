@@ -54,13 +54,15 @@ const jsonLd = {
           )}
         </div>
       </section>
-      <div class="a-container">
-        <a class="heritage-portal" href="#heritage-timeline">
-          <strong>{c.hero.explore}</strong>
-          <small>{c.hero.range}</small>
-          <span class="heritage-portal__ring" aria-hidden="true"><b>&#8595;</b></span>
-        </a>
-      </div>
+      {c.hero.explore && (
+        <div class="a-container">
+          <a class="heritage-portal" href="#heritage-timeline">
+            <strong>{c.hero.explore}</strong>
+            <small>{c.hero.range}</small>
+            <span class="heritage-portal__ring" aria-hidden="true"><b>&#8595;</b></span>
+          </a>
+        </div>
+      )}
     </div>
 
     <!-- ============ 2. TIMELINE ============ -->
