@@ -14,7 +14,7 @@ seo:
 hero:
   eyebrow: "About Us"
   heading: "our heritage."   # lowercase on purpose (shown as written, not in capitals)
-  tagline: "Embrace beauty and be truly you."
+  tagline: ""   # the line under the heading ("" hides it; the brand tagline still shows in the footer)
   lede: "Mary Chia is a homegrown Singapore beauty and wellness brand, shaped by more than four decades of personal care. From doorstep facials to studios across the island, each chapter has deepened our understanding of skin, body and wellbeing. Scroll on to explore the milestones and people behind Mary Chia."
   # Optional: a row of short facts under the paragraph (facts: - value / label) and an
   # "Explore our history" link (explore, range) can be added back here; both are off for now.

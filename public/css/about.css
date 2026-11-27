@@ -122,10 +122,11 @@
   color: rgba(255, 255, 255, .88);
 }
 .heritage-hero__lede {
-  max-width: 56ch;
+  max-width: min(860px, 100%);   /* wide enough to settle into about 3 lines on desktop */
   margin: 0;
   font-size: var(--fs-text);
-  line-height: 1.75;
+  line-height: 1.6;
+  text-wrap: balance;
   color: rgba(255, 255, 255, .86);
 }
 
@@ -569,4 +570,4 @@
    Vision) shows in full capitals. The words in about.md stay in normal case. */
 .page-about main :is(h1, h2, h3) { text-transform: uppercase; letter-spacing: 0; }
 /* except the opening title, which is written in lowercase on purpose ("our heritage.") */
-.page-about .heritage-hero__title { text-transform: none; letter-spacing: var(--tracking-heading); }
+.page-about .heritage-hero__title { text-transform: none; letter-spacing: var(--tracking-heading); margin-bottom: 20px; }

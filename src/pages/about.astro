@@ -43,7 +43,7 @@ const jsonLd = {
         <div class="a-container heritage-hero__inner">
           <p class="heritage-hero__eyebrow">{c.hero.eyebrow}</p>
           <h1 class="heritage-hero__title">{heroBefore}{heroEm && <em>{heroEm}</em>}{heroAfter}</h1>
-          <p class="heritage-hero__tagline">{c.hero.tagline}</p>
+          {c.hero.tagline && <p class="heritage-hero__tagline">{c.hero.tagline}</p>}
           <p class="heritage-hero__lede">{c.hero.lede}</p>
           {c.hero.facts?.length > 0 && (
             <ul class="heritage-facts">
