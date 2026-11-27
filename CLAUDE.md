@@ -81,7 +81,7 @@ All fonts, colours and type sizes are **tokens** at the top of `public/css/style
 ## Common edits
 
 ### Change a sentence on About Us
-Edit the text inside the quotes in `src/content/about.md`.
+Edit the text inside the quotes in `src/content/about.md`. Every title on the About page (Our Heritage, the milestone titles, Our Vision & Mission, Mission, Vision) shows in full capitals ("Titles in capitals" at the end of `public/css/about.css`); keep writing them in normal case in `about.md`.
 
 ### Add, edit or remove an outlet
 Edit `src/data/outlets.json`. Each outlet is one `{ ... }` block:

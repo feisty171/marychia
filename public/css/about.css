@@ -564,3 +564,8 @@
   .heritage-opening { --hp: 0 !important; }
   .storyline.fade-in { opacity: 1; transform: none; transition: none; }
 }
+
+/* ---------- Titles in capitals ----------
+   Every title on the About page (Our Heritage, the milestone titles, What drives us, Mission,
+   Vision) shows in full capitals. The words in about.md stay in normal case. */
+.page-about main :is(h1, h2, h3) { text-transform: uppercase; letter-spacing: 0; }
