@@ -13,7 +13,7 @@ import { isPlaceholder, realUrl } from "../lib/links";
 
 type Report = { title: string; date: string; file: string; note?: string };
 
-// File size, read from the PDF itself so nobody has to type it in
+// Is the PDF in public/reports/ yet? (its size, or null if not)
 const sizeOf = (file: string) => {
   try {
     const bytes = fs.statSync(path.join(process.cwd(), "public", "reports", file)).size;
@@ -22,19 +22,13 @@ const sizeOf = (file: string) => {
     return null; // listed but not uploaded yet
   }
 };
-// "2026-09-12" → "12 Sep 2026"
-const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-const fmtDate = (d: string) => {
-  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d || "");
-  return m ? `${Number(m[3])} ${MONTHS[Number(m[2]) - 1]} ${m[1]}` : d;
-};
-// newest first, with the link and size filled in
+// newest first (by date), linking to the PDF once it is in the folder
 const prepare = (list: Report[] = []) =>
   [...list]
     .sort((a, b) => (b.date || "").localeCompare(a.date || ""))
     .map((r) => {
       const size = r.file ? sizeOf(r.file) : null;
-      return { ...r, when: fmtDate(r.date), href: size ? `/reports/${r.file}` : null, size };
+      return { ...r, href: size ? `/reports/${r.file}` : null };
     });
 const sections = [
   { id: "annual", heading: c.annualHeading, reports: prepare(c.annualReports) },
@@ -80,14 +74,15 @@ const email = isPlaceholder(c.enquiryEmail) ? null : c.enquiryEmail;
           <ul class="ir-list">
             {sec.reports.map((r) => (
               <li class="ir-row">
-                <time class="ir-row__year" datetime={r.date}>{r.when}</time>
-                <span class="ir-row__title">{r.title}{r.note && <small class="ir-row__note">{r.note}</small>}</span>
                 {r.href
-                  ? <a class="ir-row__dl" href={r.href} target="_blank" rel="noopener" aria-label={`${r.title}${r.note ? `, ${r.note}` : ""} (PDF, ${r.size}, opens in a new tab)`}>
-                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>
-                      {c.openLabel} · {r.size}
+                  ? <a class="ir-row__link" href={r.href} target="_blank" rel="noopener" aria-label={`${r.title}${r.note ? `, ${r.note}` : ""} (PDF, opens in a new tab)`}>
+                      <span class="ir-row__title">{r.title}{r.note && <small class="ir-row__note">{r.note}</small>}</span>
+                      <span class="ir-row__open" aria-hidden="true">{c.openLabel} <svg viewBox="0 0 24 24"><path d="M8 16 16 8M9 8h7v7"/></svg></span>
                     </a>
-                  : <span class="ir-row__dl is-pending">{c.comingSoonLabel}</span>}
+                  : <span class="ir-row__link is-pending">
+                      <span class="ir-row__title">{r.title}{r.note && <small class="ir-row__note">{r.note}</small>}</span>
+                      <span class="ir-row__open">{c.comingSoonLabel}</span>
+                    </span>}
               </li>
             ))}
           </ul>

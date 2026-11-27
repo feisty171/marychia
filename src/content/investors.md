@@ -21,14 +21,14 @@ hero:
 
 annualHeading: "Annual Reports"
 sustainabilityHeading: "Sustainability Reports"
-openLabel: "PDF"                   # the link on each row, shown with the file size
+openLabel: "View PDF"              # on the right of each row; the whole row opens the PDF in a new tab
 comingSoonLabel: "PDF coming soon"  # shown when the file isn't in public/reports/ yet
 
 # ---------- Reports ----------
 # Two lists, each shown newest first (sorted by date). For each report:
 #   title – as it should show
-#   date  – the publish date, YYYY-MM-DD (shown as e.g. "12 Sep 2026")
-#   file  – the PDF's name in public/reports/ (the size is worked out automatically)
+#   date  – the publish date, YYYY-MM-DD (not shown; it sets the order)
+#   file  – the PDF's name in public/reports/
 #   note  – optional short line under the title, e.g. "pages 12–29"
 # Only publish reports management has released publicly (these are the SGX filings).
 annualReports:

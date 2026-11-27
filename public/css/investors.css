@@ -62,11 +62,14 @@
 
 .ir-section { padding: 32px 0; }
 .ir-section--more { padding-bottom: 72px; }
+/* "ANNUAL REPORTS" / "SUSTAINABILITY REPORTS": the site's small red capital label style */
 .ir-heading {
-  margin: 0 0 20px;
-  font-family: var(--font-sans); letter-spacing: var(--tracking-heading);
-  font-weight: var(--fw-heading);
-  font-size: var(--fs-h3);
+  margin: 0 0 16px;
+  font-size: var(--text-xs);
+  font-weight: var(--fw-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--rose);
 }
 
 /* ---------- Latest report ---------- */
@@ -118,42 +121,27 @@
 
 /* ---------- Archive list ---------- */
 .ir-list { border-top: 1px solid var(--line); }
-.ir-row {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  grid-template-areas: "year title" "year dl";
-  column-gap: 20px;
-  row-gap: 6px;
-  align-items: center;
-  padding: 18px 0;
-  border-bottom: 1px solid var(--line);
+/* Each row: the title (and note) on the left, "VIEW PDF ↗" on the right. The whole row is the link
+   and opens the PDF in a new tab, in the browser's own viewer (no download). */
+.ir-row { border-bottom: 1px solid var(--line); }
+.ir-row__link {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 18px 8px;
+  color: var(--ink); text-decoration: none;
+  transition: background-color .2s ease, color .2s ease;
 }
-.ir-row__year {   /* the publish date, e.g. "12 Sep 2026" */
-  grid-area: year;
-  min-width: 64px;
-  font-size: var(--text-sm);
-  font-weight: var(--fw-price);
-  color: var(--rose);
-  white-space: nowrap;
-  font-variant-numeric: lining-nums;
-}
-.ir-row__title { grid-area: title; font-size: var(--fs-text); font-weight: 500; }
+a.ir-row__link:hover { background: rgba(var(--rose-rgb), .04); color: var(--rose); }
+a.ir-row__link:focus-visible { outline: 2px solid var(--rose); outline-offset: 2px; }
+.ir-row__title { font-size: var(--fs-text); font-weight: 500; }
 .ir-row__note { display: block; margin-top: 2px; font-size: var(--text-sm); font-weight: 400; color: var(--text-color); }
-.ir-row__dl {
-  grid-area: dl;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  justify-self: start;
-  font-size: var(--text-xs);
-  font-weight: var(--fw-label);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--ink);
+.ir-row__open {
+  display: inline-flex; align-items: center; gap: 6px; flex: none;
+  font-size: var(--text-xs); font-weight: var(--fw-label); letter-spacing: var(--tracking-label);
+  text-transform: uppercase; color: var(--rose);
 }
-.ir-row__dl svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-a.ir-row__dl:hover { color: var(--rose); }
-.ir-row__dl.is-pending { color: var(--ink-soft); }
+.ir-row__open svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: transform .2s ease; }
+a.ir-row__link:hover .ir-row__open svg { transform: translate(2px, -2px); }
+.ir-row__link.is-pending .ir-row__open { color: var(--ink-soft); }
 
 /* ---------- More information ---------- */
 .ir-more { display: grid; gap: 16px; }
@@ -173,13 +161,6 @@ a.ir-more__v:hover { color: var(--rose); }
 @media (min-width: 641px) {
   .ir-container { padding: 0 var(--gutter); }
   .ir-latest { grid-template-columns: 220px 1fr; gap: 48px; padding: 40px; }
-  .ir-row {
-    grid-template-columns: 130px 1fr auto;
-    grid-template-areas: "year title dl";
-    padding: 20px 8px;
-    transition: background .2s ease;
-  }
-  .ir-row:hover { background: rgba(255, 255, 255, .6); }
-  .ir-row__dl { justify-self: end; }
+  .ir-row__link { padding: 20px 12px; }
   .ir-more { grid-template-columns: 1fr 1fr; gap: 20px; }
 }
