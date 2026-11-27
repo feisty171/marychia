@@ -30,8 +30,8 @@ Static site built with [Astro](https://astro.build). No CMS, no database. The ma
 | Face / Body / Wellness tiles (Home "Find a treatment") | `src/components/CategoryTiles.astro` |
 | Treatments page tabs and "Read more" | `public/js/treatments-page.js` (styles `public/css/treatments-page.css`); each treatment's own page is `src/pages/treatments/[id].astro` |
 | Shop page motion (banner scroll fade, titles and cards arriving) | `public/js/shop.js` |
-| Investor Relations page words and the annual report list | `src/content/investors.md` |
-| Annual report PDFs (and optional cover images in `covers/`) | `public/reports/` |
+| Investor Relations page words and the annual and sustainability report lists | `src/content/investors.md` |
+| Annual and sustainability report PDFs | `public/reports/` |
 | Outlets (used by Home "Visit us", the Contact page studio cards, WhatsApp booking, the footer on every page, and schema.org data) | `src/data/outlets.json` |
 | Site-wide settings: the red "First trial pricing for new guests" strip at the top of every page (`promo`; "" hides it; it scrolls away and the menu moves up with it: `.site-promo` in `style.css`, `src/layouts/Base.astro`, `public/js/main.js`), brand name, tagline, booking link, WhatsApp link, enquiry email (Contact page form), share image, footer quick links, social media links | `src/data/site.json` |
 | Header / nav (the solid bar is a rounded panel, 72px tall with 12px corners, inset 8–16px from the screen edges, drawn by `.site-header::before` in `style.css`; it also holds the open phone menu. On wide screens the six links and the logo are spread across the bar with equal gaps (`.nav` is a space-between row; the logo sits slightly left of centre because the right-hand items are wider); once scrolled the logo slot shrinks to the small M so its gaps match), including the Treatments, About Us and Contact Us dropdowns: edit `treatments` and `dropdowns`; the dropdown markup is `src/components/NavDropdown.astro` (each link should appear in only one dropdown) | `src/components/Header.astro` |
@@ -169,19 +169,18 @@ Edit `footerLinks` and `socials` in `src/data/site.json`. A link or icon only be
 ### Investor Relations page banner
 The page opens with a photo banner the same size and frame as the Home, Shop and Treatments banners (`--banner-h` / `--banner-h-mobile`, 8–16px margin, 20px corners), with the see-through menu on it (`clearHeader`). The "Investor Relations" label and "Annual Reports" title sit centred on it in white; the intro paragraph follows below. Photo: `hero: image` (and `imageAlt`) in `src/content/investors.md` (landscape, about 2400 × 1100); while it's `""` a maroon placeholder shows the size. Styles: "Photo banner" in `public/css/investors.css`.
 
-### Add an annual report (Investor Relations)
-1. Put the PDF in `public/reports/`, named like `annual-report-2025.pdf` (lowercase, no spaces).
-2. Optional: put a cover image in `public/reports/covers/` (portrait, about 600×800).
-3. In `src/content/investors.md`, add a block at the **top** of `reports:` (newest first):
+### Add an annual or sustainability report (Investor Relations)
+The page lists **Annual Reports** and **Sustainability Reports** in two sections, each newest first (sorted by date). Each row shows the publish date (e.g. "12 Sep 2026"), the title (and an optional note) and a "PDF · size" link that opens the file from our site in a new tab. The current PDFs are the SGX filings from FY2015 (annual) and FY2018 (sustainability) onward.
+1. Put the PDF in `public/reports/`, named like `mary-chia-annual-report-fy2027.pdf` or `mary-chia-sustainability-report-fy2027.pdf` (lowercase, no spaces).
+2. In `src/content/investors.md`, add a block under `annualReports:` or `sustainabilityReports:`:
 
 ```yaml
-  - year: "2025"
-    title: "Annual Report 2025"
-    file: "annual-report-2025.pdf"
-    cover: "/reports/covers/2025.webp"
+  - title: "Annual Report 2027"
+    date: "2027-09-12"
+    file: "mary-chia-annual-report-fy2027.pdf"
 ```
 
-The newest report is featured at the top of the page; the rest list below it. The file size is filled in automatically. If `file` is empty or the PDF isn't in the folder yet, the row shows "PDF coming soon" instead of a broken link. Only publish reports management has released publicly.
+Add `note: "…"` for a short line under the title. A report that sits inside another PDF links to that file instead (e.g. the FY2023 Sustainability Report points at the FY2023 Annual Report, with the note "pages 12–29"). The file size is filled in automatically; if the PDF isn't in the folder yet, the row shows "PDF coming soon". Only publish reports management has released publicly.
 
 ### Treatments page (/treatments/): add, edit or remove a treatment
 The menu's "Treatments" item opens `/treatments/` (`src/pages/treatments.astro`). **Everything on it is in `src/content/treatments.md`**: the photo banner (`hero:` → `heading`, `image`, `imageAlt`; framed like the Shop banner, rounded corners, with the see-through menu on it), the tab buttons (`tabs`, `defaultTab`), the sections and the treatments. Styles: `public/css/treatments-page.css`; tabs and "Read more": `public/js/treatments-page.js`.

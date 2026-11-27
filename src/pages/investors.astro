@@ -1,7 +1,7 @@
 ---
 /**
- * Investor Relations page — annual reports by year.
- * Words and the report list come from src/content/investors.md; PDFs live in public/reports/.
+ * Investor Relations page: Annual Reports and Sustainability Reports, each newest first.
+ * Words and both report lists come from src/content/investors.md; PDFs live in public/reports/.
  * To add a report, edit that file — not this one.
  */
 import fs from "node:fs";
@@ -11,7 +11,7 @@ import Footer from "../components/Footer.astro";
 import { frontmatter as c } from "../content/investors.md";
 import { isPlaceholder, realUrl } from "../lib/links";
 
-type Report = { year: string; title: string; file: string; cover?: string };
+type Report = { title: string; date: string; file: string; note?: string };
 
 // File size, read from the PDF itself so nobody has to type it in
 const sizeOf = (file: string) => {
@@ -22,12 +22,24 @@ const sizeOf = (file: string) => {
     return null; // listed but not uploaded yet
   }
 };
-
-const reports = (c.reports as Report[]).map((r) => {
-  const size = r.file ? sizeOf(r.file) : null;
-  return { ...r, href: size ? `/reports/${r.file}` : null, size };
-});
-const [latest, ...archive] = reports;
+// "2026-09-12" → "12 Sep 2026"
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const fmtDate = (d: string) => {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d || "");
+  return m ? `${Number(m[3])} ${MONTHS[Number(m[2]) - 1]} ${m[1]}` : d;
+};
+// newest first, with the link and size filled in
+const prepare = (list: Report[] = []) =>
+  [...list]
+    .sort((a, b) => (b.date || "").localeCompare(a.date || ""))
+    .map((r) => {
+      const size = r.file ? sizeOf(r.file) : null;
+      return { ...r, when: fmtDate(r.date), href: size ? `/reports/${r.file}` : null, size };
+    });
+const sections = [
+  { id: "annual", heading: c.annualHeading, reports: prepare(c.annualReports) },
+  { id: "sustainability", heading: c.sustainabilityHeading, reports: prepare(c.sustainabilityReports) },
+].filter((x) => x.reports.length);
 const sgx = realUrl(c.sgxUrl);
 const email = isPlaceholder(c.enquiryEmail) ? null : c.enquiryEmail;
 ---
@@ -60,46 +72,20 @@ const email = isPlaceholder(c.enquiryEmail) ? null : c.enquiryEmail;
       </div>
     </section>
 
-    {latest && (
-      <section class="ir-section" aria-labelledby="latest-heading">
+    {/* Annual Reports, then Sustainability Reports: each newest first (lists in investors.md) */}
+    {sections.map((sec) => (
+      <section class="ir-section" id={sec.id} aria-labelledby={`${sec.id}-heading`}>
         <div class="ir-container">
-          <article class="ir-latest">
-            <div class="ir-cover">
-              {latest.cover
-                ? <img src={latest.cover} alt={`Cover of ${latest.title}`} loading="lazy" />
-                : (
-                  <div class="ir-cover__ph" aria-hidden="true">
-                    <span class="ir-cover__brand">MARY CHIA</span>
-                    <span class="ir-cover__year">{latest.year}</span>
-                    <span class="ir-cover__label">Annual Report</span>
-                  </div>
-                )}
-            </div>
-            <div class="ir-latest__body">
-              <p class="eyebrow" id="latest-heading">{c.latestLabel}</p>
-              <h2 class="ir-latest__title">{latest.title}</h2>
-              {latest.href
-                ? <a class="btn btn--solid ir-dl" href={latest.href} download>{c.downloadLabel} <span>· {latest.size}</span></a>
-                : <span class="btn btn--solid ir-dl is-pending" aria-disabled="true">{c.comingSoonLabel}</span>}
-            </div>
-          </article>
-        </div>
-      </section>
-    )}
-
-    {archive.length > 0 && (
-      <section class="ir-section ir-section--archive" aria-labelledby="archive-heading">
-        <div class="ir-container">
-          <h2 class="ir-heading" id="archive-heading">{c.archiveHeading}</h2>
+          <h2 class="ir-heading" id={`${sec.id}-heading`}>{sec.heading}</h2>
           <ul class="ir-list">
-            {archive.map((r) => (
+            {sec.reports.map((r) => (
               <li class="ir-row">
-                <span class="ir-row__year">{r.year}</span>
-                <span class="ir-row__title">{r.title}</span>
+                <time class="ir-row__year" datetime={r.date}>{r.when}</time>
+                <span class="ir-row__title">{r.title}{r.note && <small class="ir-row__note">{r.note}</small>}</span>
                 {r.href
-                  ? <a class="ir-row__dl" href={r.href} download aria-label={`${c.downloadLabel}: ${r.title}`}>
+                  ? <a class="ir-row__dl" href={r.href} target="_blank" rel="noopener" aria-label={`${r.title}${r.note ? `, ${r.note}` : ""} (PDF, ${r.size}, opens in a new tab)`}>
                       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>
-                      PDF · {r.size}
+                      {c.openLabel} · {r.size}
                     </a>
                   : <span class="ir-row__dl is-pending">{c.comingSoonLabel}</span>}
               </li>
@@ -107,7 +93,7 @@ const email = isPlaceholder(c.enquiryEmail) ? null : c.enquiryEmail;
           </ul>
         </div>
       </section>
-    )}
+    ))}
 
     <section class="ir-section ir-section--more">
       <div class="ir-container">

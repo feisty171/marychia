@@ -128,15 +128,17 @@
   padding: 18px 0;
   border-bottom: 1px solid var(--line);
 }
-.ir-row__year {
+.ir-row__year {   /* the publish date, e.g. "12 Sep 2026" */
   grid-area: year;
   min-width: 64px;
-  font-family: var(--font-sans); letter-spacing: var(--tracking-heading); font-weight: var(--fw-heading);
-  font-size: var(--fs-h4);
+  font-size: var(--text-sm);
+  font-weight: var(--fw-price);
   color: var(--rose);
+  white-space: nowrap;
   font-variant-numeric: lining-nums;
 }
 .ir-row__title { grid-area: title; font-size: var(--fs-text); font-weight: 500; }
+.ir-row__note { display: block; margin-top: 2px; font-size: var(--text-sm); font-weight: 400; color: var(--text-color); }
 .ir-row__dl {
   grid-area: dl;
   display: inline-flex;
@@ -172,7 +174,7 @@ a.ir-more__v:hover { color: var(--rose); }
   .ir-container { padding: 0 var(--gutter); }
   .ir-latest { grid-template-columns: 220px 1fr; gap: 48px; padding: 40px; }
   .ir-row {
-    grid-template-columns: 110px 1fr auto;
+    grid-template-columns: 130px 1fr auto;
     grid-template-areas: "year title dl";
     padding: 20px 8px;
     transition: background .2s ease;
