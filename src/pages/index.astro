@@ -74,7 +74,7 @@ const heroWords = h.hero.headline
            keeping its right side), one line of words on its plain left side. -->
       <img class="ed-hero__bg" src={h.hero.image} alt={h.hero.imageAlt} width="1366" height="768" fetchpriority="high" />
       <div class="h-container ed-hero__grid">
-        <h1 class="ed-hero__title">
+        <h1 class:list={["ed-hero__title", { "visually-hidden": h.hero.showHeadline === false }]}>
           {heroWords.map((x, i) => (
             <span class="ed-hero__w" style={`--w:${i}`}><span>{x.em ? <em>{x.w}</em> : x.w}</span></span>
           ))}

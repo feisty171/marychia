@@ -9,6 +9,7 @@
 # Hero: one line of words, centred in white on the photo (all lowercase on purpose).
 hero:
   headline: "the slimming and beauty specialist."
+  showHeadline: false   # true shows the headline on the photo; while false it stays only for search engines and screen readers
   # Photo in the framed banner (rounded corners, like the Shop and Treatments banners).
   # It fills the frame and is cropped to fit each screen from the centre; the white words sit
   # centred on it over a soft shade. Wide, about 2400 x 1100.
