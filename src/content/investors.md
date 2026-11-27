@@ -81,8 +81,7 @@ sustainabilityReports:
     file: "mary-chia-sustainability-report-fy2024.pdf"
   - title: "Sustainability Report 2023"
     date: "2023-07-13"
-    file: "mary-chia-annual-report-fy2023.pdf"
-    note: "pages 12–29"
+    file: "mary-chia-annual-report-fy2023.pdf"   # inside the FY2023 Annual Report (pages 12–29)
   - title: "Sustainability Report 2022"
     date: "2022-08-31"
     file: "mary-chia-sustainability-report-fy2022.pdf"
