@@ -85,7 +85,7 @@ html:not(.tx-js) .tx-tab[aria-pressed="true"] { background: var(--white); color:
 .tx-js .tx-sec + .tx-sec { margin-top: 0; }                 /* with tabs, one section usually shows… */
 .tx-js [data-tab="all"] .tx-sec:not([hidden]) ~ .tx-sec:not([hidden]) { margin-top: 72px; }   /* …"All" stacks them */
 .tx-sec__head { display: flex; flex-direction: column; gap: 6px; margin: 16px 0 24px; }
-.tx-sec__title { margin: 0; font-size: var(--text-2xl); color: var(--rose); letter-spacing: -.01em; }
+.tx-sec__title { margin: 0; font-size: var(--text-2xl); color: var(--rose); letter-spacing: 0; text-transform: uppercase; }   /* NEW TREATMENTS, FACIALS, ADVANCED SKIN TREATMENTS, BODY & WELLNESS */
 .tx-sec__text { margin: 0; font-size: var(--text-base); color: var(--text-color); }
 
 /* ---------- Cards ---------- */
