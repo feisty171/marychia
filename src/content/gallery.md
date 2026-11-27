@@ -21,7 +21,7 @@ seo:
 image: ""
 imageAlt: ""
 eyebrow: "Gallery / Results"
-heading: "Results our clients *love*"   # *asterisks* = italic rose
+heading: "results our clients love."   # lowercase on purpose
 lede: "A look at what some of our clients have experienced, shared with their permission. Every skin and body is different, so your therapist will tailor your plan to you."
 
 # Filter buttons above the results. "All" is added automatically.
