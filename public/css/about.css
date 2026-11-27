@@ -22,6 +22,10 @@
   overflow: hidden;
   background: var(--blush); /* what the photo fades into, as on the Home hero */
   --hp: 0; /* scroll progress through the hero, 0 → 1 (set by public/js/about.js) */
+  /* framed like the Home, Shop and Treatments banners: a narrow margin and rounded corners */
+  margin: clamp(8px, 1vw, 16px) clamp(8px, 1vw, 16px) 0;
+  border-radius: 20px;
+  min-height: calc(100svh - 2 * clamp(8px, 1vw, 16px));
 }
 /* Photo (set in src/content/about.md → hero.image). As on the Home hero (.hero::before in
    style.css): as you scroll it fades into the page, drifts down and zooms in slightly. */
