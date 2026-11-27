@@ -571,3 +571,23 @@
 .page-about main :is(h1, h2, h3) { text-transform: uppercase; letter-spacing: 0; }
 /* except the opening title, which is written in lowercase on purpose ("our heritage.") */
 .page-about .heritage-hero__title { text-transform: none; letter-spacing: var(--tracking-heading); margin-bottom: 20px; }
+
+/* ---------- Opening as a page banner ----------
+   The same size, frame and word spacing as the other banners (PageBanner in style.css): the
+   height from --banner-h (phones and tablets: --banner-h-mobile, just under the menu), the words
+   centred at the same height, 14px between the label, title and paragraph, the title at
+   --text-display. */
+.heritage-opening {
+  min-height: 0;
+  height: var(--banner-h);
+  padding: calc(var(--header-h) - 16px) 0 40px;
+}
+.heritage-hero__eyebrow { margin: 0 0 14px; color: var(--white); }
+.page-about .heritage-hero__title { font-size: var(--text-display); margin: 0 0 14px; }
+@media (max-width: 960px) {
+  .heritage-opening {
+    height: var(--banner-h-mobile);
+    margin-top: calc(var(--header-h) + clamp(8px, 1vw, 16px));
+    padding: 32px 0 40px;
+  }
+}
